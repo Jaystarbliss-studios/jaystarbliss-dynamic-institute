@@ -1,0 +1,2212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/favicon.ico">
+    
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaystarbliss Dynamic Hub - Tech Education for Complete beginners</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+   
+<meta name="msvalidate.01" content="1615D671BF36C75CE953315AE3C2DCAB" />
+    <!-- Open Graph meta tags -->
+<meta property="og:title" content="Jaystarbliss Dynamic Hub" />
+<meta property="og:description" content="Tech Education for Complete Beginners" />
+<meta property="og:image" content="https://i.ibb.co/pB2P9qJq/favicon.png"/>
+<meta property="og:url" content="https://jaystarbliss-studios.name.ng" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://jaystarbliss-studios.name.ng/favicon.png" />
+
+<!-- Primary Meta Tags -->
+<meta name="title" content="Jaystarbliss Dynamic Hub - Tech Education & Coding Classes for Kids in Lagos, Nigeria">
+<meta name="description" content="Learn Scratch programming, AI coding with Claude, web development & more. Professional tech education for children ages 6-17 in Lagos. Expert instructors, hands-on projects, and proven results.">
+<meta name="keywords" content="coding classes for kids Lagos,jaystar, jaystarbliss, jaystarbliss studios, programming education Nigeria, Scratch programming, kids tech education, AI coding classes, web development for children, STEM education Lagos, coding bootcamp Nigeria, learn to code, children programming courses, tech education Africa">
+<meta name="author" content="John Rufai">
+<meta name="robots" content="index, follow">
+<meta name="language" content="English">
+
+<!-- Geographic Meta Tags -->
+<meta name="geo.region" content="NG-LA">
+<meta name="geo.placename" content="Lagos">
+<meta name="geo.position" content="6.5244;3.3792">
+<meta name="ICBM" content="6.5244, 3.3792">
+
+<!-- Open Graph / Facebook (Update your existing ones) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jaystarbliss-studios.name.ng">
+<meta property="og:site_name" content="JAYSTARBLISS DYNAMIC HUB">
+<meta property="og:title" content="Jaystarbliss Dynamic Hub - Tech Education for Complete Beginners">
+<meta property="og:description" content="Empowering young minds through Scratch programming, AI coding, and web development. Professional tech education for children in Lagos, Nigeria.">
+<meta property="og:image" content="https://i.ibb.co/pB2P9qJq/favicon.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="JAYSTARBLISS DYNAMIC HUB Logo">
+<meta property="og:locale" content="en_NG">
+
+<!-- Twitter Card (Update your existing ones) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://jaystarbliss-studios.name.ng">
+<meta name="twitter:title" content="Jaystarbliss Dynamic Hub - Tech Education for Complete Beginners">
+<meta name="twitter:description" content="Learn Scratch programming, AI coding with Claude, and web development. Expert tech education for children in Lagos, Nigeria.">
+<meta name="twitter:image" content="https://i.ibb.co/pB2P9qJq/JDI-LOGO.png">
+<meta name="twitter:image:alt" content="JAYSTARBLISS DYNAMIC HUB Logo">
+
+<!-- Additional SEO Meta Tags -->
+<meta name="theme-color" content="#A91B0D">
+<link rel="canonical" href="https://jaystarbliss-studios.name.ng">
+
+<!-- Recommended extra tags -->
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!--Pre-loading the CSS-->
+<link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="style.css"></noscript>
+
+<!--Speeding DNS Lookups-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Twitter Card (extra compatibility) -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="JAYSTARBLISS DYNAMIC HUB" />
+<meta name="twitter:description" content="Tech Education for kids" />
+<meta name="twitter:image" content="https://jaystarbliss-studios.name.ng/JDI%20LOGO.png" />
+ <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --snow: #e8d9d9;
+    --madder: #A91B0D;
+    --golden: #FFD700;
+    --dark: #1a1a1a;
+    --gray: #4a5568;
+    --light-gray: #f7fafc;
+}
+
+[data-theme="dark"] {
+    --snow: #1a1a1a;
+    --madder: #ff4d4d;
+    --golden: #FFD700;
+    --dark: #FFFAFA;
+    --gray: #d1d5db;
+    --light-gray: #2d3748;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* INFINITE DIAGONAL STRIPES ANIMATION */
+body {
+    position: relative;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background-image: repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.03) 0px,
+        rgba(255, 255, 255, 0.03) 10px,
+        transparent 10px,
+        transparent 40px
+    );
+    animation: stripesMove 20s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes stripesMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(-200px); }
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--snow);
+    color: var(--dark);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+}
+
+        /* particles Animation */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: -1;
+            user-select: none;
+            cursor: default;
+            animation: snowfall  4s linear infinite;
+            color: white;
+            font-size: 3em;
+            opacity: 0.2;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+/* Dark Mode Toggle Button */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--madder), #d62a1a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(169, 27, 13, 0.4);
+    z-index: 998;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 6px 20px rgba(169, 27, 13, 0.6);
+}
+
+.theme-toggle svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: linear-gradient(135deg, var(--golden), #ffa500);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    width: 100%;
+    background: rgba(255, 250, 250, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 5%;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] nav {
+    background: rgba(26, 26, 26, 0.95);
+    box-shadow: 0 2px 15px rgba(255, 255, 255, 0.05);
+}
+
+nav.scrolled {
+    padding: 0.7rem 5%;
+    background: rgba(255, 250, 250, 0.98);
+    box-shadow: 0 4px 20px rgba(169, 27, 13, 0.1);
+}
+
+[data-theme="dark"] nav.scrolled {
+    background: rgba(26, 26, 26, 0.98);
+    box-shadow: 0 4px 20px rgba(255, 77, 77, 0.2);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    z-index: 1001;
+}
+
+.logo-container:hover {
+    transform: translateY(-2px);
+}
+
+.logo-image {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--madder), #d62a1a);
+    border-radius: 10px;
+    border: 1px outset white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    overflow: hidden;
+    color: var(--snow);
+    font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 3px 10px rgba(169, 27, 13, 0.3);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.logo-image > img {
+    height: 45px;
+    width: auto;
+}
+
+.logo-container:hover .logo-image {
+    transform: rotate(-360deg) scale(1.05);
+    box-shadow: 0 4px 15px rgba(169, 27, 13, 0.4);
+}
+
+.logo-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--dark);
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.75rem;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--golden);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--madder);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--madder);
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+/* Hero Section */
+.hero {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(196, 30, 58, 0.45) 0%, rgba(12, 95, 62, 0.55) 100%),
+                url('assets/img/children learning.png') center/cover no-repeat ;
+    position: relative;
+    overflow: hidden;
+    background-attachment: scroll;
+    padding: 6rem 5% 3rem;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    animation: float 8s ease-in-out infinite;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+    bottom: -50px;
+    left: -50px;
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, -30px) rotate(120deg); }
+    66% { transform: translate(-20px, 20px) rotate(240deg); }
+}
+
+/*SUMMER STYLES*/
+ .hero::before {
+            content: '☀';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.9;
+            top: 10%;
+            right: -3%;
+     		color: var(--golden);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '🌻';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.6;
+            bottom: 3%;
+            left: 10%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.9;}
+            33% { transform: translate(30px, -30px) rotate(15deg); opacity: 0.4;}
+            66% { transform: translate(-20px, 20px) rotate(-15deg); opacity: 0.1;}
+        }
+
+.hero-content {
+    text-align: center;
+    color: var(--snow);
+    z-index: 1;
+    max-width: 900px;
+    animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.1;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: -1px;
+    color: #FFFAFA !important;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    opacity: 0.95;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    color: #FFFAFA !important;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    background: var(--golden);
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+    font-size: 1rem;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
+}
+
+.cta-button.secondary {
+    background: rgba(255, 250, 250, 0.15);
+    color: #FFFAFA !important;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 250, 250, 0.3);
+}
+
+.cta-button.secondary:hover {
+    background: rgba(255, 250, 250, 0.25);
+    border-color: rgba(255, 250, 250, 0.5);
+}
+
+/* Section Styles */
+section {
+    padding: 5rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.8s ease;
+}
+
+.section-tag {
+    display: inline-block;
+    color: var(--madder);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1.5rem;
+    background: rgba(169, 27, 13, 0.1);
+    border-radius: 50px;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
+
+.section-subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--gray);
+    max-width: 700px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+/* About Section */
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-image {
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(135deg, var(--madder) 0%, #8B1507 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    box-shadow: 0 20px 50px rgba(169, 27, 13, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-image::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.about-text h3 {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: var(--madder);
+    margin-bottom: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.about-text p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--gray);
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: var(--light-gray);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: var(--madder);
+    font-family: 'Poppins', sans-serif;
+}
+
+.stat-label {
+    color: var(--gray);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Services Section */
+#services {
+    background: var(--light-gray);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.service-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .service-card {
+    background: #2d3748;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .service-card:hover {
+    box-shadow: 0 15px 40px rgba(255, 77, 77, 0.3);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--madder), var(--golden));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(169, 27, 13, 0.15);
+}
+
+.service-icon {
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, rgba(169, 27, 13, 0.1), rgba(255, 215, 0, 0.1));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.service-card h3 {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--dark);
+    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.service-card p {
+    color: var(--gray);
+    line-height: 1.7;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+/* Programs Timeline */
+.timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--madder), var(--golden));
+}
+
+.timeline-item {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.timeline-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .timeline-content {
+    background: #2d3748;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.timeline-content:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(169, 27, 13, 0.15);
+}
+
+[data-theme="dark"] .timeline-content:hover {
+    box-shadow: 0 8px 30px rgba(255, 77, 77, 0.3);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 20px;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 18px;
+    background: var(--golden);
+    border: 4px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(169, 27, 13, 0.2);
+    z-index: 10;
+}
+
+.timeline-content h4 {
+    color: var(--madder);
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    margin-bottom: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.timeline-content span {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--golden);
+    font-weight: 600;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+}
+
+.timeline-content p {
+    color: var(--gray);
+    line-height: 1.7;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+/* Testimonials */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .testimonial-card {
+    background: #2d3748;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    font-size: 4rem;
+    color: rgba(169, 27, 13, 0.1);
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+[data-theme="dark"] .testimonial-card::before {
+    color: rgba(255, 77, 77, 0.2);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .testimonial-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.testimonial-text {
+    color: var(--gray);
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--madder), var(--golden));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.author-info h5 {
+    color: var(--dark);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    font-size: clamp(0.95rem, 2vw, 1rem);
+}
+
+.author-info p {
+    color: var(--gray);
+    font-size: 0.85rem;
+}
+
+/* Contact Section */
+#contact {
+    background: var(--light-gray);
+}
+
+.contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+
+
+.contact-info-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] .contact-info-card {
+    background: #2d3748;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.contact-info-card h3 {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: var(--madder);
+    margin-bottom: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+    background: var(--light-gray);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateX(5px);
+    background: rgba(169, 27, 13, 0.05);
+}
+
+.contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.3rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.whatsapp-btn {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+}
+
+.whatsapp-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+}
+
+.email-btn {
+    background: linear-gradient(135deg, #EA4335, #C5221F);
+    color: white;
+}
+
+.email-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(234, 67, 53, 0.4);
+}
+
+.location-btn {
+    background: linear-gradient(135deg, #4285F4, #357AE8);
+    color: white;
+}
+
+.location-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(66, 133, 244, 0.4);
+}
+
+.contact-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--madder), #d62a1a);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.contact-item h4 {
+    color: var(--dark);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+.contact-item p {
+    color: var(--gray);
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    word-break: break-word;
+}
+
+.contact-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] .contact-form {
+    background: #2d3748;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    color: var(--dark);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    background: var(--snow);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--madder);
+    box-shadow: 0 0 0 4px rgba(169, 27, 13, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--madder), #d62a1a);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(169, 27, 13, 0.3);
+}
+
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(169, 27, 13, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--madder), #8B1507);
+            color: snow;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 250, 250, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 250, 250, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--golden);
+            color: var(--dark);
+            transform: translateY(-3px);
+            border-color: var(--golden);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 250, 250, 0.2);
+            opacity: 0.8;
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+     
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(255, 250, 250, 0.98);
+                backdrop-filter: blur(10px);
+                width: 80%;
+                padding: 1rem;
+                transition: left 0.3s ease;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                align-items: flex-start;
+            }
+
+            [data-theme="dark"] .nav-links {
+                background: rgba(26, 26, 26, 0.98);
+                box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            }
+
+            [data-theme="dark"] .nav-links a {
+                color: #FFFAFA;
+            }
+
+            [data-theme="dark"] .nav-links a:hover,
+            [data-theme="dark"] .nav-links a.active {
+                color: #ff4d4d;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                padding-left: 60px;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                grid-column: 1;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Fix Dark Mode Toggle for Mobile */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    z-index: 998; /* Below nav but above content */
+}
+
+/* Mobile Menu Toggle - Make it visible */
+@media (max-width: 968px) {
+    .theme-toggle {
+        bottom: 80px; /* Move up to avoid conflicts */
+        right: 15px;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .menu-toggle {
+        display: flex;
+        z-index: 1001;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 70px; /* Adjust based on your nav height */
+        left: -100%;
+        flex-direction: column;
+        background: rgba(255, 250, 250, 1);
+        backdrop-filter: blur(10px);
+        width: 100%;
+        max-width: 300px; /* Prevent too wide on tablets */
+        padding: 1rem;
+        transition: left 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        align-items: flex-start;
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
+
+    [data-theme="dark"] .nav-links {
+        background: rgba(26, 26, 26, 0.98);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+    
+    /* Prevent body scroll when menu open */
+    body.menu-open {
+        overflow: hidden;
+    }
+    
+    /* Add backdrop when menu is open */
+    .nav-links.active::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 70vw;
+        height: 100vh;
+        background: rgba(244, 241, 241, 0);
+        z-index: -1;
+    }
+}
+
+@media (max-width: 480px) {
+    .theme-toggle {
+        bottom: 70px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .theme-toggle svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .cta-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .nav-links {
+        max-width: 100%;
+        padding: 1.5rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo-container">
+                <div class="logo-image">
+                    <img src="assets/img/favicon.png" alt="LOGO">
+                </div>
+                <span class="logo-text">JAYSTARBLISS DYNAMIC HUB</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="pages/auth/login.html">Login/signup</a></li>
+                <li><a href="pages/features/digital-literacy-packages.html">Pricing?</a></li>
+                <li><a href="pages/features/news-corner.html">News Corner</a></li> 
+                <li><a href="pages/features/Games-section.html">Play scratch games!</a></li> 
+            </ul>
+        </div>
+    </nav>
+ <!-- particles -->
+    <div class="snowflake" style="left: 10%; animation-delay: 0s;">🌸</div>
+    <div class="snowflake" style="left: 20%; animation-delay: 1s;">🌺</div>
+    <div class="snowflake" style="left: 30%; animation-delay: 0.5s;">🌸</div>
+    <div class="snowflake" style="left: 40%; animation-delay: 2s;">🌺</div>
+    <div class="snowflake" style="left: 50%; animation-delay: 1.5s;">🌸</div>
+    <div class="snowflake" style="left: 60%; animation-delay: 0.2s;">🌸</div>
+    <div class="snowflake" style="left: 70%; animation-delay: 1.8s;">🌸</div>
+    <div class="snowflake" style="left: 80%; animation-delay: 0.8s;">🌺</div>
+    <div class="snowflake" style="left: 90%; animation-delay: 1.2s;">🌺</div>
+    <div class="snowflake" style="left: 10%; animation-delay: 0s;">🌸</div>
+    <div class="snowflake" style="left: 20%; animation-delay: 1s;">🌺</div>
+    <div class="snowflake" style="left: 30%; animation-delay: 0.5s;">🌸</div>
+    <div class="snowflake" style="left: 40%; animation-delay: 2s;">🌺</div>
+    <div class="snowflake" style="left: 50%; animation-delay: 1.5s;">🌸</div>
+    <div class="snowflake" style="left: 60%; animation-delay: 0.2s;">🌸</div>
+    <div class="snowflake" style="left: 70%; animation-delay: 1.8s;">🌸</div>
+    <div class="snowflake" style="left: 80%; animation-delay: 0.8s;">🌺</div>
+    <div class="snowflake" style="left: 90%; animation-delay: 1.2s;">🌺</div>
+    
+    
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to the summer session!</h1>
+            <p>From Logic to Syntax, We Make Programming Fun, Interactive, and Accessible for Every Child</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-button">
+                    <span>Start Learning</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#programs" class="cta-button secondary">
+                    <span>Explore Programs</span>
+                </a>
+
+                <a href="pages/auth/login.html" class="cta-button">
+                    <span>Login to Institute!</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header fade-in">
+            <span class="section-tag">About Us</span>
+            <h2 class="section-title">Transforming Tech Education for Kids</h2>
+            <p class="section-subtitle">We're on a mission to make programming accessible, fun, and engaging for the next generation of innovators</p>
+        </div>
+        <div class="about-container">
+            <div class="about-image fade-in">
+                <svg width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--golden);">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                    <polyline points="7 8 12 13 17 8"></polyline>
+                </svg>
+            </div>
+            <div class="about-text fade-in">
+                <h3>Our Mission</h3>
+                <p>At Jaystarbliss dynamic hub, we believe that every child deserves the opportunity to learn programming and technology in a fun, engaging, and accessible way. We break down complex coding concepts into digestible, interactive lessons that spark creativity and innovation.</p>
+                <h3>Our Vision</h3>
+                <p>From Scratch visual programming to Strudel live coding and cutting-edge AI vibe coding with Claude AI, we provide world-class educational experiences that prepare children for the digital future. We don't just teach code—we nurture problem-solvers, creators, and future tech leaders.</p>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">940+</div>
+                        <div class="stat-label">Students Taught</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Projects Built</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="section-header fade-in">
+            <span class="section-tag">Our Services</span>
+            <h2 class="section-title">Comprehensive Tech Education</h2>
+            <p class="section-subtitle">Discover our range of innovative programs designed to inspire and educate young minds</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                    </svg>
+                </div>
+                <h3>Scratch Programming</h3>
+                <p>Visual block-based coding that makes programming intuitive and fun. Kids create games, animations, and interactive stories while learning fundamental coding concepts.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18V5l12-2v13"></path>
+                        <circle cx="6" cy="18" r="3"></circle>
+                        <circle cx="18" cy="16" r="3"></circle>
+                    </svg>
+                </div>
+                <h3>Strudel Live Coding</h3>
+                <p>Create music through code! Our live coding sessions teach algorithmic thinking while students compose and perform electronic music in real-time.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                </div>
+                <h3>AI Vibe Coding with Claude</h3>
+                <p>Explore the future of programming with AI-assisted coding. Students learn to collaborate with Claude AI to build projects and understand artificial intelligence.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                </div>
+                <h3>Creative Web Design</h3>
+                <p>Learn HTML, CSS, and JavaScript to build stunning websites. From personal portfolios to interactive web apps, we make web development exciting.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="7"></circle>
+                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                </div>
+                <h3>Coding Competitions</h3>
+                <p>Participate in exciting coding challenges and hackathons. Build teamwork skills, compete for prizes, and showcase projects to the community.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <h3>Mentorship Programs</h3>
+                <p>One-on-one guidance from experienced instructors. Personalized learning paths tailored to each student's interests, pace, and goals.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Timeline -->
+    <section id="programs">
+        <div class="section-header fade-in">
+            <span class="section-tag">Learning Journey</span>
+            <h2 class="section-title">Our Program Path</h2>
+            <p class="section-subtitle">A structured approach to mastering technology from Entry Level to Pro Developer</p>
+        </div>
+<div class="timeline">
+
+    <!-- Level 1 -->
+    <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+            <span>First Level</span>
+            <h4>Entry Level</h4>
+            <p>
+                A perfect introduction to computers and digital basics.<br><br>
+
+                <strong>Features:</strong><br>
+                • Basic Computer Operations<br>
+                • Typing Skills & Digital Confidence<br>
+                • Creative Digital Activities<br>
+                • Introductory Logic Games
+            </p>
+        </div>
+    </div>
+
+    <!-- Level 2 -->
+    <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+            <span>Second Level</span>
+            <h4>Beginners Program</h4>
+            <p>
+                A gentle and fun start into tech creativity.<br><br>
+
+                <strong>Features:</strong><br>
+                • Mini Graphics Designing<br>
+                • Whispers of Artificial Intelligence<br>
+                • Creative Thinking Sessions<br>
+                • Prompt Engineering and Building
+            </p>
+        </div>
+    </div>
+
+    <!-- Level 3 -->
+    <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+            <span>Third Level</span>
+            <h4>Pre-Developers</h4>
+            <p>
+                Builds problem-solving and basic coding foundations.<br><br>
+
+                <strong>Features:</strong><br>
+                • Core Problem-Solving Drills<br>
+                • Foundational Coding Concepts<br>
+                • Mini Games & Logic Activities<br>
+                • Vibe Coding with Claude Introduction
+            </p>
+        </div>
+    </div>
+
+    <!-- Level 4 -->
+    <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+            <span>Fourth Level</span>
+            <h4>Developers Program</h4>
+            <p>
+                Fun coding experiences that build real skills.<br><br>
+
+                <strong>Features:</strong><br>
+                • Intermediate Coding Concepts<br>
+                • Introduction to HTML & CSS<br>
+                • Game-Based Programming<br>
+                • Portfolio-Building Projects 1<br>
+                • Full-Website Vibe Coding (Landing Pages)<br>
+                • Interactive Practical Projects
+            </p>
+        </div>
+    </div>
+
+    <!-- Level 5 -->
+    <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+            <span>Fifth Level</span>
+            <h4>UI Developers</h4>
+            <p>
+                Learn digital design & user interface concepts.<br><br>
+
+                <strong>Features:</strong><br>
+                • UI/UX Design Introduction<br>
+                • User Interface Layout Creation<br>
+                • Introduction to JavaScript Essentials<br>
+                • Web-Portals Creation<br>
+                • Backend Facilitation with Firebase<br>
+                • Simple Visual Design Projects<br>
+                • Portfolio-Building Projects 2
+            </p>
+        </div>
+    </div>
+
+    <!-- Level 6 -->
+    <div class="timeline-item fade-in">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+            <span>Sixth Level</span>
+            <h4>Pro Developers</h4>
+            <p>
+                Advanced coding for real clients and real projects.<br><br>
+
+                <strong>Features:</strong><br>
+                • Industry-Level Coding Training<br>
+                • Real-Time User & Client Project Simulation<br>
+                • Advanced Tools & Frameworks<br>
+                • Portfolio-Building Projects 3
+            </p>
+        </div>
+    </div>
+</div>
+
+        <div class="cta-buttons">
+            <a href="pages/features/digital-literacy-packages.html" class="cta-button" style="color: rgba(119, 12, 12, 0.749);">
+                    <span style="color: madder;">Explore Pricing</span>
+                </a>
+        </div>
+
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <div class="section-header fade-in">
+            <span class="section-tag">Success Stories</span>
+            <h2 class="section-title">What Parents & Students Say</h2>
+            <p class="section-subtitle">Real experiences from our amazing community of learners</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">My daughter went from zero coding knowledge to building her own games in just 3 months! The instructors are patient, knowledgeable, and truly care about the kids' progress.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">A</div>
+                    <div class="author-info">
+                        <h5>Adebayo Johnson</h5>
+                        <p>Parent - Lagos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">I love learning to code here! The classes are so fun and I made my first website. Now I want to become a software developer when I grow up!</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">C</div>
+                    <div class="author-info">
+                        <h5>Chioma Okafor</h5>
+                        <p>Student - Age 12</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">Every step of the way has been fun and great to learn. I hated coding but then, CMJ made me love it later on. Thank you CMJ! 💖</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">C</div>
+                    <div class="author-info">
+                        <h5>Bisola Davidson</h5>
+                        <p>Student - Age 15</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">Best investment in my son's education. He's now confident, creative, and always excited about his next coding project. CMJ is exceptional!</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">O</div>
+                    <div class="author-info">
+                        <h5>Oluwaseun Balogun</h5>
+                        <p>Parent - Abuja</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header fade-in">
+            <span class="section-tag">Get In Touch</span>
+            <h2 class="section-title">Start Your Child's Coding Journey</h2>
+            <p class="section-subtitle">Ready to transform your child's future? Contact us today!</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info-card fade-in">
+                <h3>Contact Information</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4>Phone</h4>
+                        <p style="margin-bottom: 1rem;">+234 9136518194</p>
+                        <a href="https://wa.me/2349136518194" target="_blank" class="contact-btn whatsapp-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                            Message Us
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4>Email</h4>
+                        <p style="margin-bottom: 1rem;">johnrufai242@gmail.com</p>
+                        <a href="mailto:johnrufai242@gmail.com?subject=Inquiry%20from%20Website&body=Hello%20JAYSTARBLISS%20STUDIOS,%0D%0A%0D%0AI%20would%20like%20to%20inquire%20about..." class="contact-btn email-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            Email Us
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4>Location</h4>
+                        <p style="margin-bottom: 1rem;">No 3 Komolafe Street, Lagos, Nigeria</p>
+                        <a href="https://maps.app.goo.gl/iiqvdu7zv3IiQtJoB" target="_blank" class="contact-btn location-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            View on Map
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form fade-in">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email here...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required placeholder="Enter title of your message">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Please enter your message"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">JAYSTARBLISS DYNAMIC HUB</div>
+            <p class="footer-text">Empowering Young Minds Through Technology</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+            </div>
+    <!--<audio id="bg-music" src="assets/audio/jingle-bells.mp3" preload="auto"></audio>-->         
+            <div class="footer-bottom">
+                <p>&copy; 2025 JAYSTARBLISS STUDIOS. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dark Mode Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+        <svg class="sun-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" style="display: none;" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <script>
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.querySelector('.sun-icon');
+        const moonIcon = document.querySelector('.moon-icon');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        // Mobile Menu Toggle
+const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.getElementById('nav-links');
+const body = document.body;
+
+mobileMenu.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    body.classList.toggle('menu-open');
+    
+    // Animate hamburger
+    const spans = mobileMenu.querySelectorAll('span');
+    if (navLinks.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translateY(8px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
+    } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    }
+});
+
+       // Close mobile menu when link is clicked
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        body.classList.remove('menu-open');
+        
+        // Reset hamburger
+        const spans = mobileMenu.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    });
+});
+
+        // Active Nav Link on Scroll
+        const sections = document.querySelectorAll('section');
+        const navLinksItems = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinksItems.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        //CHRISTMAS SONG BACKGROUND
+        document.addEventListener("DOMContentLoaded", () => {
+    const audio = document.getElementById("bg-music");
+    let fadeInterval;
+    let inactivityTimeout;
+
+    // Initial settings
+    audio.volume = 0; 
+    audio.loop = true;
+
+    // Try to auto-play
+    audio.play().catch(() => {
+        // Autoplay may be blocked; start when user scrolls
+        console.log("Autoplay blocked until user interacts.");
+    });
+
+    function fadeIn() {
+        clearInterval(fadeInterval);
+        fadeInterval = setInterval(() => {
+            if (audio.volume < 0.5) { 
+                audio.volume += 0.005;
+            } else {
+                clearInterval(fadeInterval);
+            }
+        }, 100);
+    }
+
+    function fadeOut() {
+        clearInterval(fadeInterval);
+        fadeInterval = setInterval(() => {
+            if (audio.volume > 0) {
+                audio.volume -= 0.02;
+            } else {
+                clearInterval(fadeInterval);
+            }
+        }, 100);
+    }
+
+    function resetFadeOutTimer() {
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(() => {
+            fadeOut();
+        }, 3500); // amount of seconds of no scrolling
+    }
+
+    // Trigger fade in when scrolling
+    window.addEventListener("scroll", () => {
+        audio.play(); 
+        fadeIn();
+        resetFadeOutTimer();
+    });
+
+    // Start music immediately on load
+    fadeIn();
+    resetFadeOutTimer();
+});
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/johnrufai242@gmail.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...data,
+                        _subject: `New Contact: ${data.subject}`,
+                        _template: 'table'
+                    })
+                });
+
+                if (response.ok) {
+                    showNotification('success', 'Message sent successfully! We\'ll get back to you soon.');
+                    contactForm.reset();
+                } else {
+                    throw new Error('Failed to send');
+                }
+            } catch (error) {
+                showNotification('error', 'Failed to send message. Please email us directly at johnrufai242@gmail.com');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+
+        function showNotification(type, message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #ef4444, #dc2626)'};
+                color: white;
+                padding: 1.5rem 2rem;
+                border-radius: 12px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+                z-index: 10000;
+                animation: slideInRight 0.4s ease;
+                max-width: 400px;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.4s ease';
+                setTimeout(() => notification.remove(), 400);
+            }, 4000);
+        }
+
+        // Add CSS animations for notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Smooth scroll polyfill for older browsers
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "JAYSTARBLISS DYNAMIC HUB",
+  "alternateName": "JAYSTARBLISS STUDIOS",
+  "url": "https://jaystarbliss-studios.name.ng",
+  "logo": "https://i.ibb.co/pB2P9qJq/favicon.png",
+  "description": "Tech education and coding classes for children, offering Scratch programming, AI coding, web development, and STEM education in Lagos, Nigeria",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "No 3 Komolafe Street",
+    "addressLocality": "Lagos",
+    "addressCountry": "NG"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+234-913-651-8194",
+    "contactType": "Customer Service",
+    "email": "johnrufai242@gmail.com",
+    "availableLanguage": "English"
+  },
+  "sameAs": [
+    "https://wa.me/2349136518194"
+  ],
+  "priceRange": "$$",
+  "areaServed": {
+    "@type": "City",
+    "name": "Lagos"
+  },
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student",
+    "audienceType": "Children ages 6-17"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Kids Coding & Tech Education Programs",
+  "description": "Comprehensive tech education covering Scratch programming, AI coding with Claude, Strudel live coding, and web development for children",
+  "provider": {
+    "@type": "EducationalOrganization",
+    "name": "JAYSTARBLISS DYNAMIC HUB",
+    "sameAs": "https://jaystarbliss-studios.name.ng"
+  },
+  "educationalLevel": "Beginner to Advanced",
+  "audience": {
+    "@type": "EducationalAudience",
+    "audienceType": "Children"
+  },
+  "offers": {
+    "@type": "Offer",
+    "category": "Education"
+  }
+}
+</script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1cb8aad0f3974f5c9b4ddcb0ec52e7a2"}'>
+    </script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

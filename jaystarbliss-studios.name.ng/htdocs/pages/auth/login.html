@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAYSTARBLISS STUDIOS - Login Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --snow: #FFFAFA;
+            --madder: #A91B0D;
+            --golden: #FFD700;
+            --dark: #1a1a1a;
+            --gray: #4a5568;
+        }
+
+        body {
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background-image: repeating-linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.03) 0px,
+                rgba(255, 255, 255, 0.03) 10px,
+                transparent 10px,
+                transparent 40px
+            );
+            animation: stripesMove 2s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes stripesMove {
+            from { transform: translateX(0); }
+            to { transform: translateX(-200px); }
+        }
+
+        body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #A91B0D 0%, #8B1507 100%),
+                url('../../assets/img/favicon.png');
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+        .login-container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 100%;
+            padding: 3rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            color: var(--madder);
+            margin-bottom: 0.5rem;
+        }
+
+        .logo p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .user-type-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            background: #f7fafc;
+            padding: 0.5rem;
+            border-radius: 12px;
+        }
+
+        .user-type-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            color: var(--gray);
+        }
+
+        .user-type-btn.active {
+            background: var(--madder);
+            color: white;
+            box-shadow: 0 4px 12px rgba(169, 27, 13, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--madder);
+            box-shadow: 0 0 0 4px rgba(169, 27, 13, 0.1);
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle button {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray);
+            padding: 0.5rem;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--madder), #d62a1a);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(169, 27, 13, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(169, 27, 13, 0.4);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .back-link a {
+            color: var(--madder);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .register-link {
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.register-link a {
+    color: var(--golden);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--madder);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    .login-container {
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+        max-width: 100%;
+    }
+
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+    .logo p {
+        font-size: 0.85rem;
+    }
+
+    .user-type-selector {
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .user-type-btn {
+        flex: 1 1 calc(50% - 0.2rem);
+        padding: 0.7rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    .form-group input {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+    }
+
+    .login-btn {
+        padding: 0.9rem;
+        font-size: 1rem;
+    }
+
+    .back-link,
+    .register-link {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .logo h1 {
+        font-size: 1.3rem;
+    }
+
+    .user-type-btn {
+        flex: 1 1 100%;
+        font-size: 0.8rem;
+    }
+
+    .form-group input {
+        padding: 0.85rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>WELCOME BACK!</h1>
+            <p>Login Portal</p>
+        </div>
+
+        <div class="user-type-selector">
+            <button class="user-type-btn" data-type="admin">Admin</button>
+            <button class="user-type-btn active" data-type="school">Affiliated Schools</button>
+            <button class="user-type-btn" data-type="private">Private Pupils</button>
+            <button class="user-type-btn" data-type="staff">Staff Login</button>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" required placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-toggle">
+                    <input type="password" id="password" required placeholder="Enter your password">
+                    <button type="button" onclick="togglePassword()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">Login</button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 1rem; color: var(--gray);">Logging in...</p>
+        </div>
+
+        <div class="back-link">
+            <a href="../../index.html">← Back to Main Site</a>
+        </div>
+
+<!-- ADD THIS NEW SECTION -->
+<div class="register-link">
+    <a href="staff-register.html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <line x1="20" y1="8" x2="20" y2="14"></line>
+            <line x1="23" y1="11" x2="17" y2="11"></line>
+        </svg>
+        Staff? Register Here
+    </a>
+</div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+            authDomain: "jaystarbliss-studios.firebaseapp.com",
+            projectId: "jaystarbliss-studios",
+            storageBucket: "jaystarbliss-studios.firebasestorage.app",
+            messagingSenderId: "885364100276",
+            appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUserType = 'school';
+
+        // User type selector with IMMEDIATE REDIRECT for Private Students
+        document.querySelectorAll('.user-type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const selectedType = this.dataset.type;
+                
+                // ✅ IMMEDIATE REDIRECT for Private Students
+                if (selectedType === 'private') {
+                    window.location.href = 'student-login.html';
+                    return;
+                }
+                
+                // For Admin, School students, and Staff - just update the active state
+                document.querySelectorAll('.user-type-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentUserType = selectedType;
+            });
+        });
+
+        // ✅ FORM SUBMIT HANDLER - This is where login actually happens
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = document.getElementById('loginForm');
+            const loading = document.getElementById('loading');
+            const errorMessage = document.getElementById('errorMessage');
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Show loading
+            form.style.display = 'none';
+            loading.style.display = 'block';
+            errorMessage.classList.remove('show');
+
+            try {
+                // Sign in with Firebase
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Get user role from Firestore
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
+                const userData = userDoc.data();
+
+                // Verify user type matches selected type
+                if (userData && userData.role === currentUserType) {
+                    // Store user info
+                    sessionStorage.setItem('userRole', currentUserType);
+                    sessionStorage.setItem('userEmail', email);
+                    sessionStorage.setItem('userId', user.uid);
+
+                    // ✅ REDIRECT BASED ON ROLE (INSIDE THE FORM HANDLER)
+                    if (currentUserType === 'admin') {
+                        window.location.href = '../dashboard/admin-dashboard.html';
+                    } else if (currentUserType === 'school') {
+                        window.location.href = '../dashboard/student-portal.html?type=school';
+                    } else if (currentUserType === 'staff') {
+                        window.location.href = '../dashboard/staff-portal.html';
+                    }
+                } else {
+                    throw new Error('Invalid credentials for selected user type');
+                }
+
+            } catch (error) {
+                form.style.display = 'block';
+                loading.style.display = 'none';
+                
+                errorMessage.textContent = 'Invalid credentials. Please try again.';
+                errorMessage.classList.add('show');
+                console.error('Login error:', error);
+            }
+        });
+
+        // Password toggle
+        window.togglePassword = function() {
+            const passwordInput = document.getElementById('password');
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portal - JAYSTARBLISS STUDIOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --snow: #FFFAFA;
+            --madder: #A91B0D;
+            --golden: #FFD700;
+            --dark: #1a1a1a;
+            --gray: #4a5568;
+            --light-gray: #f7fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--madder), #8B1507);
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .user-info {
+            font-size: 0.85rem;
+        }
+
+        .logout-btn {
+            padding: 0.5rem 1.2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-tabs {
+            background: white;
+            display: flex;
+            padding: 0 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            gap: 0.3rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .nav-tabs::-webkit-scrollbar-thumb {
+            background: var(--madder);
+            border-radius: 4px;
+        }
+
+        .nav-tab {
+            padding: 0.9rem 1.2rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+
+        .nav-tab:hover {
+            color: var(--madder);
+        }
+
+        .nav-tab.active {
+            color: var(--madder);
+            border-bottom-color: var(--madder);
+        }
+
+        .content {
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--madder), #8B1507);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 30px rgba(169, 27, 13, 0.3);
+        }
+
+        .welcome-banner h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-banner p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--madder), var(--golden));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .resource-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(169, 27, 13, 0.15);
+        }
+
+        .resource-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(169, 27, 13, 0.1), rgba(255, 215, 0, 0.1));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover .resource-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .resource-card h3 {
+            color: var(--madder);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .resource-card p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .download-btn, .open-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, var(--madder), #d62a1a);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .download-btn:hover, .open-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(169, 27, 13, 0.4);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: var(--gray);
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .debug-info {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.1rem;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-banner h2 {
+                font-size: 1.3rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .nav-tab {
+                padding: 0.8rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .resource-card {
+                padding: 1.2rem;
+            }
+        }
+
+        /* Notification Bell */
+.notification-bell {
+    position: fixed;
+    top: 90%;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--madder), #d62a1a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(169, 27, 13, 0.4);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.notification-bell:hover {
+    transform: translateY(-3px) scale(1.05);
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--golden);
+    color: var(--dark);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 2px solid white;
+}
+
+.notification-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background: white;
+    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    transition: right 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-panel.open {
+    right: 0;
+}
+
+.notification-header {
+    background: linear-gradient(135deg, var(--madder), #8B1507);
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.notification-header h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.mark-read-btn {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.notification-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.notification-item {
+    background: var(--light-gray);
+    padding: 1.2rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--madder);
+    display: flex;
+    gap: 1rem;
+}
+
+.notification-item.unread {
+    background: #fff9e6;
+    border-left-color: var(--golden);
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-content h4 {
+    color: var(--madder);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.notification-content p {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.notification-time {
+    font-size: 0.75rem;
+    color: var(--gray);
+}
+
+.mark-read-single {
+    background: var(--madder);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.notification-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.notification-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 768px) {
+    .notification-panel {
+        width: 100%;
+        right: -100%;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎓 My Personal Portal</h1>
+        <div class="header-right">
+            <div class="user-info">
+                <strong id="studentName">Student</strong>
+            </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-tab active" onclick="switchTab('resources')">📖 My Resources</button>
+        <button class="nav-tab" onclick="switchTab('links')">🔗 My Links</button>
+    </div>
+
+    <!-- Notification Bell -->
+<div id="notificationBell" class="notification-bell" onclick="toggleNotifications()">
+    🔔
+    <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+</div>
+
+<div id="notificationPanel" class="notification-panel">
+    <div class="notification-header">
+        <h3>📬 Notifications</h3>
+        <button onclick="markAllAsRead()" class="mark-read-btn">Mark all read</button>
+        <button onclick="toggleNotifications()" class="close-btn">✕</button>
+    </div>
+    <div id="notificationList" class="notification-list">
+        <div style="text-align: center; padding: 2rem; color: var(--gray);">
+            Loading...
+        </div>
+    </div>
+</div>
+
+<div id="notificationOverlay" class="notification-overlay" onclick="toggleNotifications()"></div>
+
+    <div class="content">
+        <div class="welcome-banner">
+            <h2>Welcome back, <span id="welcomeName">Student</span>! 👋</h2>
+            <p>Your personal learning materials are ready below</p>
+        </div>
+
+        <!-- Debug Info -->
+        <div class="debug-info" id="debugInfo" style="display: none;">
+            <strong>Student Info:</strong><br>
+            Student ID: <span id="debugStudentId"></span><br>
+            Student Name: <span id="debugStudentName"></span><br>
+            Status: <span id="debugStatus"></span>
+        </div>
+
+        <!-- Resources Tab -->
+        <div id="resources" class="tab-content active">
+            <h3 style="margin-bottom: 1.5rem; color: var(--madder); font-family: Poppins; font-size: 1.3rem;">📚 My Resources</h3>
+            <div class="resources-grid" id="resourcesGrid">
+                <div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    <p>Loading resources...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Links Tab -->
+        <div id="links" class="tab-content">
+            <h3 style="margin-bottom: 1.5rem; color: var(--madder); font-family: Poppins; font-size: 1.3rem;">🔗 My Links</h3>
+            <div class="resources-grid" id="linksGrid">
+                <div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                    <p>Loading links...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, getDocs, query, where, orderBy, updateDoc, doc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+            authDomain: "jaystarbliss-studios.firebaseapp.com",
+            projectId: "jaystarbliss-studios",
+            storageBucket: "jaystarbliss-studios.firebasestorage.app",
+            messagingSenderId: "885364100276",
+            appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Check authentication
+        if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'individualStudent') {
+            window.location.href = '../auth/student-login.html';
+        }
+
+        const studentId = sessionStorage.getItem('studentId');
+        const studentName = sessionStorage.getItem('studentName');
+
+        console.log('🔐 Current Student ID:', studentId);
+        console.log('👤 Current Student Name:', studentName);
+
+        // Request notification permission on login
+async function requestNotificationPermission() {
+    if (!('Notification' in window)) {
+        console.log('❌ Browser does not support notifications');
+        return;
+    }
+    
+    if (Notification.permission === 'default') {
+        // Show a friendly prompt first
+        const permitNotifications = confirm(
+            '🔔 Would you like to receive notifications even when you\'re not on this page?\n\n' +
+            'Click OK to enable desktop notifications.'
+        );
+        
+        if (permitNotifications) {
+            const permission = await Notification.requestPermission();
+            if (permission === 'granted') {
+                console.log('✅ Notification permission granted');
+                showWelcomeNotification();
+            }
+        }
+    }
+}
+
+// Show welcome notification
+function showWelcomeNotification() {
+    if (Notification.permission === 'granted') {
+        new Notification('🎉 Notifications Enabled!', {
+            body: 'You\'ll now receive important updates from Jaystarbliss Dynamic Hub!',
+            icon: 'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS',
+            badge: 'https://via.placeholder.com/96/FFD700/000000?text=!',
+            tag: 'welcome',
+            requireInteraction: false
+        });
+    }
+}
+
+// Request permission after page loads
+setTimeout(() => {
+    requestNotificationPermission();
+}, 2000); // Wait 2 seconds after login
+
+        // Show debug info
+        document.getElementById('debugInfo').style.display = 'block';
+        document.getElementById('debugStudentId').textContent = studentId;
+        document.getElementById('debugStudentName').textContent = studentName;
+        document.getElementById('debugStatus').textContent = 'Initializing...';
+
+        document.getElementById('studentName').textContent = studentName;
+        document.getElementById('welcomeName').textContent = studentName;
+
+        // Tab switching
+        window.switchTab = function(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        };
+
+        // Logout
+        window.logout = async function() {
+            await signOut(auth);
+            sessionStorage.clear();
+            window.location.href = '../auth/student-login.html';
+        };
+
+        // Load personal resources
+        async function loadResources() {
+            const grid = document.getElementById('resourcesGrid');
+            grid.innerHTML = '<div class="empty-state"><p>🔄 Loading resources...</p></div>';
+
+            console.log('📚 Starting to load resources for student:', studentId);
+            document.getElementById('debugStatus').textContent = 'Loading resources...';
+
+            try {
+                // Try querying with where clause
+                console.log('🔍 Querying personalResources where studentId ==', studentId);
+                const q = query(
+                    collection(db, 'personalResources'),
+                    where('studentId', '==', studentId)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                console.log('✅ Query successful! Found', querySnapshot.size, 'resources');
+                document.getElementById('debugStatus').textContent = `Found ${querySnapshot.size} resources`;
+
+                if (querySnapshot.empty) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                            <p>No resources available yet</p>
+                            <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.7;">Your instructor will add materials here</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = '';
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    console.log('📄 Resource found:', data.title, '| Student ID:', data.studentId);
+                    const card = createResourceCard(data, 'resource');
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('❌ ERROR loading resources:', error);
+                console.error('Error code:', error.code);
+                console.error('Error message:', error.message);
+                document.getElementById('debugStatus').textContent = `ERROR: ${error.message}`;
+                
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <p style="color: #c00;">❌ Error loading resources</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">${error.message}</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Error code: ${error.code}</p>
+                        <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--madder); color: white; border: none; border-radius: 8px; cursor: pointer;">Reload Page</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Load personal links
+        async function loadLinks() {
+            const grid = document.getElementById('linksGrid');
+            grid.innerHTML = '<div class="empty-state"><p>🔄 Loading links...</p></div>';
+
+            console.log('🔗 Starting to load links for student:', studentId);
+
+            try {
+                console.log('🔍 Querying personalLinks where studentId ==', studentId);
+                const q = query(
+                    collection(db, 'personalLinks'),
+                    where('studentId', '==', studentId)
+                );
+                
+                const querySnapshot = await getDocs(q);
+                console.log('✅ Query successful! Found', querySnapshot.size, 'links');
+
+                if (querySnapshot.empty) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                            <p>No links available yet</p>
+                            <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.7;">Your instructor will add links here</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = '';
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    console.log('🔗 Link found:', data.title, '| Student ID:', data.studentId);
+                    const card = createResourceCard(data, 'link');
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('❌ ERROR loading links:', error);
+                console.error('Error code:', error.code);
+                console.error('Error message:', error.message);
+                
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <p style="color: #c00;">❌ Error loading links</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">${error.message}</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Error code: ${error.code}</p>
+                        <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--madder); color: white; border: none; border-radius: 8px; cursor: pointer;">Reload Page</button>
+                    </div>
+                `;
+            }
+        }
+
+        function createResourceCard(data, type) {
+            const card = document.createElement('div');
+            card.className = 'resource-card';
+
+            const icon = type === 'link' ? '🔗' : '📄';
+            const buttonText = type === 'link' ? 'Open Link' : 'Download';
+            const buttonClass = type === 'link' ? 'open-btn' : 'download-btn';
+
+            card.innerHTML = `
+                <div class="resource-icon">${icon}</div>
+                <h3>${data.title}</h3>
+                <div class="resource-meta">
+                    <span>📅 ${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString() : 'Recently added'}</span>
+                </div>
+                <p>${data.description}</p>
+                <button class="${buttonClass}" onclick="window.open('${data.fileUrl || data.url}', '_blank')">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    ${buttonText}
+                </button>
+            `;
+
+            return card;
+        }
+
+        // Initial load
+        console.log('🚀 Initializing student portal...');
+        loadResources();
+        loadLinks();
+
+        // ============ NOTIFICATION SYSTEM ============
+window.toggleNotifications = function() {
+    const panel = document.getElementById('notificationPanel');
+    const overlay = document.getElementById('notificationOverlay');
+    const isOpen = panel.classList.contains('open');
+    
+    if (isOpen) {
+        panel.classList.remove('open');
+        overlay.classList.remove('open');
+    } else {
+        panel.classList.add('open');
+        overlay.classList.add('open');
+        loadNotifications();
+    }
+};
+
+   async function loadNotifications() {
+    const notificationList = document.getElementById('notificationList');
+    notificationList.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
+
+    const studentId = sessionStorage.getItem('studentId');
+    console.log('📬 Loading notifications for student:', studentId);
+
+    try {
+        // Get notifications without orderBy
+        const allQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all'));
+        const studentsQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all_students'));
+        const personalQuery = query(collection(db, 'notifications'), where('recipientId', '==', studentId));
+
+        const [allSnapshot, studentsSnapshot, personalSnapshot] = await Promise.all([
+            getDocs(allQuery),
+            getDocs(studentsQuery),
+            getDocs(personalQuery)
+        ]);
+
+        const allNotifications = [];
+        
+        allSnapshot.forEach(docSnap => {
+            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        
+        studentsSnapshot.forEach(docSnap => {
+            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        
+        personalSnapshot.forEach(docSnap => {
+            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
+        });
+
+        // Remove duplicates
+        const uniqueNotifications = Array.from(new Map(
+            allNotifications.map(item => [item.id, item])
+        ).values());
+
+        // Sort by timestamp manually
+        uniqueNotifications.sort((a, b) => {
+            const timeA = a.timestamp?.toDate() || new Date(0);
+            const timeB = b.timestamp?.toDate() || new Date(0);
+            return timeB - timeA;
+        });
+
+        console.log('✅ Found', uniqueNotifications.length, 'notifications');
+
+        if (uniqueNotifications.length === 0) {
+            notificationList.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--gray);">No notifications yet</div>';
+            updateBadge(0);
+            return;
+        }
+
+        notificationList.innerHTML = '';
+        let unreadCount = 0;
+
+        uniqueNotifications.forEach(notif => {
+            if (!notif.read) unreadCount++;
+
+            const notifCard = document.createElement('div');
+            notifCard.className = `notification-item ${notif.read ? 'read' : 'unread'}`;
+            notifCard.innerHTML = `
+                <div class="notification-content">
+                    <h4>${notif.title}</h4>
+                    <p>${notif.message}</p>
+                    <span class="notification-time">${formatTime(notif.timestamp)}</span>
+                </div>
+                ${!notif.read ? `<button class="mark-read-single" onclick="markAsRead('${notif.id}')">✓</button>` : ''}
+            `;
+            notificationList.appendChild(notifCard);
+        });
+
+        updateBadge(unreadCount);
+ // Check if there are new notifications and play sound
+if (unreadCount > lastNotificationCount && lastNotificationCount > 0) {
+    playNotificationSound();
+}
+
+// If there are new unread notifications, show browser notification
+if (unreadCount > lastNotificationCount && lastNotificationCount > 0) {
+    playNotificationSound(); // Play sound
+    
+    // Show browser notification with the latest message
+    if (uniqueNotifications.length > 0) {
+        const latestNotif = uniqueNotifications[0];
+        showBrowserNotification(
+            '🔔 ' + latestNotif.title,
+            latestNotif.message
+        );
+    }
+}
+
+lastNotificationCount = unreadCount;
+    } catch (error) {
+        console.error('❌ Error loading notifications:', error);
+        console.error('Error details:', error.message);
+        notificationList.innerHTML = `<div style="text-align: center; padding: 2rem; color: #c00;">Error loading notifications<br><small>${error.message}</small></div>`;
+    }
+}
+
+window.markAsRead = async function(notificationId) {
+    try {
+        console.log('📝 Marking notification as read:', notificationId);
+        const notifRef = doc(db, 'notifications', notificationId);
+        await updateDoc(notifRef, { read: true });
+        console.log('✅ Notification marked as read');
+        await loadNotifications(); // Reload to update UI and badge
+    } catch (error) {
+        console.error('❌ Error marking as read:', error);
+        alert('Failed to mark notification as read. Please try again.');
+    }
+};
+
+window.markAllAsRead = async function() {
+    try {
+        console.log('📝 Marking all notifications as read...');
+        
+        // Get all unread notifications for this student
+        const studentId = sessionStorage.getItem('studentId');
+        const allQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all'), where('read', '==', false));
+        const studentsQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all_students'), where('read', '==', false));
+        const personalQuery = query(collection(db, 'notifications'), where('recipientId', '==', studentId), where('read', '==', false));
+
+        const [allSnapshot, studentsSnapshot, personalSnapshot] = await Promise.all([
+            getDocs(allQuery),
+            getDocs(studentsQuery),
+            getDocs(personalQuery)
+        ]);
+
+        const promises = [];
+        
+        allSnapshot.forEach(docSnap => {
+            promises.push(updateDoc(doc(db, 'notifications', docSnap.id), { read: true }));
+        });
+        
+        studentsSnapshot.forEach(docSnap => {
+            promises.push(updateDoc(doc(db, 'notifications', docSnap.id), { read: true }));
+        });
+        
+        personalSnapshot.forEach(docSnap => {
+            promises.push(updateDoc(doc(db, 'notifications', docSnap.id), { read: true }));
+        });
+
+        if (promises.length > 0) {
+            await Promise.all(promises);
+            console.log(`✅ Marked ${promises.length} notifications as read`);
+        }
+        
+        await loadNotifications(); // Reload to update UI and badge
+    } catch (error) {
+        console.error('❌ Error marking all as read:', error);
+        alert('Failed to mark all notifications as read. Please try again.');
+    }
+};
+
+function updateBadge(count) {
+    const badge = document.getElementById('notificationBadge');
+    if (count > 0) {
+        badge.textContent = count;
+        badge.style.display = 'flex';
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+function formatTime(timestamp) {
+    if (!timestamp) return 'Just now';
+    const date = timestamp.toDate();
+    const now = new Date();
+    const diff = now - date;
+    
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+    
+    if (minutes < 1) return 'Just now';
+    if (minutes < 60) return `${minutes}m ago`;
+    if (hours < 24) return `${hours}h ago`;
+    return `${days}d ago`;
+}
+
+// Play notification sound
+function playNotificationSound() {
+    // Create audio context for modern browsers
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // Create oscillator for a pleasant notification beep
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Set frequency for a pleasant "ding" sound
+    oscillator.frequency.value = 800;
+    oscillator.type = 'sine';
+    
+    // Volume envelope for smooth sound
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+    
+    // Play the sound
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.5);
+    
+    console.log('🔊 Notification sound played');
+}
+
+// Check for new notifications and play sound
+let lastNotificationCount = 0;
+
+async function checkForNewNotifications() {
+    try {
+        const currentBadge = document.getElementById('notificationBadge');
+        const currentCount = parseInt(currentBadge.textContent) || 0;
+        
+        if (currentCount > lastNotificationCount && lastNotificationCount > 0) {
+            // New notification arrived!
+            playNotificationSound();
+            
+            // Optional: Show browser notification too
+            if (Notification.permission === 'granted') {
+                showBrowserNotification();
+            }
+        }
+        
+        lastNotificationCount = currentCount;
+    } catch (error) {
+        console.error('Error checking notifications:', error);
+    }
+}
+
+// Auto-load notifications with sound check
+setTimeout(() => {
+    loadNotifications();
+    lastNotificationCount = parseInt(document.getElementById('notificationBadge').textContent) || 0;
+}, 1000);
+
+setInterval(() => {
+    if (!document.getElementById('notificationPanel').classList.contains('open')) {
+        loadNotifications();
+    }
+}, 30000);
+
+// Show browser notification for new message
+function showBrowserNotification(title = 'New Notification', message = 'You have a new message') {
+    if (Notification.permission === 'granted') {
+        const notification = new Notification(title, {
+            body: message,
+            icon: 'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS',
+            badge: 'https://via.placeholder.com/96/FFD700/000000?text=!',
+            tag: 'jaystar-notification',
+            requireInteraction: true, // Stays until user clicks
+            vibrate: [200, 100, 200], // Vibration pattern for mobile
+            data: {
+                url: window.location.href
+            }
+        });
+        
+        // When user clicks notification, focus the window
+        notification.onclick = function(event) {
+            event.preventDefault();
+            window.focus();
+            
+            // Open notification panel
+            document.getElementById('notificationPanel').classList.add('open');
+            document.getElementById('notificationOverlay').classList.add('open');
+            
+            notification.close();
+        };
+    }
+}
+    </script>
+</body>
+</html>

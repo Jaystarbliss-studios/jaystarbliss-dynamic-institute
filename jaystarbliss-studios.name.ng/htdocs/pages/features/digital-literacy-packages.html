@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Literacy Packages - Jaystarbliss Dynamic Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --snow: #FFFAFA;
+            --madder: #A91B0D;
+            --golden: #FFD700;
+            --dark: #1a1a1a;
+            --gray: #4a5568;
+            --light-gray: #f7fafc;
+        }
+
+        [data-theme="dark"] {
+            --snow: #1a1a1a;
+            --madder: #ff4d4d;
+            --golden: #FFD700;
+            --dark: #FFFAFA;
+            --transparent-white: rgba(255, 255, 255, 0.03) 0px;
+            --secondtw: rgba(255, 255, 255, 0.03) 10px;
+            --gray: #d1d5db;
+            --light-gray: #2d3748;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--snow);
+            color: var(--dark);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Stripes */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background-image: repeating-linear-gradient(
+                135deg,
+                var(--transparent-white), var(--secondtw),
+                transparent 10px,
+                transparent 40px
+            );
+            animation: stripesMove 5s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes stripesMove {
+            from { transform: translateX(0); }
+            to { transform: translateX(-200px); }
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--madder), #d62a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(169, 27, 13, 0.4);
+            z-index: 998;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 6px 20px rgba(169, 27, 13, 0.6);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            background: linear-gradient(135deg, var(--golden), #ffa500);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 20vh;
+            background: linear-gradient(135deg, rgba(169, 27, 13, 0.9) 0%, rgba(139, 21, 7, 0.95) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 5% 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            bottom: -50px;
+            left: -50px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: snow;
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: clamp(0.95rem, 2vw, 1.2rem);
+            color:snow;
+            opacity: 0.95;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section-tag {
+            display: inline-block;
+            color: var(--madder);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1.5rem;
+            background: rgba(169, 27, 13, 0.1);
+            border-radius: 50px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Package Cards Grid */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            animation: slideInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .package-card:nth-child(1) { animation-delay: 0.1s; }
+        .package-card:nth-child(2) { animation-delay: 0.2s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        [data-theme="dark"] .package-card {
+            background: #2d3748;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--madder), var(--golden));
+        }
+
+        .package-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(169, 27, 13, 0.2);
+        }
+
+        [data-theme="dark"] .package-card:hover {
+            box-shadow: 0 20px 50px rgba(255, 77, 77, 0.3);
+        }
+
+        .package-header {
+            background: linear-gradient(135deg, rgba(169, 27, 13, 0.05), rgba(255, 215, 0, 0.05));
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .package-badge {
+            display: inline-block;
+            background: var(--golden);
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .package-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 800;
+            color: var(--madder);
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .package-subtitle {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .package-body {
+            padding: 2rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .package-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(169, 27, 13, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--gray);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .package-features li:last-child {
+            border-bottom: none;
+        }
+
+        .package-features li:hover {
+            padding-left: 0.5rem;
+            color: var(--madder);
+        }
+
+        .package-features li::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--madder), #d62a1a);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .package-info {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            color: var(--madder);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .package-price {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-amount {
+            font-size: clamp(1.7rem, 2.5vw, 1.75rem);
+            font-weight: 800;
+            color: var(--madder);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .price-period {
+            color: var(--gray);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--madder), #d62a1a);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(169, 27, 13, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(169, 27, 13, 0.4);
+        }
+
+/* Contact Section */
+.contact-section {
+    background: var(--light-gray);
+    border-radius: 24px;
+    padding: 4rem 3rem;
+    margin-top: 4rem;
+    align-self: center;
+    justify-items: center;
+    align-items: center;
+    width: 83vw;
+}
+
+.contact-container {
+    display: block;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    width: 60vw;
+}
+
+[data-theme="dark"] .contact-info {
+    background: #2d3748;
+}
+
+.contact-info h3 {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: var(--madder);
+    margin-bottom: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+    background: var(--light-gray);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateX(5px);
+    background: rgba(169, 27, 13, 0.05);
+}
+
+.contact-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--madder), #d62a1a);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.contact-form {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    width: 100%;
+}
+
+[data-theme="dark"] .contact-form {
+    background: #2d3748;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    background: var(--snow);
+    color: var(--dark);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--madder);
+    box-shadow: 0 0 0 4px rgba(169, 27, 13, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--madder), #d62a1a);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(169, 27, 13, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(169, 27, 13, 0.4);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--madder), #8B1507);
+            color: var(--snow);
+            padding: 2rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-text {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 80%) {
+            .contact-container {
+                grid-template-columns: 0.9fr 1.1fr;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .hero {
+                min-height: 50vh;
+                padding: 4rem 5% 2.5rem;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .theme-toggle {
+                bottom: 80px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+
+            section {
+                padding: 3rem 5%;
+            }
+
+            .section-header {
+                margin-bottom: 2.5rem;
+            }
+
+            .contact-section {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 4rem 5% 2rem;
+            }
+
+            .package-header,
+            .package-body {
+                padding: 1.5rem;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .theme-toggle {
+                bottom: 70px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .theme-toggle svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* Fade-in animation for scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Online Programming Packages</h1>
+        <p>Comprehensive programs designed to give you that smooth and easy transition into the world of programming</p>
+<a href="../../index.html" class="cta-button"  style="width:fit-content;border: 1px solid yellow; justify-self: center; color: snow; margin-top: 10px;">BACK TO HOME</a>
+    </div>
+</section>
+
+<!-- Packages Section -->
+<section>
+    <div class="section-header fade-in">
+        <span class="section-tag">Our Programs</span>
+        <h2 class="section-title">Choose Your Learning Path</h2>
+        <p class="section-subtitle">Carefully crafted packages to suit different age groups and skill levels</p>
+    </div>
+
+    <div class="packages-grid">
+        <!-- Entry Level Program -->
+        <div class="package-card">
+            <div class="package-header">
+                <span class="package-badge">First level</span>
+                <h3 class="package-title">Entry Level</h3>
+                <p class="package-subtitle">A perfect introduction to computers and digital basics</p>
+            </div>
+            <div class="package-body">
+                <ul class="package-features">
+                    <li>Basic Computer Operations</li>
+                    <li>Typing Skills & Digital Confidence</li>
+                    <li>Creative Digital Activities</li>
+                    <li>Introductory Logic Games</li>
+                </ul>
+                <div class="package-info">
+                    <div class="info-row">
+                        <span class="info-label">Session Duration</span>
+                        <span class="info-value">1 Hour</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Frequency</span>
+                        <span class="info-value">Twice Weekly</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Program Length</span>
+                        <span class="info-value">2 Months</span>
+                    </div>
+                </div>
+                <div class="package-price">
+                    <div class="price-amount">₦15,000</div>
+                    <div class="price-period">Monthly</div>
+                </div>
+                <a href="#contact" class="cta-button">Enroll Now</a>
+            </div>
+        </div>
+
+        <!-- Beginners Program -->
+        <div class="package-card">
+            <div class="package-header">
+                <span class="package-badge">Second level</span>
+                <h3 class="package-title">Beginners Program</h3>
+                <p class="package-subtitle">A gentle and fun start into tech creativity</p>
+            </div>
+            <div class="package-body">
+                <ul class="package-features">
+                    <li>Mini Graphics Designing</li>
+                    <li>Whispers of Artificial Intelligence</li>
+                    <li>Creative Thinking Sessions</li>
+                    <li>Prompt Engineering and Building</li>
+                </ul>
+                <div class="package-info">
+                    <div class="info-row">
+                        <span class="info-label">Session Duration</span>
+                        <span class="info-value">1 Hour</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Frequency</span>
+                        <span class="info-value">Thrice Weekly</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Program Length</span>
+                        <span class="info-value">3 Months</span>
+                    </div>
+                </div>
+                <div class="package-price">
+                    <div class="price-amount">₦20,000</div>
+                    <div class="price-period">Monthly</div>
+                </div>
+                <a href="#contact" class="cta-button">Enroll Now</a>
+            </div>
+        </div>
+
+        <!-- Pre-Developers Program -->
+        <div class="package-card">
+            <div class="package-header">
+                <span class="package-badge">Third-level</span>
+                <h3 class="package-title">Pre-Developers</h3>
+                <p class="package-subtitle">Builds problem-solving and basic coding foundations</p>
+            </div>
+            <div class="package-body">
+                <ul class="package-features">
+                    <li>Core Problem-Solving Drills</li>
+                    <li>Foundational Coding Concepts</li>
+                    <li>Mini Games & Logic Activities</li>
+                    <li>Vibe Coding with Claude introduction</li>
+                </ul>
+                <div class="package-info">
+                    <div class="info-row">
+                        <span class="info-label">Session Duration</span>
+                        <span class="info-value">1 Hour</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Frequency</span>
+                        <span class="info-value">Thrice Weekly</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Program Length</span>
+                        <span class="info-value">4 Months</span>
+                    </div>
+                </div>
+                <div class="package-price">
+                    <div class="price-amount">₦25,000</div>
+                    <div class="price-period">Monthly</div>
+                </div>
+                <a href="#contact" class="cta-button">Enroll Now</a>
+            </div>
+        </div>
+
+        <!-- Developers Program -->
+        <div class="package-card">
+            <div class="package-header">
+                <span class="package-badge">Fourth level</span>
+                <h3 class="package-title">Developers Program</h3>
+                <p class="package-subtitle">Fun coding experiences that build real skills</p>
+            </div>
+            <div class="package-body">
+                <ul class="package-features">
+                    <li>Intermediate Coding Concepts</li>
+                    <li>Introduction to HTML & CSS</li>
+                    <li>Game-Based Programming</li>
+                    <li>Portfolio-Building Projects 1</li>
+                    <li>Full-Website Vibe Coding (Landing Pages)</li>
+                    <li>Interactive Practical Projects</li>
+                </ul>
+                <div class="package-info">
+                    <div class="info-row">
+                        <span class="info-label">Session Duration</span>
+                        <span class="info-value">1 Hour</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Frequency</span>
+                        <span class="info-value">Thrice Weekly</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Program Length</span>
+                        <span class="info-value">5 Months</span>
+                    </div>
+                </div>
+                <div class="package-price">
+                    <div class="price-amount">₦30,000</div>
+                    <div class="price-period">Monthly</div>
+                </div>
+                <a href="#contact" class="cta-button">Enroll Now</a>
+            </div>
+        </div>
+
+        <!-- UI Developers Program -->
+        <div class="package-card">
+            <div class="package-header">
+                <span class="package-badge">fifth level</span>
+                <h3 class="package-title">UI Developers</h3>
+                <p class="package-subtitle">Learn digital design & user interface concepts</p>
+            </div>
+            <div class="package-body">
+                <ul class="package-features">
+                    <li>UI/UX Design Introduction</li>
+                    <li>User Interface Layout Creation</li>
+                    <li>Introduction to Javascript Essentials</li>
+                    <li>Web-Portals creation</li>
+                    <li>Backend facilitation with Firebase</li>
+                    <li>Simple Visual Design Projects</li>
+                    <li>Portfolio-Building Projects 2</li>
+                </ul>
+                <div class="package-info">
+                    <div class="info-row">
+                        <span class="info-label">Session Duration</span>
+                        <span class="info-value">1 Hour</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Frequency</span>
+                        <span class="info-value">Flexible Schedule</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Program Length</span>
+                        <span class="info-value">4 Months</span>
+                    </div>
+                </div>
+                <div class="package-price">
+                    <div class="price-amount">₦40,000</div>
+                    <div class="price-period">Monthly</div>
+                </div>
+                <a href="#contact" class="cta-button">Enroll Now</a>
+            </div>
+        </div>
+
+        <!-- Pro Developers Program -->
+        <div class="package-card">
+            <div class="package-header">
+                <span class="package-badge">sixth level</span>
+                <h3 class="package-title">Pro Developers</h3>
+                <p class="package-subtitle">Advanced coding for real clients and real projects</p>
+            </div>
+            <div class="package-body">
+                <ul class="package-features">
+                    <li>Industry-Level Coding Training</li>
+                    <li>Real-Time User & Client Project Simulation</li>
+                    <li>Advanced Tools & Frameworks</li>
+                    <li>Portfolio-Building Projects 3</li>
+                    <li>Backend facilitation with PHP or SQL</li>
+                </ul>
+                <div class="package-info">
+                    <div class="info-row">
+                        <span class="info-label">Session Duration</span>
+                        <span class="info-value">Advanced Sessions</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Frequency</span>
+                        <span class="info-value">Flexible Schedule</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Program Length</span>
+                        <span class="info-value">Ongoing / Long-term</span>
+                    </div>
+                </div>
+                <div class="package-price">
+                    <div class="price-amount">₦50,000</div>
+                    <div class="price-period">Monthly</div>
+                </div>
+                <a href="#contact" class="cta-button">Enroll Now</a>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section fade-in" id="contact">
+            <div class="section-header" style="margin-bottom: 3rem;">
+                <span class="section-tag">Get Started</span>
+                <h2 class="section-title">Ready to Begin?</h2>
+                <p class="section-subtitle">Contact us today to enroll your child in our digital literacy programs</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--dark); font-weight: 600; margin-bottom: 0.3rem;">Email</h4>
+                            <p style="color: var(--gray);">jaystarblissstudios@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--dark); font-weight: 600; margin-bottom: 0.3rem;">Location</h4>
+                            <p style="color: var(--gray);">No 3 komolafe street Cedar County Estate, Sangotedo, Ajah, Lekki 101245, Lagos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 style="font-size: clamp(1.3rem, 3vw, 1.8rem); color: var(--madder); margin-bottom: 1.5rem; font-family: 'Poppins', sans-serif; font-weight: 700;">Send Us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="package">Package of Interest</label>
+                            <select id="package" name="package" required style="width: 100%; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; font-family: 'Inter', sans-serif; background: var(--snow); color: var(--dark);">
+                                <option value="">Select a package</option>
+                                <option value="entry">Entry Level</option>
+                                <option value="beginners">Beginners Program</option>
+                                <option value="pre-developers">Pre-Developers</option>
+                                <option value="developers">Developers</option>
+                                <option value="ui-developers">UI Developers</option>
+                                <option value="pro-developers">Pro Developers</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required placeholder="Tell us about your interest and any specific requirements"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span id="btnText">Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   <a href="../../index.html" class="cta-button"  style="width:fit-content;align-self: center;border: 1px solid yellow; justify-self: center; color: snow; margin-top: 10px;">BACK TO HOME</a>
+
+</section>
+
+<!-- Footer -->
+<footer>
+    <p class="footer-text">Jaystarbliss Dynamic Hub</p>
+    <p class="footer-copyright">© 2025 Jaystarbliss Studios. All rights reserved.</p>
+</footer>
+
+<!-- Dark Mode Toggle Button -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg id="sunIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <svg id="moonIcon" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+</button>
+
+<script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    const body = document.body;
+
+    // Check for saved theme preference or default to 'light' mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    body.setAttribute('data-theme', currentTheme);
+    
+    if (currentTheme === 'dark') {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+    }
+
+    themeToggle.addEventListener('click', () => {
+        const theme = body.getAttribute('data-theme');
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        if (newTheme === 'dark') {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        } else {
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+        }
+    });
+
+    // Fade-in animation on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const fadeInObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    fadeElements.forEach(element => {
+        fadeInObserver.observe(element);
+    });
+
+    // Contact Form Handling
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        btnText.textContent = 'Sending...';
+        
+        // Simulate form submission (replace with actual form handling)
+        setTimeout(() => {
+            btnText.textContent = 'Message Sent! ✓';
+            submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                btnText.textContent = 'Send Message';
+                submitBtn.style.background = 'linear-gradient(135deg, var(--madder), #d62a1a)';
+            }, 3000);
+        }, 1500);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Resources - JAYSTARBLISS STUDIOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        snow: '#FFFAFA',
+                        madder: '#A91B0D',
+                        golden: '#FFD700',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-madder to-red-800 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div>
+                    <h1 id="schoolName" class="poppins text-3xl font-bold">🏫 School Resources</h1>
+                    <div id="schoolBadge" class="inline-block mt-2 bg-white/20 px-4 py-1.5 rounded-full text-sm border border-white/30">
+                        Loading...
+                    </div>
+                </div>
+                <button onclick="goBack()" class="bg-white/20 hover:bg-white/30 border-2 border-white/30 px-6 py-2.5 rounded-lg font-semibold transition-all hover:-translate-y-0.5">
+                    ← Back to Portal
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex gap-2">
+                <button onclick="switchTab('resources')" class="nav-tab active px-6 py-4 font-semibold text-gray-600 border-b-3 border-transparent hover:text-madder transition-colors">
+                    📖 Resources
+                </button>
+                <button onclick="switchTab('links')" class="nav-tab px-6 py-4 font-semibold text-gray-600 border-b-3 border-transparent hover:text-madder transition-colors">
+                    🔗 Links
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Resources Tab -->
+        <div id="resources" class="tab-content">
+            <h2 class="poppins text-2xl font-bold text-madder mb-6">📚 School Learning Resources</h2>
+            <div id="resourcesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="col-span-full text-center py-16 text-gray-500">
+                    <svg class="w-20 h-20 mx-auto mb-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    <p class="text-lg">Loading resources...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Links Tab -->
+        <div id="links" class="tab-content hidden">
+            <h2 class="poppins text-2xl font-bold text-madder mb-6">🔗 School Links</h2>
+            <div id="linksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="col-span-full text-center py-16 text-gray-500">
+                    <svg class="w-20 h-20 mx-auto mb-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                    <p class="text-lg">Loading links...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .nav-tab.active {
+            color: #A91B0D;
+            border-bottom-color: #A91B0D;
+        }
+    </style>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+            authDomain: "jaystarbliss-studios.firebaseapp.com",
+            projectId: "jaystarbliss-studios",
+            storageBucket: "jaystarbliss-studios.firebasestorage.app",
+            messagingSenderId: "885364100276",
+            appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const schoolId = sessionStorage.getItem('schoolId');
+        const schoolName = sessionStorage.getItem('schoolName');
+
+        console.log('School ID:', schoolId);
+        console.log('School Name:', schoolName);
+
+        if (!schoolId) {
+            alert('No school selected. Redirecting...');
+            window.location.href = '../dashboard/student-portal.html';
+        }
+
+        const schoolNames = {
+            'peniel': 'Peniel Lily Montessori School',
+            'southgold': 'South Gold Montessori School',
+            'sapphire': 'Sapphire Explorer Montessori School',
+            'easystars': 'Easy Stars Early Years Academy',
+            'christycaleb': 'Christy Caleb International School',
+            'royalbreed': 'Royal Breed Academy'
+        };
+
+        document.getElementById('schoolName').textContent = 'Welcome ' + (schoolNames[schoolId] || schoolName || 'School Resources');
+        document.getElementById('schoolBadge').textContent = schoolNames[schoolId] || schoolName || 'School';
+
+        window.switchTab = function(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.remove('hidden');
+            event.target.classList.add('active');
+        };
+
+        window.goBack = function() {
+            window.location.href = '../dashboard/student-portal.html';
+        };
+
+        async function loadSchoolResources() {
+            const grid = document.getElementById('resourcesGrid');
+            grid.innerHTML = '';
+
+            try {
+                // Load without orderBy to avoid index requirement
+                const q = query(collection(db, 'schoolResources'), where('schoolId', '==', schoolId));
+                const querySnapshot = await getDocs(q);
+
+                // Sort in JavaScript instead
+                const docs = [];
+                querySnapshot.forEach((doc) => {
+                    docs.push({ id: doc.id, data: doc.data() });
+                });
+                docs.sort((a, b) => (b.data.timestamp?.toDate() || 0) - (a.data.timestamp?.toDate() || 0));
+
+                if (docs.length === 0) {
+                    grid.innerHTML = `
+                        <div class="col-span-full text-center py-16 text-gray-500">
+                            <svg class="w-20 h-20 mx-auto mb-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                            <p class="text-lg">No resources available yet for your school</p>
+                            <p class="text-sm mt-2">Check back later!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                docs.forEach((item) => {
+                    const card = createResourceCard(item.data, 'resource');
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('❌ Error loading resources:', error);
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16 text-red-600">
+                        <p class="text-lg font-semibold">Error loading resources</p>
+                        <p class="text-sm mt-2">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadSchoolLinks() {
+            const grid = document.getElementById('linksGrid');
+            grid.innerHTML = '';
+
+            try {
+                // Load without orderBy to avoid index requirement
+                const q = query(collection(db, 'schoolLinks'), where('schoolId', '==', schoolId));
+                const querySnapshot = await getDocs(q);
+
+                // Sort in JavaScript instead
+                const docs = [];
+                querySnapshot.forEach((doc) => {
+                    docs.push({ id: doc.id, data: doc.data() });
+                });
+                docs.sort((a, b) => (b.data.timestamp?.toDate() || 0) - (a.data.timestamp?.toDate() || 0));
+
+                if (docs.length === 0) {
+                    grid.innerHTML = `
+                        <div class="col-span-full text-center py-16 text-gray-500">
+                            <svg class="w-20 h-20 mx-auto mb-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                            <p class="text-lg">No links available yet for your school</p>
+                            <p class="text-sm mt-2">Check back later!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                docs.forEach((item) => {
+                    const card = createResourceCard(item.data, 'link');
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('❌ Error loading links:', error);
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16 text-red-600">
+                        <p class="text-lg font-semibold">Error loading links</p>
+                        <p class="text-sm mt-2">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function createResourceCard(data, type) {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-2xl shadow-md hover:shadow-xl transition-all hover:-translate-y-1 p-6 border-t-4 border-madder';
+
+            const icon = type === 'link' ? '🔗' : '📄';
+            const buttonText = type === 'link' ? 'Open Link' : 'Download';
+            const url = type === 'link' ? data.url : data.fileUrl;
+
+            card.innerHTML = `
+                <div class="text-5xl mb-4">${icon}</div>
+                <h3 class="poppins text-xl font-bold text-madder mb-2">${data.title}</h3>
+                <p class="text-sm text-gray-500 mb-3">📅 ${new Date(data.timestamp?.toDate()).toLocaleDateString()}</p>
+                <p class="text-gray-600 mb-4 line-clamp-3">${data.description}</p>
+                <button onclick="window.open('${url}', '_blank')" class="w-full bg-gradient-to-r from-madder to-red-700 hover:from-red-800 hover:to-red-900 text-white py-3 rounded-lg font-semibold transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    ${buttonText}
+                </button>
+            `;
+
+            return card;
+        }
+
+        loadSchoolResources();
+        loadSchoolLinks();
+    </script>
+</body>
+</html>

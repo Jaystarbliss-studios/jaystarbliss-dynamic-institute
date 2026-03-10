@@ -1,1256 +1,1844 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portal - JAYSTARBLISS STUDIOS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Student Portal — Jaystarbliss Dynamic Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ============================================================
+           JAYSTARBLISS DESIGN SYSTEM — BASE UI TEMPLATE v1.0
+           Brand: #A91B0D (madder), #FFD700 (gold), #FFFAFA (snow)
+           Aesthetic: Industrial Precision — sharp edges, tight grid
+        ============================================================ */
 
         :root {
-            --snow: #FFFAFA;
-            --madder: #A91B0D;
-            --golden: #FFD700;
-            --dark: #1a1a1a;
-            --gray: #4a5568;
-            --light-gray: #f7fafc;
+            --madder:     #A91B0D;
+            --madder-dark:#7a1309;
+            --madder-lite:#c9210f;
+            --gold:       #FFD700;
+            --gold-dim:   #b89d00;
+            --snow:       #FFFAFA;
+            --dark:       #1a1a1a;
+            --green:      #2ecc71;
+            --bg:         #141414;
+            --surface:    #1e1e1e;
+            --surface-2:  #272727;
+            --border:     rgba(255,255,255,0.07);
+            --border-bright: rgba(169,27,13,0.4);
+            --text:       #FFFAFA;
+            --text-muted: #a8a8a8;
+            --text-dim:   #5a5a5a;
+            --sidebar-w:  240px;
+            --topbar-h:   56px;
+            --mono:       'Space Mono', monospace;
+            --sans:       'DM Sans', sans-serif;
         }
+
+        [data-theme="light"] {
+            --bg:         #f5f0f0;
+            --surface:    #FFFAFA;
+            --surface-2:  #ede8e8;
+            --border:     rgba(169,27,13,0.1);
+            --border-bright: rgba(169,27,13,0.35);
+            --text:       #1a1a1a;
+            --text-muted: #5a4a4a;
+            --text-dim:   #9a8a8a;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { font-size: 14px; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--light-gray);
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            display: grid;
+            grid-template-columns: var(--sidebar-w) 1fr;
+            grid-template-rows: var(--topbar-h) 1fr;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── TOPBAR ── */
+        .topbar {
+            grid-column: 1 / -1;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            width: var(--sidebar-w);
+            padding-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .brand-mark {
+            width: 28px;
+            height: 28px;
+            background: var(--madder);
+            display: grid;
+            place-items: center;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
             color: var(--dark);
+            letter-spacing: -0.5px;
+            clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
         }
 
-        .header {
-            background: linear-gradient(135deg, var(--madder), #8B1507);
-            color: white;
-            padding: 1.5rem 2rem;
+        .brand-name {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .topbar-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--border);
+        }
+
+        .topbar-breadcrumb {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            gap: 0.4rem;
         }
 
-        .header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-        }
+        .topbar-breadcrumb span { color: var(--gold); }
 
-        .header-right {
+        .topbar-right {
+            margin-left: auto;
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-        }
-
-        .user-info {
-            font-size: 0.9rem;
-        }
-
-        .logout-btn {
-            padding: 0.6rem 1.5rem;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .nav-tabs {
-            background: white;
-            display: flex;
-            padding: 0 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             gap: 0.5rem;
         }
 
-        .nav-tab {
-            padding: 1rem 1.5rem;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--gray);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .nav-tab:hover {
-            color: var(--madder);
-        }
-
-        .nav-tab.active {
-            color: var(--madder);
-            border-bottom-color: var(--madder);
-        }
-
-        .content {
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .resources-grid {
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
+            place-items: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.15s;
+            position: relative;
         }
 
-        .resource-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.8rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .icon-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+        .badge {
+            position: absolute;
+            top: -4px; right: -4px;
+            background: var(--madder);
+            color: #fff;
+            font-size: 0.55rem;
+            font-family: var(--mono);
+            width: 14px; height: 14px;
+            display: grid;
+            place-items: center;
+            border-radius: 0;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--madder-dark), var(--madder));
+            border: 1px solid var(--madder);
+            display: grid;
+            place-items: center;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--snow);
             cursor: pointer;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: sticky;
+            top: var(--topbar-h);
+            height: calc(100vh - var(--topbar-h));
+        }
+
+        .sidebar-section {
+            padding: 1.2rem 0 0.4rem;
+        }
+
+        .sidebar-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0 1.2rem 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.55rem 1.2rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-left: 2px solid transparent;
+            transition: all 0.15s;
+            text-decoration: none;
+            background: none;
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-item:hover { color: var(--text); background: var(--surface-2); }
+
+        .nav-item.active {
+            color: var(--snow);
+            border-left-color: var(--snow);
+            background: rgba(169,27,13,0.05);
+        }
+
+        .nav-icon {
+            font-size: 0.9rem;
+            width: 18px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--madder);
+            color: var(--snow);
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            padding: 1px 5px;
+            border: 1px solid var(--gold-dim);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1rem 1.2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .user-card {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--madder-dark), var(--madder));
+            border: 1px solid var(--gold-dim);
+            display: grid;
+            place-items: center;
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--snow);
+            flex-shrink: 0;
+        }
+
+        .user-info { flex: 1; min-width: 0; }
+
+        .user-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── MAIN ── */
+        .main {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-inner {
+            padding: 1.5rem;
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-title {
+            font-family: var(--mono);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
+        }
+
+        .page-title span { color: var(--gold); }
+
+        .page-meta {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 1rem;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-decoration: none;
+            border-radius: 0;
+        }
+
+        .btn-primary {
+            background: var(--madder);
+            color: var(--snow);
+        }
+
+        .btn-primary:hover { background: var(--madder-lite); }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--madder);
+            border: 1px solid rgba(169,27,13,0.3);
+        }
+
+        .btn-danger:hover { background: rgba(169,27,13,0.1); }
+
+        .btn-sm { padding: 0.3rem 0.7rem; font-size: 0.62rem; }
+
+        /* ── STAT CARDS ── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 1.1rem 1.2rem;
             position: relative;
             overflow: hidden;
         }
 
-        .resource-card::before {
+        .stat-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--madder), var(--golden));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
+            top: 0; left: 0;
+            width: 2px; height: 100%;
+            background: var(--border-bright);
         }
 
-        .resource-card:hover::before {
-            transform: scaleX(1);
-        }
+        .stat-card.gold::before { background: var(--gold); }
+        .stat-card.green::before { background: var(--green); }
+        .stat-card.red::before { background: var(--madder); }
+        .stat-card.navy::before { background: var(--madder-lite); }
 
-        .resource-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(169, 27, 13, 0.15);
-        }
-
-        .resource-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, rgba(169, 27, 13, 0.1), rgba(255, 215, 0, 0.1));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.2rem;
-            font-size: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .resource-card:hover .resource-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .resource-card h3 {
-            color: var(--madder);
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .resource-card p {
-            color: var(--gray);
-            margin-bottom: 1.2rem;
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-
-        .resource-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 2.0rem;
-            justify-content: left;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2.5rem;
-            background: #f59c04;
-            color: var(--snow);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px rgba(255, 15, 0, 0.3);
-            font-size: 1.05rem;
-            margin-bottom: 20px;
-            margin-top: -25px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
-        }
-
-        .cta-button.secondary {
-            background: rgba(255, 250, 250, 0.15);
-            color: #FFFAFA !important;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 250, 250, 0.3);
-        }
-
-        .cta-button.secondary:hover {
-            background: rgba(255, 250, 250, 0.25);
-            border-color: rgba(255, 250, 250, 0.5);
-        }
-
-        .download-btn, .open-btn {
-            width: 100%;
-            padding: 0.9rem;
-            background: linear-gradient(135deg, var(--madder), #d62a1a);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .download-btn:hover, .open-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(169, 27, 13, 0.4);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--gray);
-        }
-
-        .empty-state svg {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 1rem;
-            opacity: 0.3;
-        }
-
-        .welcome-banner {
-            background: linear-gradient(135deg, var(--madder), #8B1507);
-            color: white;
-            padding: 2rem;
-            border-radius: 16px;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 30px rgba(169, 27, 13, 0.3);
-        }
-
-        .welcome-banner h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
+        .stat-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
             margin-bottom: 0.5rem;
         }
 
-        .welcome-banner p {
-            opacity: 0.9;
-            font-size: 1.05rem;
+        .stat-value {
+            font-family: var(--mono);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
         }
 
-        /* Modal Styles */
+        .stat-card.gold .stat-value { color: var(--gold); }
+        .stat-card.green .stat-value { color: var(--green); }
+
+        .stat-sub {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 0.3rem;
+        }
+
+        /* ── PANELS ── */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 1.1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .panel-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px; height: 6px;
+            background: var(--madder);
+        }
+
+        .panel-body { padding: 1.1rem; }
+
+        /* ── PROGRESS BAR ── */
+        .progress-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .progress-item { display: flex; flex-direction: column; gap: 0.35rem; }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+        }
+
+        .progress-name { color: var(--text); font-weight: 500; }
+
+        .progress-pct {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--snow);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: var(--surface-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--madder);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-fill.green { background: var(--green); }
+        .progress-fill.red { background: var(--madder); }
+
+        /* ── ACTIVITY FEED ── */
+        .activity-list { display: flex; flex-direction: column; }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.75rem 1.1rem;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.1s;
+        }
+
+        .activity-item:last-child { border-bottom: none; }
+        .activity-item:hover { background: var(--surface-2); }
+
+        .activity-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--madder);
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .activity-dot.green { background: var(--green); }
+        .activity-dot.red { background: var(--madder); }
+
+        .activity-text { flex: 1; }
+
+        .activity-title {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 0.15rem;
+        }
+
+        .activity-time {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: var(--text-dim);
+        }
+
+        /* ── RESOURCE CARDS ── */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .resource-card {
+            background: var(--surface);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: background 0.15s;
+        }
+
+        .resource-card:hover { background: var(--surface-2); }
+
+        .resource-type {
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .resource-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .resource-meta {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        /* ── TABLE ── */
+        .data-table { width: 100%; border-collapse: collapse; }
+
+        .data-table th {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.6rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 0.65rem 1rem;
+            font-size: 0.78rem;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:hover td { background: var(--surface-2); }
+
+        /* ── STATUS PILLS ── */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.15rem 0.5rem;
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border-radius: 0;
+        }
+
+        .pill::before { content: ''; width: 4px; height: 4px; flex-shrink: 0; }
+
+        .pill-active { background: rgba(46,204,113,0.12); color: var(--green); }
+        .pill-active::before { background: var(--green); }
+
+        .pill-pending { background: rgba(169,27,13,0.08); color: var(--gold); }
+        .pill-pending::before { background: var(--gold); }
+
+        .pill-inactive { background: rgba(255,255,255,0.04); color: var(--text-dim); }
+        .pill-inactive::before { background: var(--text-dim); }
+
+        /* ── NOTIFICATION PANEL ── */
+        .notif-panel {
+            position: fixed;
+            top: var(--topbar-h);
+            right: 0;
+            width: 300px;
+            height: calc(100vh - var(--topbar-h));
+            background: var(--surface);
+            border-left: 1px solid var(--border);
+            transform: translateX(100%);
+            transition: transform 0.2s ease;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notif-panel.open { transform: translateX(0); }
+
+        .notif-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .notif-title {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .notif-body { flex: 1; overflow-y: auto; }
+
+        .notif-item {
+            padding: 0.8rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        .notif-item:hover { background: var(--surface-2); }
+
+        .notif-item.unread { border-left: 2px solid var(--gold); }
+
+        .notif-msg { font-size: 0.75rem; color: var(--text); line-height: 1.4; }
+
+        .notif-time {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            margin-top: 0.3rem;
+        }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: grid;
+            place-items: center;
+            z-index: 300;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .modal-overlay.open { opacity: 1; pointer-events: all; }
+
         .modal {
+            background: var(--surface);
+            border: 1px solid var(--border-bright);
+            width: 480px;
+            max-width: 95vw;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .modal-body { padding: 1.2rem; overflow-y: auto; flex: 1; }
+
+        .modal-foot {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            padding: 1rem 1.2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── TABS ── */
+        .tab-bar {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.2rem;
+        }
+
+        .tab-btn {
+            padding: 0.6rem 1.1rem;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: all 0.15s;
+        }
+
+        .tab-btn:hover { color: var(--text-muted); }
+        .tab-btn.active { color: var(--madder-lite); border-bottom-color: var(--madder); }
+
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        /* ── FORM CONTROLS ── */
+        .form-control {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.45rem 0.8rem;
+            font-family: var(--sans);
+            font-size: 0.8rem;
+            border-radius: 0;
+            outline: none;
+            width: 100%;
+            transition: border-color 0.15s;
+        }
+
+        .form-control:focus { border-color: var(--gold); }
+        .form-control::placeholder { color: var(--text-dim); }
+
+        /* ── SEARCH ── */
+        .search-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.7rem;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            pointer-events: none;
+        }
+
+        .search-wrap .form-control { padding-left: 2rem; }
+
+        /* ── STUDENT ID CARD ── */
+        .id-card {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--madder) 60%, var(--madder-lite) 100%);
+            border: 1px solid var(--gold-dim);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .id-card::before {
+            content: 'JDH';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--mono);
+            font-size: 4rem;
+            font-weight: 700;
+            color: rgba(255,250,250,0.06);
+            line-height: 1;
+        }
+
+        .id-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .id-logo {
+            width: 36px; height: 36px;
+            background: var(--madder);
+            display: grid;
+            place-items: center;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--dark);
+            clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
+        }
+
+        .id-org { font-size: 0.85rem; font-weight: 700; color: #fff; }
+        .id-sub { font-family: var(--mono); font-size: 0.6rem; color: rgba(255,215,0,0.7); text-transform: uppercase; }
+
+        .id-field { margin-bottom: 0.6rem; }
+
+        .id-field-label {
+            font-family: var(--mono);
+            font-size: 0.55rem;
+            color: rgba(255,215,0,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .id-field-value { font-size: 0.82rem; font-weight: 600; color: #fff; margin-top: 0.1rem; }
+
+        .id-footer {
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255,215,0,0.15);
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ── MOBILE HAMBURGER ── */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.3rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* ── DIVIDERS ── */
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 1rem 0;
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-dim);
+            font-family: var(--mono);
+            font-size: 0.7rem;
+        }
+
+        /* ── UTILITY ── */
+        .flex { display: flex; align-items: center; }
+        .flex-between { display: flex; align-items: center; justify-content: space-between; }
+        .gap-sm { gap: 0.5rem; }
+        .gap-md { gap: 1rem; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .text-gold { color: var(--gold); }
+        .text-muted { color: var(--text-muted); }
+        .text-mono { font-family: var(--mono); }
+        .fw-600 { font-weight: 600; }
+
+        /* ── SIDEBAR OVERLAY (mobile) ── */
+        .sidebar-overlay {
             display: none;
             position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            align-items: center;
-            justify-content: center;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
         }
 
-        .modal.active {
-            display: flex;
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            body { grid-template-columns: 1fr; }
+
+            .sidebar {
+                position: fixed;
+                top: 0; left: 0;
+                height: 100vh;
+                width: var(--sidebar-w);
+                z-index: 100;
+                transform: translateX(-100%);
+                transition: transform 0.2s;
+            }
+
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-overlay { display: block; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+            .sidebar-overlay.show { opacity: 1; pointer-events: all; }
+            .hamburger { display: grid; place-items: center; }
+            .topbar-brand { width: auto; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
         }
 
-        .modal-content {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        @media (max-width: 500px) {
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .main-inner { padding: 1rem; }
         }
 
-        .modal-content h2 {
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel, .stat-card { animation: fadeUp 0.3s ease both; }
+        .stat-card:nth-child(2) { animation-delay: 0.05s; }
+        .stat-card:nth-child(3) { animation-delay: 0.1s; }
+        .stat-card:nth-child(4) { animation-delay: 0.15s; }
+
+        /* Print styles */
+        @media print {
+            .sidebar, .topbar, .notif-panel { display: none !important; }
+            body { display: block; }
+            .main { overflow: visible; }
+        }
+
+        /* ── ACCESS CODE MODAL ── */
+        .access-modal .modal { width: 400px; }
+        .access-error {
             color: var(--madder);
-            margin-bottom: 1rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .modal-content p {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 0.9rem;
-            margin: 1rem 0;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            background: var(--light-gray);
-            color: var(--dark);
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .modal-content input:focus {
-            outline: none;
-            border-color: var(--madder);
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .modal-btn {
-            flex: 1;
-            padding: 0.9rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .modal-btn.submit {
-            background: var(--madder);
-            color: white;
-        }
-
-        .modal-btn.submit:hover {
-            background: #8B1507;
-        }
-
-        .modal-btn.cancel {
-            background: #e2e8f0;
-            color: var(--gray);
-        }
-
-        .modal-btn.cancel:hover {
-            background: #cbd5e0;
-        }
-
-        .error-message {
-            color: #e53e3e;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             margin-top: 0.5rem;
             display: none;
         }
-
-        .error-message.active {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .resources-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            .header h1 {
-                font-size: 1.2rem;
-            }
-
-            .nav-tabs {
-                overflow-x: auto;
-                padding: 0 0.5rem;
-            }
-
-            .nav-tab {
-                font-size: 0.85rem;
-                padding: 0.8rem 1rem;
-            }
-
-            .content {
-                padding: 1rem;
-            }
-
-            .welcome-banner {
-                padding: 1.5rem;
-            }
-
-            .welcome-banner h2 {
-                font-size: 1.3rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .cta-button {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        /* Notification Bell */
-.notification-bell {
-    position: fixed;
-    top: 90%;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--madder), #d62a1a);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(169, 27, 13, 0.4);
-    transition: all 0.3s ease;
-    z-index: 999;
-}
-
-.notification-bell:hover {
-    transform: translateY(-3px) scale(1.05);
-}
-
-.notification-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: var(--golden);
-    color: var(--dark);
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    border: 2px solid white;
-}
-
-.notification-panel {
-    position: fixed;
-    top: 0;
-    right: -400px;
-    width: 400px;
-    height: 100vh;
-    background: white;
-    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
-    transition: right 0.4s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.notification-panel.open {
-    right: 0;
-}
-
-.notification-header {
-    background: linear-gradient(135deg, var(--madder), #8B1507);
-    color: white;
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.notification-header h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.3rem;
-    margin: 0;
-}
-
-.mark-read-btn {
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-.close-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.notification-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1rem;
-}
-
-.notification-item {
-    background: var(--light-gray);
-    padding: 1.2rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    border-left: 4px solid var(--madder);
-    display: flex;
-    gap: 1rem;
-}
-
-.notification-item.unread {
-    background: #fff9e6;
-    border-left-color: var(--golden);
-}
-
-.notification-content {
-    flex: 1;
-}
-
-.notification-content h4 {
-    color: var(--madder);
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-}
-
-.notification-content p {
-    color: var(--gray);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-.notification-time {
-    font-size: 0.75rem;
-    color: var(--gray);
-}
-
-.mark-read-single {
-    background: var(--madder);
-    border: none;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.notification-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.notification-overlay.open {
-    opacity: 1;
-    visibility: visible;
-}
-
-@media (max-width: 768px) {
-    .notification-panel {
-        width: 100%;
-        right: -100%;
-    }
-}
+        .access-error.show { display: block; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 id="portalTitle">Student Portal</h1>
-        <div class="header-right">
-            <div class="user-info">
-                <strong id="studentEmail">student@example.com</strong>
-            </div>
-            <button class="logout-btn" onclick="logout()">Logout</button>
+
+    <!-- ══ TOPBAR ══ -->
+    <header class="topbar">
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
+        <div class="topbar-brand">
+            <div class="brand-mark">JDH</div>
+            <span class="brand-name">Jaystarbliss</span>
         </div>
-    </div>
-
-    <div class="nav-tabs">
-        <button class="nav-tab active" onclick="switchTab('resources')">📖 Resources</button>
-        <button class="nav-tab" onclick="switchTab('exams')">📝 Exam Questions</button>
-    </div>
-
-    <!-- Notification Bell -->
-<div id="notificationBell" class="notification-bell" onclick="toggleNotifications()">
-    🔔
-    <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
-</div>
-
-<div id="notificationPanel" class="notification-panel">
-    <div class="notification-header">
-        <h3>📬 Notifications</h3>
-        <button onclick="markAllAsRead()" class="mark-read-btn">Mark all read</button>
-        <button onclick="toggleNotifications()" class="close-btn">✕</button>
-    </div>
-    <div id="notificationList" class="notification-list">
-        <div style="text-align: center; padding: 2rem; color: var(--gray);">
-            Loading...
+        <div class="topbar-divider"></div>
+        <nav class="topbar-breadcrumb">
+            <span>Student Portal</span>
+            ›
+            <span id="breadcrumbActive">Overview</span>
+        </nav>
+        <div class="topbar-right">
+            <button class="icon-btn" title="Toggle Theme" onclick="toggleTheme()">◐</button>
+            <button class="icon-btn" title="Notifications" onclick="toggleNotif()">
+                🔔
+                <span class="badge" id="notifBadge" style="display: none;">0</span>
+            </button>
+            <div class="avatar" title="Student Profile" onclick="openModal('cardModal')" id="userAvatar">ST</div>
         </div>
-    </div>
-</div>
+    </header>
 
-<div id="notificationOverlay" class="notification-overlay" onclick="toggleNotifications()"></div>
-
-    <div class="content">
-        <div class="welcome-banner">
-            <h2>Welcome back!</h2>
-            <p>Access your learning materials and exam questions below</p>
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">Main</div>
+            <a class="nav-item active" data-tab="overview" href="#">
+                <span class="nav-icon">▣</span> Overview
+            </a>
+            <a class="nav-item" data-tab="resources" href="#">
+                <span class="nav-icon">◎</span> Resources
+                <span class="nav-badge" id="resourceCount">0</span>
+            </a>
+            <a class="nav-item" data-tab="exams" href="#">
+                <span class="nav-icon">✦</span> Exams
+                <span class="nav-badge" id="examCount">0</span>
+            </a>
+            <a class="nav-item" data-tab="activity" href="#">
+                <span class="nav-icon">≋</span> Activity
+            </a>
         </div>
 
-        <!-- Resources Tab -->
-        <div id="resources" class="tab-content active">
-           <div class="cta-buttons">
-                <button class="cta-button" onclick="showAccessCodeModal()">
-                    <span>School Specific Resources and Links</span>
-                </button>
-           </div>
-            <h3 style="margin-bottom: 1.5rem; color: var(--madder); font-family: Poppins; font-size: 1.5rem;">📚 Learning Resources</h3>
-            <div class="resources-grid" id="resourcesGrid">
-                <div class="empty-state">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                    </svg>
-                    <p>Loading resources...</p>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Account</div>
+            <button class="nav-item" onclick="openModal('cardModal')">
+                <span class="nav-icon">◉</span> Student Card
+            </button>
+            <button class="nav-item" onclick="toggleTheme()">
+                <span class="nav-icon">◐</span> Toggle Theme
+            </button>
+            <button class="nav-item" onclick="logout()">
+                <span class="nav-icon">↪</span> Logout
+            </button>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-card">
+                <div class="user-avatar" id="sidebarAvatar">ST</div>
+                <div class="user-info">
+                    <div class="user-name" id="userName">Student</div>
+                    <div class="user-role" id="userTypeLabel">Student</div>
                 </div>
             </div>
         </div>
+    </aside>
 
-        <!-- Exams Tab -->
-        <div id="exams" class="tab-content">
-            <div class="cta-buttons">
-                <a href="../features/school-selector.html" class="cta-button">
-                    <span>School Specific Exams</span>
-                </a>
-            </div>
-            <h3 style="margin-bottom: 1.5rem; color: var(--madder); font-family: Poppins; font-size: 1.5rem;">📝 Examination Questions</h3>
-            <div class="resources-grid" id="examsGrid">
-                <div class="empty-state">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
-                    </svg>
-                    <p>Loading exam questions...</p>
+    <!-- ══ SIDEBAR OVERLAY ══ -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- ══ MAIN CONTENT ══ -->
+    <main class="main">
+        <div class="main-inner">
+
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div>
+                    <div class="page-title">Student <span>Dashboard</span></div>
+                    <div class="page-meta" id="welcomeMessage">Welcome back — Loading...</div>
                 </div>
+                <div class="flex gap-sm">
+                    <button class="btn btn-ghost btn-sm" onclick="openModal('cardModal')">🖨 Print Card</button>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('accessModal')">🏫 School Resources</button>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════
+                 TAB: OVERVIEW
+            ══════════════════════════════ -->
+            <div class="tab-pane active" id="tab-overview">
+
+                <!-- STATS -->
+                <div class="stats-row">
+                    <div class="stat-card gold">
+                        <div class="stat-label">Enrolled Programs</div>
+                        <div class="stat-value" id="statPrograms">0</div>
+                        <div class="stat-sub">Learning tracks</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-label">Resources</div>
+                        <div class="stat-value" id="statResources">0</div>
+                        <div class="stat-sub">Available now</div>
+                    </div>
+                    <div class="stat-card navy">
+                        <div class="stat-label">Exams</div>
+                        <div class="stat-value" id="statExams">0</div>
+                        <div class="stat-sub">Available</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Account Type</div>
+                        <div class="stat-value" id="statAccountType">-</div>
+                        <div class="stat-sub" id="statAccountSub">Verify status</div>
+                    </div>
+                </div>
+
+                <!-- MIDDLE ROW -->
+                <div class="grid-3">
+                    <!-- Recent Resources Panel -->
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div class="panel-title">Recent Resources</div>
+                            <button class="btn btn-ghost btn-sm" onclick="switchTab('resources')">View All</button>
+                        </div>
+                        <div class="panel-body" id="recentResourcesList">
+                            <div class="empty">Loading resources...</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div class="panel-title">Quick Actions</div>
+                        </div>
+                        <div class="panel-body" style="display:flex;flex-direction:column;gap:0.5rem;">
+                            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" onclick="switchTab('resources')">
+                                ◎ Browse Resources
+                            </button>
+                            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" onclick="switchTab('exams')">
+                                ✦ Take Exams
+                            </button>
+                            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" onclick="openModal('accessModal')">
+                                🏫 School Resources
+                            </button>
+                            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" onclick="openModal('cardModal')">
+                                🖨 Print Student Card
+                            </button>
+                            <div class="divider"></div>
+                            <button class="btn btn-primary" style="width:100%;justify-content:flex-start;" onclick="switchTab('resources')">
+                                + Browse More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="panel">
+                    <div class="panel-head">
+                        <div class="panel-title">Recent Activity</div>
+                        <button class="btn btn-ghost btn-sm" onclick="switchTab('activity')">See All</button>
+                    </div>
+                    <div class="activity-list" id="overviewActivityList">
+                        <div class="empty">Loading activity...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════
+                 TAB: RESOURCES
+            ══════════════════════════════ -->
+            <div class="tab-pane" id="tab-resources">
+                <div class="panel">
+                    <div class="panel-head">
+                        <div class="panel-title">Learning Resources</div>
+                        <div class="search-wrap">
+                            <span class="search-icon">🔍</span>
+                            <input class="form-control" style="width:200px;" type="text" placeholder="Search resources..." id="resourceSearch" oninput="filterResources()">
+                        </div>
+                    </div>
+                    <div class="resource-grid" id="resourceGrid">
+                        <div class="empty" style="grid-column: 1/-1;">Loading resources...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════
+                 TAB: EXAMS
+            ══════════════════════════════ -->
+            <div class="tab-pane" id="tab-exams">
+                <div class="panel">
+                    <div class="panel-head">
+                        <div class="panel-title">Examinations & Links</div>
+                    </div>
+                    <div class="resource-grid" id="examGrid">
+                        <div class="empty" style="grid-column: 1/-1;">Loading exams...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════
+                 TAB: ACTIVITY
+            ══════════════════════════════ -->
+            <div class="tab-pane" id="tab-activity">
+                <div class="panel">
+                    <div class="panel-head">
+                        <div class="panel-title">Full Activity Log</div>
+                    </div>
+                    <div class="activity-list" id="fullActivityList">
+                        <div class="empty">Loading activity...</div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.main-inner -->
+    </main>
+
+    <!-- ══ NOTIFICATION PANEL ══ -->
+    <aside class="notif-panel" id="notifPanel">
+        <div class="notif-head">
+            <div class="notif-title">Notifications</div>
+            <button class="btn btn-ghost btn-sm" onclick="toggleNotif()">✕</button>
+        </div>
+        <div class="notif-body" id="notifList">
+            <div class="empty">Loading notifications...</div>
+        </div>
+    </aside>
+
+    <!-- ══ STUDENT CARD MODAL ══ -->
+    <div class="modal-overlay" id="cardModal">
+        <div class="modal">
+            <div class="modal-head">
+                <div class="modal-title">Student ID Card</div>
+                <button class="btn btn-ghost btn-sm" onclick="closeModal('cardModal')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="id-card">
+                    <div class="id-card-header">
+                        <div class="id-logo">JDH</div>
+                        <div>
+                            <div class="id-org">Jaystarbliss Dynamic Hub</div>
+                            <div class="id-sub">Student Identity Card</div>
+                        </div>
+                    </div>
+                    <div class="id-field">
+                        <div class="id-field-label">Full Name</div>
+                        <div class="id-field-value" id="idName">Student Name</div>
+                    </div>
+                    <div class="id-field">
+                        <div class="id-field-label">Email</div>
+                        <div class="id-field-value" id="idEmail">student@email.com</div>
+                    </div>
+                    <div class="id-field">
+                        <div class="id-field-label">Account Type</div>
+                        <div class="id-field-value" id="idAccountType">Private Student</div>
+                    </div>
+                    <div class="id-field">
+                        <div class="id-field-label">Resources Available</div>
+                        <div class="id-field-value" id="idResources">0 Items</div>
+                    </div>
+                    <div class="id-footer">
+                        Valid: 2025–2026 · jaystarbliss-studios.name.ng
+                    </div>
+                </div>
+            </div>
+            <div class="modal-foot">
+                <button class="btn btn-ghost" onclick="closeModal('cardModal')">Close</button>
+                <button class="btn btn-primary" onclick="window.print()">🖨 Print Card</button>
             </div>
         </div>
     </div>
 
-    <!-- Access Code Modal -->
-    <div id="accessCodeModal" class="modal">
-        <div class="modal-content">
-            <h2>🔐 Enter Access Code</h2>
-            <p>Please enter the school access code to continue</p>
-            <input type="password" id="accessCodeInput" placeholder="Enter access code">
-            <div class="error-message" id="errorMessage">Incorrect access code. Please try again.</div>
-            <div class="modal-buttons">
-                <button class="modal-btn cancel" onclick="closeAccessCodeModal()">Cancel</button>
-                <button class="modal-btn submit" onclick="verifyAccessCode()">Submit</button>
+    <!-- ══ ACCESS CODE MODAL ══ -->
+    <div class="modal-overlay access-modal" id="accessModal">
+        <div class="modal">
+            <div class="modal-head">
+                <div class="modal-title">🏫 School Resources</div>
+                <button class="btn btn-ghost btn-sm" onclick="closeModal('accessModal')">✕</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 1rem; color: var(--text-muted);">Enter your school's access code to view school-specific resources and exams.</p>
+                <input type="text" class="form-control" id="accessCodeInput" placeholder="Enter school access code" style="margin-bottom: 0.5rem;">
+                <div class="access-error" id="accessError">Incorrect access code. Please try again.</div>
+                <div style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-dim);">
+                    <strong>Available Schools:</strong><br>
+                    Peniel Lily, South Gold, Sapphire Explorer, Easy Stars, Christy Caleb, Royal Breed
+                </div>
+            </div>
+            <div class="modal-foot">
+                <button class="btn btn-ghost" onclick="closeModal('accessModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="verifySchoolAccess()">Access School</button>
             </div>
         </div>
     </div>
 
     <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-    import { getFirestore, collection, getDocs, query, where, orderBy, updateDoc, doc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-    const firebaseConfig = {
-        apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
-        authDomain: "jaystarbliss-studios.firebaseapp.com",
-        projectId: "jaystarbliss-studios",
-        storageBucket: "jaystarbliss-studios.firebasestorage.app",
-        messagingSenderId: "885364100276",
-        appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const studentType = urlParams.get('type') || sessionStorage.getItem('userRole');
-
-    console.log('🔐 Student Type:', studentType);
-
-    if (!sessionStorage.getItem('userRole') || (sessionStorage.getItem('userRole') !== 'school' && sessionStorage.getItem('userRole') !== 'private')) {
-        window.location.href = '../auth/login.html';
-    }
-
-    document.getElementById('portalTitle').textContent = studentType === 'school' ? 'Affiliated Schools Portal' : 'Private Student Portal';
-    document.getElementById('studentEmail').textContent = sessionStorage.getItem('userEmail') || 'Student';
-
-    // Request notification permission on login
-async function requestNotificationPermission() {
-    if (!('Notification' in window)) {
-        console.log('❌ Browser does not support notifications');
-        return;
-    }
-    
-    if (Notification.permission === 'default') {
-        // Show a friendly prompt first
-        const permitNotifications = confirm(
-            '🔔 Would you like to receive notifications even when you\'re not on this page?\n\n' +
-            'Click OK to enable desktop notifications.'
-        );
+        // ============================================================
+        // JAYSTARBLISS STUDENT PORTAL - FIREBASE INTEGRATION
+        // ============================================================
         
-        if (permitNotifications) {
-            const permission = await Notification.requestPermission();
-            if (permission === 'granted') {
-                console.log('✅ Notification permission granted');
-                showWelcomeNotification();
-            }
-        }
-    }
-}
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, getDocs, query, where, orderBy, updateDoc, doc, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-// Show welcome notification
-function showWelcomeNotification() {
-    if (Notification.permission === 'granted') {
-        new Notification('🎉 Notifications Enabled!', {
-            body: 'You\'ll now receive important updates from Jaystarbliss Dynamic Hub',
-            icon: 'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS',
-            badge: 'https://via.placeholder.com/96/FFD700/000000?text=!',
-            tag: 'welcome',
-            requireInteraction: false
-        });
-    }
-}
-
-// Request permission after page loads
-setTimeout(() => {
-    requestNotificationPermission();
-}, 2000); // Wait 2 seconds after login
-
-    // Access Code Modal
-    window.showAccessCodeModal = function() {
-        document.getElementById('accessCodeModal').classList.add('active');
-        document.getElementById('accessCodeInput').value = '';
-        document.getElementById('errorMessage').classList.remove('active');
-        document.getElementById('accessCodeInput').focus();
-    };
-
-    window.closeAccessCodeModal = function() {
-        document.getElementById('accessCodeModal').classList.remove('active');
-    };
-
-  // verifyAccessCode:
-
-window.verifyAccessCode = async function() {
-    const input = document.getElementById('accessCodeInput').value.trim();
-    const errorMessage = document.getElementById('errorMessage');
-
-    if (!input) {
-        errorMessage.textContent = 'Please enter an access code.';
-        errorMessage.classList.add('active');
-        return;
-    }
-
-    console.log('🔍 Verifying access code:', input);
-
-    try {
-        // Check in schools collection
-        const schoolsSnapshot = await getDocs(collection(db, 'schools'));
-        let matchFound = false;
-        let matchedSchoolId = null;
-
-        console.log('📚 Checking schools collection...');
-        
-        schoolsSnapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            console.log(`School ${docSnap.id}:`, data.accessCode);
-            
-            if (data.accessCode === input) {
-                matchFound = true;
-                matchedSchoolId = docSnap.id;
-                console.log('✅ Match found:', matchedSchoolId);
-            }
-        });
-
-        if (matchFound) {
-            // Store school info and redirect
-            const schoolNames = {
-                'peniel': 'PENIEL LILY MONTESSORI SCHOOL',
-                'southgold': 'SOUTH GOLD MONTESSORI SCHOOL',
-                'sapphire': 'SAPPHIRE EXPLORER MONTESSORI SCHOOL',
-                'easystars': 'EASY STARS EARLY YEARS ACADEMY',
-                'christycaleb': 'CHRISTY CALEB INTERNATIONAL SCHOOL',
-                'royalbreed': 'ROYAL BREED ACADEMY'
-            };
-
-            sessionStorage.setItem('schoolId', matchedSchoolId);
-            sessionStorage.setItem('schoolName', schoolNames[matchedSchoolId] || matchedSchoolId);
-            console.log('✅ Redirecting to school-resources.html');
-            window.location.href = '../resources/school-resources.html';
-        } else {
-            console.log('❌ No match found');
-            errorMessage.textContent = 'Incorrect access code. Please try again.';
-            errorMessage.classList.add('active');
-            document.getElementById('accessCodeInput').value = '';
-            document.getElementById('accessCodeInput').focus();
-        }
-    } catch (error) {
-        console.error('❌ Error verifying access code:', error);
-        errorMessage.textContent = 'Error verifying code: ' + error.message;
-        errorMessage.classList.add('active');
-    }
-};
-
-    document.getElementById('accessCodeInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            verifyAccessCode();
-        }
-    });
-
-    document.getElementById('accessCodeModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeAccessCodeModal();
-        }
-    });
-
-    window.switchTab = function(tabName) {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
-        document.getElementById(tabName).classList.add('active');
-        event.target.classList.add('active');
-    };
-
-    window.logout = async function() {
-        await signOut(auth);
-        sessionStorage.clear();
-        window.location.href = '../auth/login.html';
-    };
-
-    async function loadResources() {
-        const grid = document.getElementById('resourcesGrid');
-        grid.innerHTML = '';
-
-        try {
-            const querySnapshot = await getDocs(collection(db, 'resources'));
-
-            if (querySnapshot.empty) {
-                grid.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg><p>No resources available yet</p></div>`;
-                return;
-            }
-
-            const filteredResources = [];
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                if (data.category === studentType || data.category === 'both') {
-                    filteredResources.push({ id: doc.id, data: data });
-                }
-            });
-
-            filteredResources.sort((a, b) => {
-                const timeA = a.data.timestamp?.toDate() || new Date(0);
-                const timeB = b.data.timestamp?.toDate() || new Date(0);
-                return timeB - timeA;
-            });
-
-            if (filteredResources.length === 0) {
-                grid.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg><p>No resources available for ${studentType} students yet</p></div>`;
-                return;
-            }
-
-            filteredResources.forEach((item) => {
-                const card = createResourceCard(item.data, 'resource');
-                grid.appendChild(card);
-            });
-        } catch (error) {
-            console.error('❌ Error loading resources:', error);
-            grid.innerHTML = `<div class="empty-state"><p>Error: ${error.message}</p></div>`;
-        }
-    }
-
-    async function loadExams() {
-        const grid = document.getElementById('examsGrid');
-        grid.innerHTML = '';
-
-        try {
-            const examsSnapshot = await getDocs(collection(db, 'exams'));
-            const linksSnapshot = await getDocs(collection(db, 'links'));
-
-            const allItems = [];
-
-            examsSnapshot.forEach((doc) => {
-                const data = doc.data();
-                if (data.category === studentType || data.category === 'both') {
-                    allItems.push({ id: doc.id, data: data, type: 'exam' });
-                }
-            });
-
-            linksSnapshot.forEach((doc) => {
-                const data = doc.data();
-                if (data.category === studentType || data.category === 'both') {
-                    allItems.push({ id: doc.id, data: data, type: 'link' });
-                }
-            });
-
-            allItems.sort((a, b) => {
-                const timeA = a.data.timestamp?.toDate() || new Date(0);
-                const timeB = b.data.timestamp?.toDate() || new Date(0);
-                return timeB - timeA;
-            });
-
-            if (allItems.length === 0) {
-                grid.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg><p>No exam questions available for ${studentType} students yet</p></div>`;
-                return;
-            }
-
-            allItems.forEach((item) => {
-                const card = createResourceCard(item.data, item.type);
-                grid.appendChild(card);
-            });
-        } catch (error) {
-            console.error('❌ Error loading exams:', error);
-            grid.innerHTML = `<div class="empty-state"><p>Error: ${error.message}</p></div>`;
-        }
-    }
-
-    function createResourceCard(data, type) {
-        const card = document.createElement('div');
-        card.className = 'resource-card';
-
-        const icon = type === 'exam' ? '📝' : type === 'link' ? '🔗' : '📄';
-        const buttonText = type === 'exam' ? 'Open Exam' : type === 'link' ? 'Open Link' : 'Download';
-        const buttonClass = type === 'resource' ? 'download-btn' : 'open-btn';
-
-        card.innerHTML = `
-            <div class="resource-icon">${icon}</div>
-            <h3>${data.title}</h3>
-            <div class="resource-meta">
-                <span>📅 ${new Date(data.timestamp?.toDate()).toLocaleDateString()}</span>
-            </div>
-            <p>${data.description}</p>
-            <button class="${buttonClass}" onclick="window.open('${data.fileUrl || data.url}', '_blank')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                ${buttonText}
-            </button>
-        `;
-
-        return card;
-    }
-
-    loadResources();
-    loadExams();
-
-    // ============ NOTIFICATION SYSTEM ============
-window.toggleNotifications = function() {
-    const panel = document.getElementById('notificationPanel');
-    const overlay = document.getElementById('notificationOverlay');
-    const isOpen = panel.classList.contains('open');
-    
-    if (isOpen) {
-        panel.classList.remove('open');
-        overlay.classList.remove('open');
-    } else {
-        panel.classList.add('open');
-        overlay.classList.add('open');
-        loadNotifications();
-    }
-};
-
-async function loadNotifications() {
-    const notificationList = document.getElementById('notificationList');
-    notificationList.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
-
-    try {
-        // Get all notifications without orderBy first
-        const allQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all'));
-        const studentsQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all_students'));
-
-        const [allSnapshot, studentsSnapshot] = await Promise.all([
-            getDocs(allQuery),
-            getDocs(studentsQuery)
-        ]);
-
-        const allNotifications = [];
-        
-        allSnapshot.forEach(docSnap => {
-            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
-        });
-        
-        studentsSnapshot.forEach(docSnap => {
-            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
-        });
-
-        // Remove duplicates
-        const uniqueNotifications = Array.from(new Map(
-            allNotifications.map(item => [item.id, item])
-        ).values());
-
-        // Sort by timestamp manually
-        uniqueNotifications.sort((a, b) => {
-            const timeA = a.timestamp?.toDate() || new Date(0);
-            const timeB = b.timestamp?.toDate() || new Date(0);
-            return timeB - timeA; // Most recent first
-        });
-
-        if (uniqueNotifications.length === 0) {
-            notificationList.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--gray);">No notifications yet</div>';
-            updateBadge(0);
-            return;
-        }
-
-        notificationList.innerHTML = '';
-        let unreadCount = 0;
-
-        uniqueNotifications.forEach(notif => {
-            if (!notif.read) unreadCount++;
-
-            const notifCard = document.createElement('div');
-            notifCard.className = `notification-item ${notif.read ? 'read' : 'unread'}`;
-            notifCard.innerHTML = `
-                <div class="notification-content">
-                    <h4>${notif.title}</h4>
-                    <p>${notif.message}</p>
-                    <span class="notification-time">${formatTime(notif.timestamp)}</span>
-                </div>
-                ${!notif.read ? `<button class="mark-read-single" onclick="markAsRead('${notif.id}')">✓</button>` : ''}
-            `;
-            notificationList.appendChild(notifCard);
-        });
-
-        updateBadge(unreadCount);
-        // Check if there are new notifications and play sound
-if (unreadCount > lastNotificationCount && lastNotificationCount > 0) {
-    playNotificationSound();
-}
-// If there are new unread notifications, show browser notification
-if (unreadCount > lastNotificationCount && lastNotificationCount > 0) {
-    playNotificationSound(); // Play sound
-    
-    // Show browser notification with the latest message
-    if (uniqueNotifications.length > 0) {
-        const latestNotif = uniqueNotifications[0];
-        showBrowserNotification(
-            '🔔 ' + latestNotif.title,
-            latestNotif.message
-        );
-    }
-}
-
-lastNotificationCount = unreadCount;
-    } catch (error) {
-        console.error('❌ Error loading notifications:', error);
-        console.error('Error details:', error.message);
-        notificationList.innerHTML = `<div style="text-align: center; padding: 2rem; color: #c00;">Error loading notifications<br><small>${error.message}</small></div>`;
-    }
-}
-
-window.markAsRead = async function(notificationId) {
-    try {
-        await updateDoc(doc(db, 'notifications', notificationId), { read: true });
-        loadNotifications();
-    } catch (error) {
-        console.error('Error:', error);
-    }
-};
-
-window.markAllAsRead = async function() {
-    try {
-        const notificationList = document.getElementById('notificationList');
-        const unreadItems = notificationList.querySelectorAll('.notification-item.unread');
-        
-        const promises = [];
-        unreadItems.forEach(item => {
-            const btn = item.querySelector('.mark-read-single');
-            if (btn) {
-                const notifId = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
-                promises.push(updateDoc(doc(db, 'notifications', notifId), { read: true }));
-            }
-        });
-
-        await Promise.all(promises);
-        loadNotifications();
-    } catch (error) {
-        console.error('Error:', error);
-    }
-};
-
-function updateBadge(count) {
-    const badge = document.getElementById('notificationBadge');
-    if (count > 0) {
-        badge.textContent = count;
-        badge.style.display = 'flex';
-    } else {
-        badge.style.display = 'none';
-    }
-}
-
-function formatTime(timestamp) {
-    if (!timestamp) return 'Just now';
-    const date = timestamp.toDate();
-    const now = new Date();
-    const diff = now - date;
-    
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-    
-    if (minutes < 1) return 'Just now';
-    if (minutes < 60) return `${minutes}m ago`;
-    if (hours < 24) return `${hours}h ago`;
-    return `${days}d ago`;
-}
-
-// Play notification sound
-function playNotificationSound() {
-    // Create audio context for modern browsers
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    // Create oscillator for a pleasant notification beep
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    // Set frequency for a pleasant "ding" sound
-    oscillator.frequency.value = 800;
-    oscillator.type = 'sine';
-    
-    // Volume envelope for smooth sound
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-    
-    // Play the sound
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.5);
-    
-    console.log('🔊 Notification sound played');
-}
-
-// Check for new notifications and play sound
-let lastNotificationCount = 0;
-
-async function checkForNewNotifications() {
-    try {
-        const currentBadge = document.getElementById('notificationBadge');
-        const currentCount = parseInt(currentBadge.textContent) || 0;
-        
-        if (currentCount > lastNotificationCount && lastNotificationCount > 0) {
-            // New notification arrived!
-            playNotificationSound();
-            
-            // Optional: Show browser notification too
-            if (Notification.permission === 'granted') {
-                showBrowserNotification();
-            }
-        }
-        
-        lastNotificationCount = currentCount;
-    } catch (error) {
-        console.error('Error checking notifications:', error);
-    }
-}
-
-// Auto-load notifications with sound check
-setTimeout(() => {
-    loadNotifications();
-    lastNotificationCount = parseInt(document.getElementById('notificationBadge').textContent) || 0;
-}, 1000);
-
-setInterval(() => {
-    if (!document.getElementById('notificationPanel').classList.contains('open')) {
-        loadNotifications();
-    }
-}, 30000);
-
-// Show browser notification for new message
-function showBrowserNotification(title = 'New Notification', message = 'You have a new message') {
-    if (Notification.permission === 'granted') {
-        const notification = new Notification(title, {
-            body: message,
-            icon: 'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS',
-            badge: 'https://via.placeholder.com/96/FFD700/000000?text=!',
-            tag: 'jaystar-notification',
-            requireInteraction: true, // Stays until user clicks
-            vibrate: [200, 100, 200], // Vibration pattern for mobile
-            data: {
-                url: window.location.href
-            }
-        });
-        
-        // When user clicks notification, focus the window
-        notification.onclick = function(event) {
-            event.preventDefault();
-            window.focus();
-            
-            // Open notification panel
-            document.getElementById('notificationPanel').classList.add('open');
-            document.getElementById('notificationOverlay').classList.add('open');
-            
-            notification.close();
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+            authDomain: "jaystarbliss-studios.firebaseapp.com",
+            projectId: "jaystarbliss-studios",
+            storageBucket: "jaystarbliss-studios.firebasestorage.app",
+            messagingSenderId: "885364100276",
+            appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
         };
-    }
-}
-</script>
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Get user info from session
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentType = urlParams.get('type') || sessionStorage.getItem('userRole');
+        const userEmail = sessionStorage.getItem('userEmail') || 'student@jaystarbliss.ng';
+        const studentName = sessionStorage.getItem('studentName') || 'Student';
+        
+        // Get initials for avatar
+        const getInitials = (name) => {
+            return name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+        };
+
+        // Initialize UI with user info
+        document.getElementById('userName').textContent = studentName;
+        document.getElementById('userTypeLabel').textContent = studentType === 'school' ? 'School Student' : 'Private Student';
+        document.getElementById('userAvatar').textContent = getInitials(studentName);
+        document.getElementById('sidebarAvatar').textContent = getInitials(studentName);
+        document.getElementById('welcomeMessage').textContent = `Welcome back, ${studentName.split(' ')[0]} — ${new Date().toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' })}`;
+        
+        // Update ID Card
+        document.getElementById('idName').textContent = studentName;
+        document.getElementById('idEmail').textContent = userEmail;
+        document.getElementById('idAccountType').textContent = studentType === 'school' ? 'School Student' : 'Private Student';
+
+        // Update stats
+        document.getElementById('statAccountType').textContent = studentType === 'school' ? 'School' : 'Private';
+        document.getElementById('statAccountSub').textContent = studentType === 'school' ? 'Affiliated student' : 'Independent learner';
+
+        // Set current tab based on URL or default
+        const currentTab = urlParams.get('tab') || 'overview';
+        if (currentTab !== 'overview') {
+            setTimeout(() => switchTab(currentTab), 100);
+        }
+
+        // ── THEME TOGGLE ──
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('jdh-theme', html.dataset.theme);
+        }
+
+        // Restore theme
+        const savedTheme = localStorage.getItem('jdh-theme');
+        if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+
+        // ── TAB SYSTEM ──
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const navItems = document.querySelectorAll('.nav-item[data-tab]');
+
+        window.switchTab = function(name) {
+            // tab bar buttons
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.target === name));
+            // sidebar nav
+            document.querySelectorAll('.nav-item[data-tab]').forEach(n => n.classList.toggle('active', n.dataset.tab === name));
+            // panes
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+            // breadcrumb
+            document.getElementById('breadcrumbActive').textContent = name.charAt(0).toUpperCase() + name.slice(1);
+            
+            // Close mobile sidebar
+            if (window.innerWidth < 900) closeSidebar();
+        };
+
+        document.querySelectorAll('.nav-item[data-tab]').forEach(item => {
+            item.addEventListener('click', e => {
+                e.preventDefault();
+                switchTab(item.dataset.tab);
+            });
+        });
+
+        // ── SIDEBAR (mobile) ──
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('show');
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('show');
+        }
+
+        document.getElementById('hamburgerBtn').addEventListener('click', toggleSidebar);
+
+        // ── NOTIFICATION PANEL ──
+        window.toggleNotif = function() {
+            document.getElementById('notifPanel').classList.toggle('open');
+        };
+
+        // ── MODAL SYSTEM ──
+        window.openModal = function(id) { 
+            document.getElementById(id).classList.add('open'); 
+        };
+        
+        window.closeModal = function(id) { 
+            document.getElementById(id).classList.remove('open'); 
+        };
+
+        document.querySelectorAll('.modal-overlay').forEach(m => {
+            m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+        });
+
+        // ── ESCAPE KEY ──
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                document.getElementById('notifPanel').classList.remove('open');
+                document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+                closeSidebar();
+            }
+        });
+
+        // ── LOGOUT ──
+        window.logout = async function() {
+            await signOut(auth);
+            sessionStorage.clear();
+            window.location.href = '../auth/login.html';
+        };
+
+        // ── SCHOOL ACCESS VERIFICATION ──
+        window.verifySchoolAccess = async function() {
+            const input = document.getElementById('accessCodeInput').value.trim();
+            const errorEl = document.getElementById('accessError');
+            
+            if (!input) {
+                errorEl.textContent = 'Please enter an access code.';
+                errorEl.classList.add('show');
+                return;
+            }
+
+            try {
+                const schoolsSnapshot = await getDocs(collection(db, 'schools'));
+                let matchFound = false;
+                let matchedSchoolId = null;
+
+                schoolsSnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    if (data.accessCode === input) {
+                        matchFound = true;
+                        matchedSchoolId = docSnap.id;
+                    }
+                });
+
+                if (matchFound) {
+                    const schoolNames = {
+                        'peniel': 'PENIEL LILY MONTESSORI SCHOOL',
+                        'southgold': 'SOUTH GOLD MONTESSORI SCHOOL',
+                        'sapphire': 'SAPPHIRE EXPLORER MONTESSORI SCHOOL',
+                        'easystars': 'EASY STARS EARLY YEARS ACADEMY',
+                        'christycaleb': 'CHRISTY CALEB INTERNATIONAL SCHOOL',
+                        'royalbreed': 'ROYAL BREED ACADEMY'
+                    };
+                    
+                    sessionStorage.setItem('schoolId', matchedSchoolId);
+                    sessionStorage.setItem('schoolName', schoolNames[matchedSchoolId] || matchedSchoolId);
+                    closeModal('accessModal');
+                    window.location.href = '../resources/school-resources.html';
+                } else {
+                    errorEl.textContent = 'Incorrect access code. Please try again.';
+                    errorEl.classList.add('show');
+                    document.getElementById('accessCodeInput').value = '';
+                }
+            } catch (error) {
+                console.error('Error verifying access code:', error);
+                errorEl.textContent = 'Error verifying code. Please try again.';
+                errorEl.classList.add('show');
+            }
+        };
+
+        // ── LOAD RESOURCES ──
+        let allResources = [];
+        
+        async function loadResources() {
+            const grid = document.getElementById('resourceGrid');
+            const recentList = document.getElementById('recentResourcesList');
+            
+            try {
+                const querySnapshot = await getDocs(collection(db, 'resources'));
+                
+                allResources = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.category === studentType || data.category === 'both') {
+                        allResources.push({ id: doc.id, ...data });
+                    }
+                });
+
+                // Sort by timestamp
+                allResources.sort((a, b) => {
+                    const timeA = a.timestamp?.toDate() || new Date(0);
+                    const timeB = b.timestamp?.toDate() || new Date(0);
+                    return timeB - timeA;
+                });
+
+                // Update stats
+                document.getElementById('statResources').textContent = allResources.length;
+                document.getElementById('resourceCount').textContent = allResources.length;
+                document.getElementById('idResources').textContent = `${allResources.length} Items`;
+
+                if (allResources.length === 0) {
+                    grid.innerHTML = '<div class="empty" style="grid-column: 1/-1;">No resources available yet</div>';
+                    recentList.innerHTML = '<div class="empty">No resources yet</div>';
+                    return;
+                }
+
+                // Render main grid
+                grid.innerHTML = allResources.map(item => `
+                    <div class="resource-card">
+                        <div class="resource-type">PDF · ${item.category || 'General'}</div>
+                        <div class="resource-name">${item.title}</div>
+                        <div class="resource-meta">${item.timestamp ? new Date(item.timestamp.toDate()).toLocaleDateString() : 'Recent'}</div>
+                        <button class="btn btn-ghost btn-sm" style="margin-top:0.5rem;" onclick="window.open('${item.fileUrl}', '_blank')">
+                            Download ↓
+                        </button>
+                    </div>
+                `).join('');
+
+                // Render recent list (first 4)
+                recentList.innerHTML = allResources.slice(0, 4).map(item => `
+                    <div class="activity-item" style="padding: 0.5rem 0;">
+                        <div class="activity-dot green"></div>
+                        <div class="activity-text">
+                            <div class="activity-title">${item.title}</div>
+                            <div class="activity-time">${item.timestamp ? new Date(item.timestamp.toDate()).toLocaleDateString() : 'Recent'}</div>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading resources:', error);
+                grid.innerHTML = '<div class="empty" style="grid-column: 1/-1;">Error loading resources</div>';
+            }
+        }
+
+        // ── LOAD EXAMS ──
+        let allExams = [];
+        
+        async function loadExams() {
+            const grid = document.getElementById('examGrid');
+            
+            try {
+                // Get exams
+                const examsSnapshot = await getDocs(collection(db, 'exams'));
+                const linksSnapshot = await getDocs(collection(db, 'links'));
+                
+                allExams = [];
+                
+                examsSnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.category === studentType || data.category === 'both') {
+                        allExams.push({ id: doc.id, ...data, type: 'exam' });
+                    }
+                });
+                
+                linksSnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.category === studentType || data.category === 'both') {
+                        allExams.push({ id: doc.id, ...data, type: 'link' });
+                    }
+                });
+
+                // Sort by timestamp
+                allExams.sort((a, b) => {
+                    const timeA = a.timestamp?.toDate() || new Date(0);
+                    const timeB = b.timestamp?.toDate() || new Date(0);
+                    return timeB - timeA;
+                });
+
+                // Update stats
+                document.getElementById('statExams').textContent = allExams.length;
+                document.getElementById('examCount').textContent = allExams.length;
+
+                if (allExams.length === 0) {
+                    grid.innerHTML = '<div class="empty" style="grid-column: 1/-1;">No exams available yet</div>';
+                    return;
+                }
+
+                grid.innerHTML = allExams.map(item => `
+                    <div class="resource-card">
+                        <div class="resource-type">${item.type === 'exam' ? '📝 Exam' : '🔗 Link'} · ${item.category || 'General'}</div>
+                        <div class="resource-name">${item.title}</div>
+                        <div class="resource-meta">${item.timestamp ? new Date(item.timestamp.toDate()).toLocaleDateString() : 'Recent'}</div>
+                        <p style="font-size: 0.7rem; color: var(--text-muted); margin: 0.5rem 0;">${item.description || ''}</p>
+                        <button class="btn btn-primary btn-sm" style="margin-top:0.5rem;" onclick="window.open('${item.url || item.fileUrl}', '_blank')">
+                            ${item.type === 'exam' ? 'Take Exam →' : 'Open Link ↗'}
+                        </button>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading exams:', error);
+                grid.innerHTML = '<div class="empty" style="grid-column: 1/-1;">Error loading exams</div>';
+            }
+        }
+
+        // ── LOAD ACTIVITY ──
+        async function loadActivity() {
+            const overviewList = document.getElementById('overviewActivityList');
+            const fullList = document.getElementById('fullActivityList');
+            
+            // Combine resources and exams as activity
+            const activities = [];
+            
+            allResources.slice(0, 5).forEach(item => {
+                activities.push({
+                    type: 'resource',
+                    title: `New resource: ${item.title}`,
+                    time: item.timestamp?.toDate() || new Date(),
+                    icon: 'green'
+                });
+            });
+            
+            allExams.slice(0, 5).forEach(item => {
+                activities.push({
+                    type: 'exam',
+                    title: `${item.type === 'exam' ? 'Exam' : 'Link'} available: ${item.title}`,
+                    time: item.timestamp?.toDate() || new Date(),
+                    icon: item.type === 'exam' ? 'red' : ''
+                });
+            });
+            
+            // Sort by time
+            activities.sort((a, b) => b.time - a.time);
+            
+            if (activities.length === 0) {
+                overviewList.innerHTML = '<div class="empty">No recent activity</div>';
+                fullList.innerHTML = '<div class="empty">No activity yet</div>';
+                return;
+            }
+            
+            const formatTime = (date) => {
+                const now = new Date();
+                const diff = now - date;
+                const hours = Math.floor(diff / 3600000);
+                const days = Math.floor(diff / 86400000);
+                if (hours < 1) return 'Just now';
+                if (hours < 24) return `${hours}h ago`;
+                if (days < 7) return `${days}d ago`;
+                return date.toLocaleDateString();
+            };
+            
+            const renderActivity = (list, items) => {
+                return items.map(item => `
+                    <div class="activity-item">
+                        <div class="activity-dot ${item.icon}"></div>
+                        <div class="activity-text">
+                            <div class="activity-title">${item.title}</div>
+                            <div class="activity-time">${formatTime(item.time)}</div>
+                        </div>
+                        <span class="pill pill-${item.type === 'resource' ? 'active' : 'pending'}">${item.type}</span>
+                    </div>
+                `).join('');
+            };
+            
+            overviewList.innerHTML = renderActivity(overviewList, activities.slice(0, 4));
+            fullList.innerHTML = renderActivity(fullList, activities);
+        }
+
+        // ── LOAD NOTIFICATIONS ──
+        let lastNotificationCount = 0;
+        
+        async function loadNotifications() {
+            const notifList = document.getElementById('notifList');
+            
+            try {
+                const allQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all'));
+                const studentsQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all_students'));
+
+                const [allSnapshot, studentsSnapshot] = await Promise.all([
+                    getDocs(allQuery),
+                    getDocs(studentsQuery)
+                ]);
+
+                let allNotifications = [];
+                
+                allSnapshot.forEach(docSnap => allNotifications.push({ id: docSnap.id, ...docSnap.data() }));
+                studentsSnapshot.forEach(docSnap => allNotifications.push({ id: docSnap.id, ...docSnap.data() }));
+
+                // Remove duplicates
+                const uniqueNotifications = Array.from(new Map(
+                    allNotifications.map(item => [item.id, item])
+                ).values());
+
+                // Sort by timestamp
+                uniqueNotifications.sort((a, b) => {
+                    const timeA = a.timestamp?.toDate() || new Date(0);
+                    const timeB = b.timestamp?.toDate() || new Date(0);
+                    return timeB - timeA;
+                });
+
+                if (uniqueNotifications.length === 0) {
+                    notifList.innerHTML = '<div class="empty">No notifications yet</div>';
+                    return;
+                }
+
+                let unreadCount = 0;
+                notifList.innerHTML = uniqueNotifications.map(notif => {
+                    if (!notif.read) unreadCount++;
+                    
+                    const timeAgo = (timestamp) => {
+                        if (!timestamp) return 'Just now';
+                        const date = timestamp.toDate();
+                        const now = new Date();
+                        const diff = now - date;
+                        const minutes = Math.floor(diff / 60000);
+                        const hours = Math.floor(diff / 3600000);
+                        const days = Math.floor(diff / 86400000);
+                        if (minutes < 1) return 'Just now';
+                        if (minutes < 60) return `${minutes}m ago`;
+                        if (hours < 24) return `${hours}h ago`;
+                        return `${days}d ago`;
+                    };
+                    
+                    return `
+                        <div class="notif-item ${notif.read ? '' : 'unread'}" onclick="markNotifRead('${notif.id}')">
+                            <div class="notif-msg"><strong>${notif.title}</strong><br>${notif.message}</div>
+                            <div class="notif-time">${timeAgo(notif.timestamp)}</div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Update badge
+                const badge = document.getElementById('notifBadge');
+                if (unreadCount > 0) {
+                    badge.textContent = unreadCount;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+                
+                // Play sound for new notifications
+                if (unreadCount > lastNotificationCount && lastNotificationCount > 0) {
+                    playNotificationSound();
+                }
+                lastNotificationCount = unreadCount;
+
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+                notifList.innerHTML = '<div class="empty">Error loading notifications</div>';
+            }
+        }
+
+        window.markNotifRead = async function(notifId) {
+            try {
+                await updateDoc(doc(db, 'notifications', notifId), { read: true });
+                loadNotifications();
+            } catch (error) {
+                console.error('Error marking notification as read:', error);
+            }
+        };
+
+        function playNotificationSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // ── RESOURCE SEARCH ──
+        window.filterResources = function() {
+            const q = document.getElementById('resourceSearch').value.toLowerCase();
+            const grid = document.getElementById('resourceGrid');
+            
+            const filtered = allResources.filter(item => 
+                item.title.toLowerCase().includes(q) || 
+                (item.description && item.description.toLowerCase().includes(q))
+            );
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="empty" style="grid-column: 1/-1;">No matching resources found</div>';
+                return;
+            }
+            
+            grid.innerHTML = filtered.map(item => `
+                <div class="resource-card">
+                    <div class="resource-type">PDF · ${item.category || 'General'}</div>
+                    <div class="resource-name">${item.title}</div>
+                    <div class="resource-meta">${item.timestamp ? new Date(item.timestamp.toDate()).toLocaleDateString() : 'Recent'}</div>
+                    <button class="btn btn-ghost btn-sm" style="margin-top:0.5rem;" onclick="window.open('${item.fileUrl}', '_blank')">
+                        Download ↓
+                    </button>
+                </div>
+            `).join('');
+        };
+
+        // ── REQUEST NOTIFICATION PERMISSION ──
+        async function requestNotificationPermission() {
+            if (!('Notification' in window)) return;
+            
+            if (Notification.permission === 'default') {
+                const permit = confirm('🔔 Enable desktop notifications?');
+                if (permit) {
+                    const permission = await Notification.requestPermission();
+                    if (permission === 'granted') {
+                        new Notification('🔔 Notifications Enabled', {
+                            body: 'You\'ll receive updates from Jaystarbliss Dynamic Hub',
+                            icon: 'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS'
+                        });
+                    }
+                }
+            }
+        }
+
+        // ── INITIALIZE ──
+        console.log('🚀 Initializing Student Portal...');
+        
+        // Set program count (placeholder - could be loaded from a programs collection)
+        document.getElementById('statPrograms').textContent = '4';
+        
+        // Load data
+        loadResources();
+        loadExams();
+        loadActivity();
+        loadNotifications();
+        
+        // Request notification permission after 2 seconds
+        setTimeout(() => {
+            requestNotificationPermission();
+        }, 2000);
+        
+        // Refresh notifications every 30 seconds
+        setInterval(() => {
+            loadNotifications();
+        }, 30000);
+    </script>
 </body>
 </html>

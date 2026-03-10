@@ -1,1102 +1,1297 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portal - JAYSTARBLISS STUDIOS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>My Portal — Jaystarbliss Dynamic Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --madder:     #A91B0D;
+            --madder-dark:#7a1309;
+            --madder-lite:#c9210f;
+            --gold:       #FFD700;
+            --gold-dim:   #b89d00;
+            --snow:       #FFFAFA;
+            --dark:       #1a1a1a;
+            --green:      #2ecc71;
+            --bg:         #141414;
+            --surface:    #1e1e1e;
+            --surface-2:  #272727;
+            --border:     rgba(255,255,255,0.07);
+            --border-bright: rgba(169,27,13,0.4);
+            --text:       #FFFAFA;
+            --text-muted: #a8a8a8;
+            --text-dim:   #5a5a5a;
+            --sidebar-w:  240px;
+            --topbar-h:   56px;
+            --mono:       'Space Mono', monospace;
+            --sans:       'DM Sans', sans-serif;
         }
 
-        :root {
-            --snow: #FFFAFA;
-            --madder: #A91B0D;
-            --golden: #FFD700;
-            --dark: #1a1a1a;
-            --gray: #4a5568;
-            --light-gray: #f7fafc;
+        [data-theme="light"] {
+            --bg:         #f5f0f0;
+            --surface:    #FFFAFA;
+            --surface-2:  #ede8e8;
+            --border:     rgba(169,27,13,0.1);
+            --border-bright: rgba(169,27,13,0.35);
+            --text:       #1a1a1a;
+            --text-muted: #5a4a4a;
+            --text-dim:   #9a8a8a;
         }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 14px; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--light-gray);
-            color: var(--dark);
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--madder), #8B1507);
-            color: white;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.3rem;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .user-info {
-            font-size: 0.85rem;
-        }
-
-        .logout-btn {
-            padding: 0.5rem 1.2rem;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .nav-tabs {
-            background: white;
-            display: flex;
-            padding: 0 1rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            gap: 0.3rem;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .nav-tabs::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .nav-tabs::-webkit-scrollbar-thumb {
-            background: var(--madder);
-            border-radius: 4px;
-        }
-
-        .nav-tab {
-            padding: 0.9rem 1.2rem;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--gray);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            font-size: 0.9rem;
-        }
-
-        .nav-tab:hover {
-            color: var(--madder);
-        }
-
-        .nav-tab.active {
-            color: var(--madder);
-            border-bottom-color: var(--madder);
-        }
-
-        .content {
-            padding: 1.5rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .welcome-banner {
-            background: linear-gradient(135deg, var(--madder), #8B1507);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 16px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 8px 30px rgba(169, 27, 13, 0.3);
-        }
-
-        .welcome-banner h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .welcome-banner p {
-            opacity: 0.9;
-            font-size: 0.95rem;
-        }
-
-        .resources-grid {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: var(--sidebar-w) 1fr;
+            grid-template-rows: var(--topbar-h) 1fr;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .resource-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        /* ── TOPBAR ── */
+        .topbar {
+            grid-column: 1 / -1;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            width: var(--sidebar-w);
+            padding-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .brand-mark {
+            width: 28px;
+            height: 28px;
+            background: var(--madder);
+            display: grid;
+            place-items: center;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--snow);
+            clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
+        }
+
+        .brand-name {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+        }
+
+        .topbar-divider { width: 1px; height: 24px; background: var(--border); }
+
+        .topbar-breadcrumb {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .topbar-breadcrumb span { color: var(--gold); }
+
+        .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            display: grid;
+            place-items: center;
             cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .icon-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+        .badge {
+            position: absolute;
+            top: -4px; right: -4px;
+            background: var(--madder);
+            color: #fff;
+            font-size: 0.55rem;
+            font-family: var(--mono);
+            width: 14px; height: 14px;
+            display: grid;
+            place-items: center;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--madder-dark), var(--madder));
+            border: 1px solid var(--madder);
+            display: grid;
+            place-items: center;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--snow);
+            cursor: pointer;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: sticky;
+            top: var(--topbar-h);
+            height: calc(100vh - var(--topbar-h));
+        }
+
+        .sidebar-section { padding: 1.2rem 0 0.4rem; }
+
+        .sidebar-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0 1.2rem 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.55rem 1.2rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-left: 2px solid transparent;
+            transition: all 0.15s;
+            text-decoration: none;
+            background: none;
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-item:hover { color: var(--text); background: var(--surface-2); }
+
+        .nav-item.active {
+            color: var(--madder-lite);
+            border-left: 2px solid var(--madder);
+            background: rgba(169,27,13,0.06);
+        }
+
+        .nav-icon { font-size: 0.9rem; width: 18px; text-align: center; flex-shrink: 0; }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--madder);
+            color: var(--snow);
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            padding: 1px 5px;
+            border: 1px solid var(--madder-dark);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1rem 1.2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .user-card { display: flex; align-items: center; gap: 0.7rem; }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--madder-dark), var(--madder));
+            border: 1px solid var(--gold-dim);
+            display: grid;
+            place-items: center;
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--snow);
+            flex-shrink: 0;
+        }
+
+        .user-info { flex: 1; min-width: 0; }
+
+        .user-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── MAIN ── */
+        .main { overflow-y: auto; display: flex; flex-direction: column; }
+        .main-inner { padding: 1.5rem; flex: 1; max-width: 1200px; width: 100%; }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-title {
+            font-family: var(--mono);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
+        }
+
+        .page-title span { color: var(--gold); }
+        .page-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 1rem;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-decoration: none;
+            border-radius: 0;
+        }
+
+        .btn-primary { background: var(--madder); color: var(--snow); }
+        .btn-primary:hover { background: var(--madder-lite); }
+        .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+        .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+        .btn-sm { padding: 0.3rem 0.7rem; font-size: 0.62rem; }
+
+        /* ── STAT CARDS ── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 1.1rem 1.2rem;
             position: relative;
             overflow: hidden;
         }
 
-        .resource-card::before {
+        .stat-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--madder), var(--golden));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
+            top: 0; left: 0;
+            width: 2px; height: 100%;
+            background: var(--border-bright);
         }
 
-        .resource-card:hover::before {
-            transform: scaleX(1);
-        }
+        .stat-card.gold::before { background: var(--gold); }
+        .stat-card.green::before { background: var(--green); }
+        .stat-card.red::before  { background: var(--madder); }
 
-        .resource-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(169, 27, 13, 0.15);
-        }
-
-        .resource-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, rgba(169, 27, 13, 0.1), rgba(255, 215, 0, 0.1));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .resource-card:hover .resource-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .resource-card h3 {
-            color: var(--madder);
+        .stat-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
             margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-            font-family: 'Poppins', sans-serif;
         }
 
-        .resource-card p {
-            color: var(--gray);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-            font-size: 0.9rem;
+        .stat-value {
+            font-family: var(--mono);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
         }
 
-        .resource-meta {
+        .stat-card.gold .stat-value { color: var(--gold); }
+        .stat-card.green .stat-value { color: var(--green); }
+        .stat-sub { font-size: 0.7rem; color: var(--text-dim); margin-top: 0.3rem; }
+
+        /* ── LAYOUT GRIDS ── */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+
+        /* ── PANELS ── */
+        .panel { background: var(--surface); border: 1px solid var(--border); margin-bottom: 1rem; }
+
+        .panel-head {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0.8rem 1.1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
             gap: 0.5rem;
         }
 
-        .download-btn, .open-btn {
+        .panel-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px; height: 6px;
+            background: var(--madder);
+        }
+
+        .panel-body { padding: 1.1rem; }
+
+        /* ── RESOURCE CARDS ── */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .resource-card {
+            background: var(--surface);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: background 0.15s;
+        }
+
+        .resource-card:hover { background: var(--surface-2); }
+
+        .resource-type {
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .resource-name { font-size: 0.8rem; font-weight: 600; color: var(--text); line-height: 1.3; }
+        .resource-desc { font-size: 0.7rem; color: var(--text-muted); }
+        .resource-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: auto; }
+
+        .download-btn {
             width: 100%;
-            padding: 0.8rem;
-            background: linear-gradient(135deg, var(--madder), #d62a1a);
-            color: white;
+            padding: 0.6rem;
+            background: var(--madder);
+            color: var(--snow);
             border: none;
-            border-radius: 10px;
-            font-weight: 600;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
+            gap: 0.4rem;
+            transition: background 0.15s;
         }
 
-        .download-btn:hover, .open-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(169, 27, 13, 0.4);
+        .download-btn:hover { background: var(--madder-lite); }
+
+        .open-btn {
+            width: 100%;
+            padding: 0.6rem;
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold-dim);
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            transition: background 0.15s;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1.5rem;
-            color: var(--gray);
+        .open-btn:hover { background: rgba(255,215,0,0.08); }
+
+        /* ── ACTIVITY LIST ── */
+        .activity-list { display: flex; flex-direction: column; }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.75rem 1.1rem;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.1s;
         }
 
-        .empty-state svg {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 1rem;
-            opacity: 0.3;
+        .activity-item:last-child { border-bottom: none; }
+        .activity-item:hover { background: var(--surface-2); }
+
+        .activity-dot {
+            width: 6px; height: 6px;
+            background: var(--madder);
+            flex-shrink: 0;
+            margin-top: 5px;
         }
+
+        .activity-dot.green { background: var(--green); }
+        .activity-dot.gold  { background: var(--gold); }
+
+        .activity-text { flex: 1; }
+        .activity-title { font-size: 0.78rem; font-weight: 500; color: var(--text); margin-bottom: 0.15rem; }
+        .activity-time  { font-family: var(--mono); font-size: 0.62rem; color: var(--text-dim); }
+
+        /* ── PILLS ── */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.15rem 0.5rem;
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .pill::before { content: ''; width: 4px; height: 4px; flex-shrink: 0; }
+        .pill-active  { background: rgba(46,204,113,0.12); color: var(--green); }
+        .pill-active::before { background: var(--green); }
+        .pill-gold    { background: rgba(255,215,0,0.08); color: var(--gold); }
+        .pill-gold::before { background: var(--gold); }
+        .pill-dim     { background: rgba(255,255,255,0.04); color: var(--text-dim); }
+        .pill-dim::before { background: var(--text-dim); }
+
+        /* ── NOTIFICATION PANEL ── */
+        .notif-panel {
+            position: fixed;
+            top: var(--topbar-h);
+            right: 0;
+            width: 300px;
+            height: calc(100vh - var(--topbar-h));
+            background: var(--surface);
+            border-left: 1px solid var(--border);
+            transform: translateX(100%);
+            transition: transform 0.2s ease;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notif-panel.open { transform: translateX(0); }
+
+        .notif-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .notif-title {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .notif-body { flex: 1; overflow-y: auto; }
+
+        .notif-item {
+            padding: 0.8rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        .notif-item:hover { background: var(--surface-2); }
+        .notif-item.unread { border-left: 2px solid var(--gold); }
+        .notif-msg { font-size: 0.75rem; color: var(--text); line-height: 1.4; }
+        .notif-time { font-family: var(--mono); font-size: 0.6rem; color: var(--text-dim); margin-top: 0.3rem; }
+
+        /* ── TAB BAR ── */
+        .tab-bar { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1.2rem; }
+
+        .tab-btn {
+            padding: 0.6rem 1.1rem;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: all 0.15s;
+        }
+
+        .tab-btn:hover { color: var(--text-muted); }
+        .tab-btn.active { color: var(--madder-lite); border-bottom-color: var(--madder); }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        /* ── MISC ── */
+        .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.3rem; color: var(--text-muted); font-size: 1rem; }
+        .divider { height: 1px; background: var(--border); margin: 1rem 0; }
+        .empty { text-align: center; padding: 2rem 1rem; color: var(--text-dim); font-family: var(--mono); font-size: 0.7rem; }
+        .flex { display: flex; align-items: center; }
+        .gap-sm { gap: 0.5rem; }
+        .fw-600 { font-weight: 600; }
 
         .debug-info {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 1rem;
-            border-radius: 8px;
+            background: rgba(255,215,0,0.06);
+            border: 1px solid var(--gold-dim);
+            padding: 0.6rem 1rem;
             margin-bottom: 1rem;
-            font-size: 0.85rem;
-            font-family: monospace;
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: var(--text-muted);
         }
 
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.1rem;
-            }
+        .debug-info strong { color: var(--gold); }
 
-            .header-right {
-                width: 100%;
-                justify-content: space-between;
-            }
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; }
 
-            .resources-grid {
-                grid-template-columns: 1fr;
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            body { grid-template-columns: 1fr; }
+            .sidebar {
+                position: fixed;
+                top: 0; left: 0;
+                height: 100vh;
+                width: var(--sidebar-w);
+                z-index: 100;
+                transform: translateX(-100%);
+                transition: transform 0.2s;
             }
-
-            .welcome-banner h2 {
-                font-size: 1.3rem;
-            }
-
-            .content {
-                padding: 1rem;
-            }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-overlay { display: block; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+            .sidebar-overlay.show { opacity: 1; pointer-events: all; }
+            .hamburger { display: grid; place-items: center; }
+            .topbar-brand { width: auto; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
         }
 
-        @media (max-width: 480px) {
-            .header {
-                padding: 1rem;
-            }
-
-            .nav-tab {
-                padding: 0.8rem 1rem;
-                font-size: 0.85rem;
-            }
-
-            .resource-card {
-                padding: 1.2rem;
-            }
+        @media (max-width: 500px) {
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .main-inner { padding: 1rem; }
         }
 
-        /* Notification Bell */
-.notification-bell {
-    position: fixed;
-    top: 90%;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--madder), #d62a1a);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(169, 27, 13, 0.4);
-    transition: all 0.3s ease;
-    z-index: 999;
-}
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
 
-.notification-bell:hover {
-    transform: translateY(-3px) scale(1.05);
-}
-
-.notification-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: var(--golden);
-    color: var(--dark);
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    border: 2px solid white;
-}
-
-.notification-panel {
-    position: fixed;
-    top: 0;
-    right: -400px;
-    width: 400px;
-    height: 100vh;
-    background: white;
-    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
-    transition: right 0.4s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.notification-panel.open {
-    right: 0;
-}
-
-.notification-header {
-    background: linear-gradient(135deg, var(--madder), #8B1507);
-    color: white;
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.notification-header h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.3rem;
-    margin: 0;
-}
-
-.mark-read-btn {
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-.close-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.notification-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1rem;
-}
-
-.notification-item {
-    background: var(--light-gray);
-    padding: 1.2rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    border-left: 4px solid var(--madder);
-    display: flex;
-    gap: 1rem;
-}
-
-.notification-item.unread {
-    background: #fff9e6;
-    border-left-color: var(--golden);
-}
-
-.notification-content {
-    flex: 1;
-}
-
-.notification-content h4 {
-    color: var(--madder);
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-}
-
-.notification-content p {
-    color: var(--gray);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-.notification-time {
-    font-size: 0.75rem;
-    color: var(--gray);
-}
-
-.mark-read-single {
-    background: var(--madder);
-    border: none;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.notification-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.notification-overlay.open {
-    opacity: 1;
-    visibility: visible;
-}
-
-@media (max-width: 768px) {
-    .notification-panel {
-        width: 100%;
-        right: -100%;
-    }
-}
+        .panel, .stat-card { animation: fadeUp 0.3s ease both; }
+        .stat-card:nth-child(2) { animation-delay: 0.05s; }
+        .stat-card:nth-child(3) { animation-delay: 0.1s; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🎓 My Personal Portal</h1>
-        <div class="header-right">
-            <div class="user-info">
-                <strong id="studentName">Student</strong>
-            </div>
-            <button class="logout-btn" onclick="logout()">Logout</button>
+
+    <!-- ══ TOPBAR ══ -->
+    <header class="topbar">
+        <button class="hamburger" id="hamburgerBtn">☰</button>
+        <div class="topbar-brand">
+            <div class="brand-mark">JDH</div>
+            <span class="brand-name">Jaystarbliss</span>
         </div>
-    </div>
-
-    <div class="nav-tabs">
-        <button class="nav-tab active" onclick="switchTab('resources')">📖 My Resources</button>
-        <button class="nav-tab" onclick="switchTab('links')">🔗 My Links</button>
-    </div>
-
-    <!-- Notification Bell -->
-<div id="notificationBell" class="notification-bell" onclick="toggleNotifications()">
-    🔔
-    <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
-</div>
-
-<div id="notificationPanel" class="notification-panel">
-    <div class="notification-header">
-        <h3>📬 Notifications</h3>
-        <button onclick="markAllAsRead()" class="mark-read-btn">Mark all read</button>
-        <button onclick="toggleNotifications()" class="close-btn">✕</button>
-    </div>
-    <div id="notificationList" class="notification-list">
-        <div style="text-align: center; padding: 2rem; color: var(--gray);">
-            Loading...
+        <div class="topbar-divider"></div>
+        <nav class="topbar-breadcrumb">
+            <span>My Portal</span>
+            ›
+            <span id="breadcrumbActive">Overview</span>
+        </nav>
+        <div class="topbar-right">
+            <!-- NOTE: onclick calls window.toggleTheme defined in the module script below -->
+            <button class="icon-btn" title="Toggle Theme" id="themeToggleBtn">◐</button>
+            <button class="icon-btn" title="Notifications" id="notifToggleBtn">
+                🔔
+                <span class="badge" id="notifBadge" style="display: none;">0</span>
+            </button>
+            <div class="avatar" id="userAvatar">ST</div>
         </div>
-    </div>
-</div>
+    </header>
 
-<div id="notificationOverlay" class="notification-overlay" onclick="toggleNotifications()"></div>
-
-    <div class="content">
-        <div class="welcome-banner">
-            <h2>Welcome back, <span id="welcomeName">Student</span>! 👋</h2>
-            <p>Your personal learning materials are ready below</p>
-        </div>
-
-        <!-- Debug Info -->
-        <div class="debug-info" id="debugInfo" style="display: none;">
-            <strong>Student Info:</strong><br>
-            Student ID: <span id="debugStudentId"></span><br>
-            Student Name: <span id="debugStudentName"></span><br>
-            Status: <span id="debugStatus"></span>
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">My Learning</div>
+            <a class="nav-item active" data-tab="overview" href="#">
+                <span class="nav-icon">▣</span> Overview
+            </a>
+            <a class="nav-item" data-tab="resources" href="#">
+                <span class="nav-icon">◎</span> My Resources
+                <span class="nav-badge" id="navBadgeResources" style="display:none;">0</span>
+            </a>
+            <a class="nav-item" data-tab="links" href="#">
+                <span class="nav-icon">🔗</span> My Links
+                <span class="nav-badge" id="navBadgeLinks" style="display:none;">0</span>
+            </a>
+            <a class="nav-item" data-tab="activity" href="#">
+                <span class="nav-icon">≋</span> Activity
+            </a>
         </div>
 
-        <!-- Resources Tab -->
-        <div id="resources" class="tab-content active">
-            <h3 style="margin-bottom: 1.5rem; color: var(--madder); font-family: Poppins; font-size: 1.3rem;">📚 My Resources</h3>
-            <div class="resources-grid" id="resourcesGrid">
-                <div class="empty-state">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                    </svg>
-                    <p>Loading resources...</p>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Account</div>
+            <button class="nav-item" id="sidebarThemeBtn">
+                <span class="nav-icon">◐</span> Toggle Theme
+            </button>
+            <button class="nav-item" id="sidebarLogoutBtn">
+                <span class="nav-icon">↪</span> Logout
+            </button>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-card">
+                <div class="user-avatar" id="sidebarAvatar">ST</div>
+                <div class="user-info">
+                    <div class="user-name" id="userName">Student</div>
+                    <div class="user-role">Personal Student</div>
                 </div>
             </div>
         </div>
+    </aside>
 
-        <!-- Links Tab -->
-        <div id="links" class="tab-content">
-            <h3 style="margin-bottom: 1.5rem; color: var(--madder); font-family: Poppins; font-size: 1.3rem;">🔗 My Links</h3>
-            <div class="resources-grid" id="linksGrid">
-                <div class="empty-state">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                    </svg>
-                    <p>Loading links...</p>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ══ MAIN ══ -->
+    <main class="main">
+        <div class="main-inner">
+
+            <div class="page-header">
+                <div>
+                    <div class="page-title">My <span>Portal</span></div>
+                    <div class="page-meta" id="welcomeMessage">Welcome back — Loading...</div>
                 </div>
             </div>
+
+            <!-- TAB BAR -->
+            <div class="tab-bar">
+                <button class="tab-btn active" data-target="overview">Overview</button>
+                <button class="tab-btn" data-target="resources">Resources</button>
+                <button class="tab-btn" data-target="links">Links</button>
+                <button class="tab-btn" data-target="activity">Activity</button>
+            </div>
+
+            <!-- ══ OVERVIEW TAB ══ -->
+            <div class="tab-pane active" id="tab-overview">
+
+                <div class="debug-info" id="debugInfo" style="display: none;">
+                    <strong>Debug:</strong>
+                    ID: <span id="debugStudentId">-</span> ·
+                    Name: <span id="debugStudentName">-</span> ·
+                    Status: <span id="debugStatus">-</span>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card gold">
+                        <div class="stat-label">My Resources</div>
+                        <div class="stat-value" id="statResources">0</div>
+                        <div class="stat-sub">Files assigned to you</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-label">My Links</div>
+                        <div class="stat-value" id="statLinks">0</div>
+                        <div class="stat-sub">Links shared with you</div>
+                    </div>
+                    <div class="stat-card red">
+                        <div class="stat-label">Account Status</div>
+                        <div class="stat-value">✓</div>
+                        <div class="stat-sub">Active &amp; Verified</div>
+                    </div>
+                </div>
+
+                <div class="grid-3">
+                    <!-- Recent Resources + Links -->
+                    <div>
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div class="panel-title">Recent Resources</div>
+                                <button class="btn btn-ghost btn-sm" data-goto="resources">View All</button>
+                            </div>
+                            <div class="activity-list" id="recentResourcesList">
+                                <div class="empty">Loading...</div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div class="panel-title">Recent Links</div>
+                                <button class="btn btn-ghost btn-sm" data-goto="links">View All</button>
+                            </div>
+                            <div class="activity-list" id="recentLinksList">
+                                <div class="empty">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div class="panel-title">Quick Actions</div>
+                        </div>
+                        <div class="panel-body" style="display:flex;flex-direction:column;gap:0.5rem;">
+                            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="resources">
+                                ◎ View My Resources
+                            </button>
+                            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="links">
+                                🔗 View My Links
+                            </button>
+                            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="activity">
+                                ≋ View Activity
+                            </button>
+                            <div class="divider"></div>
+                            <button class="btn btn-ghost" id="notifOpenBtn" style="width:100%;justify-content:flex-start;">
+                                🔔 Notifications
+                            </button>
+                            <button class="btn btn-ghost" id="logoutBtn" style="width:100%;justify-content:flex-start;color:var(--madder-lite);border-color:rgba(169,27,13,0.25);">
+                                ↪ Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ RESOURCES TAB ══ -->
+            <div class="tab-pane" id="tab-resources">
+                <div class="panel">
+                    <div class="panel-head">
+                        <div class="panel-title">My Resources</div>
+                    </div>
+                    <div class="resource-grid" id="allResourcesGrid">
+                        <div class="empty" style="grid-column:1/-1;">Loading resources...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ LINKS TAB ══ -->
+            <div class="tab-pane" id="tab-links">
+                <div class="panel">
+                    <div class="panel-head">
+                        <div class="panel-title">My Links</div>
+                    </div>
+                    <div class="resource-grid" id="allLinksGrid">
+                        <div class="empty" style="grid-column:1/-1;">Loading links...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ ACTIVITY TAB ══ -->
+            <div class="tab-pane" id="tab-activity">
+                <div class="panel">
+                    <div class="panel-head">
+                        <div class="panel-title">Activity Log</div>
+                    </div>
+                    <div class="activity-list" id="activityLog">
+                        <div class="empty">Activity will appear as you access resources and links.</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
+    </main>
+
+    <!-- ══ NOTIFICATION PANEL ══ -->
+    <aside class="notif-panel" id="notifPanel">
+        <div class="notif-head">
+            <div class="notif-title">Notifications</div>
+            <button class="btn btn-ghost btn-sm" id="notifCloseBtn">✕</button>
+        </div>
+        <div class="notif-body" id="notifList">
+            <div class="empty">Loading notifications...</div>
+        </div>
+    </aside>
 
     <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-        import { getFirestore, collection, getDocs, query, where, orderBy, updateDoc, doc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getFirestore, collection, getDocs, query, where, updateDoc, doc }
+            from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        /* ─────────────────────────────
+           FIREBASE INIT
+        ───────────────────────────── */
         const firebaseConfig = {
-            apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
-            authDomain: "jaystarbliss-studios.firebaseapp.com",
-            projectId: "jaystarbliss-studios",
-            storageBucket: "jaystarbliss-studios.firebasestorage.app",
+            apiKey:            "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+            authDomain:        "jaystarbliss-studios.firebaseapp.com",
+            projectId:         "jaystarbliss-studios",
+            storageBucket:     "jaystarbliss-studios.firebasestorage.app",
             messagingSenderId: "885364100276",
-            appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
+            appId:             "1:885364100276:web:081a2963cce28a0d0e1be1"
         };
 
-        const app = initializeApp(firebaseConfig);
+        const app  = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
+        const db   = getFirestore(app);
 
-        // Check authentication
+        /* ─────────────────────────────
+           AUTH GUARD
+        ───────────────────────────── */
         if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'individualStudent') {
             window.location.href = '../auth/student-login.html';
         }
 
-        const studentId = sessionStorage.getItem('studentId');
-        const studentName = sessionStorage.getItem('studentName');
+        const studentId   = sessionStorage.getItem('studentId');
+        const studentName = sessionStorage.getItem('studentName') || 'Student';
 
-        console.log('🔐 Current Student ID:', studentId);
-        console.log('👤 Current Student Name:', studentName);
-
-        // Request notification permission on login
-async function requestNotificationPermission() {
-    if (!('Notification' in window)) {
-        console.log('❌ Browser does not support notifications');
-        return;
-    }
-    
-    if (Notification.permission === 'default') {
-        // Show a friendly prompt first
-        const permitNotifications = confirm(
-            '🔔 Would you like to receive notifications even when you\'re not on this page?\n\n' +
-            'Click OK to enable desktop notifications.'
-        );
-        
-        if (permitNotifications) {
-            const permission = await Notification.requestPermission();
-            if (permission === 'granted') {
-                console.log('✅ Notification permission granted');
-                showWelcomeNotification();
-            }
-        }
-    }
-}
-
-// Show welcome notification
-function showWelcomeNotification() {
-    if (Notification.permission === 'granted') {
-        new Notification('🎉 Notifications Enabled!', {
-            body: 'You\'ll now receive important updates from Jaystarbliss Dynamic Hub!',
-            icon: 'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS',
-            badge: 'https://via.placeholder.com/96/FFD700/000000?text=!',
-            tag: 'welcome',
-            requireInteraction: false
-        });
-    }
-}
-
-// Request permission after page loads
-setTimeout(() => {
-    requestNotificationPermission();
-}, 2000); // Wait 2 seconds after login
-
-        // Show debug info
-        document.getElementById('debugInfo').style.display = 'block';
-        document.getElementById('debugStudentId').textContent = studentId;
-        document.getElementById('debugStudentName').textContent = studentName;
-        document.getElementById('debugStatus').textContent = 'Initializing...';
-
-        document.getElementById('studentName').textContent = studentName;
-        document.getElementById('welcomeName').textContent = studentName;
-
-        // Tab switching
-        window.switchTab = function(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+        /* ─────────────────────────────
+           THEME — must be window-scoped
+           so topbar button can call it
+        ───────────────────────────── */
+        window.toggleTheme = function () {
+            const html = document.documentElement;
+            html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('jdh-theme', html.dataset.theme);
         };
 
-        // Logout
-        window.logout = async function() {
+        // Restore saved theme immediately
+        const savedTheme = localStorage.getItem('jdh-theme');
+        if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+
+        /* ─────────────────────────────
+           HELPERS
+        ───────────────────────────── */
+        const getInitials = name =>
+            name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+        const timeAgo = timestamp => {
+            if (!timestamp) return 'Just now';
+            const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+            const diff = Date.now() - date;
+            const m = Math.floor(diff / 60000);
+            const h = Math.floor(diff / 3600000);
+            const d = Math.floor(diff / 86400000);
+            if (m < 1)  return 'Just now';
+            if (m < 60) return `${m}m ago`;
+            if (h < 24) return `${h}h ago`;
+            return `${d}d ago`;
+        };
+
+        const fmtDate = timestamp => {
+            if (!timestamp) return 'Recent';
+            const d = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+            return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        };
+
+        /* ─────────────────────────────
+           POPULATE USER INFO
+        ───────────────────────────── */
+        const initials = getInitials(studentName);
+        document.getElementById('userName').textContent     = studentName;
+        document.getElementById('userAvatar').textContent   = initials;
+        document.getElementById('sidebarAvatar').textContent = initials;
+        document.getElementById('welcomeMessage').textContent =
+            `Welcome back, ${studentName.split(' ')[0]} — ${new Date().toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' })}`;
+
+        // Debug block
+        document.getElementById('debugInfo').style.display      = 'block';
+        document.getElementById('debugStudentId').textContent   = studentId;
+        document.getElementById('debugStudentName').textContent  = studentName;
+        document.getElementById('debugStatus').textContent      = 'Initialised';
+
+        /* ─────────────────────────────
+           TAB SWITCHING
+        ───────────────────────────── */
+        window.switchTab = function (name) {
+            document.querySelectorAll('.tab-btn')
+                .forEach(b => b.classList.toggle('active', b.dataset.target === name));
+            document.querySelectorAll('.nav-item[data-tab]')
+                .forEach(n => n.classList.toggle('active', n.dataset.tab === name));
+            document.querySelectorAll('.tab-pane')
+                .forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+            document.getElementById('breadcrumbActive').textContent =
+                name.charAt(0).toUpperCase() + name.slice(1);
+            if (window.innerWidth < 900) closeSidebar();
+        };
+
+        // Tab bar buttons
+        document.querySelectorAll('.tab-btn').forEach(btn =>
+            btn.addEventListener('click', () => switchTab(btn.dataset.target))
+        );
+
+        // Sidebar nav links
+        document.querySelectorAll('.nav-item[data-tab]').forEach(item =>
+            item.addEventListener('click', e => { e.preventDefault(); switchTab(item.dataset.tab); })
+        );
+
+        // "View All" / "data-goto" buttons
+        document.querySelectorAll('[data-goto]').forEach(btn =>
+            btn.addEventListener('click', () => switchTab(btn.dataset.goto))
+        );
+
+        /* ─────────────────────────────
+           SIDEBAR (mobile)
+        ───────────────────────────── */
+        function closeSidebar () {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('show');
+        }
+
+        document.getElementById('hamburgerBtn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('show');
+        });
+
+        document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
+
+        /* ─────────────────────────────
+           NOTIFICATIONS
+        ───────────────────────────── */
+        function toggleNotif () {
+            document.getElementById('notifPanel').classList.toggle('open');
+        }
+
+        document.getElementById('notifToggleBtn').addEventListener('click', toggleNotif);
+        document.getElementById('notifOpenBtn').addEventListener('click', toggleNotif);
+        document.getElementById('notifCloseBtn').addEventListener('click', toggleNotif);
+
+        /* ─────────────────────────────
+           THEME BUTTONS (all wired up)
+        ───────────────────────────── */
+        document.getElementById('themeToggleBtn').addEventListener('click', window.toggleTheme);
+        document.getElementById('sidebarThemeBtn').addEventListener('click', window.toggleTheme);
+
+        /* ─────────────────────────────
+           LOGOUT BUTTONS
+        ───────────────────────────── */
+        async function doLogout () {
             await signOut(auth);
             sessionStorage.clear();
             window.location.href = '../auth/student-login.html';
-        };
+        }
 
-        // Load personal resources
-        async function loadResources() {
-            const grid = document.getElementById('resourcesGrid');
-            grid.innerHTML = '<div class="empty-state"><p>🔄 Loading resources...</p></div>';
+        document.getElementById('sidebarLogoutBtn').addEventListener('click', doLogout);
+        document.getElementById('logoutBtn').addEventListener('click', doLogout);
 
-            console.log('📚 Starting to load resources for student:', studentId);
-            document.getElementById('debugStatus').textContent = 'Loading resources...';
+        /* Escape key */
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                document.getElementById('notifPanel').classList.remove('open');
+                closeSidebar();
+            }
+        });
+
+        /* ─────────────────────────────
+           LOAD PERSONAL RESOURCES
+        ───────────────────────────── */
+        let allResources = [];
+
+        async function loadPersonalResources () {
+            const allGrid    = document.getElementById('allResourcesGrid');
+            const recentList = document.getElementById('recentResourcesList');
+            document.getElementById('debugStatus').textContent = 'Loading resources…';
 
             try {
-                // Try querying with where clause
-                console.log('🔍 Querying personalResources where studentId ==', studentId);
-                const q = query(
-                    collection(db, 'personalResources'),
-                    where('studentId', '==', studentId)
-                );
-                
-                const querySnapshot = await getDocs(q);
-                console.log('✅ Query successful! Found', querySnapshot.size, 'resources');
-                document.getElementById('debugStatus').textContent = `Found ${querySnapshot.size} resources`;
+                const q  = query(collection(db, 'personalResources'), where('studentId', '==', studentId));
+                const qs = await getDocs(q);
 
-                if (querySnapshot.empty) {
-                    grid.innerHTML = `
-                        <div class="empty-state">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                            </svg>
-                            <p>No resources available yet</p>
-                            <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.7;">Your instructor will add materials here</p>
-                        </div>
-                    `;
+                allResources = qs.docs.map(d => ({ id: d.id, ...d.data() }));
+                allResources.sort((a, b) =>
+                    (b.timestamp?.toDate() || new Date(0)) - (a.timestamp?.toDate() || new Date(0))
+                );
+
+                const count = allResources.length;
+                document.getElementById('statResources').textContent = count;
+
+                const badgeEl = document.getElementById('navBadgeResources');
+                if (count > 0) { badgeEl.textContent = count; badgeEl.style.display = 'inline'; }
+
+                if (count === 0) {
+                    allGrid.innerHTML    = '<div class="empty" style="grid-column:1/-1;">No resources assigned yet.<br>Your instructor will add materials here.</div>';
+                    recentList.innerHTML = '<div class="empty">No resources yet</div>';
+                    document.getElementById('debugStatus').textContent = 'No resources found';
                     return;
                 }
 
-                grid.innerHTML = '';
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    console.log('📄 Resource found:', data.title, '| Student ID:', data.studentId);
-                    const card = createResourceCard(data, 'resource');
-                    grid.appendChild(card);
-                });
-            } catch (error) {
-                console.error('❌ ERROR loading resources:', error);
-                console.error('Error code:', error.code);
-                console.error('Error message:', error.message);
-                document.getElementById('debugStatus').textContent = `ERROR: ${error.message}`;
-                
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <p style="color: #c00;">❌ Error loading resources</p>
-                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">${error.message}</p>
-                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Error code: ${error.code}</p>
-                        <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--madder); color: white; border: none; border-radius: 8px; cursor: pointer;">Reload Page</button>
+                allGrid.innerHTML = allResources.map(item => `
+                    <div class="resource-card">
+                        <div class="resource-type">📄 File</div>
+                        <div class="resource-name">${item.title}</div>
+                        <div class="resource-meta">${fmtDate(item.timestamp)}</div>
+                        ${item.description ? `<div class="resource-desc">${item.description}</div>` : ''}
+                        <button class="download-btn" onclick="window.open('${item.fileUrl}', '_blank')">↓ Download</button>
                     </div>
-                `;
+                `).join('');
+
+                recentList.innerHTML = allResources.slice(0, 5).map(item => `
+                    <div class="activity-item">
+                        <div class="activity-dot green"></div>
+                        <div class="activity-text">
+                            <div class="activity-title">${item.title}</div>
+                            <div class="activity-time">${fmtDate(item.timestamp)}</div>
+                        </div>
+                        <span class="pill pill-active">File</span>
+                    </div>
+                `).join('');
+
+                document.getElementById('debugStatus').textContent = `Loaded ${count} resources`;
+                buildActivityLog();
+
+            } catch (err) {
+                console.error('Resources error:', err);
+                document.getElementById('debugStatus').textContent = `Error: ${err.message}`;
+                allGrid.innerHTML = '<div class="empty" style="grid-column:1/-1;">Error loading resources.</div>';
             }
         }
 
-        // Load personal links
-        async function loadLinks() {
-            const grid = document.getElementById('linksGrid');
-            grid.innerHTML = '<div class="empty-state"><p>🔄 Loading links...</p></div>';
+        /* ─────────────────────────────
+           LOAD PERSONAL LINKS
+        ───────────────────────────── */
+        let allLinks = [];
 
-            console.log('🔗 Starting to load links for student:', studentId);
+        async function loadPersonalLinks () {
+            const allGrid    = document.getElementById('allLinksGrid');
+            const recentList = document.getElementById('recentLinksList');
 
             try {
-                console.log('🔍 Querying personalLinks where studentId ==', studentId);
-                const q = query(
-                    collection(db, 'personalLinks'),
-                    where('studentId', '==', studentId)
-                );
-                
-                const querySnapshot = await getDocs(q);
-                console.log('✅ Query successful! Found', querySnapshot.size, 'links');
+                const q  = query(collection(db, 'personalLinks'), where('studentId', '==', studentId));
+                const qs = await getDocs(q);
 
-                if (querySnapshot.empty) {
-                    grid.innerHTML = `
-                        <div class="empty-state">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                            </svg>
-                            <p>No links available yet</p>
-                            <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.7;">Your instructor will add links here</p>
-                        </div>
-                    `;
+                allLinks = qs.docs.map(d => ({ id: d.id, ...d.data() }));
+                allLinks.sort((a, b) =>
+                    (b.timestamp?.toDate() || new Date(0)) - (a.timestamp?.toDate() || new Date(0))
+                );
+
+                const count = allLinks.length;
+                document.getElementById('statLinks').textContent = count;
+
+                const badgeEl = document.getElementById('navBadgeLinks');
+                if (count > 0) { badgeEl.textContent = count; badgeEl.style.display = 'inline'; }
+
+                if (count === 0) {
+                    allGrid.innerHTML    = '<div class="empty" style="grid-column:1/-1;">No links shared yet.<br>Your instructor will add links here.</div>';
+                    recentList.innerHTML = '<div class="empty">No links yet</div>';
                     return;
                 }
 
-                grid.innerHTML = '';
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    console.log('🔗 Link found:', data.title, '| Student ID:', data.studentId);
-                    const card = createResourceCard(data, 'link');
-                    grid.appendChild(card);
-                });
-            } catch (error) {
-                console.error('❌ ERROR loading links:', error);
-                console.error('Error code:', error.code);
-                console.error('Error message:', error.message);
-                
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <p style="color: #c00;">❌ Error loading links</p>
-                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">${error.message}</p>
-                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Error code: ${error.code}</p>
-                        <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--madder); color: white; border: none; border-radius: 8px; cursor: pointer;">Reload Page</button>
+                allGrid.innerHTML = allLinks.map(item => `
+                    <div class="resource-card">
+                        <div class="resource-type">🔗 Link</div>
+                        <div class="resource-name">${item.title}</div>
+                        <div class="resource-meta">${fmtDate(item.timestamp)}</div>
+                        ${item.description ? `<div class="resource-desc">${item.description}</div>` : ''}
+                        <button class="open-btn" onclick="window.open('${item.url}', '_blank')">↗ Open Link</button>
                     </div>
-                `;
+                `).join('');
+
+                recentList.innerHTML = allLinks.slice(0, 5).map(item => `
+                    <div class="activity-item">
+                        <div class="activity-dot gold"></div>
+                        <div class="activity-text">
+                            <div class="activity-title">${item.title}</div>
+                            <div class="activity-time">${fmtDate(item.timestamp)}</div>
+                        </div>
+                        <span class="pill pill-gold">Link</span>
+                    </div>
+                `).join('');
+
+                buildActivityLog();
+
+            } catch (err) {
+                console.error('Links error:', err);
+                allGrid.innerHTML = '<div class="empty" style="grid-column:1/-1;">Error loading links.</div>';
             }
         }
 
-        function createResourceCard(data, type) {
-            const card = document.createElement('div');
-            card.className = 'resource-card';
+        /* ─────────────────────────────
+           ACTIVITY LOG (combined feed)
+        ───────────────────────────── */
+        function buildActivityLog () {
+            const container = document.getElementById('activityLog');
+            const combined  = [
+                ...allResources.map(r => ({ ...r, _type: 'resource' })),
+                ...allLinks.map(l => ({ ...l, _type: 'link' }))
+            ].sort((a, b) =>
+                (b.timestamp?.toDate() || new Date(0)) - (a.timestamp?.toDate() || new Date(0))
+            );
 
-            const icon = type === 'link' ? '🔗' : '📄';
-            const buttonText = type === 'link' ? 'Open Link' : 'Download';
-            const buttonClass = type === 'link' ? 'open-btn' : 'download-btn';
+            if (combined.length === 0) {
+                container.innerHTML = '<div class="empty">No activity yet.</div>';
+                return;
+            }
 
-            card.innerHTML = `
-                <div class="resource-icon">${icon}</div>
-                <h3>${data.title}</h3>
-                <div class="resource-meta">
-                    <span>📅 ${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString() : 'Recently added'}</span>
+            container.innerHTML = combined.map(item => `
+                <div class="activity-item">
+                    <div class="activity-dot ${item._type === 'resource' ? 'green' : 'gold'}"></div>
+                    <div class="activity-text">
+                        <div class="activity-title">${item.title}</div>
+                        <div class="activity-time">${fmtDate(item.timestamp)} · ${item._type === 'resource' ? 'File added' : 'Link shared'}</div>
+                    </div>
+                    <span class="pill ${item._type === 'resource' ? 'pill-active' : 'pill-gold'}">
+                        ${item._type === 'resource' ? 'File' : 'Link'}
+                    </span>
                 </div>
-                <p>${data.description}</p>
-                <button class="${buttonClass}" onclick="window.open('${data.fileUrl || data.url}', '_blank')">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                    </svg>
-                    ${buttonText}
-                </button>
-            `;
-
-            return card;
+            `).join('');
         }
 
-        // Initial load
-        console.log('🚀 Initializing student portal...');
-        loadResources();
-        loadLinks();
+        /* ─────────────────────────────
+           NOTIFICATIONS
+        ───────────────────────────── */
+        let lastUnreadCount = 0;
 
-        // ============ NOTIFICATION SYSTEM ============
-window.toggleNotifications = function() {
-    const panel = document.getElementById('notificationPanel');
-    const overlay = document.getElementById('notificationOverlay');
-    const isOpen = panel.classList.contains('open');
-    
-    if (isOpen) {
-        panel.classList.remove('open');
-        overlay.classList.remove('open');
-    } else {
-        panel.classList.add('open');
-        overlay.classList.add('open');
-        loadNotifications();
-    }
-};
+        async function loadNotifications () {
+            const notifList = document.getElementById('notifList');
 
-   async function loadNotifications() {
-    const notificationList = document.getElementById('notificationList');
-    notificationList.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
+            try {
+                const [snapAll, snapStudents, snapPersonal] = await Promise.all([
+                    getDocs(query(collection(db, 'notifications'), where('recipientId', '==', 'all'))),
+                    getDocs(query(collection(db, 'notifications'), where('recipientId', '==', 'all_students'))),
+                    getDocs(query(collection(db, 'notifications'), where('recipientId', '==', studentId)))
+                ]);
 
-    const studentId = sessionStorage.getItem('studentId');
-    console.log('📬 Loading notifications for student:', studentId);
+                const all = new Map();
+                [snapAll, snapStudents, snapPersonal].forEach(snap =>
+                    snap.docs.forEach(d => all.set(d.id, { id: d.id, ...d.data() }))
+                );
 
-    try {
-        // Get notifications without orderBy
-        const allQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all'));
-        const studentsQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all_students'));
-        const personalQuery = query(collection(db, 'notifications'), where('recipientId', '==', studentId));
+                const notifs = [...all.values()].sort((a, b) =>
+                    (b.timestamp?.toDate() || new Date(0)) - (a.timestamp?.toDate() || new Date(0))
+                );
 
-        const [allSnapshot, studentsSnapshot, personalSnapshot] = await Promise.all([
-            getDocs(allQuery),
-            getDocs(studentsQuery),
-            getDocs(personalQuery)
-        ]);
+                if (notifs.length === 0) {
+                    notifList.innerHTML = '<div class="empty">No notifications yet</div>';
+                    return;
+                }
 
-        const allNotifications = [];
-        
-        allSnapshot.forEach(docSnap => {
-            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
-        });
-        
-        studentsSnapshot.forEach(docSnap => {
-            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
-        });
-        
-        personalSnapshot.forEach(docSnap => {
-            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
-        });
+                let unread = 0;
+                notifList.innerHTML = notifs.map(n => {
+                    if (!n.read) unread++;
+                    return `
+                        <div class="notif-item ${n.read ? '' : 'unread'}" data-notif-id="${n.id}">
+                            <div class="notif-msg"><strong>${n.title}</strong><br>${n.message}</div>
+                            <div class="notif-time">${timeAgo(n.timestamp)}</div>
+                        </div>`;
+                }).join('');
 
-        // Remove duplicates
-        const uniqueNotifications = Array.from(new Map(
-            allNotifications.map(item => [item.id, item])
-        ).values());
+                // Click to mark read
+                notifList.querySelectorAll('.notif-item').forEach(el =>
+                    el.addEventListener('click', () => markNotifRead(el.dataset.notifId))
+                );
 
-        // Sort by timestamp manually
-        uniqueNotifications.sort((a, b) => {
-            const timeA = a.timestamp?.toDate() || new Date(0);
-            const timeB = b.timestamp?.toDate() || new Date(0);
-            return timeB - timeA;
-        });
+                const badge = document.getElementById('notifBadge');
+                if (unread > 0) { badge.textContent = unread; badge.style.display = 'flex'; }
+                else            { badge.style.display = 'none'; }
 
-        console.log('✅ Found', uniqueNotifications.length, 'notifications');
+                if (unread > lastUnreadCount && lastUnreadCount > 0) playNotifSound();
+                lastUnreadCount = unread;
 
-        if (uniqueNotifications.length === 0) {
-            notificationList.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--gray);">No notifications yet</div>';
-            updateBadge(0);
-            return;
-        }
-
-        notificationList.innerHTML = '';
-        let unreadCount = 0;
-
-        uniqueNotifications.forEach(notif => {
-            if (!notif.read) unreadCount++;
-
-            const notifCard = document.createElement('div');
-            notifCard.className = `notification-item ${notif.read ? 'read' : 'unread'}`;
-            notifCard.innerHTML = `
-                <div class="notification-content">
-                    <h4>${notif.title}</h4>
-                    <p>${notif.message}</p>
-                    <span class="notification-time">${formatTime(notif.timestamp)}</span>
-                </div>
-                ${!notif.read ? `<button class="mark-read-single" onclick="markAsRead('${notif.id}')">✓</button>` : ''}
-            `;
-            notificationList.appendChild(notifCard);
-        });
-
-        updateBadge(unreadCount);
- // Check if there are new notifications and play sound
-if (unreadCount > lastNotificationCount && lastNotificationCount > 0) {
-    playNotificationSound();
-}
-
-// If there are new unread notifications, show browser notification
-if (unreadCount > lastNotificationCount && lastNotificationCount > 0) {
-    playNotificationSound(); // Play sound
-    
-    // Show browser notification with the latest message
-    if (uniqueNotifications.length > 0) {
-        const latestNotif = uniqueNotifications[0];
-        showBrowserNotification(
-            '🔔 ' + latestNotif.title,
-            latestNotif.message
-        );
-    }
-}
-
-lastNotificationCount = unreadCount;
-    } catch (error) {
-        console.error('❌ Error loading notifications:', error);
-        console.error('Error details:', error.message);
-        notificationList.innerHTML = `<div style="text-align: center; padding: 2rem; color: #c00;">Error loading notifications<br><small>${error.message}</small></div>`;
-    }
-}
-
-window.markAsRead = async function(notificationId) {
-    try {
-        console.log('📝 Marking notification as read:', notificationId);
-        const notifRef = doc(db, 'notifications', notificationId);
-        await updateDoc(notifRef, { read: true });
-        console.log('✅ Notification marked as read');
-        await loadNotifications(); // Reload to update UI and badge
-    } catch (error) {
-        console.error('❌ Error marking as read:', error);
-        alert('Failed to mark notification as read. Please try again.');
-    }
-};
-
-window.markAllAsRead = async function() {
-    try {
-        console.log('📝 Marking all notifications as read...');
-        
-        // Get all unread notifications for this student
-        const studentId = sessionStorage.getItem('studentId');
-        const allQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all'), where('read', '==', false));
-        const studentsQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all_students'), where('read', '==', false));
-        const personalQuery = query(collection(db, 'notifications'), where('recipientId', '==', studentId), where('read', '==', false));
-
-        const [allSnapshot, studentsSnapshot, personalSnapshot] = await Promise.all([
-            getDocs(allQuery),
-            getDocs(studentsQuery),
-            getDocs(personalQuery)
-        ]);
-
-        const promises = [];
-        
-        allSnapshot.forEach(docSnap => {
-            promises.push(updateDoc(doc(db, 'notifications', docSnap.id), { read: true }));
-        });
-        
-        studentsSnapshot.forEach(docSnap => {
-            promises.push(updateDoc(doc(db, 'notifications', docSnap.id), { read: true }));
-        });
-        
-        personalSnapshot.forEach(docSnap => {
-            promises.push(updateDoc(doc(db, 'notifications', docSnap.id), { read: true }));
-        });
-
-        if (promises.length > 0) {
-            await Promise.all(promises);
-            console.log(`✅ Marked ${promises.length} notifications as read`);
-        }
-        
-        await loadNotifications(); // Reload to update UI and badge
-    } catch (error) {
-        console.error('❌ Error marking all as read:', error);
-        alert('Failed to mark all notifications as read. Please try again.');
-    }
-};
-
-function updateBadge(count) {
-    const badge = document.getElementById('notificationBadge');
-    if (count > 0) {
-        badge.textContent = count;
-        badge.style.display = 'flex';
-    } else {
-        badge.style.display = 'none';
-    }
-}
-
-function formatTime(timestamp) {
-    if (!timestamp) return 'Just now';
-    const date = timestamp.toDate();
-    const now = new Date();
-    const diff = now - date;
-    
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-    
-    if (minutes < 1) return 'Just now';
-    if (minutes < 60) return `${minutes}m ago`;
-    if (hours < 24) return `${hours}h ago`;
-    return `${days}d ago`;
-}
-
-// Play notification sound
-function playNotificationSound() {
-    // Create audio context for modern browsers
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    // Create oscillator for a pleasant notification beep
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    // Set frequency for a pleasant "ding" sound
-    oscillator.frequency.value = 800;
-    oscillator.type = 'sine';
-    
-    // Volume envelope for smooth sound
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-    
-    // Play the sound
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.5);
-    
-    console.log('🔊 Notification sound played');
-}
-
-// Check for new notifications and play sound
-let lastNotificationCount = 0;
-
-async function checkForNewNotifications() {
-    try {
-        const currentBadge = document.getElementById('notificationBadge');
-        const currentCount = parseInt(currentBadge.textContent) || 0;
-        
-        if (currentCount > lastNotificationCount && lastNotificationCount > 0) {
-            // New notification arrived!
-            playNotificationSound();
-            
-            // Optional: Show browser notification too
-            if (Notification.permission === 'granted') {
-                showBrowserNotification();
+            } catch (err) {
+                console.error('Notifications error:', err);
+                notifList.innerHTML = '<div class="empty">Error loading notifications</div>';
             }
         }
-        
-        lastNotificationCount = currentCount;
-    } catch (error) {
-        console.error('Error checking notifications:', error);
-    }
-}
 
-// Auto-load notifications with sound check
-setTimeout(() => {
-    loadNotifications();
-    lastNotificationCount = parseInt(document.getElementById('notificationBadge').textContent) || 0;
-}, 1000);
-
-setInterval(() => {
-    if (!document.getElementById('notificationPanel').classList.contains('open')) {
-        loadNotifications();
-    }
-}, 30000);
-
-// Show browser notification for new message
-function showBrowserNotification(title = 'New Notification', message = 'You have a new message') {
-    if (Notification.permission === 'granted') {
-        const notification = new Notification(title, {
-            body: message,
-            icon: 'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS',
-            badge: 'https://via.placeholder.com/96/FFD700/000000?text=!',
-            tag: 'jaystar-notification',
-            requireInteraction: true, // Stays until user clicks
-            vibrate: [200, 100, 200], // Vibration pattern for mobile
-            data: {
-                url: window.location.href
+        async function markNotifRead (id) {
+            try {
+                await updateDoc(doc(db, 'notifications', id), { read: true });
+                loadNotifications();
+            } catch (err) {
+                console.error('Mark read error:', err);
             }
-        });
-        
-        // When user clicks notification, focus the window
-        notification.onclick = function(event) {
-            event.preventDefault();
-            window.focus();
-            
-            // Open notification panel
-            document.getElementById('notificationPanel').classList.add('open');
-            document.getElementById('notificationOverlay').classList.add('open');
-            
-            notification.close();
-        };
-    }
-}
+        }
+
+        function playNotifSound () {
+            try {
+                const ctx  = new (window.AudioContext || window.webkitAudioContext)();
+                const osc  = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 800;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.5);
+            } catch (e) { /* silent fail */ }
+        }
+
+        async function requestNotificationPermission () {
+            if (!('Notification' in window) || Notification.permission !== 'default') return;
+            if (confirm('🔔 Enable desktop notifications?')) {
+                const perm = await Notification.requestPermission();
+                if (perm === 'granted') {
+                    new Notification('🔔 Notifications Enabled', {
+                        body: "You'll receive updates from Jaystarbliss Dynamic Hub",
+                        icon: 'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS'
+                    });
+                }
+            }
+        }
+
+        /* ─────────────────────────────
+           INIT
+        ───────────────────────────── */
+        console.log('🚀 Initialising Personal Student Portal…');
+        console.log('👤 Student ID:', studentId, '| Name:', studentName);
+
+        loadPersonalResources();
+        loadPersonalLinks();
+        loadNotifications();
+
+        setTimeout(requestNotificationPermission, 2000);
+        setInterval(loadNotifications, 30000);
     </script>
 </body>
 </html>

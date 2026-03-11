@@ -3,138 +3,269 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Jaystarbliss Dynamic Hub</title>
+<title>Mission Control — Jaystarbliss Dynamic Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <style>
+/* ── CSS VARIABLES ── */
 :root {
-  --madder:#A91B0D; --madder-dark:#7a1309; --madder-lite:#c9210f;
+  --crimson:#E61905; --crimson-dark:#b01204; --crimson-glow:rgba(230,25,5,0.4);
+  --obsidian:#050505; --surface:rgba(15,15,17,0.85); --surface-2:rgba(20,20,22,0.9);
+  --border:rgba(230,25,5,0.18); --border-bright:rgba(230,25,5,0.5);
+  --text:#f1f5f9; --text-muted:#94a3b8; --text-dim:rgba(230,25,5,0.4);
   --gold:#FFD700; --gold-dim:#b89d00;
-  --snow:#FFFAFA; --dark:#1a1a1a; --green:#2ecc71; --blue:#3b82f6;
-  --bg:#141414; --surface:#1e1e1e; --surface-2:#272727;
-  --border:rgba(255,255,255,0.07); --border-bright:rgba(169,27,13,0.4);
-  --text:#FFFAFA; --text-muted:#a8a8a8; --text-dim:#5a5a5a;
-  --field-bg:#242424; --field-border:rgba(255,255,255,0.1);
-  --mono:'Space Mono',monospace; --sans:'DM Sans',sans-serif;
-  --sidebar-w:220px; --topbar-h:52px;
+  --green:#22c55e; --blue:#38bdf8;
+  --field-bg:rgba(5,5,5,0.8); --field-border:rgba(230,25,5,0.2);
+  --mono:'Space Mono',monospace; --sans:'Public Sans',sans-serif;
+  --sidebar-w:272px; --topbar-h:64px;
+  --glass-bg:rgba(15,15,17,0.7); --glass-blur:blur(12px);
 }
 [data-theme="light"] {
-  --bg:#f0ebeb; --surface:#FFFAFA; --surface-2:#ede8e8;
-  --border:rgba(169,27,13,0.1); --border-bright:rgba(169,27,13,0.35);
-  --text:#1a1a1a; --text-muted:#5a4a4a; --text-dim:#9a8a8a;
-  --field-bg:#f5efef; --field-border:rgba(169,27,13,0.15);
+  --crimson:#C41203; --crimson-dark:#8f0d02; --crimson-glow:rgba(196,18,3,0.25);
+  --obsidian:#f5f5f5; --surface:rgba(255,255,255,0.92); --surface-2:rgba(240,240,242,0.95);
+  --border:rgba(196,18,3,0.15); --border-bright:rgba(196,18,3,0.4);
+  --text:#0f0f10; --text-muted:#3d3d45; --text-dim:rgba(196,18,3,0.45);
+  --gold:#b8860b; --gold-dim:#8a6508;
+  --green:#16a34a; --blue:#0369a1;
+  --field-bg:rgba(255,255,255,0.9); --field-border:rgba(196,18,3,0.18);
+  --glass-bg:rgba(255,255,255,0.75); --glass-blur:blur(12px);
 }
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{font-size:14px;}
 body{
-  font-family:var(--sans); background:var(--bg); color:var(--text);
+  font-family:var(--sans);
+  background:var(--obsidian);
+  color:var(--text);
   display:grid;
   grid-template-columns:var(--sidebar-w) 1fr;
   grid-template-rows:var(--topbar-h) 1fr;
   height:100vh; overflow:hidden;
-  transition:background .25s,color .25s;
+  background-image:
+    radial-gradient(ellipse at 10% 20%, rgba(230,25,5,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, rgba(230,25,5,0.04) 0%, transparent 50%);
+  transition:background .25s, color .25s;
+}
+[data-theme="light"] body {
+  background-image:
+    radial-gradient(ellipse at 10% 20%, rgba(196,18,3,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, rgba(196,18,3,0.03) 0%, transparent 50%);
+}
+
+/* ── GLASS UTILITY ── */
+.glass {
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border);
+}
+.glow-hover:hover {
+  box-shadow:0 0 18px var(--crimson-glow);
+  border-color:var(--border-bright);
 }
 
 /* ── TOPBAR ── */
 .topbar{
   grid-column:1/-1; grid-row:1;
-  background:var(--madder-dark);
-  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:var(--surface);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
   display:flex; align-items:center; justify-content:space-between;
-  padding:0 1.2rem; z-index:100;
-  box-shadow:0 2px 12px rgba(0,0,0,0.4);
+  padding:0 1.5rem; z-index:100;
+  box-shadow:0 2px 24px rgba(0,0,0,0.6);
 }
-.topbar-left{display:flex;align-items:center;gap:.7rem;}
+.topbar-left{display:flex;align-items:center;gap:1rem;}
 .brand-mark{
-  width:28px;height:28px; background:var(--gold);
+  width:40px;height:40px;
+  background:var(--crimson);
+  border-radius:10px;
   display:grid;place-items:center;
-  font-family:var(--mono);font-size:.58rem;font-weight:700;color:var(--dark);
-  clip-path:polygon(0 0,88% 0,100% 12%,100% 100%,12% 100%,0 88%);
+  box-shadow:0 0 16px rgba(230,25,5,0.5);
   flex-shrink:0;
 }
-.topbar-title{font-family:var(--mono);font-size:.72rem;font-weight:700;color:rgba(255,250,250,.9);text-transform:uppercase;letter-spacing:.04em;}
-.topbar-badge{
-  font-family:var(--mono);font-size:.55rem;padding:.15rem .4rem;
-  background:rgba(255,215,0,.15);color:var(--gold);border:1px solid rgba(255,215,0,.25);
-  text-transform:uppercase;letter-spacing:.05em;
+.brand-mark .material-symbols-outlined{color:#fff;font-size:1.4rem;}
+.brand-text{display:flex;flex-direction:column;gap:1px;}
+.topbar-title{font-family:var(--mono);font-size:.8rem;font-weight:700;color:var(--crimson);letter-spacing:-.02em;}
+.topbar-sub{font-family:var(--mono);font-size:.52rem;color:rgba(230,25,5,0.5);text-transform:uppercase;letter-spacing:.18em;}
+.topbar-right{display:flex;align-items:center;gap:.8rem;}
+.admin-email-pill{
+  display:flex;align-items:center;gap:.4rem;
+  padding:.35rem .75rem;
+  border:1px solid var(--border);
+  border-radius:6px;
+  font-family:var(--mono);font-size:.62rem;
 }
-.topbar-right{display:flex;align-items:center;gap:.6rem;}
-.admin-email{font-size:.72rem;color:rgba(255,250,250,.55);}
+.admin-email-pill span:first-child{color:var(--text-dim);}
+.admin-email-pill span:last-child{color:var(--crimson);}
 .theme-btn{
-  width:26px;height:26px; background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.12); color:rgba(255,250,250,.6);
-  display:grid;place-items:center; cursor:pointer; font-size:.75rem;
-  border-radius:4px; transition:all .15s;
+  width:34px;height:34px;
+  background:transparent; border:1px solid var(--border);
+  color:var(--crimson); border-radius:6px;
+  display:grid;place-items:center; cursor:pointer;
+  transition:all .15s;
 }
-.theme-btn:hover{border-color:var(--gold);color:var(--gold);}
+.theme-btn:hover{background:rgba(230,25,5,0.1);}
+.theme-btn .material-symbols-outlined{font-size:1.1rem;}
 .logout-btn{
-  padding:.3rem .85rem;
-  background:rgba(169,27,13,.25); border:1px solid rgba(169,27,13,.4);
-  color:var(--snow); font-family:var(--mono); font-size:.58rem; font-weight:700;
-  text-transform:uppercase; letter-spacing:.04em; cursor:pointer;
-  border-radius:3px; transition:all .15s;
+  display:flex;align-items:center;gap:.4rem;
+  padding:.4rem .9rem;
+  background:rgba(230,25,5,0.1); border:1px solid rgba(230,25,5,0.3);
+  color:var(--crimson); font-family:var(--mono); font-size:.62rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.05em; cursor:pointer;
+  border-radius:6px; transition:all .15s;
 }
-.logout-btn:hover{background:var(--madder);}
+.logout-btn:hover{background:var(--crimson);color:#fff;}
+.logout-btn .material-symbols-outlined{font-size:.9rem;}
 
 /* ── SIDEBAR ── */
 .sidebar{
   grid-column:1; grid-row:2;
-  background:var(--surface); border-right:1px solid var(--border);
+  background:var(--surface-2);
+  border-right:1px solid var(--border);
   overflow-y:auto; display:flex;flex-direction:column;
+  padding:1.2rem 0;
 }
-.sidebar-section{padding:.6rem 0 .3rem;}
+.sidebar-brand-section{padding:.8rem 1.4rem 1rem;}
+.sidebar-section{padding:.4rem 0 .2rem;}
 .sidebar-label{
-  font-family:var(--mono);font-size:.55rem;font-weight:700;
-  color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;
-  padding:.3rem 1rem .2rem;
+  font-family:var(--mono);font-size:.52rem;font-weight:700;
+  color:rgba(230,25,5,0.35);text-transform:uppercase;letter-spacing:.2em;
+  padding:.5rem 1.4rem .3rem;
 }
 .nav-item{
-  display:flex;align-items:center;gap:.5rem;
-  padding:.52rem 1rem;
-  font-family:var(--sans);font-size:.75rem;font-weight:500;
+  display:flex;align-items:center;gap:.7rem;
+  padding:.65rem 1.4rem;
+  font-family:var(--mono);font-size:.68rem;font-weight:700;text-transform:uppercase;
   color:var(--text-muted); background:none; border:none;
   cursor:pointer; width:100%; text-align:left;
-  border-left:2px solid transparent;
-  transition:all .12s;
+  border-radius:0; transition:all .12s;
+  letter-spacing:.03em;
 }
-.nav-item:hover{color:var(--text);background:var(--surface-2);}
-.nav-item.active{color:var(--snow);background:rgba(169,27,13,.12);border-left-color:var(--madder);}
-.nav-item .nav-icon{font-size:.9rem;flex-shrink:0;width:18px;text-align:center;}
-.sidebar-divider{height:1px;background:var(--border);margin:.3rem .8rem;}
+.nav-item .material-symbols-outlined{font-size:1.1rem;flex-shrink:0;transition:transform .15s;}
+.nav-item:hover{color:var(--crimson);background:rgba(230,25,5,0.05);}
+.nav-item:hover .material-symbols-outlined{transform:scale(1.1);}
+.nav-item.active{
+  color:var(--crimson);
+  background:rgba(230,25,5,0.1);
+  border-right:2px solid var(--crimson);
+}
+.sidebar-divider{height:1px;background:var(--border);margin:.4rem 1rem;}
+
+/* Status widget */
+.status-widget{
+  margin:auto 1rem 1rem;
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1rem;
+  display:flex;flex-direction:column;gap:.6rem;
+}
+.status-widget-header{display:flex;justify-content:space-between;align-items:center;}
+.status-label{font-family:var(--mono);font-size:.55rem;color:var(--crimson);text-transform:uppercase;letter-spacing:.1em;}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(34,197,94,0.6);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.status-bar{width:100%;height:4px;background:rgba(230,25,5,0.1);border-radius:2px;overflow:hidden;}
+.status-bar-fill{height:100%;width:94%;background:var(--crimson);border-radius:2px;}
+.status-text{font-family:var(--mono);font-size:.55rem;color:var(--text-muted);}
+.status-btn{
+  width:100%;padding:.5rem;
+  background:var(--crimson);color:#fff;
+  font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;
+  border:none;border-radius:6px;cursor:pointer;
+  box-shadow:0 4px 12px rgba(230,25,5,0.2);
+  transition:all .15s;
+}
+.status-btn:hover{background:var(--crimson-dark);}
 
 /* ── MAIN ── */
 .main{
   grid-column:2; grid-row:2;
-  overflow-y:auto; padding:1.5rem;
-  background:var(--bg);
+  overflow-y:auto;
+  background:var(--obsidian);
+  background-image:
+    radial-gradient(ellipse at 80% 20%, rgba(230,25,5,0.05) 0%, transparent 40%);
 }
+
+/* ── STATS BAR ── */
+.stats-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+  padding:1.5rem 1.5rem .5rem;
+}
+.stat-card{
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border);
+  border-left:3px solid var(--crimson);
+  border-radius:10px;
+  padding:1.2rem;
+  display:flex;flex-direction:column;gap:.5rem;
+  transition:all .2s;
+}
+.stat-card:hover{box-shadow:0 0 18px var(--crimson-glow);border-color:var(--border-bright);}
+.stat-card-header{display:flex;justify-content:space-between;align-items:start;}
+.stat-card-label{font-family:var(--mono);font-size:.55rem;color:var(--crimson);text-transform:uppercase;letter-spacing:.1em;}
+.stat-card-icon{font-size:1.1rem;color:rgba(230,25,5,0.3);}
+.stat-card-value{font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--text);}
+.stat-card-delta{font-family:var(--mono);font-size:.58rem;display:flex;align-items:center;gap:.2rem;}
+.stat-card-delta.up{color:var(--green);}
+.stat-card-delta.neutral{color:rgba(230,25,5,0.4);}
+.stat-card-delta .material-symbols-outlined{font-size:.75rem;}
+
+/* ── TAB NAV ── */
+.main-tabs-wrap{padding:.5rem 1.5rem 0;}
+.main-tabs{
+  display:flex;gap:2px;padding:3px;
+  background:rgba(5,5,5,0.8);
+  border:1px solid var(--border);
+  border-radius:10px;width:fit-content;
+}
+.main-tab{
+  padding:.55rem 1.2rem;
+  background:none; border:none; cursor:pointer;
+  font-family:var(--mono);font-size:.62rem;font-weight:700;text-transform:uppercase;
+  color:rgba(230,25,5,0.45); border-radius:7px;
+  letter-spacing:.04em; transition:all .15s;
+}
+.main-tab:hover{background:rgba(230,25,5,0.08);color:var(--crimson);}
+.main-tab.active{background:var(--crimson);color:#fff;box-shadow:0 2px 12px rgba(230,25,5,0.25);}
+
+/* ── CONTENT AREA ── */
+.content-area{padding:1.2rem 1.5rem 2rem;}
 
 /* ── TAB CONTENT ── */
 .tab-content{display:none;}
 .tab-content.active{display:block;animation:fadeIn .2s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
 /* ── PANEL ── */
-.panel{background:var(--surface);border:1px solid var(--border);margin-bottom:1.5rem;}
+.panel{
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border);
+  border-radius:12px;
+  margin-bottom:1.5rem;
+  overflow:hidden;
+}
 .panel-head{
-  padding:.8rem 1.2rem; border-bottom:1px solid var(--border);
+  padding:.9rem 1.3rem;
+  border-bottom:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;
 }
 .panel-title{
-  font-family:var(--mono);font-size:.72rem;font-weight:700;
+  font-family:var(--mono);font-size:.68rem;font-weight:700;
   color:var(--text);text-transform:uppercase;letter-spacing:.04em;
   display:flex;align-items:center;gap:.5rem;
 }
-.panel-title::before{content:'';width:4px;height:4px;background:var(--madder);display:inline-block;}
-.panel-body{padding:1.2rem;}
+.panel-title .material-symbols-outlined{color:var(--crimson);font-size:1rem;}
+.panel-body{padding:1.3rem;}
 
 /* ── SECTION HEADING ── */
 .section-head{
-  font-family:var(--mono);font-size:.65rem;font-weight:700;
-  color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;
+  font-family:var(--mono);font-size:.62rem;font-weight:700;
+  color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;
   margin:1.5rem 0 .8rem;
-  display:flex;align-items:center;gap:.5rem;
+  display:flex;align-items:center;gap:.6rem;
 }
 .section-head::after{content:'';flex:1;height:1px;background:var(--border);}
 
@@ -142,90 +273,97 @@ body{
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .form-group{margin-bottom:1rem;}
 .form-group label{
-  display:block;margin-bottom:.3rem;
-  font-size:.72rem;font-weight:600;color:var(--text-muted);
+  display:block;margin-bottom:.35rem;
+  font-family:var(--mono);font-size:.6rem;font-weight:700;
+  color:rgba(230,25,5,0.55);text-transform:uppercase;letter-spacing:.1em;
 }
 .form-group input,.form-group textarea,.form-group select{
-  width:100%; padding:.6rem .85rem;
+  width:100%; padding:.6rem .9rem;
   background:var(--field-bg); border:1px solid var(--field-border);
   color:var(--text); font-family:var(--sans); font-size:.82rem;
-  outline:none; border-radius:4px; transition:border-color .15s;
+  outline:none; border-radius:6px; transition:all .15s;
 }
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{
-  border-color:var(--gold);box-shadow:0 0 0 2px rgba(255,215,0,.08);
+  border-color:var(--crimson);
+  box-shadow:0 0 0 2px rgba(230,25,5,0.12);
 }
-.form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-dim);}
-.form-group select option{background:var(--surface-2);color:var(--text);}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(230,25,5,0.15);}
+.form-group select option{background:#0d0d0f;color:var(--text);}
 .form-group textarea{min-height:90px;resize:vertical;}
-.form-group small{font-size:.65rem;color:var(--text-dim);display:block;margin-top:.25rem;}
+.form-group small{font-size:.62rem;color:var(--text-dim);display:block;margin-top:.25rem;}
 
 /* ── BUTTONS ── */
 .btn{
-  padding:.5rem 1.1rem; border:none; cursor:pointer;
+  padding:.55rem 1.1rem; border:none; cursor:pointer;
   font-family:var(--mono);font-size:.62rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.05em;
-  border-radius:4px; transition:all .15s;
+  border-radius:6px; transition:all .15s;
 }
-.btn-primary{background:var(--madder);color:#fff;}
-.btn-primary:hover{background:var(--madder-lite);}
-.btn-primary:disabled{opacity:.55;cursor:not-allowed;}
-.btn-gold{background:var(--gold);color:var(--dark);}
-.btn-gold:hover{background:var(--gold-dim);}
-.btn-danger{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.25);}
-.btn-danger:hover{background:rgba(239,68,68,.25);}
-.btn-blue{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.25);}
-.btn-blue:hover{background:rgba(59,130,246,.25);}
+.btn-primary{
+  background:rgba(230,25,5,0.15);
+  border:1px solid rgba(230,25,5,0.4);
+  color:var(--crimson);
+}
+.btn-primary:hover{background:var(--crimson);color:#fff;box-shadow:0 4px 12px rgba(230,25,5,0.3);}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;}
+.btn-gold{background:rgba(255,215,0,0.12);border:1px solid rgba(255,215,0,0.3);color:var(--gold);}
+.btn-gold:hover{background:var(--gold);color:#000;}
+.btn-danger{background:rgba(230,25,5,0.1);color:var(--crimson);border:1px solid rgba(230,25,5,0.25);}
+.btn-danger:hover{background:var(--crimson);color:#fff;}
+.btn-blue{background:rgba(56,189,248,0.1);color:var(--blue);border:1px solid rgba(56,189,248,0.2);}
+.btn-blue:hover{background:var(--blue);color:#000;}
 .btn-sm{padding:.3rem .65rem;font-size:.58rem;}
-[data-theme="light"] .btn-danger{background:rgba(220,38,38,.08);color:#dc2626;border-color:rgba(220,38,38,.2);}
-[data-theme="light"] .btn-blue{background:rgba(37,99,235,.08);color:#2563eb;border-color:rgba(37,99,235,.2);}
 
 /* ── MESSAGES ── */
-.msg{
-  padding:.5rem .85rem; font-size:.72rem; margin-bottom:.9rem;
-  display:none; border-left:2px solid; border-radius:0 3px 3px 0;
+.msg,.success-message{
+  padding:.55rem .9rem; font-family:var(--mono); font-size:.68rem;
+  margin-bottom:.9rem; display:none;
+  border-left:2px solid; border-radius:0 6px 6px 0;
+  letter-spacing:.03em;
 }
-.msg.show{display:block;animation:msgIn .25s ease;}
-@keyframes msgIn{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:translateX(0);}}
-.msg-success{background:rgba(46,204,113,.08);color:var(--green);border-color:var(--green);}
-.msg-error{background:rgba(169,27,13,.08);color:#e05a50;border-color:var(--madder);}
-/* legacy class used by existing JS */
-.success-message{padding:.5rem .85rem;font-size:.72rem;margin-bottom:.9rem;display:none;
-  border-left:2px solid var(--green);background:rgba(46,204,113,.08);color:var(--green);border-radius:0 3px 3px 0;}
-.success-message.show{display:block;}
+.msg.show,.success-message.show{display:block;animation:msgIn .25s ease;}
+@keyframes msgIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:translateX(0);}}
+.msg-success,.success-message{background:rgba(34,197,94,0.08);color:var(--green);border-color:var(--green);}
+.msg-error{background:rgba(230,25,5,0.08);color:var(--crimson);border-color:var(--crimson);}
 
 /* ── INFO BOX ── */
 .info-box{
-  padding:.6rem .85rem;
-  background:rgba(255,215,0,.06); border-left:2px solid var(--gold-dim);
-  font-size:.72rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.5;
+  padding:.7rem .9rem;
+  background:rgba(255,215,0,0.05); border-left:2px solid rgba(255,215,0,0.35);
+  font-size:.72rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.6;
+  border-radius:0 6px 6px 0;
 }
 .info-box strong{color:var(--gold);}
 .info-box-blue{
-  padding:.6rem .85rem;
-  background:rgba(14,165,233,.06); border-left:2px solid #0ea5e9;
-  font-size:.72rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.5;
+  padding:.7rem .9rem;
+  background:rgba(56,189,248,0.05); border-left:2px solid rgba(56,189,248,0.35);
+  font-size:.72rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.6;
+  border-radius:0 6px 6px 0;
 }
-.info-box-blue strong{color:#38bdf8;}
+.info-box-blue strong{color:var(--blue);}
 
 /* ── POSTS GRID ── */
 .posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1rem;}
 .post-card{
-  background:var(--surface); border:1px solid var(--border);
-  padding:1.1rem; position:relative; overflow:hidden;
-  transition:border-color .15s;
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1.2rem; position:relative; overflow:hidden;
+  transition:all .2s;
 }
 .post-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--madder),var(--gold));
+  background:linear-gradient(90deg,var(--crimson),rgba(230,25,5,0.1));
 }
-.post-card:hover{border-color:var(--border-bright);}
-.post-card h3{color:var(--text);font-size:.85rem;margin-bottom:.4rem;line-height:1.3;}
+.post-card:hover{border-color:var(--border-bright);box-shadow:0 0 16px var(--crimson-glow);}
+.post-card h3{color:var(--text);font-family:var(--mono);font-size:.75rem;margin-bottom:.4rem;line-height:1.3;text-transform:uppercase;}
 .post-card p{color:var(--text-muted);font-size:.75rem;margin-bottom:.5rem;line-height:1.5;}
-.post-card a{color:var(--gold);font-size:.72rem;}
-.post-card a:hover{color:var(--gold-dim);}
+.post-card a{color:var(--crimson);font-size:.72rem;}
+.post-card a:hover{color:rgba(230,25,5,0.7);}
 .post-meta{
   display:flex;justify-content:space-between;align-items:center;
-  font-size:.68rem;color:var(--text-dim);margin-bottom:.6rem;
+  font-size:.62rem;color:var(--text-dim);margin-bottom:.6rem;
   font-family:var(--mono);
 }
 .post-actions{display:flex;gap:.4rem;margin-top:.6rem;}
@@ -233,697 +371,813 @@ body{
 /* ── SCHOOL CARD ── */
 .school-card{
   background:var(--surface-2); border:1px solid var(--border);
-  padding:1.1rem; border-radius:4px; margin-bottom:.8rem;
+  padding:1.2rem; border-radius:8px; margin-bottom:.8rem;
 }
-.school-card h3{font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--madder-lite);margin-bottom:.8rem;}
+.school-card h3{font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--crimson);margin-bottom:.8rem;text-transform:uppercase;}
 
-/* ── STUDENT / STAFF CARD ── */
+/* ── PERSON CARD ── */
 .person-card{
   background:var(--surface-2); border:1px solid var(--border);
-  padding:1.1rem; margin-bottom:.8rem; border-left:2px solid var(--border-bright);
+  padding:1.2rem; margin-bottom:.8rem; border-radius:8px;
+  border-left:2px solid var(--crimson);
 }
-.person-card h3{font-size:.82rem;color:var(--text);margin-bottom:.35rem;}
-.person-card p{font-size:.72rem;color:var(--text-muted);line-height:1.6;}
+.person-card h3{font-size:.82rem;font-family:var(--mono);color:var(--text);margin-bottom:.35rem;}
+.person-card p{font-size:.72rem;color:var(--text-muted);line-height:1.7;}
 
-/* ── ACTIVITY LOG ITEM ── */
+/* ── LOG ITEM ── */
 .log-item{
-  background:var(--surface); border:1px solid var(--border);
-  padding:.8rem 1rem; margin-bottom:.5rem;
-  border-left:2px solid var(--madder);
-  display:flex;align-items:start;gap:.6rem;
+  background:var(--glass-bg);backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border);
+  padding:.85rem 1rem; margin-bottom:.5rem;
+  border-left:2px solid var(--crimson);
+  border-radius:0 8px 8px 0;
+  display:flex;align-items:start;gap:.7rem;
 }
 .log-icon{font-size:1rem;flex-shrink:0;}
 .log-text{font-size:.75rem;color:var(--text-muted);line-height:1.4;}
-.log-time{font-family:var(--mono);font-size:.62rem;color:var(--text-dim);margin-top:.2rem;}
+.log-time{font-family:var(--mono);font-size:.6rem;color:var(--text-dim);margin-top:.2rem;}
 
 /* ── PREVIEW FRAME ── */
 .preview-frame{
   width:100%;height:200px;border:1px solid var(--border);
-  background:var(--surface-2);margin-top:.8rem;border-radius:3px;
+  background:var(--surface-2);margin-top:.8rem;border-radius:6px;
 }
 
 /* ── FILTER ROW ── */
 .filter-row{
   display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;
-  margin-bottom:1rem;padding:.6rem .85rem;
-  background:var(--surface-2);border:1px solid var(--border);
+  margin-bottom:1rem;padding:.6rem .9rem;
+  background:var(--surface-2);border:1px solid var(--border);border-radius:6px;
 }
-.filter-row label{font-size:.72rem;color:var(--text-muted);display:flex;align-items:center;gap:.3rem;cursor:pointer;}
-.filter-row input[type=checkbox]{accent-color:var(--madder);}
+.filter-row label{font-family:var(--mono);font-size:.65rem;color:var(--text-muted);display:flex;align-items:center;gap:.3rem;cursor:pointer;}
+.filter-row input[type=checkbox]{accent-color:var(--crimson);}
 
-/* ── RESPONSIVE ── */
+/* ── MOBILE ── */
 @media(max-width:900px){
   body{grid-template-columns:0 1fr;}
-  .sidebar{position:fixed;left:-220px;top:var(--topbar-h);height:calc(100vh - var(--topbar-h));
+  .sidebar{position:fixed;left:-272px;top:var(--topbar-h);height:calc(100vh - var(--topbar-h));
     width:var(--sidebar-w);z-index:200;transition:left .2s;}
   .sidebar.open{left:0;}
   .hamburger{display:flex!important;}
   .main{grid-column:1/-1;}
+  .stats-bar{grid-template-columns:1fr 1fr;}
 }
-@media(max-width:500px){
+@media(max-width:600px){
   .form-row{grid-template-columns:1fr;}
   .posts-grid{grid-template-columns:1fr;}
+  .stats-bar{grid-template-columns:1fr;}
 }
 .hamburger{
-  display:none;width:28px;height:28px;
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
-  color:rgba(255,250,250,.7);font-size:.9rem;
-  place-items:center;cursor:pointer;border-radius:3px;
+  display:none;width:32px;height:32px;
+  background:rgba(230,25,5,0.08);border:1px solid var(--border);
+  color:var(--crimson);font-size:.9rem;
+  place-items:center;cursor:pointer;border-radius:6px;
 }
+.hamburger .material-symbols-outlined{font-size:1.1rem;}
 .overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
-  z-index:150;
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
+  z-index:150;backdrop-filter:blur(2px);
 }
 .overlay.show{display:block;}
+
+/* ── FOOTER DECO ── */
+.main-footer{
+  padding:1.5rem;text-align:center;
+  border-top:1px solid var(--border);margin-top:1rem;
+}
+.main-footer p{font-family:var(--mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.4em;color:rgba(230,25,5,0.2);}
 </style>
 </head>
 <body>
 
-<!-- OVERLAY for mobile sidebar -->
 <div class="overlay" id="overlay"></div>
 
-<!-- TOPBAR -->
+<!-- ── TOPBAR ── -->
 <div class="topbar">
   <div class="topbar-left">
-    <button class="hamburger" id="hamburger"><i data-lucide="menu" style="width:20px;height:20px;"></i></button>
-    <div class="brand-mark">JDH</div>
-    <span class="topbar-title">Admin Dashboard</span>
-    <span class="topbar-badge">Admin</span>
+    <button class="hamburger" id="hamburger"><span class="material-symbols-outlined">menu</span></button>
+    <div class="brand-mark"><span class="material-symbols-outlined">rocket_launch</span></div>
+    <div class="brand-text">
+      <div class="topbar-title">JAYSTARBLISS</div>
+      <div class="topbar-sub">Admin Panel</div>
+    </div>
   </div>
   <div class="topbar-right">
-    <span class="admin-email" id="adminEmail">admin@jaystarbliss.com</span>
-    <button class="theme-btn" id="themeToggleBtn" title="Toggle theme"><i data-lucide="sun" style="width:16px;height:16px;"></i></button>
-    <button class="logout-btn" id="logoutBtn">Logout</button>
+    <div class="admin-email-pill">
+      <span>USER:</span>
+      <span id="adminEmail">johnrufai242@gmail.com</span>
+    </div>
+    <button class="theme-btn" id="themeToggleBtn" title="Toggle theme">
+      <span class="material-symbols-outlined">contrast</span>
+    </button>
+    <button class="logout-btn" id="logoutBtn">
+      <span class="material-symbols-outlined">logout</span>
+      EXIT_SESSION
+    </button>
   </div>
 </div>
 
-<!-- SIDEBAR -->
+<!-- ── SIDEBAR ── -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-section">
-    <div class="sidebar-label">Content</div>
-    <button class="nav-item active" data-tab="resources"><i class="nav-icon" data-lucide="file" style="width:16px;height:16px;"></i> General Resources</button>
-    <button class="nav-item" data-tab="newsCorner"><i class="nav-icon" data-lucide="newspaper" style="width:16px;height:16px;"></i> News Corner</button>
-    <button class="nav-item" data-tab="links"><i class="nav-icon" data-lucide="link" style="width:16px;height:16px;"></i> General Links</button>
-    <button class="nav-item" data-tab="exams"><i class="nav-icon" data-lucide="file-text" style="width:16px;height:16px;"></i> Programming Questions</button>
+    <div class="sidebar-label">Command Modules</div>
+    <button class="nav-item active" data-tab="resources">
+      <span class="material-symbols-outlined">description</span> General Resources
+    </button>
+    <button class="nav-item" data-tab="newsCorner">
+      <span class="material-symbols-outlined">newspaper</span> News Corner
+    </button>
+    <button class="nav-item" data-tab="links">
+      <span class="material-symbols-outlined">link</span> General Links
+    </button>
+    <button class="nav-item" data-tab="exams">
+      <span class="material-symbols-outlined">quiz</span> Programming Questions
+    </button>
   </div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">
     <div class="sidebar-label">Schools</div>
-    <button class="nav-item" data-tab="schoolExams"><i class="nav-icon" data-lucide="school" style="width:16px;height:16px;"></i> School Exams</button>
-    <button class="nav-item" data-tab="schoolResources"><i class="nav-icon" data-lucide="book" style="width:16px;height:16px;"></i> School Resources</button>
-    <button class="nav-item" data-tab="schoolManage"><i class="nav-icon" data-lucide="lock" style="width:16px;height:16px;"></i> Manage Schools</button>
+    <button class="nav-item" data-tab="schoolExams">
+      <span class="material-symbols-outlined">school</span> School Exams
+    </button>
+    <button class="nav-item" data-tab="schoolResources">
+      <span class="material-symbols-outlined">menu_book</span> School Resources
+    </button>
+    <button class="nav-item" data-tab="schoolManage">
+      <span class="material-symbols-outlined">lock</span> Manage Schools
+    </button>
   </div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">
     <div class="sidebar-label">Students</div>
-    <button class="nav-item" data-tab="studentManage"><i class="nav-icon" data-lucide="user" style="width:16px;height:16px;"></i> Manage Students</button>
-    <button class="nav-item" data-tab="studentResources"><i class="nav-icon" data-lucide="send" style="width:16px;height:16px;"></i> Send Resources</button>
+    <button class="nav-item" data-tab="studentManage">
+      <span class="material-symbols-outlined">person</span> Manage Students
+    </button>
+    <button class="nav-item" data-tab="studentResources">
+      <span class="material-symbols-outlined">send</span> Send Resources
+    </button>
   </div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">
     <div class="sidebar-label">Staff</div>
-    <button class="nav-item" data-tab="staffManage"><i class="nav-icon" data-lucide="users" style="width:16px;height:16px;"></i> Manage Staff</button>
-    <button class="nav-item" data-tab="staffResources"><i class="nav-icon" data-lucide="package" style="width:16px;height:16px;"></i> Staff Resources</button>
-    <button class="nav-item" data-tab="staffAccess"><i class="nav-icon" data-lucide="key" style="width:16px;height:16px;"></i> Staff School Access</button>
+    <button class="nav-item" data-tab="staffManage">
+      <span class="material-symbols-outlined">engineering</span> Manage Staff
+    </button>
+    <button class="nav-item" data-tab="staffResources">
+      <span class="material-symbols-outlined">inventory_2</span> Staff Resources
+    </button>
+    <button class="nav-item" data-tab="staffAccess">
+      <span class="material-symbols-outlined">key</span> Staff School Access
+    </button>
   </div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">
     <div class="sidebar-label">System</div>
-    <button class="nav-item" data-tab="notifications"><i class="nav-icon" data-lucide="bell" style="width:16px;height:16px;"></i> Notifications</button>
-    <button class="nav-item" data-tab="activityLogs"><i class="nav-icon" data-lucide="bar-chart-2" style="width:16px;height:16px;"></i> Activity Logs</button>
+    <button class="nav-item" data-tab="notifications">
+      <span class="material-symbols-outlined">notifications</span> Notifications
+    </button>
+    <button class="nav-item" data-tab="activityLogs">
+      <span class="material-symbols-outlined">monitoring</span> Activity Logs
+    </button>
+  </div>
+
+  <!-- Status Widget -->
+  <div class="status-widget">
+    <div class="status-widget-header">
+      <span class="status-label">Status</span>
+      <div class="status-dot"></div>
+    </div>
+    <div class="status-bar"><div class="status-bar-fill"></div></div>
+    <p class="status-text">SYNC: OPERATIONAL</p>
+    <button class="status-btn">System Online</button>
   </div>
 </aside>
 
-<!-- MAIN -->
+<!-- ── MAIN ── -->
 <main class="main" id="main">
 
-  <!-- ══ GENERAL RESOURCES ══ -->
-  <div id="resources" class="tab-content active">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Add New Resource</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>💡 How to share files:</strong> Upload your PDF/DOCX files to Google Drive, Dropbox, or OneDrive. Make the file publicly accessible. Then paste the shareable link below.
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <span class="stat-card-label">Total Students</span>
+        <span class="material-symbols-outlined stat-card-icon">person</span>
+      </div>
+      <div class="stat-card-value" id="statStudents">—</div>
+      <div class="stat-card-delta up"><span class="material-symbols-outlined">trending_up</span> ACTIVE</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <span class="stat-card-label">Active Schools</span>
+        <span class="material-symbols-outlined stat-card-icon">domain</span>
+      </div>
+      <div class="stat-card-value">6</div>
+      <div class="stat-card-delta neutral"><span class="material-symbols-outlined">check_circle</span> REGISTERED</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <span class="stat-card-label">Staff Members</span>
+        <span class="material-symbols-outlined stat-card-icon">badge</span>
+      </div>
+      <div class="stat-card-value" id="statStaff">—</div>
+      <div class="stat-card-delta up"><span class="material-symbols-outlined">monitoring</span> ONLINE</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <span class="stat-card-label">Sys Health</span>
+        <span class="material-symbols-outlined stat-card-icon">memory</span>
+      </div>
+      <div class="stat-card-value">99.9%</div>
+      <div class="stat-card-delta neutral"><span class="material-symbols-outlined">check_circle</span> OPTIMAL</div>
+    </div>
+  </div>
+
+  <!-- Tab content sections -->
+  <div class="content-area">
+
+    <!-- ══ GENERAL RESOURCES ══ -->
+    <div id="resources" class="tab-content active">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">add_circle</span> Initialize Resource</span>
         </div>
-        <div class="success-message" id="resourceSuccess">Resource posted successfully!</div>
-        <form id="resourceForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="resourceTitle">Title</label>
-              <input type="text" id="resourceTitle" required placeholder="e.g., Introduction to Python">
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>💡 How to share files:</strong> Upload your PDF/DOCX files to Google Drive, Dropbox, or OneDrive. Make the file publicly accessible. Then paste the shareable link below.
+          </div>
+          <div class="success-message" id="resourceSuccess">Resource posted successfully!</div>
+          <form id="resourceForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="resourceTitle">Resource Title</label>
+                <input type="text" id="resourceTitle" required placeholder="E.G. CURRICULUM_V1">
+              </div>
+              <div class="form-group">
+                <label for="resourceCategory">Access Level</label>
+                <select id="resourceCategory" required>
+                  <option value="">Select Category</option>
+                  <option value="school">School Lectures</option>
+                  <option value="private">Private Lectures</option>
+                  <option value="both">Both</option>
+                </select>
+              </div>
             </div>
             <div class="form-group">
-              <label for="resourceCategory">Category</label>
-              <select id="resourceCategory" required>
-                <option value="">Select Category</option>
-                <option value="school">School Lectures</option>
-                <option value="private">Private Lectures</option>
-                <option value="both">Both</option>
+              <label for="resourceDescription">Resource Meta</label>
+              <textarea id="resourceDescription" required placeholder="INPUT DATA STRING..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="resourceUrl">File Link (Google Drive, Dropbox, OneDrive)</label>
+              <input type="url" id="resourceUrl" required placeholder="https://drive.google.com/file/d/...">
+            </div>
+            <button type="submit" class="btn btn-primary">EXECUTE_UPLOAD</button>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted Resources</div>
+      <div class="posts-grid" id="resourcesGrid"></div>
+    </div>
+
+    <!-- ══ NEWS CORNER ══ -->
+    <div id="newsCorner" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">campaign</span> Broadcast News</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>📰 News Corner Posts:</strong> These posts will appear on the public News Corner page for all visitors to see.
+          </div>
+          <div class="success-message" id="newsSuccess">News post published successfully!</div>
+          <form id="newsForm">
+            <div class="form-group">
+              <label for="newsTitle">News Title</label>
+              <input type="text" id="newsTitle" required placeholder="e.g., December Coding Challenge Announced!">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="newsCategory">Category</label>
+                <select id="newsCategory" required>
+                  <option value="">Select Category</option>
+                  <option value="announcement">📢 Announcement</option>
+                  <option value="event">🎉 Event</option>
+                  <option value="achievement">🏆 Achievement</option>
+                  <option value="update">🔔 Update</option>
+                  <option value="holiday">🎄 Holiday Special</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="newsAuthor">Author</label>
+                <input type="text" id="newsAuthor" required placeholder="Your name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="newsExcerpt">Brief Summary (for preview)</label>
+              <textarea id="newsExcerpt" required placeholder="Short description (1-2 sentences)" maxlength="200"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="newsContent">Full Content</label>
+              <textarea id="newsContent" required placeholder="Full news content" style="min-height:150px;"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="newsImage">Featured Image URL (optional)</label>
+              <input type="url" id="newsImage" placeholder="https://example.com/image.jpg">
+              <small>Upload image to Google Drive/Imgur and paste link</small>
+            </div>
+            <button type="submit" class="btn btn-primary">PUBLISH_POST</button>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Published News Posts</div>
+      <div class="posts-grid" id="newsGrid"></div>
+    </div>
+
+    <!-- ══ LINKS ══ -->
+    <div id="links" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">add_link</span> Deploy Link</span>
+        </div>
+        <div class="panel-body">
+          <div class="success-message" id="linkSuccess">Link posted successfully!</div>
+          <form id="linkForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="linkTitle">Title</label>
+                <input type="text" id="linkTitle" required placeholder="e.g., Scratch Project Gallery">
+              </div>
+              <div class="form-group">
+                <label for="linkCategory">Category</label>
+                <select id="linkCategory" required>
+                  <option value="">Select Category</option>
+                  <option value="school">School Lectures</option>
+                  <option value="private">Private Lectures</option>
+                  <option value="both">Both</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="linkUrl">URL</label>
+              <input type="url" id="linkUrl" required placeholder="https://example.com">
+            </div>
+            <div class="form-group">
+              <label for="linkDescription">Description</label>
+              <textarea id="linkDescription" required placeholder="Brief description of the link"></textarea>
+            </div>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+              <button type="button" class="btn btn-gold" onclick="previewLink()">Preview Link</button>
+              <button type="submit" class="btn btn-primary">POST_LINK</button>
+            </div>
+            <div id="linkPreviewContainer"></div>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted Links</div>
+      <div class="posts-grid" id="linksGrid"></div>
+    </div>
+
+    <!-- ══ EXAMS ══ -->
+    <div id="exams" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">quiz</span> Deploy Questions</span>
+        </div>
+        <div class="panel-body">
+          <div class="success-message" id="examSuccess">Exam questions posted successfully!</div>
+          <form id="examForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="examTitle">Exam Title</label>
+                <input type="text" id="examTitle" required placeholder="e.g., Mid-Term Python Test">
+              </div>
+              <div class="form-group">
+                <label for="examCategory">Category</label>
+                <select id="examCategory" required>
+                  <option value="">Select Category</option>
+                  <option value="school">School Lectures</option>
+                  <option value="private">Private Lectures</option>
+                  <option value="both">Both</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="examUrl">Exam Link (Google Forms, etc.)</label>
+              <input type="url" id="examUrl" required placeholder="https://forms.google.com/...">
+            </div>
+            <div class="form-group">
+              <label for="examDescription">Instructions</label>
+              <textarea id="examDescription" required placeholder="Exam instructions and details"></textarea>
+            </div>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+              <button type="button" class="btn btn-gold" onclick="previewExam()">Preview Exam</button>
+              <button type="submit" class="btn btn-primary">POST_EXAM</button>
+            </div>
+            <div id="examPreviewContainer"></div>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted Exams</div>
+      <div class="posts-grid" id="examsGrid"></div>
+    </div>
+
+    <!-- ══ SCHOOL EXAMS ══ -->
+    <div id="schoolExams" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">school</span> Deploy School Exam</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>🏫 School-Specific Exams:</strong> These exams will only be visible to students from the selected school.
+          </div>
+          <div class="success-message" id="schoolExamSuccess">School exam posted successfully!</div>
+          <form id="schoolExamForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="schoolExamTitle">Exam Title</label>
+                <input type="text" id="schoolExamTitle" required placeholder="e.g., Term 1 Mathematics Exam">
+              </div>
+              <div class="form-group">
+                <label for="schoolSelect">Select School</label>
+                <select id="schoolSelect" required>
+                  <option value="">Choose School</option>
+                  <option value="peniel">Peniel Lily Montessori School</option>
+                  <option value="southgold">South Gold Montessori School</option>
+                  <option value="sapphire">Sapphire Explorer Montessori School</option>
+                  <option value="easystars">Easy Stars Early Years Academy</option>
+                  <option value="christycaleb">Christy Caleb International School</option>
+                  <option value="royalbreed">Royal Breed Academy</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="schoolExamUrl">Exam Link (Google Forms, etc.)</label>
+              <input type="url" id="schoolExamUrl" required placeholder="https://forms.google.com/...">
+            </div>
+            <div class="form-group">
+              <label for="schoolExamDescription">Instructions</label>
+              <textarea id="schoolExamDescription" required placeholder="Exam instructions and details"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">POST_SCHOOL_EXAM</button>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted School Exams</div>
+      <div class="posts-grid" id="schoolExamsGrid"></div>
+    </div>
+
+    <!-- ══ SCHOOL RESOURCES ══ -->
+    <div id="schoolResources" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">menu_book</span> Deploy School Resource</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>🏫 School Resources &amp; Links:</strong> Visible only to students from the selected school.
+          </div>
+          <div class="success-message" id="schoolResourceSuccess">Resource posted successfully!</div>
+          <form id="schoolResourceForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="schoolResourceType">Type</label>
+                <select id="schoolResourceType" required>
+                  <option value="">Select Type</option>
+                  <option value="resource">📄 File/Document</option>
+                  <option value="link">🔗 Link</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="schoolResourceSchool">Select School</label>
+                <select id="schoolResourceSchool" required>
+                  <option value="">Choose School</option>
+                  <option value="peniel">Peniel Lily Montessori School</option>
+                  <option value="southgold">South Gold Montessori School</option>
+                  <option value="sapphire">Sapphire Explorer Montessori School</option>
+                  <option value="easystars">Easy Stars Early Years Academy</option>
+                  <option value="christycaleb">Christy Caleb International School</option>
+                  <option value="royalbreed">Royal Breed Academy</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="schoolResourceTitle">Title</label>
+              <input type="text" id="schoolResourceTitle" required placeholder="e.g., Mathematics Study Guide">
+            </div>
+            <div class="form-group">
+              <label for="schoolResourceUrl">URL/Link</label>
+              <input type="url" id="schoolResourceUrl" required placeholder="https://...">
+              <small>For files: Upload to Google Drive/Dropbox and paste the shareable link</small>
+            </div>
+            <div class="form-group">
+              <label for="schoolResourceDescription">Description</label>
+              <textarea id="schoolResourceDescription" required placeholder="Brief description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">POST_TO_SCHOOL</button>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted School Resources</div>
+      <div class="posts-grid" id="schoolResourcesGrid"></div>
+    </div>
+
+    <!-- ══ MANAGE SCHOOLS ══ -->
+    <div id="schoolManage" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">lock</span> Manage School Access Codes</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>🔐 Access Codes:</strong> Set or update access codes for each school. Students will need these codes to access their school's portal.
+          </div>
+          <div class="success-message" id="schoolManageSuccess">Access code updated successfully!</div>
+          <div style="display:grid;gap:.8rem;">
+            <div class="school-card">
+              <h3>🎓 Peniel Lily Montessori School</h3>
+              <div class="form-group" style="margin-bottom:.6rem;"><label for="penielCode">Access Code</label><input type="text" id="penielCode" placeholder="Enter access code"></div>
+              <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('peniel')">Update Code</button>
+            </div>
+            <div class="school-card">
+              <h3>🏆 South Gold Montessori School</h3>
+              <div class="form-group" style="margin-bottom:.6rem;"><label for="southgoldCode">Access Code</label><input type="text" id="southgoldCode" placeholder="Enter access code"></div>
+              <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('southgold')">Update Code</button>
+            </div>
+            <div class="school-card">
+              <h3>💎 Sapphire Explorer Montessori School</h3>
+              <div class="form-group" style="margin-bottom:.6rem;"><label for="sapphireCode">Access Code</label><input type="text" id="sapphireCode" placeholder="Enter access code"></div>
+              <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('sapphire')">Update Code</button>
+            </div>
+            <div class="school-card">
+              <h3>⭐ Easy Stars Early Years Academy</h3>
+              <div class="form-group" style="margin-bottom:.6rem;"><label for="easystarsCode">Access Code</label><input type="text" id="easystarsCode" placeholder="Enter access code"></div>
+              <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('easystars')">Update Code</button>
+            </div>
+            <div class="school-card">
+              <h3>📚 Christy Caleb International School</h3>
+              <div class="form-group" style="margin-bottom:.6rem;"><label for="christycalebCode">Access Code</label><input type="text" id="christycalebCode" placeholder="Enter access code"></div>
+              <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('christycaleb')">Update Code</button>
+            </div>
+            <div class="school-card">
+              <h3>👑 Royal Breed Academy</h3>
+              <div class="form-group" style="margin-bottom:.6rem;"><label for="royalbreedCode">Access Code</label><input type="text" id="royalbreedCode" placeholder="Enter access code"></div>
+              <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('royalbreed')">Update Code</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MANAGE STUDENTS ══ -->
+    <div id="studentManage" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">person_add</span> Add New Student</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>👤 Create Student Accounts:</strong> Add new students and assign them access codes.
+          </div>
+          <div class="success-message" id="studentAddSuccess">Student added successfully!</div>
+          <form id="addStudentForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="newStudentName">Full Name</label>
+                <input type="text" id="newStudentName" required placeholder="Student's full name">
+              </div>
+              <div class="form-group">
+                <label for="newStudentUsername">Username</label>
+                <input type="text" id="newStudentUsername" required placeholder="Unique username">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="newStudentEmail">Email (Optional)</label>
+                <input type="email" id="newStudentEmail" placeholder="student@example.com">
+              </div>
+              <div class="form-group">
+                <label for="newStudentCode">Access Code</label>
+                <input type="text" id="newStudentCode" required placeholder="Create access code">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">ADD_STUDENT</button>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Registered Students</div>
+      <div id="studentsListContainer" style="display:grid;gap:.6rem;">
+        <div style="text-align:center;padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">Loading students...</div>
+      </div>
+    </div>
+
+    <!-- ══ SEND RESOURCES TO STUDENT ══ -->
+    <div id="studentResources" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">send</span> Send Resources to Student</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>📤 Personal Resources:</strong> Send resources and links directly to specific students.
+          </div>
+          <div class="success-message" id="studentResourceSuccess">Resource sent successfully!</div>
+          <form id="studentResourceForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="targetStudent">Select Student</label>
+                <select id="targetStudent" required>
+                  <option value="">Choose Student</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="resourceType">Resource Type</label>
+                <select id="resourceType" required>
+                  <option value="">Select Type</option>
+                  <option value="resource">📄 File/Document</option>
+                  <option value="link">🔗 Link</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="studentResourceTitle">Title</label>
+              <input type="text" id="studentResourceTitle" required placeholder="e.g., Your Python Assignment">
+            </div>
+            <div class="form-group">
+              <label for="studentResourceUrl">URL/Link</label>
+              <input type="url" id="studentResourceUrl" required placeholder="https://...">
+            </div>
+            <div class="form-group">
+              <label for="studentResourceDescription">Description</label>
+              <textarea id="studentResourceDescription" required placeholder="Brief description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">TRANSMIT_RESOURCE</button>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Recently Sent Resources</div>
+      <div class="posts-grid" id="studentResourcesGrid"></div>
+    </div>
+
+    <!-- ══ MANAGE STAFF ══ -->
+    <div id="staffManage" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">engineering</span> Invite Staff Member</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>👨‍🏫 Staff Registration:</strong> Create an invitation for staff members. They will register themselves using the provided code and link.
+          </div>
+          <div class="success-message" id="staffAddSuccess">Staff invitation created successfully!</div>
+          <form id="addStaffForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="staffName">Full Name</label>
+                <input type="text" id="staffName" required placeholder="Staff member's name">
+              </div>
+              <div class="form-group">
+                <label for="staffEmail">Email</label>
+                <input type="email" id="staffEmail" required placeholder="staff@example.com">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">CREATE_INVITATION</button>
+          </form>
+          <div class="info-box-blue" style="margin-top:1rem;">
+            <strong>📋 Current Registration Code:</strong> JAYSTAR2024<br>
+            <strong>🔗 Registration Link:</strong> <span id="regLink" style="word-break:break-all;"></span>
+          </div>
+        </div>
+      </div>
+      <div class="section-head">Registered Staff</div>
+      <div id="staffListContainer"></div>
+    </div>
+
+    <!-- ══ STAFF RESOURCES ══ -->
+    <div id="staffResources" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">inventory_2</span> Add Staff Resource</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>📚 General Staff Resources:</strong> These resources will be visible to all staff members.
+          </div>
+          <div class="success-message" id="staffResourceSuccess">Resource added successfully!</div>
+          <form id="staffResourceForm">
+            <div class="form-group">
+              <label for="staffResTitle">Title</label>
+              <input type="text" id="staffResTitle" required placeholder="Resource title">
+            </div>
+            <div class="form-group">
+              <label for="staffResUrl">URL/Link</label>
+              <input type="url" id="staffResUrl" required placeholder="https://...">
+            </div>
+            <div class="form-group">
+              <label for="staffResDescription">Description</label>
+              <textarea id="staffResDescription" required placeholder="Brief description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">ADD_RESOURCE</button>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted Staff Resources</div>
+      <div class="posts-grid" id="staffResourcesGrid"></div>
+    </div>
+
+    <!-- ══ STAFF SCHOOL ACCESS ══ -->
+    <div id="staffAccess" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">key</span> Staff School Access Code</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>🔑 Access Control:</strong> Generate an access code that staff members need to send resources to schools.
+          </div>
+          <div class="success-message" id="accessCodeSuccess">Access code updated successfully!</div>
+          <div class="form-group">
+            <label for="schoolAccessCodeInput">Access Code</label>
+            <input type="text" id="schoolAccessCodeInput" placeholder="Enter access code for staff">
+          </div>
+          <button class="btn btn-primary" onclick="updateStaffSchoolAccess()">UPDATE_ACCESS_CODE</button>
+          <div style="margin-top:1rem;padding:.8rem .9rem;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;font-size:.72rem;">
+            <span style="color:var(--text);font-family:var(--mono);">CURRENT_CODE: </span>
+            <span id="currentAccessCode" style="font-family:var(--mono);color:var(--crimson);">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ NOTIFICATIONS ══ -->
+    <div id="notifications" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">notifications_active</span> Send Notification</span>
+        </div>
+        <div class="panel-body">
+          <div class="success-message" id="notificationSuccess">Notification sent successfully!</div>
+          <form id="notificationForm">
+            <div class="form-group">
+              <label for="notifRecipient">Send To</label>
+              <select id="notifRecipient" required>
+                <option value="">Choose Recipient</option>
+                <option value="all">🌐 Everyone (All Users)</option>
+                <option value="all_staff">👨‍🏫 All Staff Members</option>
+                <option value="all_students">👥 All Students</option>
+                <option value="specific_staff">📧 Specific Staff Member</option>
+                <option value="specific_student">📧 Specific Student</option>
               </select>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="resourceDescription">Description</label>
-            <textarea id="resourceDescription" required placeholder="Brief description of the resource"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="resourceUrl">File Link (Google Drive, Dropbox, OneDrive)</label>
-            <input type="url" id="resourceUrl" required placeholder="https://drive.google.com/file/d/...">
-          </div>
-          <button type="submit" class="btn btn-primary">Post Resource</button>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Posted Resources</div>
-    <div class="posts-grid" id="resourcesGrid"></div>
-  </div>
-
-  <!-- ══ NEWS CORNER ══ -->
-  <div id="newsCorner" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Post to News Corner</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>📰 News Corner Posts:</strong> These posts will appear on the public News Corner page for all visitors to see.
-        </div>
-        <div class="success-message" id="newsSuccess">News post published successfully!</div>
-        <form id="newsForm">
-          <div class="form-group">
-            <label for="newsTitle">News Title</label>
-            <input type="text" id="newsTitle" required placeholder="e.g., December Coding Challenge Announced!">
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="newsCategory">Category</label>
-              <select id="newsCategory" required>
-                <option value="">Select Category</option>
-                <option value="announcement">📢 Announcement</option>
-                <option value="event">🎉 Event</option>
-                <option value="achievement">🏆 Achievement</option>
-                <option value="update">🔔 Update</option>
-                <option value="holiday">🎄 Holiday Special</option>
+            <div class="form-group" id="specificRecipientGroup" style="display:none;">
+              <label for="specificRecipient">Select Person</label>
+              <select id="specificRecipient">
+                <option value="">Choose person</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="newsAuthor">Author</label>
-              <input type="text" id="newsAuthor" required placeholder="Your name">
+              <label for="notifTitle">Title</label>
+              <input type="text" id="notifTitle" required placeholder="Notification title">
             </div>
-          </div>
-          <div class="form-group">
-            <label for="newsExcerpt">Brief Summary (for preview)</label>
-            <textarea id="newsExcerpt" required placeholder="Short description (1-2 sentences)" maxlength="200"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="newsContent">Full Content</label>
-            <textarea id="newsContent" required placeholder="Full news content" style="min-height:150px;"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="newsImage">Featured Image URL (optional)</label>
-            <input type="url" id="newsImage" placeholder="https://example.com/image.jpg">
-            <small>Upload image to Google Drive/Imgur and paste link</small>
-          </div>
-          <button type="submit" class="btn btn-primary">Publish News Post</button>
-        </form>
+            <div class="form-group">
+              <label for="notifMessage">Message</label>
+              <textarea id="notifMessage" required placeholder="Your message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">BROADCAST_MESSAGE</button>
+          </form>
+        </div>
       </div>
     </div>
-    <div class="section-head">Published News Posts</div>
-    <div class="posts-grid" id="newsGrid"></div>
-  </div>
 
-  <!-- ══ LINKS ══ -->
-  <div id="links" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Add New Link</span></div>
-      <div class="panel-body">
-        <div class="success-message" id="linkSuccess">Link posted successfully!</div>
-        <form id="linkForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="linkTitle">Title</label>
-              <input type="text" id="linkTitle" required placeholder="e.g., Scratch Project Gallery">
-            </div>
-            <div class="form-group">
-              <label for="linkCategory">Category</label>
-              <select id="linkCategory" required>
-                <option value="">Select Category</option>
-                <option value="school">School Lectures</option>
-                <option value="private">Private Lectures</option>
-                <option value="both">Both</option>
-              </select>
-            </div>
+    <!-- ══ ACTIVITY LOGS ══ -->
+    <div id="activityLogs" class="tab-content">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">monitoring</span> Activity Logs</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box">
+            <strong>📊 Activity Monitor:</strong> Track all logins and resource sharing activities.
           </div>
-          <div class="form-group">
-            <label for="linkUrl">URL</label>
-            <input type="url" id="linkUrl" required placeholder="https://example.com">
+          <div class="filter-row">
+            <label><input type="checkbox" id="filterLogins" checked> Show Logins</label>
+            <label><input type="checkbox" id="filterResources" checked> Show Resource Activities</label>
+            <button class="btn btn-primary btn-sm" onclick="loadActivityLogs()">Refresh</button>
           </div>
-          <div class="form-group">
-            <label for="linkDescription">Description</label>
-            <textarea id="linkDescription" required placeholder="Brief description of the link"></textarea>
-          </div>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-            <button type="button" class="btn btn-gold" onclick="previewLink()">Preview Link</button>
-            <button type="submit" class="btn btn-primary">Post Link</button>
-          </div>
-          <div id="linkPreviewContainer"></div>
-        </form>
+        </div>
       </div>
+      <div id="activityLogsContainer"></div>
     </div>
-    <div class="section-head">Posted Links</div>
-    <div class="posts-grid" id="linksGrid"></div>
-  </div>
 
-  <!-- ══ EXAMS ══ -->
-  <div id="exams" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Add Programming Questions</span></div>
-      <div class="panel-body">
-        <div class="success-message" id="examSuccess">Exam questions posted successfully!</div>
-        <form id="examForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="examTitle">Exam Title</label>
-              <input type="text" id="examTitle" required placeholder="e.g., Mid-Term Python Test">
-            </div>
-            <div class="form-group">
-              <label for="examCategory">Category</label>
-              <select id="examCategory" required>
-                <option value="">Select Category</option>
-                <option value="school">School Lectures</option>
-                <option value="private">Private Lectures</option>
-                <option value="both">Both</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="examUrl">Exam Link (Google Forms, etc.)</label>
-            <input type="url" id="examUrl" required placeholder="https://forms.google.com/...">
-          </div>
-          <div class="form-group">
-            <label for="examDescription">Instructions</label>
-            <textarea id="examDescription" required placeholder="Exam instructions and details"></textarea>
-          </div>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-            <button type="button" class="btn btn-gold" onclick="previewExam()">Preview Exam</button>
-            <button type="submit" class="btn btn-primary">Post Exam</button>
-          </div>
-          <div id="examPreviewContainer"></div>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Posted Exams</div>
-    <div class="posts-grid" id="examsGrid"></div>
-  </div>
+  </div><!-- /content-area -->
 
-  <!-- ══ SCHOOL EXAMS ══ -->
-  <div id="schoolExams" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Add School Exam</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>🏫 School-Specific Exams:</strong> These exams will only be visible to students from the selected school.
-        </div>
-        <div class="success-message" id="schoolExamSuccess">School exam posted successfully!</div>
-        <form id="schoolExamForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="schoolExamTitle">Exam Title</label>
-              <input type="text" id="schoolExamTitle" required placeholder="e.g., Term 1 Mathematics Exam">
-            </div>
-            <div class="form-group">
-              <label for="schoolSelect">Select School</label>
-              <select id="schoolSelect" required>
-                <option value="">Choose School</option>
-                <option value="peniel">Peniel Lily Montessori School</option>
-                <option value="southgold">South Gold Montessori School</option>
-                <option value="sapphire">Sapphire Explorer Montessori School</option>
-                <option value="easystars">Easy Stars Early Years Academy</option>
-                <option value="christycaleb">Christy Caleb International School</option>
-                <option value="royalbreed">Royal Breed Academy</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="schoolExamUrl">Exam Link (Google Forms, etc.)</label>
-            <input type="url" id="schoolExamUrl" required placeholder="https://forms.google.com/...">
-          </div>
-          <div class="form-group">
-            <label for="schoolExamDescription">Instructions</label>
-            <textarea id="schoolExamDescription" required placeholder="Exam instructions and details"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Post School Exam</button>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Posted School Exams</div>
-    <div class="posts-grid" id="schoolExamsGrid"></div>
-  </div>
-
-  <!-- ══ SCHOOL RESOURCES ══ -->
-  <div id="schoolResources" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Add School-Specific Resources</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>🏫 School Resources &amp; Links:</strong> Visible only to students from the selected school.
-        </div>
-        <div class="success-message" id="schoolResourceSuccess">Resource posted successfully!</div>
-        <form id="schoolResourceForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="schoolResourceType">Type</label>
-              <select id="schoolResourceType" required>
-                <option value="">Select Type</option>
-                <option value="resource">📄 File/Document</option>
-                <option value="link">🔗 Link</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="schoolResourceSchool">Select School</label>
-              <select id="schoolResourceSchool" required>
-                <option value="">Choose School</option>
-                <option value="peniel">Peniel Lily Montessori School</option>
-                <option value="southgold">South Gold Montessori School</option>
-                <option value="sapphire">Sapphire Explorer Montessori School</option>
-                <option value="easystars">Easy Stars Early Years Academy</option>
-                <option value="christycaleb">Christy Caleb International School</option>
-                <option value="royalbreed">Royal Breed Academy</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="schoolResourceTitle">Title</label>
-            <input type="text" id="schoolResourceTitle" required placeholder="e.g., Mathematics Study Guide">
-          </div>
-          <div class="form-group">
-            <label for="schoolResourceUrl">URL/Link</label>
-            <input type="url" id="schoolResourceUrl" required placeholder="https://...">
-            <small>For files: Upload to Google Drive/Dropbox and paste the shareable link</small>
-          </div>
-          <div class="form-group">
-            <label for="schoolResourceDescription">Description</label>
-            <textarea id="schoolResourceDescription" required placeholder="Brief description"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Post to School</button>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Posted School Resources</div>
-    <div class="posts-grid" id="schoolResourcesGrid"></div>
-  </div>
-
-  <!-- ══ MANAGE SCHOOLS ══ -->
-  <div id="schoolManage" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Manage School Access Codes</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>🔐 Access Codes:</strong> Set or update access codes for each school. Students will need these codes to access their school's portal.
-        </div>
-        <div class="success-message" id="schoolManageSuccess">Access code updated successfully!</div>
-        <div style="display:grid;gap:.8rem;">
-          <div class="school-card">
-            <h3>🎓 Peniel Lily Montessori School</h3>
-            <div class="form-group" style="margin-bottom:.6rem;">
-              <label for="penielCode">Access Code</label>
-              <input type="text" id="penielCode" placeholder="Enter access code">
-            </div>
-            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('peniel')">Update Code</button>
-          </div>
-          <div class="school-card">
-            <h3>🏆 South Gold Montessori School</h3>
-            <div class="form-group" style="margin-bottom:.6rem;">
-              <label for="southgoldCode">Access Code</label>
-              <input type="text" id="southgoldCode" placeholder="Enter access code">
-            </div>
-            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('southgold')">Update Code</button>
-          </div>
-          <div class="school-card">
-            <h3>💎 Sapphire Explorer Montessori School</h3>
-            <div class="form-group" style="margin-bottom:.6rem;">
-              <label for="sapphireCode">Access Code</label>
-              <input type="text" id="sapphireCode" placeholder="Enter access code">
-            </div>
-            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('sapphire')">Update Code</button>
-          </div>
-          <div class="school-card">
-            <h3>⭐ Easy Stars Early Years Academy</h3>
-            <div class="form-group" style="margin-bottom:.6rem;">
-              <label for="easystarsCode">Access Code</label>
-              <input type="text" id="easystarsCode" placeholder="Enter access code">
-            </div>
-            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('easystars')">Update Code</button>
-          </div>
-          <div class="school-card">
-            <h3>📚 Christy Caleb International School</h3>
-            <div class="form-group" style="margin-bottom:.6rem;">
-              <label for="christycalebCode">Access Code</label>
-              <input type="text" id="christycalebCode" placeholder="Enter access code">
-            </div>
-            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('christycaleb')">Update Code</button>
-          </div>
-          <div class="school-card">
-            <h3>👑 Royal Breed Academy</h3>
-            <div class="form-group" style="margin-bottom:.6rem;">
-              <label for="royalbreedCode">Access Code</label>
-              <input type="text" id="royalbreedCode" placeholder="Enter access code">
-            </div>
-            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('royalbreed')">Update Code</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ MANAGE STUDENTS ══ -->
-  <div id="studentManage" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Add New Student</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>👤 Create Student Accounts:</strong> Add new students and assign them access codes.
-        </div>
-        <div class="success-message" id="studentAddSuccess">Student added successfully!</div>
-        <form id="addStudentForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="newStudentName">Full Name</label>
-              <input type="text" id="newStudentName" required placeholder="Student's full name">
-            </div>
-            <div class="form-group">
-              <label for="newStudentUsername">Username</label>
-              <input type="text" id="newStudentUsername" required placeholder="Unique username">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="newStudentEmail">Email (Optional)</label>
-              <input type="email" id="newStudentEmail" placeholder="student@example.com">
-            </div>
-            <div class="form-group">
-              <label for="newStudentCode">Access Code</label>
-              <input type="text" id="newStudentCode" required placeholder="Create access code">
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Add Student</button>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Registered Students</div>
-    <div id="studentsListContainer" style="display:grid;gap:.6rem;">
-      <div style="text-align:center;padding:2rem;color:var(--text-dim);font-size:.75rem;">Loading students...</div>
-    </div>
-  </div>
-
-  <!-- ══ SEND RESOURCES TO STUDENT ══ -->
-  <div id="studentResources" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Send Resources to Individual Student</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>📤 Personal Resources:</strong> Send resources and links directly to specific students.
-        </div>
-        <div class="success-message" id="studentResourceSuccess">Resource sent successfully!</div>
-        <form id="studentResourceForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="targetStudent">Select Student</label>
-              <select id="targetStudent" required>
-                <option value="">Choose Student</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="resourceType">Resource Type</label>
-              <select id="resourceType" required>
-                <option value="">Select Type</option>
-                <option value="resource">📄 File/Document</option>
-                <option value="link">🔗 Link</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="studentResourceTitle">Title</label>
-            <input type="text" id="studentResourceTitle" required placeholder="e.g., Your Python Assignment">
-          </div>
-          <div class="form-group">
-            <label for="studentResourceUrl">URL/Link</label>
-            <input type="url" id="studentResourceUrl" required placeholder="https://...">
-          </div>
-          <div class="form-group">
-            <label for="studentResourceDescription">Description</label>
-            <textarea id="studentResourceDescription" required placeholder="Brief description"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send to Student</button>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Recently Sent Resources</div>
-    <div class="posts-grid" id="studentResourcesGrid"></div>
-  </div>
-
-  <!-- ══ MANAGE STAFF ══ -->
-  <div id="staffManage" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Invite New Staff Member</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>👨‍🏫 Staff Registration:</strong> Create an invitation for staff members. They will register themselves using the provided code and link.
-        </div>
-        <div class="success-message" id="staffAddSuccess">Staff invitation created successfully!</div>
-        <form id="addStaffForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="staffName">Full Name</label>
-              <input type="text" id="staffName" required placeholder="Staff member's name">
-            </div>
-            <div class="form-group">
-              <label for="staffEmail">Email</label>
-              <input type="email" id="staffEmail" required placeholder="staff@example.com">
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Create Invitation</button>
-        </form>
-        <div class="info-box-blue" style="margin-top:1rem;">
-          <strong>📋 Current Registration Code:</strong> JAYSTAR2024<br>
-          <strong>🔗 Registration Link:</strong> <span id="regLink" style="word-break:break-all;"></span>
-        </div>
-      </div>
-    </div>
-    <div class="section-head">Registered Staff</div>
-    <div id="staffListContainer"></div>
-  </div>
-
-  <!-- ══ STAFF RESOURCES ══ -->
-  <div id="staffResources" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Add General Resource for All Staff</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>📚 General Staff Resources:</strong> These resources will be visible to all staff members.
-        </div>
-        <div class="success-message" id="staffResourceSuccess">Resource added successfully!</div>
-        <form id="staffResourceForm">
-          <div class="form-group">
-            <label for="staffResTitle">Title</label>
-            <input type="text" id="staffResTitle" required placeholder="Resource title">
-          </div>
-          <div class="form-group">
-            <label for="staffResUrl">URL/Link</label>
-            <input type="url" id="staffResUrl" required placeholder="https://...">
-          </div>
-          <div class="form-group">
-            <label for="staffResDescription">Description</label>
-            <textarea id="staffResDescription" required placeholder="Brief description"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Add Resource</button>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Posted Staff Resources</div>
-    <div class="posts-grid" id="staffResourcesGrid"></div>
-  </div>
-
-  <!-- ══ STAFF SCHOOL ACCESS ══ -->
-  <div id="staffAccess" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Staff School Access Code</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>🔑 Access Control:</strong> Generate an access code that staff members need to send resources to schools.
-        </div>
-        <div class="success-message" id="accessCodeSuccess">Access code updated successfully!</div>
-        <div class="form-group">
-          <label for="schoolAccessCodeInput">Access Code</label>
-          <input type="text" id="schoolAccessCodeInput" placeholder="Enter access code for staff">
-        </div>
-        <button class="btn btn-primary" onclick="updateStaffSchoolAccess()">Update Access Code</button>
-        <div style="margin-top:1rem;padding:.7rem .85rem;background:var(--surface-2);border:1px solid var(--border);font-size:.72rem;color:var(--text-muted);">
-          <strong style="color:var(--text);">Current Code:</strong> <span id="currentAccessCode" style="font-family:var(--mono);color:var(--gold);">Loading...</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ NOTIFICATIONS ══ -->
-  <div id="notifications" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Send Notifications</span></div>
-      <div class="panel-body">
-        <div class="success-message" id="notificationSuccess">Notification sent successfully!</div>
-        <form id="notificationForm">
-          <div class="form-group">
-            <label for="notifRecipient">Send To</label>
-            <select id="notifRecipient" required>
-              <option value="">Choose Recipient</option>
-              <option value="all">🌐 Everyone (All Users)</option>
-              <option value="all_staff">👨‍🏫 All Staff Members</option>
-              <option value="all_students">👥 All Students</option>
-              <option value="specific_staff">📧 Specific Staff Member</option>
-              <option value="specific_student">📧 Specific Student</option>
-            </select>
-          </div>
-          <div class="form-group" id="specificRecipientGroup" style="display:none;">
-            <label for="specificRecipient">Select Person</label>
-            <select id="specificRecipient">
-              <option value="">Choose person</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="notifTitle">Title</label>
-            <input type="text" id="notifTitle" required placeholder="Notification title">
-          </div>
-          <div class="form-group">
-            <label for="notifMessage">Message</label>
-            <textarea id="notifMessage" required placeholder="Your message"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send Notification</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ ACTIVITY LOGS ══ -->
-  <div id="activityLogs" class="tab-content">
-    <div class="panel">
-      <div class="panel-head"><span class="panel-title">Activity Logs</span></div>
-      <div class="panel-body">
-        <div class="info-box">
-          <strong>📊 Activity Monitor:</strong> Track all logins and resource sharing activities.
-        </div>
-        <div class="filter-row">
-          <label><input type="checkbox" id="filterLogins" checked> Show Logins</label>
-          <label><input type="checkbox" id="filterResources" checked> Show Resource Activities</label>
-          <button class="btn btn-primary btn-sm" onclick="loadActivityLogs()">Refresh</button>
-        </div>
-      </div>
-    </div>
-    <div id="activityLogsContainer"></div>
+  <div class="main-footer">
+    <p>System ID: 0xFF-JDH-MISSION-CRITICAL</p>
   </div>
 
 </main>
 
-<!-- PLAIN UI SCRIPT -->
+<!-- ── UI SCRIPT ── -->
 <script>
-// Theme
 window.toggleTheme = function() {
   var html = document.documentElement;
   html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
@@ -932,7 +1186,6 @@ window.toggleTheme = function() {
 var _savedTheme = localStorage.getItem('jdh-theme');
 if (_savedTheme) document.documentElement.dataset.theme = _savedTheme;
 
-// Tab switching
 function switchTab(tabName) {
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
@@ -944,20 +1197,16 @@ function switchTab(tabName) {
 window.switchTab = switchTab;
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Theme button
   document.getElementById('themeToggleBtn').addEventListener('click', window.toggleTheme);
 
-  // Sidebar nav items
   document.querySelectorAll('.nav-item[data-tab]').forEach(function(btn) {
     btn.addEventListener('click', function() {
       switchTab(this.dataset.tab);
-      // close mobile sidebar
       document.getElementById('sidebar').classList.remove('open');
       document.getElementById('overlay').classList.remove('show');
     });
   });
 
-  // Mobile hamburger
   var hamburger = document.getElementById('hamburger');
   var sidebar   = document.getElementById('sidebar');
   var overlay   = document.getElementById('overlay');
@@ -974,14 +1223,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Logout button wiring (actual async logic in module)
   document.getElementById('logoutBtn').addEventListener('click', function() {
     if (window._doLogout) window._doLogout();
   });
 });
 </script>
 
-<!-- FIREBASE MODULE SCRIPT -->
+<!-- ── FIREBASE MODULE ── -->
 <script type="module">
 import { initializeApp }   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
@@ -1001,26 +1249,36 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-// Auth guard
 if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'admin') {
   window.location.href = '../auth/login.html';
 }
-document.getElementById('adminEmail').textContent = sessionStorage.getItem('userEmail') || 'Admin';
+document.getElementById('adminEmail').textContent = sessionStorage.getItem('userEmail') || 'ADMIN@JDH.IO';
 
-// Logout
 window._doLogout = async function() {
   await signOut(auth);
   sessionStorage.clear();
   window.location.href = '../auth/login.html';
 };
 
-// ── HELPERS ──────────────────────────────────────────────────
 function showSuccess(id) {
   var el = document.getElementById(id);
   if (!el) return;
   el.classList.add('show');
   setTimeout(function() { el.classList.remove('show'); }, 3000);
 }
+
+// Load live stats
+async function loadStats() {
+  try {
+    var [studSnap, staffSnap] = await Promise.all([
+      getDocs(collection(db,'individualStudents')),
+      getDocs(query(collection(db,'users'), where('role','==','staff')))
+    ]);
+    document.getElementById('statStudents').textContent = studSnap.size;
+    document.getElementById('statStaff').textContent = staffSnap.size;
+  } catch(e) { console.error(e); }
+}
+loadStats();
 
 // ── RESOURCES ────────────────────────────────────────────────
 document.getElementById('resourceForm').addEventListener('submit', async function(e) {
@@ -1073,16 +1331,19 @@ window.previewExam = function() {
 async function loadResources() {
   const grid = document.getElementById('resourcesGrid'); grid.innerHTML = '';
   const snap = await getDocs(query(collection(db,'resources'), orderBy('timestamp','desc')));
+  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No resources posted yet</div>'; return; }
   snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'resource')); });
 }
 async function loadLinks() {
   const grid = document.getElementById('linksGrid'); grid.innerHTML = '';
   const snap = await getDocs(query(collection(db,'links'), orderBy('timestamp','desc')));
+  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No links posted yet</div>'; return; }
   snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'link')); });
 }
 async function loadExams() {
   const grid = document.getElementById('examsGrid'); grid.innerHTML = '';
   const snap = await getDocs(query(collection(db,'exams'), orderBy('timestamp','desc')));
+  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No exams posted yet</div>'; return; }
   snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'exam')); });
 }
 
@@ -1094,7 +1355,7 @@ function createPostCard(data, id, type) {
     +'<p>'+data.description+'</p>'
     +(data.fileUrl ? '<p><strong>📎 Link:</strong> <a href="'+data.fileUrl+'" target="_blank">Open File</a></p>' : '')
     +(data.url ? '<p><strong>🔗 URL:</strong> <a href="'+data.url+'" target="_blank">View</a></p>' : '')
-    +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deletePost(\''+id+'\',\''+type+'\')">Delete</button></div>';
+    +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deletePost(\''+id+'\',\''+type+'\')">DELETE</button></div>';
   return card;
 }
 window.deletePost = async function(id, type) {
@@ -1130,6 +1391,7 @@ const SCHOOL_NAMES = {
 async function loadSchoolExams() {
   var grid = document.getElementById('schoolExamsGrid'); grid.innerHTML = '';
   var snap = await getDocs(query(collection(db,'schoolExams'), orderBy('timestamp','desc')));
+  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No school exams posted yet</div>'; return; }
   snap.forEach(function(docSnap) {
     var data = docSnap.data();
     var card = document.createElement('div'); card.className = 'post-card';
@@ -1137,7 +1399,7 @@ async function loadSchoolExams() {
       +'<div class="post-meta"><span>🏫 '+(SCHOOL_NAMES[data.schoolId]||data.schoolId)+'</span><span>'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
       +'<p>'+data.description+'</p>'
       +'<p><strong>🔗 URL:</strong> <a href="'+data.url+'" target="_blank">View</a></p>'
-      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteSchoolExam(\''+docSnap.id+'\')">Delete</button></div>';
+      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteSchoolExam(\''+docSnap.id+'\')">DELETE</button></div>';
     grid.appendChild(card);
   });
 }
@@ -1173,7 +1435,7 @@ async function loadSchoolResources() {
   rSnap.forEach(function(d){ all.push({id:d.id,data:d.data(),type:'resource',col:'schoolResources'}); });
   lSnap.forEach(function(d){ all.push({id:d.id,data:d.data(),type:'link',col:'schoolLinks'}); });
   all.sort(function(a,b){ return (b.data.timestamp?.toDate()||new Date(0))-(a.data.timestamp?.toDate()||new Date(0)); });
-  if (!all.length) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;">No school resources posted yet</div>'; return; }
+  if (!all.length) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No school resources posted yet</div>'; return; }
   all.forEach(function(item) {
     var data = item.data;
     var url = item.type==='link' ? data.url : data.fileUrl;
@@ -1182,7 +1444,7 @@ async function loadSchoolResources() {
       +'<div class="post-meta"><span>🏫 '+(SCHOOL_NAMES[data.schoolId]||data.schoolId)+'</span><span>'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
       +'<p>'+data.description+'</p>'
       +'<p><strong>🔗 URL:</strong> <a href="'+url+'" target="_blank">View</a></p>'
-      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteSchoolResource(\''+item.id+'\',\''+item.col+'\')">Delete</button></div>';
+      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteSchoolResource(\''+item.id+'\',\''+item.col+'\')">DELETE</button></div>';
     grid.appendChild(card);
   });
 }
@@ -1213,7 +1475,7 @@ document.getElementById('addStudentForm').addEventListener('submit', async funct
     var ex = await getDocs(query(collection(db,'individualStudents'), where('username','==',username)));
     if (!ex.empty) { alert('Username already exists! Choose another.'); return; }
     await addDoc(collection(db,'individualStudents'), { fullName, username, email, accessCode: code, registeredAt: serverTimestamp() });
-    showSuccess('studentAddSuccess'); this.reset(); loadStudentsList(); loadStudentsDropdown();
+    showSuccess('studentAddSuccess'); this.reset(); loadStudentsList(); loadStudentsDropdown(); loadStats();
   } catch(e) { alert('Error: '+e.message); }
 });
 
@@ -1222,7 +1484,7 @@ async function loadStudentsList() {
   container.innerHTML = '';
   var snap = await getDocs(collection(db,'individualStudents'));
   if (snap.empty) {
-    container.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;">No students registered yet</div>';
+    container.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;font-family:var(--mono);">No students registered yet</div>';
     return;
   }
   snap.forEach(function(docSnap) {
@@ -1232,14 +1494,14 @@ async function loadStudentsList() {
       +'<div><h3>👤 '+(data.fullName||data.username)+'</h3>'
       +'<p><strong>Username:</strong> '+data.username+'<br>'
       +(data.email?'<strong>Email:</strong> '+data.email+'<br>':'')
-      +'<strong>Code:</strong> <span style="font-family:var(--mono);color:var(--gold);">'+data.accessCode+'</span><br>'
+      +'<strong>Code:</strong> <span style="font-family:var(--mono);color:var(--crimson);">'+data.accessCode+'</span><br>'
       +'<strong>Registered:</strong> '+(data.registeredAt?new Date(data.registeredAt.toDate()).toLocaleDateString():'')+'</p></div>'
-      +'<button class="btn btn-danger btn-sm" onclick="deleteStudent(\''+docSnap.id+'\')">Delete</button>'
+      +'<button class="btn btn-danger btn-sm" onclick="deleteStudent(\''+docSnap.id+'\')">DELETE</button>'
       +'</div>'
       +'<div class="form-group" style="margin-bottom:.4rem;"><label>Update Access Code</label>'
       +'<input type="text" id="code_'+docSnap.id+'" value="'+data.accessCode+'" placeholder="New access code">'
       +'</div>'
-      +'<button class="btn btn-primary btn-sm" onclick="updateStudentCode(\''+docSnap.id+'\')">Update Code</button>';
+      +'<button class="btn btn-primary btn-sm" onclick="updateStudentCode(\''+docSnap.id+'\')">UPDATE CODE</button>';
     container.appendChild(card);
   });
 }
@@ -1260,7 +1522,7 @@ window.deleteStudent = async function(id) {
   rSnap.forEach(function(d){ dels.push(deleteDoc(d.ref)); });
   lSnap.forEach(function(d){ dels.push(deleteDoc(d.ref)); });
   await Promise.all(dels);
-  loadStudentsList(); loadStudentsDropdown();
+  loadStudentsList(); loadStudentsDropdown(); loadStats();
 };
 async function loadStudentsDropdown() {
   var dd = document.getElementById('targetStudent');
@@ -1298,7 +1560,7 @@ async function loadStudentResources() {
     snap.forEach(function(d){ all.push({id:d.id,col:col,...d.data()}); });
   }
   all.sort(function(a,b){ return (b.timestamp?.toDate()||0)-(a.timestamp?.toDate()||0); });
-  if (!all.length) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;">No resources sent yet</div>'; return; }
+  if (!all.length) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No resources sent yet</div>'; return; }
   for (var res of all.slice(0,10)) {
     var sDoc = await getDoc(doc(db,'individualStudents',res.studentId));
     var sName = sDoc.exists()?(sDoc.data().fullName||sDoc.data().username):'Unknown';
@@ -1307,7 +1569,7 @@ async function loadStudentResources() {
       +'<div class="post-meta"><span>👤 '+sName+'</span><span>'+(res.timestamp?new Date(res.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
       +'<p>'+res.description+'</p>'
       +'<p><strong>🔗:</strong> <a href="'+(res.url||res.fileUrl)+'" target="_blank">View</a></p>'
-      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteStudentResource(\''+res.id+'\',\''+res.col+'\')">Delete</button></div>';
+      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteStudentResource(\''+res.id+'\',\''+res.col+'\')">DELETE</button></div>';
     grid.appendChild(card);
   }
 }
@@ -1331,9 +1593,9 @@ document.getElementById('addStaffForm').addEventListener('submit', async functio
 });
 async function loadStaffList() {
   var container = document.getElementById('staffListContainer');
-  container.innerHTML = '<div style="padding:1rem;color:var(--text-dim);font-size:.75rem;">Loading...</div>';
+  container.innerHTML = '<div style="padding:1rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">Loading...</div>';
   var snap = await getDocs(query(collection(db,'users'), where('role','==','staff')));
-  if (snap.empty) { container.innerHTML='<div style="padding:1.5rem;color:var(--text-dim);font-size:.75rem;text-align:center;">No staff members yet</div>'; return; }
+  if (snap.empty) { container.innerHTML='<div style="padding:1.5rem;color:var(--text-dim);font-size:.75rem;text-align:center;font-family:var(--mono);">No staff members yet</div>'; return; }
   container.innerHTML = '';
   snap.forEach(function(docSnap) {
     var data = docSnap.data();
@@ -1342,14 +1604,14 @@ async function loadStaffList() {
       +'<div><h3>👨‍🏫 '+data.name+'</h3>'
       +'<p><strong>Email:</strong> '+data.email+'<br>'
       +'<strong>Added:</strong> '+(data.createdAt?new Date(data.createdAt.toDate()).toLocaleDateString():'')+'</p></div>'
-      +'<button class="btn btn-danger btn-sm" onclick="deleteStaff(\''+docSnap.id+'\')">Remove</button>'
+      +'<button class="btn btn-danger btn-sm" onclick="deleteStaff(\''+docSnap.id+'\')">REMOVE</button>'
       +'</div>';
     container.appendChild(card);
   });
 }
 window.deleteStaff = async function(id) {
   if (!confirm('Remove this staff member?')) return;
-  await deleteDoc(doc(db,'users',id)); loadStaffList();
+  await deleteDoc(doc(db,'users',id)); loadStaffList(); loadStats();
 };
 loadStaffList();
 document.getElementById('regLink').textContent = window.location.origin+'/staff-register.html';
@@ -1368,13 +1630,13 @@ document.getElementById('staffResourceForm').addEventListener('submit', async fu
 async function loadStaffResources() {
   var grid = document.getElementById('staffResourcesGrid'); grid.innerHTML = '';
   var snap = await getDocs(query(collection(db,'staffGeneralResources'), orderBy('timestamp','desc')));
-  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;">No resources posted yet</div>'; return; }
+  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No resources posted yet</div>'; return; }
   snap.forEach(function(docSnap) {
     var data = docSnap.data();
     var card = document.createElement('div'); card.className='post-card';
     card.innerHTML='<h3>'+data.title+'</h3><p>'+data.description+'</p>'
       +'<p><strong>📎:</strong> <a href="'+data.url+'" target="_blank">Open</a></p>'
-      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteStaffResource(\''+docSnap.id+'\')">Delete</button></div>';
+      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteStaffResource(\''+docSnap.id+'\')">DELETE</button></div>';
     grid.appendChild(card);
   });
 }
@@ -1436,9 +1698,9 @@ async function loadActivityLogs() {
   var container = document.getElementById('activityLogsContainer');
   var showLogins    = document.getElementById('filterLogins').checked;
   var showResources = document.getElementById('filterResources').checked;
-  container.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;">Loading...</div>';
+  container.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;font-family:var(--mono);">Loading...</div>';
   var snap = await getDocs(query(collection(db,'activityLogs'), orderBy('timestamp','desc')));
-  if (snap.empty) { container.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;">No activity yet</div>'; return; }
+  if (snap.empty) { container.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;font-family:var(--mono);">No activity yet</div>'; return; }
   container.innerHTML = '';
   snap.forEach(function(docSnap) {
     var data = docSnap.data();
@@ -1482,14 +1744,14 @@ const CAT_LABELS = { announcement:'Announcement', event:'Event', achievement:'Ac
 
 async function loadNewsCorner() {
   var grid = document.getElementById('newsGrid');
-  grid.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;">Loading news posts...</div>';
+  grid.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">Loading news posts...</div>';
   var snap = await getDocs(query(collection(db,'newsCorner'), orderBy('timestamp','desc')));
-  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;">No news posts yet.</div>'; return; }
+  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No news posts yet.</div>'; return; }
   grid.innerHTML = '';
   snap.forEach(function(docSnap) {
     var data = docSnap.data();
     var card = document.createElement('div'); card.className='post-card';
-    var imgPrev = data.imageUrl ? '<img src="'+data.imageUrl+'" style="width:100%;height:130px;object-fit:cover;margin-bottom:.6rem;border-radius:2px;" alt="">' : '';
+    var imgPrev = data.imageUrl ? '<img src="'+data.imageUrl+'" style="width:100%;height:130px;object-fit:cover;margin-bottom:.6rem;border-radius:6px;" alt="">' : '';
     var dataStr = JSON.stringify(data).replace(/"/g,'&quot;');
     card.innerHTML = imgPrev
       +'<h3>'+data.title+'</h3>'
@@ -1497,8 +1759,8 @@ async function loadNewsCorner() {
       +'<p>'+data.excerpt+'</p>'
       +'<div class="post-meta" style="border-top:1px solid var(--border);padding-top:.5rem;margin-top:.4rem;"><span>✍️ '+data.author+'</span><span>'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
       +'<div class="post-actions" style="margin-top:.6rem;">'
-      +'<button class="btn btn-blue btn-sm" onclick="editNewsPost(\''+docSnap.id+'\','+dataStr+')">Edit</button>'
-      +'<button class="btn btn-danger btn-sm" onclick="deleteNewsPost(\''+docSnap.id+'\')">Delete</button>'
+      +'<button class="btn btn-blue btn-sm" onclick="editNewsPost(\''+docSnap.id+'\','+dataStr+')">EDIT</button>'
+      +'<button class="btn btn-danger btn-sm" onclick="deleteNewsPost(\''+docSnap.id+'\')">DELETE</button>'
       +'</div>';
     grid.appendChild(card);
   });
@@ -1514,8 +1776,10 @@ window.editNewsPost = function(docId, data) {
   document.getElementById('newsImage').value    = data.imageUrl||'';
   var form = document.getElementById('newsForm');
   var btn  = form.querySelector('.btn');
-  btn.textContent = 'Update News Post';
-  btn.style.background = '#0ea5e9';
+  btn.textContent = 'UPDATE_POST';
+  btn.style.background = 'rgba(56,189,248,0.15)';
+  btn.style.borderColor = 'rgba(56,189,248,0.4)';
+  btn.style.color = 'var(--blue)';
   form.dataset.editingId = docId;
   form.onsubmit = async function(e) {
     e.preventDefault();
@@ -1531,7 +1795,7 @@ window.editNewsPost = function(docId, data) {
       });
       alert('News post updated!');
       this.reset(); delete form.dataset.editingId;
-      btn.textContent='Publish News Post'; btn.style.background='';
+      btn.textContent='PUBLISH_POST'; btn.style.background=''; btn.style.borderColor=''; btn.style.color='';
       form.onsubmit = null; loadNewsCorner();
     } catch(e) { alert('Error: '+e.message); }
   };
@@ -1543,6 +1807,5 @@ window.deleteNewsPost = async function(id) {
 loadNewsCorner();
 
 </script>
-<script>lucide.createIcons();</script>
 </body>
 </html>

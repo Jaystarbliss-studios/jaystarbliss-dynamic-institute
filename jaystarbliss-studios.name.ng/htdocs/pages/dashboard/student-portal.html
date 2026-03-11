@@ -1,812 +1,1176 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portal — Jaystarbliss Dynamic Hub</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <style>
-        :root {
-            --madder: #A91B0D; --madder-dark: #7a1309; --madder-lite: #c9210f;
-            --gold: #FFD700; --gold-dim: #b89d00; --snow: #FFFAFA; --dark: #1a1a1a;
-            --green: #2ecc71; --bg: #141414; --surface: #1e1e1e; --surface-2: #272727;
-            --border: rgba(255,255,255,0.07); --border-bright: rgba(169,27,13,0.4);
-            --text: #FFFAFA; --text-muted: #a8a8a8; --text-dim: #5a5a5a;
-            --sidebar-w: 240px; --topbar-h: 56px;
-            --mono: 'Space Mono', monospace; --sans: 'DM Sans', sans-serif;
-        }
-        [data-theme="light"] {
-            --bg: #f5f0f0; --surface: #FFFAFA; --surface-2: #ede8e8;
-            --border: rgba(169,27,13,0.1); --border-bright: rgba(169,27,13,0.35);
-            --text: #1a1a1a; --text-muted: #5a4a4a; --text-dim: #9a8a8a;
-            --gold: #b8860b; --gold-dim: #daa520;
-        }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { font-size: 14px; }
-        body { font-family: var(--sans); background: var(--bg); color: var(--text); display: grid; grid-template-columns: var(--sidebar-w) 1fr; grid-template-rows: var(--topbar-h) 1fr; min-height: 100vh; overflow-x: hidden; }
-        .topbar { grid-column: 1 / -1; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 1.5rem; gap: 1rem; position: sticky; top: 0; z-index: 100; }
-        .topbar-brand { display: flex; align-items: center; gap: 0.6rem; width: var(--sidebar-w); padding-right: 1.5rem; flex-shrink: 0; }
-        .brand-mark { width: 28px; height: 28px; background: var(--madder); display: grid; place-items: center; font-family: var(--mono); font-size: 0.7rem; font-weight: 700; color: var(--snow); clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%); overflow: hidden; }
-        .brand-mark img { width: 100%; height: 100%; object-fit: cover; }
-        .brand-name { font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: var(--text); text-transform: uppercase; }
-        .topbar-divider { width: 1px; height: 24px; background: var(--border); }
-        .topbar-breadcrumb { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; }
-        .topbar-breadcrumb span { color: var(--gold); }
-        .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
-        .icon-btn { width: 32px; height: 32px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted); display: grid; place-items: center; cursor: pointer; font-size: 0.85rem; transition: all 0.15s; position: relative; }
-        .icon-btn:hover { border-color: var(--gold); color: var(--gold); }
-        .badge { position: absolute; top: -4px; right: -4px; background: var(--madder); color: #fff; font-size: 0.55rem; font-family: var(--mono); width: 14px; height: 14px; display: grid; place-items: center; }
-        .avatar { width: 32px; height: 32px; background: linear-gradient(135deg, var(--madder-dark), var(--madder)); border: 1px solid var(--madder); display: grid; place-items: center; font-family: var(--mono); font-size: 0.65rem; font-weight: 700; color: var(--snow); cursor: pointer; }
-        .sidebar { background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; position: sticky; top: var(--topbar-h); height: calc(100vh - var(--topbar-h)); }
-        .sidebar-section { padding: 1.2rem 0 0.4rem; }
-        .sidebar-label { font-family: var(--mono); font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; padding: 0 1.2rem 0.5rem; }
-        .nav-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 1.2rem; font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; border-left: 2px solid transparent; transition: all 0.15s; text-decoration: none; background: none; border-top: none; border-right: none; border-bottom: none; width: 100%; text-align: left; }
-        .nav-item:hover { color: var(--text); background: var(--surface-2); }
-        .nav-item.active { color: var(--madder-lite); border-left: 2px solid var(--madder); background: rgba(169,27,13,0.06); }
-        .nav-icon { font-size: 0.9rem; width: 18px; text-align: center; flex-shrink: 0; }
-        .nav-badge { margin-left: auto; background: var(--madder); color: var(--snow); font-family: var(--mono); font-size: 0.6rem; padding: 1px 5px; border: 1px solid var(--madder-dark); }
-        .sidebar-footer { margin-top: auto; padding: 1rem 1.2rem; border-top: 1px solid var(--border); }
-        .user-card { display: flex; align-items: center; gap: 0.7rem; }
-        .user-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, var(--madder-dark), var(--madder)); border: 1px solid var(--gold-dim); display: grid; place-items: center; font-family: var(--mono); font-size: 0.6rem; font-weight: 700; color: var(--snow); flex-shrink: 0; }
-        .user-info { flex: 1; min-width: 0; }
-        .user-name { font-size: 0.78rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .user-role { font-family: var(--mono); font-size: 0.6rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em; }
-        .main { overflow-y: auto; display: flex; flex-direction: column; }
-        .main-inner { padding: 1.5rem; flex: 1; max-width: 1200px; width: 100%; }
-        .page-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-        .page-title { font-family: var(--mono); font-size: 1.3rem; font-weight: 700; color: var(--text); line-height: 1; }
-        .page-title span { color: var(--gold); }
-        .page-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem; }
-        .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; font-family: var(--mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; border: none; cursor: pointer; transition: all 0.15s; text-decoration: none; border-radius: 0; }
-        .btn-primary { background: var(--madder); color: var(--snow); }
-        .btn-primary:hover { background: var(--madder-lite); }
-        .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
-        .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
-        .btn-sm { padding: 0.3rem 0.7rem; font-size: 0.62rem; }
-        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-bottom: 1.5rem; border: 1px solid var(--border); }
-        .stat-card { background: var(--surface); padding: 1.1rem 1.2rem; position: relative; overflow: hidden; }
-        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: var(--border-bright); }
-        .stat-card.gold::before { background: var(--gold); }
-        .stat-card.green::before { background: var(--green); }
-        .stat-card.red::before { background: var(--madder); }
-        .stat-card.dim::before { background: var(--madder-dark); }
-        .stat-label { font-family: var(--mono); font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
-        .stat-value { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--text); line-height: 1; }
-        .stat-card.gold .stat-value { color: var(--gold); }
-        .stat-card.green .stat-value { color: var(--green); }
-        .stat-sub { font-size: 0.7rem; color: var(--text-dim); margin-top: 0.3rem; }
-        .grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-        .panel { background: var(--surface); border: 1px solid var(--border); margin-bottom: 1rem; }
-        .panel-head { display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 1.1rem; border-bottom: 1px solid var(--border); }
-        .panel-title { font-family: var(--mono); font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.5rem; }
-        .panel-title::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--madder); }
-        .panel-body { padding: 1.1rem; }
-        .activity-list { display: flex; flex-direction: column; }
-        .activity-item { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.75rem 1.1rem; border-bottom: 1px solid var(--border); transition: background 0.1s; }
-        .activity-item:last-child { border-bottom: none; }
-        .activity-item:hover { background: var(--surface-2); }
-        .activity-dot { width: 6px; height: 6px; background: var(--madder); flex-shrink: 0; margin-top: 5px; }
-        .activity-dot.green { background: var(--green); }
-        .activity-dot.gold { background: var(--gold); }
-        .activity-text { flex: 1; }
-        .activity-title { font-size: 0.78rem; font-weight: 500; color: var(--text); margin-bottom: 0.15rem; }
-        .activity-time { font-family: var(--mono); font-size: 0.62rem; color: var(--text-dim); }
-        .resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1px; background: var(--border); }
-        .resource-card { background: var(--surface); padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; transition: background 0.15s; }
-        .resource-card:hover { background: var(--surface-2); }
-        .resource-type { font-family: var(--mono); font-size: 0.58rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
-        .resource-name { font-size: 0.8rem; font-weight: 600; color: var(--text); line-height: 1.3; }
-        .resource-desc { font-size: 0.7rem; color: var(--text-muted); }
-        .resource-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: auto; }
-        .download-btn { width: 100%; padding: 0.6rem; background: var(--madder); color: var(--snow); border: none; font-family: var(--mono); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; transition: background 0.15s; }
-        .download-btn:hover { background: var(--madder-lite); }
-        .open-btn { width: 100%; padding: 0.6rem; background: transparent; color: var(--gold); border: 1px solid var(--gold-dim); font-family: var(--mono); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; transition: background 0.15s; }
-        .open-btn:hover { background: rgba(255,215,0,0.08); }
-        .pill { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.15rem 0.5rem; font-family: var(--mono); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.06em; }
-        .pill::before { content: ''; width: 4px; height: 4px; flex-shrink: 0; }
-        .pill-active { background: rgba(46,204,113,0.12); color: var(--green); }
-        .pill-active::before { background: var(--green); }
-        .pill-pending { background: rgba(169,27,13,0.08); color: var(--gold); }
-        .pill-pending::before { background: var(--gold); }
-        .form-control { background: var(--surface-2); border: 1px solid var(--border); color: var(--text); padding: 0.45rem 0.8rem; font-family: var(--sans); font-size: 0.8rem; border-radius: 0; outline: none; width: 100%; transition: border-color 0.15s; }
-        .form-control:focus { border-color: var(--gold); }
-        .form-control::placeholder { color: var(--text-dim); }
-        .search-wrap { position: relative; display: inline-flex; align-items: center; }
-        .search-icon { position: absolute; left: 0.7rem; color: var(--text-dim); font-size: 0.8rem; pointer-events: none; }
-        .search-wrap .form-control { padding-left: 2rem; }
-        .notif-panel { position: fixed; top: var(--topbar-h); right: 0; width: 300px; height: calc(100vh - var(--topbar-h)); background: var(--surface); border-left: 1px solid var(--border); transform: translateX(100%); transition: transform 0.2s ease; z-index: 200; display: flex; flex-direction: column; }
-        .notif-panel.open { transform: translateX(0); }
-        .notif-head { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); }
-        .notif-title { font-family: var(--mono); font-size: 0.7rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.06em; }
-        .notif-body { flex: 1; overflow-y: auto; }
-        .notif-item { padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; }
-        .notif-item:hover { background: var(--surface-2); }
-        .notif-item.unread { border-left: 2px solid var(--gold); }
-        .notif-msg { font-size: 0.75rem; color: var(--text); line-height: 1.4; }
-        .notif-time { font-family: var(--mono); font-size: 0.6rem; color: var(--text-dim); margin-top: 0.3rem; }
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: grid; place-items: center; z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
-        .modal-overlay.open { opacity: 1; pointer-events: all; }
-        .modal { background: var(--surface); border: 1px solid var(--border-bright); width: 480px; max-width: 95vw; max-height: 85vh; display: flex; flex-direction: column; }
-        .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); }
-        .modal-title { font-family: var(--mono); font-size: 0.75rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.06em; }
-        .modal-body { padding: 1.2rem; overflow-y: auto; flex: 1; }
-        .modal-foot { display: flex; justify-content: flex-end; gap: 0.5rem; padding: 1rem 1.2rem; border-top: 1px solid var(--border); }
-        .id-card { background: linear-gradient(135deg, var(--dark) 0%, var(--madder) 60%, var(--madder-lite) 100%); border: 1px solid var(--gold-dim); padding: 1.5rem; position: relative; overflow: hidden; }
-        .id-card::before { content: 'JDH'; position: absolute; right: -10px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 4rem; font-weight: 700; color: rgba(255,250,250,0.06); line-height: 1; }
-        .id-card-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,215,0,0.2); }
-        .id-logo { width: 36px; height: 36px; background: var(--gold); display: grid; place-items: center; font-family: var(--mono); font-size: 0.7rem; font-weight: 700; color: var(--dark); clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%); }
-        .id-org { font-size: 0.85rem; font-weight: 700; color: #fff; }
-        .id-sub { font-family: var(--mono); font-size: 0.6rem; color: rgba(255,215,0,0.7); text-transform: uppercase; }
-        .id-field { margin-bottom: 0.6rem; }
-        .id-field-label { font-family: var(--mono); font-size: 0.55rem; color: rgba(255,215,0,0.6); text-transform: uppercase; letter-spacing: 0.1em; }
-        .id-field-value { font-size: 0.82rem; font-weight: 600; color: #fff; margin-top: 0.1rem; }
-        .id-footer { margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid rgba(255,215,0,0.15); font-family: var(--mono); font-size: 0.58rem; color: rgba(255,255,255,0.4); }
-        .access-error { color: var(--madder-lite); font-size: 0.75rem; margin-top: 0.5rem; display: none; }
-        .access-error.show { display: block; }
-        .tab-bar { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1.2rem; }
-        .tab-btn { padding: 0.6rem 1.1rem; font-family: var(--mono); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
-        .tab-btn:hover { color: var(--text-muted); }
-        .tab-btn.active { color: var(--madder-lite); border-bottom-color: var(--madder); }
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; }
-        .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.3rem; color: var(--text-muted); font-size: 1rem; }
-        .divider { height: 1px; background: var(--border); margin: 1rem 0; }
-        .empty { text-align: center; padding: 2.5rem 1rem; color: var(--text-dim); font-family: var(--mono); font-size: 0.7rem; }
-        .flex { display: flex; align-items: center; }
-        .gap-sm { gap: 0.5rem; }
-        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; }
-        @media (max-width: 900px) {
-            body { grid-template-columns: 1fr; }
-            .sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: var(--sidebar-w); z-index: 100; transform: translateX(-100%); transition: transform 0.2s; }
-            .sidebar.open { transform: translateX(0); }
-            .sidebar-overlay { display: block; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
-            .sidebar-overlay.show { opacity: 1; pointer-events: all; }
-            .hamburger { display: grid; place-items: center; }
-            .topbar-brand { width: auto; }
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
-            .grid-3 { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 500px) { .stats-row { grid-template-columns: 1fr 1fr; } .main-inner { padding: 1rem; } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .panel, .stat-card { animation: fadeUp 0.3s ease both; }
-        .stat-card:nth-child(2) { animation-delay: 0.05s; }
-        .stat-card:nth-child(3) { animation-delay: 0.1s; }
-        .stat-card:nth-child(4) { animation-delay: 0.15s; }
-        @media print { .sidebar, .topbar, .notif-panel { display: none !important; } body { display: block; } .main { overflow: visible; } }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal — Jaystarbliss Dynamic Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+  /* ── CSS VARIABLES (Staff Portal design system) ── */
+  :root {
+    --crimson:#E61905; --crimson-dark:#b01204; --crimson-glow:rgba(230,25,5,0.4);
+    --obsidian:#050505; --surface:rgba(15,15,17,0.85); --surface-2:rgba(20,20,22,0.9);
+    --border:rgba(230,25,5,0.18); --border-bright:rgba(230,25,5,0.5);
+    --text:#f1f5f9; --text-muted:#94a3b8; --text-dim:rgba(230,25,5,0.4);
+    --gold:#FFD700; --gold-dim:#b89d00;
+    --green:#22c55e; --blue:#38bdf8;
+    --field-bg:rgba(5,5,5,0.8); --field-border:rgba(230,25,5,0.2);
+    --mono:'Space Mono',monospace; --sans:'Public Sans',sans-serif;
+    --sidebar-w:260px; --topbar-h:64px;
+    --glass-bg:rgba(15,15,17,0.7); --glass-blur:blur(12px);
+  }
+  [data-theme="light"] {
+    --crimson:#C41203; --crimson-dark:#8f0d02; --crimson-glow:rgba(196,18,3,0.25);
+    --obsidian:#f5f5f5; --surface:rgba(255,255,255,0.92); --surface-2:rgba(240,240,242,0.95);
+    --border:rgba(196,18,3,0.15); --border-bright:rgba(196,18,3,0.4);
+    --text:#0f0f10; --text-muted:#3d3d45; --text-dim:rgba(196,18,3,0.45);
+    --gold:#b8860b; --gold-dim:#8a6508;
+    --green:#16a34a; --blue:#0369a1;
+    --field-bg:rgba(255,255,255,0.9); --field-border:rgba(196,18,3,0.18);
+    --glass-bg:rgba(255,255,255,0.75); --glass-blur:blur(12px);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{font-size:14px;}
+  body{
+    font-family:var(--sans);
+    background:var(--obsidian);
+    color:var(--text);
+    display:grid;
+    grid-template-columns:var(--sidebar-w) 1fr;
+    grid-template-rows:var(--topbar-h) 1fr;
+    min-height:100vh; overflow-x:hidden;
+    background-image:
+      radial-gradient(ellipse at 10% 20%, rgba(230,25,5,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(230,25,5,0.04) 0%, transparent 50%);
+    transition:background .25s, color .25s;
+  }
+  [data-theme="light"] body{
+    background-image:
+      radial-gradient(ellipse at 10% 20%, rgba(196,18,3,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(196,18,3,0.03) 0%, transparent 50%);
+  }
+
+  /* ── TOPBAR ── */
+  .topbar{
+    grid-column:1/-1; grid-row:1;
+    background:var(--surface); backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+    display:flex; align-items:center; padding:0 1.5rem; gap:1rem;
+    position:sticky; top:0; z-index:100;
+    box-shadow:0 2px 24px rgba(0,0,0,0.6);
+  }
+  .topbar-brand{
+    display:flex; align-items:center; gap:.6rem;
+    width:var(--sidebar-w); padding-right:1.5rem; flex-shrink:0;
+  }
+  .brand-mark{
+    width:28px; height:28px; background:var(--crimson);
+    display:grid; place-items:center;
+    font-family:var(--mono); font-size:.7rem; font-weight:700; color:#fff;
+    clip-path:polygon(0 0,90% 0,100% 10%,100% 100%,10% 100%,0 90%);
+    overflow:hidden;
+  }
+  .brand-mark img{width:100%;height:100%;object-fit:cover;}
+  .brand-name{font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--text);text-transform:uppercase;}
+  .topbar-divider{width:1px;height:24px;background:var(--border);}
+  .topbar-breadcrumb{
+    font-family:var(--mono); font-size:.7rem; color:var(--text-muted);
+    display:flex; align-items:center; gap:.4rem;
+  }
+  .topbar-breadcrumb span{color:var(--gold);}
+  .topbar-right{margin-left:auto;display:flex;align-items:center;gap:.6rem;}
+
+  .icon-btn{
+    width:34px; height:34px;
+    background:transparent; border:1px solid var(--border);
+    color:var(--text-muted); border-radius:6px;
+    display:grid; place-items:center; cursor:pointer;
+    font-size:.85rem; transition:all .15s; position:relative;
+  }
+  .icon-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .icon-btn .material-symbols-outlined{font-size:1.1rem;}
+  .badge{
+    position:absolute; top:-4px; right:-4px;
+    background:var(--crimson); color:#fff;
+    font-family:var(--mono); font-size:.55rem; font-weight:700;
+    width:16px; height:16px; border-radius:50%;
+    display:none; place-items:center;
+    border:2px solid var(--obsidian);
+  }
+  .avatar{
+    width:34px; height:34px;
+    background:linear-gradient(135deg,var(--crimson-dark),var(--crimson));
+    border:1px solid rgba(230,25,5,0.5); border-radius:6px;
+    display:grid; place-items:center;
+    font-family:var(--mono); font-size:.65rem; font-weight:700; color:#fff;
+    cursor:pointer; transition:all .15s;
+  }
+  .avatar:hover{box-shadow:0 0 12px var(--crimson-glow);}
+  .hamburger{
+    display:none; width:32px; height:32px;
+    background:rgba(230,25,5,0.08); border:1px solid var(--border);
+    color:var(--crimson); border-radius:6px;
+    place-items:center; cursor:pointer; font-size:1rem;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar{
+    background:rgba(5,5,5,0.95);
+    border-right:1px solid var(--border);
+    display:flex; flex-direction:column;
+    overflow-y:auto;
+    position:sticky; top:var(--topbar-h);
+    height:calc(100vh - var(--topbar-h));
+    transition:background .25s;
+  }
+  [data-theme="light"] .sidebar{background:var(--surface-2);}
+  .sidebar-section{padding:.5rem 0 .2rem;}
+  .sidebar-label{
+    font-family:var(--mono); font-size:.52rem; font-weight:700;
+    color:rgba(230,25,5,0.35); text-transform:uppercase; letter-spacing:.2em;
+    padding:.5rem 1.2rem .3rem;
+  }
+  .nav-item{
+    display:flex; align-items:center; gap:.7rem;
+    padding:.62rem 1.2rem;
+    font-family:var(--mono); font-size:.65rem; font-weight:700; text-transform:uppercase;
+    color:var(--text-muted); background:none; border:none;
+    cursor:pointer; width:100%; text-align:left; text-decoration:none;
+    border-right:2px solid transparent;
+    transition:all .12s; letter-spacing:.03em;
+  }
+  .nav-item .material-symbols-outlined{font-size:1.05rem;flex-shrink:0;transition:transform .15s;}
+  .nav-item:hover{color:var(--crimson);background:rgba(230,25,5,0.05);}
+  .nav-item:hover .material-symbols-outlined{transform:scale(1.1);}
+  .nav-item.active{color:var(--crimson);background:rgba(230,25,5,0.1);border-right-color:var(--crimson);}
+  .nav-badge{
+    margin-left:auto; background:var(--crimson); color:#fff;
+    font-family:var(--mono); font-size:.55rem; font-weight:700;
+    padding:.15rem .45rem; border-radius:4px;
+  }
+  .sidebar-footer{margin-top:auto;padding:1rem 1.2rem;border-top:1px solid var(--border);}
+  .user-card{display:flex;align-items:center;gap:.7rem;}
+  .user-avatar{
+    width:32px; height:32px;
+    background:linear-gradient(135deg,var(--crimson-dark),var(--crimson));
+    border:1px solid var(--gold-dim); border-radius:6px;
+    display:grid; place-items:center;
+    font-family:var(--mono); font-size:.6rem; font-weight:700; color:#fff; flex-shrink:0;
+  }
+  .user-info{flex:1;min-width:0;}
+  .user-name{font-size:.78rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .user-role{font-family:var(--mono);font-size:.55rem;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
+
+  .status-widget{
+    margin:0 1rem 1rem;
+    background:var(--glass-bg); backdrop-filter:var(--glass-blur);
+    border:1px solid var(--border); border-radius:10px;
+    padding:1rem; display:flex; flex-direction:column; gap:.6rem;
+  }
+  .status-widget-header{display:flex;justify-content:space-between;align-items:center;}
+  .status-label{font-family:var(--mono);font-size:.55rem;color:var(--crimson);text-transform:uppercase;letter-spacing:.1em;}
+  .status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(34,197,94,0.6);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+  .status-bar{width:100%;height:4px;background:rgba(230,25,5,0.1);border-radius:2px;overflow:hidden;}
+  .status-bar-fill{height:100%;width:75%;background:var(--crimson);border-radius:2px;}
+  .status-text{font-family:var(--mono);font-size:.55rem;color:var(--text-muted);}
+
+  /* ── MAIN ── */
+  .main{overflow-y:auto;display:flex;flex-direction:column;background:var(--obsidian);}
+  .main-inner{
+    padding:1.5rem; flex:1;
+    max-width:1200px; width:100%;
+    background-image:radial-gradient(ellipse at 80% 20%, rgba(230,25,5,0.04) 0%, transparent 40%);
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    margin-bottom:1.5rem; padding-bottom:1rem;
+    border-bottom:1px solid var(--border);
+  }
+  .page-title{font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--text);line-height:1;}
+  .page-title span{color:var(--gold);}
+  .page-meta{font-size:.78rem;color:var(--text-muted);margin-top:.3rem;}
+
+  /* ── BUTTONS ── */
+  .btn{
+    display:inline-flex; align-items:center; gap:.4rem;
+    padding:.45rem 1rem;
+    font-family:var(--mono); font-size:.62rem; font-weight:700;
+    letter-spacing:.05em; text-transform:uppercase;
+    border:none; cursor:pointer; transition:all .15s;
+    text-decoration:none; border-radius:6px;
+  }
+  .btn .material-symbols-outlined{font-size:.9rem;}
+  .btn-primary{background:rgba(230,25,5,0.15);border:1px solid rgba(230,25,5,0.4);color:var(--crimson);}
+  .btn-primary:hover{background:var(--crimson);color:#fff;box-shadow:0 4px 12px rgba(230,25,5,0.3);}
+  .btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border);}
+  .btn-ghost:hover{border-color:var(--crimson);color:var(--crimson);}
+  .btn-sm{padding:.3rem .7rem;font-size:.58rem;}
+
+  /* ── STATS ── */
+  .stats-row{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:1px; background:var(--border);
+    margin-bottom:1.5rem; border:1px solid var(--border);
+  }
+  .stat-card{
+    background:var(--glass-bg); backdrop-filter:var(--glass-blur);
+    padding:1.1rem 1.2rem; position:relative; overflow:hidden;
+  }
+  .stat-card::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:var(--border-bright);}
+  .stat-card.gold::before{background:var(--gold);}
+  .stat-card.green::before{background:var(--green);}
+  .stat-card.red::before{background:var(--crimson);}
+  .stat-card.dim::before{background:var(--crimson-dark);}
+  .stat-label{font-family:var(--mono);font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;}
+  .stat-value{font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--text);line-height:1;}
+  .stat-card.gold .stat-value{color:var(--gold);}
+  .stat-card.green .stat-value{color:var(--green);}
+  .stat-sub{font-size:.7rem;color:var(--text-dim);margin-top:.3rem;}
+
+  /* ── LAYOUT ── */
+  .grid-3{display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-bottom:1rem;}
+
+  /* ── PANELS ── */
+  .panel{
+    background:var(--glass-bg); backdrop-filter:var(--glass-blur);
+    border:1px solid var(--border); border-radius:12px;
+    overflow:hidden; margin-bottom:1rem;
+  }
+  .panel-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:.8rem 1.1rem; border-bottom:1px solid var(--border);
+  }
+  .panel-title{
+    font-family:var(--mono); font-size:.68rem; font-weight:700;
+    color:var(--text); text-transform:uppercase; letter-spacing:.06em;
+    display:flex; align-items:center; gap:.45rem;
+  }
+  .panel-title::before{
+    content:''; display:inline-block; width:6px; height:6px;
+    background:var(--crimson); border-radius:50%;
+    box-shadow:0 0 6px var(--crimson-glow); flex-shrink:0;
+  }
+  .panel-body{padding:1.1rem;}
+
+  /* ── ACTIVITY ── */
+  .activity-list{display:flex;flex-direction:column;}
+  .activity-item{
+    display:flex; align-items:flex-start; gap:.8rem;
+    padding:.75rem 1.1rem; border-bottom:1px solid var(--border);
+    transition:background .1s;
+  }
+  .activity-item:last-child{border-bottom:none;}
+  .activity-item:hover{background:rgba(230,25,5,0.04);}
+  .activity-dot{width:6px;height:6px;background:var(--crimson);flex-shrink:0;margin-top:5px;border-radius:50%;}
+  .activity-dot.green{background:var(--green);}
+  .activity-dot.gold{background:var(--gold);}
+  .activity-text{flex:1;}
+  .activity-title{font-size:.78rem;font-weight:500;color:var(--text);margin-bottom:.15rem;}
+  .activity-time{font-family:var(--mono);font-size:.62rem;color:var(--text-dim);}
+
+  /* ── RESOURCE GRID ── */
+  .resource-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+    gap:1px; background:var(--border);
+  }
+  .resource-card{
+    background:var(--glass-bg); backdrop-filter:var(--glass-blur);
+    padding:1rem; display:flex; flex-direction:column; gap:.5rem;
+    transition:all .2s; position:relative; overflow:hidden;
+  }
+  .resource-card::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,var(--crimson),rgba(230,25,5,0.05));
+  }
+  .resource-card:hover{background:rgba(20,20,22,0.95);box-shadow:0 0 16px var(--crimson-glow);}
+  [data-theme="light"] .resource-card:hover{background:rgba(255,255,255,0.98);}
+  .resource-type{font-family:var(--mono);font-size:.58rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;}
+  .resource-name{font-size:.8rem;font-weight:600;color:var(--text);line-height:1.3;}
+  .resource-desc{font-size:.7rem;color:var(--text-muted);line-height:1.5;}
+  .resource-meta{font-family:var(--mono);font-size:.6rem;color:var(--text-dim);margin-top:auto;}
+  .download-btn{
+    width:100%; padding:.6rem;
+    background:rgba(230,25,5,0.15); color:var(--crimson);
+    border:1px solid rgba(230,25,5,0.3); border-radius:4px;
+    font-family:var(--mono); font-size:.62rem; font-weight:700; text-transform:uppercase;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; gap:.4rem;
+    transition:all .15s;
+  }
+  .download-btn:hover{background:var(--crimson);color:#fff;box-shadow:0 4px 12px rgba(230,25,5,0.3);}
+  .open-btn{
+    width:100%; padding:.6rem;
+    background:rgba(255,215,0,0.08); color:var(--gold);
+    border:1px solid rgba(255,215,0,0.25); border-radius:4px;
+    font-family:var(--mono); font-size:.62rem; font-weight:700; text-transform:uppercase;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; gap:.4rem;
+    transition:all .15s;
+  }
+  .open-btn:hover{background:rgba(255,215,0,0.18);}
+
+  /* ── PILLS ── */
+  .pill{
+    display:inline-flex; align-items:center; gap:.3rem;
+    padding:.15rem .5rem; font-family:var(--mono); font-size:.58rem;
+    text-transform:uppercase; letter-spacing:.06em;
+  }
+  .pill::before{content:'';width:4px;height:4px;flex-shrink:0;border-radius:50%;}
+  .pill-active{background:rgba(34,197,94,0.12);color:var(--green);}
+  .pill-active::before{background:var(--green);}
+  .pill-pending{background:rgba(255,215,0,0.08);color:var(--gold);}
+  .pill-pending::before{background:var(--gold);}
+
+  /* ── FORM ── */
+  .form-control{
+    background:var(--field-bg); border:1px solid var(--field-border);
+    color:var(--text); padding:.45rem .8rem;
+    font-family:var(--sans); font-size:.8rem; border-radius:6px; outline:none; width:100%;
+    transition:border-color .15s;
+  }
+  .form-control:focus{border-color:var(--crimson);box-shadow:0 0 0 2px rgba(230,25,5,0.12);}
+  .form-control::placeholder{color:rgba(230,25,5,0.2);}
+  .search-wrap{position:relative;display:inline-flex;align-items:center;}
+  .search-icon{position:absolute;left:.7rem;color:var(--text-dim);pointer-events:none;font-size:1rem;}
+  .search-wrap .form-control{padding-left:2rem;}
+
+  /* ── TAB BAR ── */
+  .tab-bar{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.2rem;}
+  .tab-btn{
+    padding:.6rem 1.1rem;
+    font-family:var(--mono); font-size:.62rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.05em;
+    color:var(--text-dim); background:none; border:none; cursor:pointer;
+    border-bottom:2px solid transparent; margin-bottom:-1px; transition:all .15s;
+  }
+  .tab-btn:hover{color:var(--text-muted);}
+  .tab-btn.active{color:var(--crimson);border-bottom-color:var(--crimson);}
+  .tab-pane{display:none;}
+  .tab-pane.active{display:block;animation:fadeUp .25s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .stat-card{animation:fadeUp .3s ease both;}
+  .stat-card:nth-child(2){animation-delay:.05s;}
+  .stat-card:nth-child(3){animation-delay:.1s;}
+  .stat-card:nth-child(4){animation-delay:.15s;}
+
+  /* ── NOTIFICATION PANEL ── */
+  .notif-panel{
+    position:fixed; top:var(--topbar-h); right:0;
+    width:300px; height:calc(100vh - var(--topbar-h));
+    background:rgba(5,5,5,0.97); backdrop-filter:blur(20px);
+    border-left:1px solid var(--border);
+    transform:translateX(100%); transition:transform .2s ease;
+    z-index:200; display:flex; flex-direction:column;
+  }
+  [data-theme="light"] .notif-panel{background:rgba(255,255,255,0.97);}
+  .notif-panel.open{transform:translateX(0);}
+  .notif-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 1.2rem; border-bottom:1px solid var(--border);
+  }
+  .notif-title{
+    font-family:var(--mono); font-size:.7rem; font-weight:700;
+    color:var(--text); text-transform:uppercase; letter-spacing:.06em;
+    display:flex; align-items:center; gap:.4rem;
+  }
+  .notif-title .material-symbols-outlined{color:var(--crimson);font-size:1rem;}
+  .notif-body{flex:1;overflow-y:auto;}
+  .notif-item{
+    padding:.8rem 1.2rem; border-bottom:1px solid var(--border);
+    cursor:pointer; transition:background .1s;
+    border-left:2px solid transparent;
+  }
+  .notif-item:hover{background:rgba(230,25,5,0.04);}
+  .notif-item.unread{border-left-color:var(--gold);background:rgba(255,215,0,0.03);}
+  .notif-msg{font-size:.75rem;color:var(--text);line-height:1.4;}
+  .notif-time{font-family:var(--mono);font-size:.6rem;color:var(--text-dim);margin-top:.3rem;}
+
+  /* ── MODALS ── */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.75);
+    display:grid; place-items:center; z-index:300;
+    opacity:0; pointer-events:none; transition:opacity .2s;
+    backdrop-filter:blur(4px);
+  }
+  .modal-overlay.open{opacity:1;pointer-events:all;}
+  .modal{
+    background:rgba(10,10,12,0.98);
+    border:1px solid var(--border-bright); border-radius:12px;
+    width:480px; max-width:95vw; max-height:85vh;
+    display:flex; flex-direction:column;
+    box-shadow:0 0 60px rgba(230,25,5,0.2);
+    animation:modalIn .25s ease;
+  }
+  [data-theme="light"] .modal{background:rgba(255,255,255,0.98);}
+  @keyframes modalIn{from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);}}
+  .modal-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 1.2rem; border-bottom:1px solid var(--border);
+  }
+  .modal-title{
+    font-family:var(--mono); font-size:.75rem; font-weight:700;
+    color:var(--text); text-transform:uppercase; letter-spacing:.06em;
+    display:flex; align-items:center; gap:.4rem;
+  }
+  .modal-title .material-symbols-outlined{color:var(--crimson);font-size:1rem;}
+  .modal-body{padding:1.2rem;overflow-y:auto;flex:1;}
+  .modal-foot{display:flex;justify-content:flex-end;gap:.5rem;padding:1rem 1.2rem;border-top:1px solid var(--border);}
+
+  /* ── ID CARD ── */
+  .id-card{
+    background:linear-gradient(135deg,#0a0a0a 0%,#3a0200 60%,#7a0d02 100%);
+    border:1px solid var(--gold-dim); padding:1.5rem;
+    position:relative; overflow:hidden; border-radius:8px;
+  }
+  .id-card::before{
+    content:'JDH'; position:absolute; right:-10px; top:50%;
+    transform:translateY(-50%); font-family:var(--mono);
+    font-size:4rem; font-weight:700; color:rgba(255,250,250,0.06); line-height:1;
+  }
+  .id-card-header{
+    display:flex; align-items:center; gap:.8rem;
+    margin-bottom:1.2rem; padding-bottom:1rem;
+    border-bottom:1px solid rgba(255,215,0,0.2);
+  }
+  .id-logo{
+    width:36px; height:36px; background:var(--gold);
+    display:grid; place-items:center;
+    font-family:var(--mono); font-size:.7rem; font-weight:700; color:#000;
+    clip-path:polygon(0 0,88% 0,100% 12%,100% 100%,12% 100%,0 88%);
+    overflow:hidden;
+  }
+  .id-logo img{width:100%;height:100%;object-fit:cover;}
+  .id-org{font-size:.85rem;font-weight:700;color:#fff;}
+  .id-sub{font-family:var(--mono);font-size:.6rem;color:rgba(255,215,0,0.7);text-transform:uppercase;}
+  .id-field{margin-bottom:.6rem;}
+  .id-field-label{font-family:var(--mono);font-size:.55rem;color:rgba(255,215,0,0.6);text-transform:uppercase;letter-spacing:.1em;}
+  .id-field-value{font-size:.82rem;font-weight:600;color:#fff;margin-top:.1rem;}
+  .id-footer{margin-top:1rem;padding-top:.8rem;border-top:1px solid rgba(255,215,0,0.15);font-family:var(--mono);font-size:.58rem;color:rgba(255,255,255,0.4);}
+
+  .access-error{color:var(--crimson);font-size:.75rem;margin-top:.5rem;display:none;font-family:var(--mono);}
+  .access-error.show{display:block;}
+  .divider{height:1px;background:var(--border);margin:1rem 0;}
+  .empty{text-align:center;padding:2.5rem 1rem;color:var(--text-dim);font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;}
+  .flex{display:flex;align-items:center;}
+  .gap-sm{gap:.5rem;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:99;backdrop-filter:blur(2px);}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:900px){
+    body{grid-template-columns:1fr;}
+    .sidebar{position:fixed;top:0;left:0;height:100vh;width:var(--sidebar-w);z-index:100;transform:translateX(-100%);transition:transform .2s;}
+    .sidebar.open{transform:translateX(0);}
+    .sidebar-overlay{display:block;opacity:0;pointer-events:none;transition:opacity .2s;}
+    .sidebar-overlay.show{opacity:1;pointer-events:all;}
+    .hamburger{display:grid!important;}
+    .topbar-brand{width:auto;}
+    .stats-row{grid-template-columns:repeat(2,1fr);}
+    .grid-3{grid-template-columns:1fr;}
+  }
+  @media(max-width:500px){.stats-row{grid-template-columns:1fr 1fr;}.main-inner{padding:1rem;}}
+  @media print{.sidebar,.topbar,.notif-panel{display:none!important;}body{display:block;}.main{overflow:visible;}}
+  </style>
 </head>
 <body>
 
 <header class="topbar">
-    <button class="hamburger" id="hamburgerBtn">☰</button>
-    <div class="topbar-brand">
-        <div class="brand-mark"><img src="../../assets/img/favicon.png" alt="Jaystarbliss Logo"></div>
-        <span class="brand-name">Jaystarbliss</span>
+  <button class="hamburger" id="hamburgerBtn" style="display:none;">☰</button>
+  <div class="topbar-brand">
+    <div class="brand-mark">
+      <img src="../../assets/img/favicon.png" alt="Jaystarbliss Logo" onerror="this.style.display='none';this.parentElement.textContent='J'">
     </div>
-    <div class="topbar-divider"></div>
-    <nav class="topbar-breadcrumb">
-        <span>Student Portal</span> › <span id="breadcrumbActive">Overview</span>
-    </nav>
-    <div class="topbar-right">
-        <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme"><i data-lucide="moon" style="width:18px;height:18px;"></i></button>
-        <button class="icon-btn" id="notifToggleBtn" title="Notifications">
-            <i data-lucide="bell" style="width:18px;height:18px;"></i> <span class="badge" id="notifBadge" style="display:none;">0</span>
-        </button>
-        <div class="avatar" id="userAvatar">ST</div>
-    </div>
+    <span class="brand-name">Jaystarbliss</span>
+  </div>
+  <div class="topbar-divider"></div>
+  <nav class="topbar-breadcrumb">
+    Student Portal › <span id="breadcrumbActive">Overview</span>
+  </nav>
+  <div class="topbar-right">
+    <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme">
+      <span class="material-symbols-outlined">contrast</span>
+    </button>
+    <button class="icon-btn" id="notifToggleBtn" title="Notifications">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="badge" id="notifBadge">0</span>
+    </button>
+    <div class="avatar" id="userAvatar">ST</div>
+  </div>
 </header>
 
+<!-- ── SIDEBAR ── -->
 <aside class="sidebar" id="sidebar">
-    <div class="sidebar-section">
-        <div class="sidebar-label">Main</div>
-        <a class="nav-item active" data-tab="overview" href="#">
-            <i class="nav-icon" data-lucide="layout-grid" style="width:16px;height:16px;"></i> Overview
-        </a>
-        <a class="nav-item" data-tab="resources" href="#">
-            <i class="nav-icon" data-lucide="book-open" style="width:16px;height:16px;"></i> Resources
-            <span class="nav-badge" id="resourceCount">0</span>
-        </a>
-        <a class="nav-item" data-tab="exams" href="#">
-            <i class="nav-icon" data-lucide="file-text" style="width:16px;height:16px;"></i> Exams
-            <span class="nav-badge" id="examCount">0</span>
-        </a>
-        <a class="nav-item" data-tab="activity" href="#">
-            <i class="nav-icon" data-lucide="activity" style="width:16px;height:16px;"></i> Activity
-        </a>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Main</div>
+    <a class="nav-item active" data-tab="overview" href="#">
+      <span class="material-symbols-outlined">grid_view</span> Overview
+    </a>
+    <a class="nav-item" data-tab="resources" href="#">
+      <span class="material-symbols-outlined">menu_book</span> Resources
+      <span class="nav-badge" id="resourceCount">0</span>
+    </a>
+    <a class="nav-item" data-tab="exams" href="#">
+      <span class="material-symbols-outlined">quiz</span> Exams
+      <span class="nav-badge" id="examCount">0</span>
+    </a>
+    <a class="nav-item" data-tab="activity" href="#">
+      <span class="material-symbols-outlined">monitor_heart</span> Activity
+    </a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Account</div>
+    <button class="nav-item" id="sidebarCardBtn">
+      <span class="material-symbols-outlined">badge</span> Student Card
+    </button>
+    <button class="nav-item" id="sidebarSchoolBtn">
+      <span class="material-symbols-outlined">school</span> School Resources
+    </button>
+    <button class="nav-item" id="sidebarThemeBtn">
+      <span class="material-symbols-outlined">contrast</span> Toggle Theme
+    </button>
+    <button class="nav-item" id="sidebarLogoutBtn">
+      <span class="material-symbols-outlined">logout</span> Logout
+    </button>
+  </div>
+
+  <!-- Status widget (matches Staff Portal) -->
+  <div class="status-widget">
+    <div class="status-widget-header">
+      <span class="status-label">Status</span>
+      <div class="status-dot"></div>
     </div>
-    <div class="sidebar-section">
-        <div class="sidebar-label">Account</div>
-        <button class="nav-item" id="sidebarCardBtn"><i class="nav-icon" data-lucide="id-card" style="width:16px;height:16px;"></i> Student Card</button>
-        <button class="nav-item" id="sidebarSchoolBtn"><i class="nav-icon" data-lucide="school" style="width:16px;height:16px;"></i> School Resources</button>
-        <button class="nav-item" id="sidebarThemeBtn"><i class="nav-icon" data-lucide="moon" style="width:16px;height:16px;"></i> Toggle Theme</button>
-        <button class="nav-item" id="sidebarLogoutBtn" onclick="logout()"><i class="nav-icon" data-lucide="log-out" style="width:16px;height:16px;"></i> Logout</button>
+    <div class="status-bar"><div class="status-bar-fill"></div></div>
+    <p class="status-text">PORTAL: OPERATIONAL</p>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-avatar" id="sidebarAvatar">ST</div>
+      <div class="user-info">
+        <div class="user-name" id="userName">Student</div>
+        <div class="user-role" id="userTypeLabel">Student</div>
+      </div>
     </div>
-    <div class="sidebar-footer">
-        <div class="user-card">
-            <div class="user-avatar" id="sidebarAvatar">ST</div>
-            <div class="user-info">
-                <div class="user-name" id="userName">Student</div>
-                <div class="user-role" id="userTypeLabel">Student</div>
-            </div>
-        </div>
-    </div>
+  </div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+<!-- ── MAIN ── -->
 <main class="main">
-    <div class="main-inner">
+  <div class="main-inner">
 
-        <div class="page-header">
-            <div>
-                <div class="page-title">Student <span>Dashboard</span></div>
-                <div class="page-meta" id="welcomeMessage">Welcome back — Loading...</div>
-            </div>
-            <div class="flex gap-sm">
-                <button class="btn btn-ghost btn-sm" id="headerCardBtn"><i data-lucide="printer" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>Print Card</button>
-                <button class="btn btn-primary btn-sm" id="headerSchoolBtn"><i data-lucide="school" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>School Resources</button>
-            </div>
-        </div>
-
-        <div class="tab-bar">
-            <button class="tab-btn active" data-target="overview">Overview</button>
-            <button class="tab-btn" data-target="resources">Resources</button>
-            <button class="tab-btn" data-target="exams">Exams</button>
-            <button class="tab-btn" data-target="activity">Activity</button>
-        </div>
-
-        <!-- OVERVIEW -->
-        <div class="tab-pane active" id="tab-overview">
-            <div class="stats-row">
-                <div class="stat-card gold">
-                    <div class="stat-label">Enrolled Programs</div>
-                    <div class="stat-value" id="statPrograms">0</div>
-                    <div class="stat-sub">Learning tracks</div>
-                </div>
-                <div class="stat-card green">
-                    <div class="stat-label">Resources</div>
-                    <div class="stat-value" id="statResources">0</div>
-                    <div class="stat-sub">Available now</div>
-                </div>
-                <div class="stat-card red">
-                    <div class="stat-label">Exams</div>
-                    <div class="stat-value" id="statExams">0</div>
-                    <div class="stat-sub">Available</div>
-                </div>
-                <div class="stat-card dim">
-                    <div class="stat-label">Account Type</div>
-                    <div class="stat-value" id="statAccountType">-</div>
-                    <div class="stat-sub" id="statAccountSub">Verify status</div>
-                </div>
-            </div>
-
-            <div class="grid-3">
-                <div>
-                    <div class="panel">
-                        <div class="panel-head">
-                            <div class="panel-title">Recent Resources</div>
-                            <button class="btn btn-ghost btn-sm" data-goto="resources">View All</button>
-                        </div>
-                        <div class="activity-list" id="recentResourcesList">
-                            <div class="empty">Loading resources...</div>
-                        </div>
-                    </div>
-                    <div class="panel">
-                        <div class="panel-head">
-                            <div class="panel-title">Recent Activity</div>
-                            <button class="btn btn-ghost btn-sm" data-goto="activity">See All</button>
-                        </div>
-                        <div class="activity-list" id="overviewActivityList">
-                            <div class="empty">Loading activity...</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel">
-                    <div class="panel-head"><div class="panel-title">Quick Actions</div></div>
-                    <div class="panel-body" style="display:flex;flex-direction:column;gap:0.5rem;">
-                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="resources"><i data-lucide="book-open" style="width:14px;height:14px;margin-right:8px;"></i>Browse Resources</button>
-                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="exams"><i data-lucide="file-text" style="width:14px;height:14px;margin-right:8px;"></i>Take Exams</button>
-                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" id="qaSchoolBtn"><i data-lucide="school" style="width:14px;height:14px;margin-right:8px;"></i>School Resources</button>
-                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" id="qaCardBtn"><i data-lucide="printer" style="width:14px;height:14px;margin-right:8px;"></i>Print Student Card</button>
-                        <div class="divider"></div>
-                        <button class="btn btn-primary" style="width:100%;justify-content:flex-start;" data-goto="resources">+ Browse More</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- RESOURCES -->
-        <div class="tab-pane" id="tab-resources">
-            <div class="panel">
-                <div class="panel-head">
-                    <div class="panel-title">Learning Resources</div>
-                    <div class="search-wrap">
-                        <i class="search-icon" data-lucide="search" style="width:16px;height:16px;position:absolute;left:12px;top:50%;transform:translateY(-50%);"></i>
-                        <input class="form-control" style="width:200px;" type="text" placeholder="Search resources..." id="resourceSearch">
-                    </div>
-                </div>
-                <div class="resource-grid" id="resourceGrid">
-                    <div class="empty" style="grid-column:1/-1;">Loading resources...</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- EXAMS -->
-        <div class="tab-pane" id="tab-exams">
-            <div class="panel">
-                <div class="panel-head"><div class="panel-title">Examinations &amp; Links</div></div>
-                <div class="resource-grid" id="examGrid">
-                    <div class="empty" style="grid-column:1/-1;">Loading exams...</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ACTIVITY -->
-        <div class="tab-pane" id="tab-activity">
-            <div class="panel">
-                <div class="panel-head"><div class="panel-title">Full Activity Log</div></div>
-                <div class="activity-list" id="fullActivityList">
-                    <div class="empty">Loading activity...</div>
-                </div>
-            </div>
-        </div>
-
+    <div class="page-header">
+      <div>
+        <div class="page-title">Student <span>Dashboard</span></div>
+        <div class="page-meta" id="welcomeMessage">Welcome back — Loading...</div>
+      </div>
+      <div class="flex gap-sm">
+        <button class="btn btn-ghost btn-sm" id="headerCardBtn">
+          <span class="material-symbols-outlined">print</span> Print Card
+        </button>
+        <button class="btn btn-primary btn-sm" id="headerSchoolBtn">
+          <span class="material-symbols-outlined">school</span> School Resources
+        </button>
+      </div>
     </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-target="overview">Overview</button>
+      <button class="tab-btn" data-target="resources">Resources</button>
+      <button class="tab-btn" data-target="exams">Exams</button>
+      <button class="tab-btn" data-target="activity">Activity</button>
+    </div>
+
+    <!-- ══ OVERVIEW ══ -->
+    <div class="tab-pane active" id="tab-overview">
+      <div class="stats-row">
+        <div class="stat-card gold">
+          <div class="stat-label">Enrolled Programs</div>
+          <div class="stat-value" id="statPrograms">0</div>
+          <div class="stat-sub">Learning tracks</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label">Resources</div>
+          <div class="stat-value" id="statResources">0</div>
+          <div class="stat-sub">Available now</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-label">Exams</div>
+          <div class="stat-value" id="statExams">0</div>
+          <div class="stat-sub">Available</div>
+        </div>
+        <div class="stat-card dim">
+          <div class="stat-label">Account Type</div>
+          <div class="stat-value" id="statAccountType">-</div>
+          <div class="stat-sub" id="statAccountSub">Verify status</div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Recent Resources</div>
+              <button class="btn btn-ghost btn-sm" data-goto="resources">View All</button>
+            </div>
+            <div class="activity-list" id="recentResourcesList">
+              <div class="empty">Loading resources...</div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">Recent Activity</div>
+              <button class="btn btn-ghost btn-sm" data-goto="activity">See All</button>
+            </div>
+            <div class="activity-list" id="overviewActivityList">
+              <div class="empty">Loading activity...</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div class="panel-title">Quick Actions</div></div>
+          <div class="panel-body" style="display:flex;flex-direction:column;gap:.5rem;">
+            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="resources">
+              <span class="material-symbols-outlined" style="font-size:1rem;">menu_book</span> Browse Resources
+            </button>
+            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="exams">
+              <span class="material-symbols-outlined" style="font-size:1rem;">quiz</span> Take Exams
+            </button>
+            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" id="qaSchoolBtn">
+              <span class="material-symbols-outlined" style="font-size:1rem;">school</span> School Resources
+            </button>
+            <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" id="qaCardBtn">
+              <span class="material-symbols-outlined" style="font-size:1rem;">print</span> Print Student Card
+            </button>
+            <div class="divider"></div>
+            <button class="btn btn-primary" style="width:100%;justify-content:flex-start;" data-goto="resources">
+              <span class="material-symbols-outlined" style="font-size:1rem;">add</span> Browse More
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ RESOURCES ══ -->
+    <div class="tab-pane" id="tab-resources">
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-title">Learning Resources</div>
+          <div class="search-wrap">
+            <span class="search-icon material-symbols-outlined">search</span>
+            <input class="form-control" style="width:200px;" type="text" placeholder="Search resources..." id="resourceSearch">
+          </div>
+        </div>
+        <div class="resource-grid" id="resourceGrid">
+          <div class="empty" style="grid-column:1/-1;">Loading resources...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ EXAMS ══ -->
+    <div class="tab-pane" id="tab-exams">
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">Examinations &amp; Links</div></div>
+        <div class="resource-grid" id="examGrid">
+          <div class="empty" style="grid-column:1/-1;">Loading exams...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ACTIVITY ══ -->
+    <div class="tab-pane" id="tab-activity">
+      <div class="panel">
+        <div class="panel-head"><div class="panel-title">Full Activity Log</div></div>
+        <div class="activity-list" id="fullActivityList">
+          <div class="empty">Loading activity...</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </main>
 
-<!-- NOTIFICATION PANEL -->
+<!-- ── NOTIFICATION PANEL ── -->
 <aside class="notif-panel" id="notifPanel">
-    <div class="notif-head">
-        <div class="notif-title">Notifications</div>
-        <button class="btn btn-ghost btn-sm" id="notifCloseBtn">✕</button>
+  <div class="notif-head">
+    <div class="notif-title">
+      <span class="material-symbols-outlined">mail</span> Notifications
     </div>
-    <div class="notif-body" id="notifList">
-        <div class="empty">Loading notifications...</div>
-    </div>
+    <button class="btn btn-ghost btn-sm" id="notifCloseBtn">
+      <span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle;">close</span>
+    </button>
+  </div>
+  <div class="notif-body" id="notifList">
+    <div class="empty">Loading notifications...</div>
+  </div>
 </aside>
 
-<!-- STUDENT CARD MODAL -->
+<!-- ── STUDENT CARD MODAL ── -->
 <div class="modal-overlay" id="cardModal">
-    <div class="modal">
-        <div class="modal-head">
-            <div class="modal-title">Student ID Card</div>
-            <button class="btn btn-ghost btn-sm" data-close-modal="cardModal">✕</button>
-        </div>
-        <div class="modal-body">
-            <div class="id-card">
-                <div class="id-card-header">
-                    <div class="id-logo">JDH</div>
-                    <div>
-                        <div class="id-org">Jaystarbliss Dynamic Hub</div>
-                        <div class="id-sub">Student Identity Card</div>
-                    </div>
-                </div>
-                <div class="id-field"><div class="id-field-label">Full Name</div><div class="id-field-value" id="idName">Student Name</div></div>
-                <div class="id-field"><div class="id-field-label">Email</div><div class="id-field-value" id="idEmail">student@email.com</div></div>
-                <div class="id-field"><div class="id-field-label">Account Type</div><div class="id-field-value" id="idAccountType">Private Student</div></div>
-                <div class="id-field"><div class="id-field-label">Resources Available</div><div class="id-field-value" id="idResources">0 Items</div></div>
-                <div class="id-footer">Valid: 2025–2026 · jaystarbliss-studios.name.ng</div>
-            </div>
-        </div>
-        <div class="modal-foot">
-            <button class="btn btn-ghost" data-close-modal="cardModal">Close</button>
-            <button class="btn btn-primary" onclick="window.print()">🖨 Print Card</button>
-        </div>
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title"><span class="material-symbols-outlined">badge</span> Student ID Card</div>
+      <button class="btn btn-ghost btn-sm" data-close-modal="cardModal">✕</button>
     </div>
+    <div class="modal-body">
+      <div class="id-card">
+        <div class="id-card-header">
+          <div class="id-logo">
+            <img src="../../assets/img/favicon.png" alt="JDH" onerror="this.style.display='none';this.parentElement.textContent='J'">
+          </div>
+          <div>
+            <div class="id-org">Jaystarbliss Dynamic Hub</div>
+            <div class="id-sub">Student Identity Card</div>
+          </div>
+        </div>
+        <div class="id-field"><div class="id-field-label">Full Name</div><div class="id-field-value" id="idName">Student Name</div></div>
+        <div class="id-field"><div class="id-field-label">Email</div><div class="id-field-value" id="idEmail">student@email.com</div></div>
+        <div class="id-field"><div class="id-field-label">Account Type</div><div class="id-field-value" id="idAccountType">Private Student</div></div>
+        <div class="id-field"><div class="id-field-label">Resources Available</div><div class="id-field-value" id="idResources">0 Items</div></div>
+        <div class="id-footer">Valid: 2025–2026 · jaystarbliss-studios.name.ng</div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-close-modal="cardModal">Close</button>
+      <button class="btn btn-primary" onclick="window.print()">
+        <span class="material-symbols-outlined" style="font-size:.9rem;">print</span> Print Card
+      </button>
+    </div>
+  </div>
 </div>
 
-<!-- SCHOOL ACCESS MODAL -->
+<!-- ── SCHOOL ACCESS MODAL ── -->
 <div class="modal-overlay" id="accessModal">
-    <div class="modal" style="width:400px;">
-        <div class="modal-head">
-            <div class="modal-title">🏫 School Resources</div>
-            <button class="btn btn-ghost btn-sm" data-close-modal="accessModal">✕</button>
-        </div>
-        <div class="modal-body">
-            <p style="margin-bottom:1rem;color:var(--text-muted);font-size:0.82rem;">Enter your school's access code to view school-specific resources and exams.</p>
-            <input type="text" class="form-control" id="accessCodeInput" placeholder="Enter school access code" style="margin-bottom:0.5rem;">
-            <div class="access-error" id="accessError">Incorrect access code. Please try again.</div>
-            <div style="margin-top:1rem;font-size:0.72rem;color:var(--text-dim);">
-                <strong style="color:var(--text-muted);">Available Schools:</strong><br>
-                Peniel Lily, South Gold, Sapphire Explorer, Easy Stars, Christy Caleb, Royal Breed
-            </div>
-        </div>
-        <div class="modal-foot">
-            <button class="btn btn-ghost" data-close-modal="accessModal">Cancel</button>
-            <button class="btn btn-primary" id="accessSubmitBtn">Access School</button>
-        </div>
+  <div class="modal" style="width:400px;">
+    <div class="modal-head">
+      <div class="modal-title"><span class="material-symbols-outlined">school</span> School Resources</div>
+      <button class="btn btn-ghost btn-sm" data-close-modal="accessModal">✕</button>
     </div>
+    <div class="modal-body">
+      <p style="margin-bottom:1rem;color:var(--text-muted);font-size:.82rem;line-height:1.6;">
+        Enter your school's access code to view school-specific resources and exams.
+      </p>
+      <input type="text" class="form-control" id="accessCodeInput" placeholder="Enter school access code" style="margin-bottom:.5rem;">
+      <div class="access-error" id="accessError">Incorrect access code. Please try again.</div>
+      <div style="margin-top:1rem;font-size:.72rem;color:var(--text-dim);font-family:var(--mono);line-height:1.8;">
+        <span style="color:var(--text-muted);">Available Schools:</span><br>
+        Peniel Lily · South Gold · Sapphire Explorer<br>
+        Easy Stars · Christy Caleb · Royal Breed
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-close-modal="accessModal">Cancel</button>
+      <button class="btn btn-primary" id="accessSubmitBtn">
+        <span class="material-symbols-outlined" style="font-size:.9rem;">login</span> Access School
+      </button>
+    </div>
+  </div>
 </div>
 
-
-<!-- UI SCRIPT: theme, tabs, sidebar, modals — plain script, always runs -->
+<!-- ── UI SCRIPT: theme, tabs, sidebar, modals — plain script, always runs ── -->
 <script>
-    // ── THEME ──
-    window.toggleTheme = function() {
-        var html = document.documentElement;
-        html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
-        localStorage.setItem('jdh-theme', html.dataset.theme);
-    };
-    var saved = localStorage.getItem('jdh-theme');
-    if (saved) document.documentElement.dataset.theme = saved;
+  // ── THEME ──
+  window.toggleTheme = function() {
+    var html = document.documentElement;
+    html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('jdh-theme', html.dataset.theme);
+  };
+  var saved = localStorage.getItem('jdh-theme');
+  if (saved) document.documentElement.dataset.theme = saved;
 
-    // ── SIDEBAR ──
-    function closeSidebar() {
-        document.getElementById('sidebar').classList.remove('open');
-        document.getElementById('sidebarOverlay').classList.remove('show');
-    }
-    window.closeSidebar = closeSidebar;
+  // ── SIDEBAR ──
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('show');
+  }
+  window.closeSidebar = closeSidebar;
 
-    // ── TABS ──
-    window.switchTab = function(name) {
-        document.querySelectorAll('.tab-btn').forEach(function(b) {
-            b.classList.toggle('active', b.dataset.target === name);
-        });
-        document.querySelectorAll('.nav-item[data-tab]').forEach(function(n) {
-            n.classList.toggle('active', n.dataset.tab === name);
-        });
-        document.querySelectorAll('.tab-pane').forEach(function(p) {
-            p.classList.toggle('active', p.id === 'tab-' + name);
-        });
-        document.getElementById('breadcrumbActive').textContent =
-            name.charAt(0).toUpperCase() + name.slice(1);
-        if (window.innerWidth < 900) closeSidebar();
-    };
-
-    // ── MODALS ──
-    window.openModal = function(id) { document.getElementById(id).classList.add('open'); };
-    window.closeModal = function(id) { document.getElementById(id).classList.remove('open'); };
-
-// ── LOGOUT ──
-    window.logout = function() {
-        sessionStorage.clear();
-        window.location.href = '../auth/login.html';
-    };
-
-    document.addEventListener('DOMContentLoaded', function() {
-
-        // Theme buttons
-        document.getElementById('themeToggleBtn').addEventListener('click', window.toggleTheme);
-        document.getElementById('sidebarThemeBtn').addEventListener('click', window.toggleTheme);
-
-        // Tab buttons
-        document.querySelectorAll('.tab-btn').forEach(function(b) {
-            b.addEventListener('click', function() { window.switchTab(b.dataset.target); });
-        });
-
-        // Sidebar nav items
-        document.querySelectorAll('.nav-item[data-tab]').forEach(function(n) {
-            n.addEventListener('click', function(e) { e.preventDefault(); window.switchTab(n.dataset.tab); });
-        });
-
-        // data-goto buttons
-        document.querySelectorAll('[data-goto]').forEach(function(b) {
-            b.addEventListener('click', function() { window.switchTab(b.dataset.goto); });
-        });
-
-        // Sidebar open/close
-        document.getElementById('hamburgerBtn').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('sidebarOverlay').classList.toggle('show');
-        });
-        document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
-
-        // Modal close buttons
-        document.querySelectorAll('[data-close-modal]').forEach(function(b) {
-            b.addEventListener('click', function() { window.closeModal(b.dataset.closeModal); });
-        });
-        document.querySelectorAll('.modal-overlay').forEach(function(m) {
-            m.addEventListener('click', function(e) { if (e.target === m) m.classList.remove('open'); });
-        });
-
-        // Card modal
-        ['userAvatar','sidebarCardBtn','headerCardBtn','qaCardBtn'].forEach(function(id) {
-            var el = document.getElementById(id);
-            if (el) el.addEventListener('click', function() { window.openModal('cardModal'); });
-        });
-
-        // School modal
-        ['headerSchoolBtn','sidebarSchoolBtn','qaSchoolBtn'].forEach(function(id) {
-            var el = document.getElementById(id);
-            if (el) el.addEventListener('click', function() { window.openModal('accessModal'); });
-        });
-
-        // Notifications
-        document.getElementById('notifToggleBtn').addEventListener('click', function() {
-            document.getElementById('notifPanel').classList.toggle('open');
-        });
-        document.getElementById('notifCloseBtn').addEventListener('click', function() {
-            document.getElementById('notifPanel').classList.remove('open');
-        });
-
-        // Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.getElementById('notifPanel').classList.remove('open');
-                document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
-                closeSidebar();
-            }
-        });
-
-        // Restore tab from URL
-        var urlParams = new URLSearchParams(window.location.search);
-        var startTab = urlParams.get('tab');
-        if (startTab && startTab !== 'overview') window.switchTab(startTab);
+  // ── TABS ──
+  window.switchTab = function(name) {
+    document.querySelectorAll('.tab-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.target === name);
     });
-</script>
+    document.querySelectorAll('.nav-item[data-tab]').forEach(function(n) {
+      n.classList.toggle('active', n.dataset.tab === name);
+    });
+    document.querySelectorAll('.tab-pane').forEach(function(p) {
+      p.classList.toggle('active', p.id === 'tab-' + name);
+    });
+    document.getElementById('breadcrumbActive').textContent =
+      name.charAt(0).toUpperCase() + name.slice(1);
+    if (window.innerWidth < 900) closeSidebar();
+  };
 
-<!-- FIREBASE SCRIPT: data loading only -->
-<script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-    import { getFirestore, collection, getDocs, query, where, updateDoc, doc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+  // ── MODALS ──
+  window.openModal  = function(id) { document.getElementById(id).classList.add('open'); };
+  window.closeModal = function(id) { document.getElementById(id).classList.remove('open'); };
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
-        authDomain: "jaystarbliss-studios.firebaseapp.com",
-        projectId: "jaystarbliss-studios",
-        storageBucket: "jaystarbliss-studios.firebasestorage.app",
-        messagingSenderId: "885364100276",
-        appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
-    };
+  // ── LOGOUT ──
+  window.logout = function() {
+    sessionStorage.clear();
+    window.location.href = '../auth/login.html';
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+  document.addEventListener('DOMContentLoaded', function() {
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const studentType = urlParams.get('type') || sessionStorage.getItem('userRole');
-    const userEmail = sessionStorage.getItem('userEmail') || 'student@jaystarbliss.ng';
-    const studentName = sessionStorage.getItem('studentName') || 'Student';
+    // Theme buttons
+    document.getElementById('themeToggleBtn').addEventListener('click', window.toggleTheme);
+    document.getElementById('sidebarThemeBtn').addEventListener('click', window.toggleTheme);
 
-    const getInitials = n => n.split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase();
-    const fmtDate = ts => {
-        if (!ts) return 'Recent';
-        const d = ts.toDate ? ts.toDate() : new Date(ts);
-        return d.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
-    };
-    const timeAgo = ts => {
-        if (!ts) return 'Just now';
-        const date = ts.toDate ? ts.toDate() : new Date(ts);
-        const diff = Date.now() - date;
-        const m = Math.floor(diff/60000), h = Math.floor(diff/3600000), dy = Math.floor(diff/86400000);
-        if (m < 1) return 'Just now';
-        if (m < 60) return m + 'm ago';
-        if (h < 24) return h + 'h ago';
-        return dy + 'd ago';
-    };
-
-    // Populate UI
-    const initials = getInitials(studentName);
-    document.getElementById('userName').textContent = studentName;
-    document.getElementById('userTypeLabel').textContent = studentType === 'school' ? 'School Student' : 'Private Student';
-    document.getElementById('userAvatar').textContent = initials;
-    document.getElementById('sidebarAvatar').textContent = initials;
-    document.getElementById('welcomeMessage').textContent = `Welcome back, ${studentName.split(' ')[0]} — ${new Date().toLocaleDateString('en-US', {weekday:'long',day:'numeric',month:'short',year:'numeric'})}`;
-    document.getElementById('idName').textContent = studentName;
-    document.getElementById('idEmail').textContent = userEmail;
-    document.getElementById('idAccountType').textContent = studentType === 'school' ? 'School Student' : 'Private Student';
-    document.getElementById('statAccountType').textContent = studentType === 'school' ? 'School' : 'Private';
-    document.getElementById('statAccountSub').textContent = studentType === 'school' ? 'Affiliated student' : 'Independent learner';
-    document.getElementById('statPrograms').textContent = '4';
-
-    // Logout
-    document.getElementById('sidebarLogoutBtn').addEventListener('click', async () => {
-        await signOut(auth);
-        sessionStorage.clear();
-        window.location.href = '../auth/login.html';
+    // Tab buttons
+    document.querySelectorAll('.tab-btn').forEach(function(b) {
+      b.addEventListener('click', function() { window.switchTab(b.dataset.target); });
     });
 
-    // School access verification
-    document.getElementById('accessSubmitBtn').addEventListener('click', async () => {
-        const input = document.getElementById('accessCodeInput').value.trim();
-        const err = document.getElementById('accessError');
-        if (!input) { err.textContent = 'Please enter an access code.'; err.classList.add('show'); return; }
-        try {
-            const snap = await getDocs(collection(db, 'schools'));
-            let found = false, foundId = null;
-            snap.forEach(d => { if (d.data().accessCode === input) { found = true; foundId = d.id; } });
-            if (found) {
-                const names = {
-                    peniel:'PENIEL LILY MONTESSORI SCHOOL',
-                    southgold:'SOUTH GOLD MONTESSORI SCHOOL',
-                    sapphire:'SAPPHIRE EXPLORER MONTESSORI SCHOOL',
-                    easystars:'EASY STARS EARLY YEARS ACADEMY',
-                    christycaleb:'CHRISTY CALEB INTERNATIONAL SCHOOL',
-                    royalbreed:'ROYAL BREED ACADEMY'
-                };
-                sessionStorage.setItem('schoolId', foundId);
-                sessionStorage.setItem('schoolName', names[foundId] || foundId);
-                window.closeModal('accessModal');
-                window.location.href = '../resources/school-resources.html';
-            } else {
-                err.textContent = 'Incorrect access code. Please try again.';
-                err.classList.add('show');
-                document.getElementById('accessCodeInput').value = '';
-            }
-        } catch(e) {
-            console.error(e);
-            document.getElementById('accessError').textContent = 'Error verifying code. Try again.';
-            document.getElementById('accessError').classList.add('show');
-        }
+    // Sidebar nav items
+    document.querySelectorAll('.nav-item[data-tab]').forEach(function(n) {
+      n.addEventListener('click', function(e) { e.preventDefault(); window.switchTab(n.dataset.tab); });
     });
 
-    // Data stores
-    let allResources = [], allExams = [];
+    // data-goto buttons
+    document.querySelectorAll('[data-goto]').forEach(function(b) {
+      b.addEventListener('click', function() { window.switchTab(b.dataset.goto); });
+    });
 
-    // Helpers
-    const fmtCard = item => `
-        <div class="resource-card">
-            <div class="resource-type">${item._icon || '📄'} ${item.category || 'General'}</div>
-            <div class="resource-name">${item.title}</div>
-            <div class="resource-meta">${fmtDate(item.timestamp)}</div>
-            ${item.description ? `<div class="resource-desc">${item.description}</div>` : ''}
-            <button class="${item._btn}" onclick="window.open('${item._url}','_blank')">${item._label}</button>
-        </div>`;
+    // Hamburger
+    document.getElementById('hamburgerBtn').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('show');
+    });
+    document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
 
-    // Load resources
-    async function loadResources() {
-        const grid = document.getElementById('resourceGrid');
-        const recent = document.getElementById('recentResourcesList');
-        try {
-            const qs = await getDocs(collection(db, 'resources'));
-            allResources = [];
-            qs.forEach(d => {
-                const data = d.data();
-                if (data.category === studentType || data.category === 'both')
-                    allResources.push({id: d.id, ...data, _icon:'📄', _btn:'download-btn', _url:data.fileUrl, _label:'↓ Download'});
-            });
-            allResources.sort((a,b) => (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0)));
-            const c = allResources.length;
-            document.getElementById('statResources').textContent = c;
-            document.getElementById('resourceCount').textContent = c;
-            document.getElementById('idResources').textContent = c + ' Items';
-            if (!c) { grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">No resources available yet</div>'; recent.innerHTML = '<div class="empty">No resources yet</div>'; buildActivity(); return; }
-            grid.innerHTML = allResources.map(fmtCard).join('');
-            recent.innerHTML = allResources.slice(0,5).map(item => `
-                <div class="activity-item">
-                    <div class="activity-dot green"></div>
-                    <div class="activity-text">
-                        <div class="activity-title">${item.title}</div>
-                        <div class="activity-time">${fmtDate(item.timestamp)}</div>
-                    </div>
-                    <span class="pill pill-active">File</span>
-                </div>`).join('');
-            buildActivity();
-        } catch(e) {
-            console.error('Resources error:', e);
-            grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">Error loading resources</div>';
-        }
-    }
+    // Modal close buttons
+    document.querySelectorAll('[data-close-modal]').forEach(function(b) {
+      b.addEventListener('click', function() { window.closeModal(b.dataset.closeModal); });
+    });
+    document.querySelectorAll('.modal-overlay').forEach(function(m) {
+      m.addEventListener('click', function(e) { if (e.target === m) m.classList.remove('open'); });
+    });
 
-    // Load exams + links
-    async function loadExams() {
-        const grid = document.getElementById('examGrid');
-        try {
-            const [es, ls] = await Promise.all([
-                getDocs(collection(db,'exams')),
-                getDocs(collection(db,'links'))
-            ]);
-            allExams = [];
-            es.forEach(d => {
-                const data = d.data();
-                if (data.category === studentType || data.category === 'both')
-                    allExams.push({id:d.id,...data,_kind:'exam',_icon:'📝 Exam',_btn:'download-btn',_url:data.url||data.fileUrl,_label:'Take Exam →'});
-            });
-            ls.forEach(d => {
-                const data = d.data();
-                if (data.category === studentType || data.category === 'both')
-                    allExams.push({id:d.id,...data,_kind:'link',_icon:'🔗 Link',_btn:'open-btn',_url:data.url||data.fileUrl,_label:'↗ Open Link'});
-            });
-            allExams.sort((a,b) => (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0)));
-            const c = allExams.length;
-            document.getElementById('statExams').textContent = c;
-            document.getElementById('examCount').textContent = c;
-            if (!c) { grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">No exams available yet</div>'; buildActivity(); return; }
-            grid.innerHTML = allExams.map(fmtCard).join('');
-            buildActivity();
-        } catch(e) {
-            console.error('Exams error:', e);
-            grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">Error loading exams</div>';
-        }
-    }
+    // Card modal triggers
+    ['userAvatar','sidebarCardBtn','headerCardBtn','qaCardBtn'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function() { window.openModal('cardModal'); });
+    });
 
-    // Build combined activity feed (no extra Firebase reads)
-    function buildActivity() {
-        const ov = document.getElementById('overviewActivityList');
-        const fl = document.getElementById('fullActivityList');
-        const combined = [
-            ...allResources.map(r => ({title:`New resource: ${r.title}`, time:r.timestamp?.toDate()||new Date(), dot:'green', pill:'pill-active', label:'Resource'})),
-            ...allExams.map(e => ({title:`${e._kind==='exam'?'Exam':'Link'} available: ${e.title}`, time:e.timestamp?.toDate()||new Date(), dot:e._kind==='exam'?'':'gold', pill:'pill-pending', label:e._kind==='exam'?'Exam':'Link'}))
-        ].sort((a,b) => b.time - a.time);
-        if (!combined.length) { ov.innerHTML = fl.innerHTML = '<div class="empty">No activity yet</div>'; return; }
-        const row = i => `
-            <div class="activity-item">
-                <div class="activity-dot ${i.dot}"></div>
-                <div class="activity-text">
-                    <div class="activity-title">${i.title}</div>
-                    <div class="activity-time">${timeAgo(i.time)}</div>
-                </div>
-                <span class="pill ${i.pill}">${i.label}</span>
-            </div>`;
-        ov.innerHTML = combined.slice(0,4).map(row).join('');
-        fl.innerHTML = combined.map(row).join('');
-    }
-
-    // Resource search
-    document.getElementById('resourceSearch').addEventListener('input', function() {
-        const q = this.value.toLowerCase();
-        const grid = document.getElementById('resourceGrid');
-        const f = allResources.filter(r => r.title.toLowerCase().includes(q) || (r.description && r.description.toLowerCase().includes(q)));
-        if (!f.length) { grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">No matching resources found</div>'; return; }
-        grid.innerHTML = f.map(fmtCard).join('');
+    // School modal triggers
+    ['headerSchoolBtn','sidebarSchoolBtn','qaSchoolBtn'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function() { window.openModal('accessModal'); });
     });
 
     // Notifications
-    let lastUnread = 0;
-    async function loadNotifications() {
-        const list = document.getElementById('notifList');
-        try {
-            const [sa, ss] = await Promise.all([
-                getDocs(query(collection(db,'notifications'), where('recipientId','==','all'))),
-                getDocs(query(collection(db,'notifications'), where('recipientId','==','all_students')))
-            ]);
-            const all = new Map();
-            [sa, ss].forEach(snap => snap.docs.forEach(d => all.set(d.id, {id:d.id,...d.data()})));
-            const notifs = [...all.values()].sort((a,b) => (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0)));
-            if (!notifs.length) { list.innerHTML = '<div class="empty">No notifications yet</div>'; return; }
-            let unread = 0;
-            list.innerHTML = notifs.map(n => {
-                if (!n.read) unread++;
-                return `<div class="notif-item ${n.read?'':'unread'}" data-nid="${n.id}">
-                    <div class="notif-msg"><strong>${n.title}</strong><br>${n.message}</div>
-                    <div class="notif-time">${timeAgo(n.timestamp)}</div>
-                </div>`;
-            }).join('');
-            list.querySelectorAll('.notif-item').forEach(el =>
-                el.addEventListener('click', async () => {
-                    try { await updateDoc(doc(db,'notifications',el.dataset.nid),{read:true}); loadNotifications(); } catch(e){}
-                })
-            );
-            const badge = document.getElementById('notifBadge');
-            if (unread > 0) { badge.textContent = unread; badge.style.display = 'flex'; }
-            else { badge.style.display = 'none'; }
-            if (unread > lastUnread && lastUnread > 0) {
-                try {
-                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                    const osc = ctx.createOscillator(), g = ctx.createGain();
-                    osc.connect(g); g.connect(ctx.destination);
-                    osc.frequency.value = 800; osc.type = 'sine';
-                    g.gain.setValueAtTime(0.3, ctx.currentTime);
-                    g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-                    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.5);
-                } catch(e) {}
-            }
-            lastUnread = unread;
-        } catch(e) {
-            console.error('Notifications error:', e);
-            list.innerHTML = '<div class="empty">Error loading notifications</div>';
-        }
-    }
+    document.getElementById('notifToggleBtn').addEventListener('click', function() {
+      document.getElementById('notifPanel').classList.toggle('open');
+    });
+    document.getElementById('notifCloseBtn').addEventListener('click', function() {
+      document.getElementById('notifPanel').classList.remove('open');
+    });
 
-    async function requestNotifPermission() {
-        if (!('Notification' in window) || Notification.permission !== 'default') return;
-        if (confirm('🔔 Enable desktop notifications?')) {
-            const p = await Notification.requestPermission();
-            if (p === 'granted') new Notification('🔔 Notifications Enabled', {body:"You'll receive updates from Jaystarbliss Dynamic Hub", icon:'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS'});
-        }
-    }
+    // Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.getElementById('notifPanel').classList.remove('open');
+        document.querySelectorAll('.modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
+        closeSidebar();
+      }
+    });
 
-    // Init
-    console.log('🚀 Student Portal initialising…');
-    loadResources();
-    loadExams();
-    loadNotifications();
-    setTimeout(requestNotifPermission, 2000);
-    setInterval(loadNotifications, 30000);
+    // Restore tab from URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var startTab  = urlParams.get('tab');
+    if (startTab && startTab !== 'overview') window.switchTab(startTab);
+  });
 </script>
-<script>lucide.createIcons();</script>
+
+<!-- ── FIREBASE SCRIPT: data loading only ── -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+  import { getFirestore, collection, getDocs, query, where, updateDoc, doc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+    authDomain: "jaystarbliss-studios.firebaseapp.com",
+    projectId: "jaystarbliss-studios",
+    storageBucket: "jaystarbliss-studios.firebasestorage.app",
+    messagingSenderId: "885364100276",
+    appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  const urlParams   = new URLSearchParams(window.location.search);
+  const studentType = urlParams.get('type') || sessionStorage.getItem('userRole');
+  const userEmail   = sessionStorage.getItem('userEmail') || 'student@jaystarbliss.ng';
+  const studentName = sessionStorage.getItem('studentName') || 'Student';
+
+  const getInitials = n => n.split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase();
+  const fmtDate = ts => {
+    if (!ts) return 'Recent';
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+  };
+  const timeAgo = ts => {
+    if (!ts) return 'Just now';
+    const date = ts.toDate ? ts.toDate() : new Date(ts);
+    const diff = Date.now() - date;
+    const m = Math.floor(diff/60000), h = Math.floor(diff/3600000), dy = Math.floor(diff/86400000);
+    if (m < 1) return 'Just now';
+    if (m < 60) return m + 'm ago';
+    if (h < 24) return h + 'h ago';
+    return dy + 'd ago';
+  };
+
+  // Populate UI
+  const initials = getInitials(studentName);
+  document.getElementById('userName').textContent      = studentName;
+  document.getElementById('userTypeLabel').textContent = studentType === 'school' ? 'School Student' : 'Private Student';
+  document.getElementById('userAvatar').textContent    = initials;
+  document.getElementById('sidebarAvatar').textContent = initials;
+  document.getElementById('welcomeMessage').textContent =
+    `Welcome back, ${studentName.split(' ')[0]} — ${new Date().toLocaleDateString('en-US', {weekday:'long',day:'numeric',month:'short',year:'numeric'})}`;
+  document.getElementById('idName').textContent        = studentName;
+  document.getElementById('idEmail').textContent       = userEmail;
+  document.getElementById('idAccountType').textContent = studentType === 'school' ? 'School Student' : 'Private Student';
+  document.getElementById('statAccountType').textContent = studentType === 'school' ? 'School' : 'Private';
+  document.getElementById('statAccountSub').textContent  = studentType === 'school' ? 'Affiliated student' : 'Independent learner';
+  document.getElementById('statPrograms').textContent    = '4';
+
+  // Logout
+  document.getElementById('sidebarLogoutBtn').addEventListener('click', async () => {
+    await signOut(auth);
+    sessionStorage.clear();
+    window.location.href = '../auth/login.html';
+  });
+
+  // School access verification
+  document.getElementById('accessSubmitBtn').addEventListener('click', async () => {
+    const input = document.getElementById('accessCodeInput').value.trim();
+    const err   = document.getElementById('accessError');
+    if (!input) { err.textContent = 'Please enter an access code.'; err.classList.add('show'); return; }
+    try {
+      const snap = await getDocs(collection(db, 'schools'));
+      let found = false, foundId = null;
+      snap.forEach(d => { if (d.data().accessCode === input) { found = true; foundId = d.id; } });
+      if (found) {
+        const names = {
+          peniel:'PENIEL LILY MONTESSORI SCHOOL',
+          southgold:'SOUTH GOLD MONTESSORI SCHOOL',
+          sapphire:'SAPPHIRE EXPLORER MONTESSORI SCHOOL',
+          easystars:'EASY STARS EARLY YEARS ACADEMY',
+          christycaleb:'CHRISTY CALEB INTERNATIONAL SCHOOL',
+          royalbreed:'ROYAL BREED ACADEMY'
+        };
+        sessionStorage.setItem('schoolId', foundId);
+        sessionStorage.setItem('schoolName', names[foundId] || foundId);
+        window.closeModal('accessModal');
+        window.location.href = '../resources/school-resources.html';
+      } else {
+        err.textContent = 'Incorrect access code. Please try again.';
+        err.classList.add('show');
+        document.getElementById('accessCodeInput').value = '';
+      }
+    } catch(e) {
+      console.error(e);
+      document.getElementById('accessError').textContent = 'Error verifying code. Try again.';
+      document.getElementById('accessError').classList.add('show');
+    }
+  });
+
+  // Data stores
+  let allResources = [], allExams = [];
+
+  const fmtCard = item => `
+    <div class="resource-card">
+      <div class="resource-type">${item._icon || '📄'} ${item.category || 'General'}</div>
+      <div class="resource-name">${item.title}</div>
+      <div class="resource-meta">${fmtDate(item.timestamp)}</div>
+      ${item.description ? `<div class="resource-desc">${item.description}</div>` : ''}
+      <button class="${item._btn}" onclick="window.open('${item._url}','_blank')">${item._label}</button>
+    </div>`;
+
+  // Load resources
+  async function loadResources() {
+    const grid   = document.getElementById('resourceGrid');
+    const recent = document.getElementById('recentResourcesList');
+    try {
+      const qs = await getDocs(collection(db, 'resources'));
+      allResources = [];
+      qs.forEach(d => {
+        const data = d.data();
+        if (data.category === studentType || data.category === 'both')
+          allResources.push({id:d.id,...data,_icon:'📄',_btn:'download-btn',_url:data.fileUrl,_label:'↓ Download'});
+      });
+      allResources.sort((a,b) => (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0)));
+      const c = allResources.length;
+      document.getElementById('statResources').textContent = c;
+      document.getElementById('resourceCount').textContent = c;
+      document.getElementById('idResources').textContent   = c + ' Items';
+      if (!c) {
+        grid.innerHTML   = '<div class="empty" style="grid-column:1/-1;">No resources available yet</div>';
+        recent.innerHTML = '<div class="empty">No resources yet</div>';
+        buildActivity(); return;
+      }
+      grid.innerHTML = allResources.map(fmtCard).join('');
+      recent.innerHTML = allResources.slice(0,5).map(item => `
+        <div class="activity-item">
+          <div class="activity-dot green"></div>
+          <div class="activity-text">
+            <div class="activity-title">${item.title}</div>
+            <div class="activity-time">${fmtDate(item.timestamp)}</div>
+          </div>
+          <span class="pill pill-active">File</span>
+        </div>`).join('');
+      buildActivity();
+    } catch(e) {
+      console.error('Resources error:', e);
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">Error loading resources</div>';
+    }
+  }
+
+  // Load exams + links
+  async function loadExams() {
+    const grid = document.getElementById('examGrid');
+    try {
+      const [es, ls] = await Promise.all([
+        getDocs(collection(db,'exams')),
+        getDocs(collection(db,'links'))
+      ]);
+      allExams = [];
+      es.forEach(d => {
+        const data = d.data();
+        if (data.category === studentType || data.category === 'both')
+          allExams.push({id:d.id,...data,_kind:'exam',_icon:'📝 Exam',_btn:'download-btn',_url:data.url||data.fileUrl,_label:'Take Exam →'});
+      });
+      ls.forEach(d => {
+        const data = d.data();
+        if (data.category === studentType || data.category === 'both')
+          allExams.push({id:d.id,...data,_kind:'link',_icon:'🔗 Link',_btn:'open-btn',_url:data.url||data.fileUrl,_label:'↗ Open Link'});
+      });
+      allExams.sort((a,b) => (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0)));
+      const c = allExams.length;
+      document.getElementById('statExams').textContent = c;
+      document.getElementById('examCount').textContent = c;
+      if (!c) { grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">No exams available yet</div>'; buildActivity(); return; }
+      grid.innerHTML = allExams.map(fmtCard).join('');
+      buildActivity();
+    } catch(e) {
+      console.error('Exams error:', e);
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">Error loading exams</div>';
+    }
+  }
+
+  // Build combined activity feed (no extra Firebase reads)
+  function buildActivity() {
+    const ov = document.getElementById('overviewActivityList');
+    const fl = document.getElementById('fullActivityList');
+    const combined = [
+      ...allResources.map(r => ({title:`New resource: ${r.title}`, time:r.timestamp?.toDate()||new Date(), dot:'green', pill:'pill-active', label:'Resource'})),
+      ...allExams.map(e => ({title:`${e._kind==='exam'?'Exam':'Link'} available: ${e.title}`, time:e.timestamp?.toDate()||new Date(), dot:e._kind==='exam'?'':'gold', pill:'pill-pending', label:e._kind==='exam'?'Exam':'Link'}))
+    ].sort((a,b) => b.time - a.time);
+    if (!combined.length) { ov.innerHTML = fl.innerHTML = '<div class="empty">No activity yet</div>'; return; }
+    const row = i => `
+      <div class="activity-item">
+        <div class="activity-dot ${i.dot}"></div>
+        <div class="activity-text">
+          <div class="activity-title">${i.title}</div>
+          <div class="activity-time">${timeAgo(i.time)}</div>
+        </div>
+        <span class="pill ${i.pill}">${i.label}</span>
+      </div>`;
+    ov.innerHTML = combined.slice(0,4).map(row).join('');
+    fl.innerHTML = combined.map(row).join('');
+  }
+
+  // Resource search
+  document.getElementById('resourceSearch').addEventListener('input', function() {
+    const q    = this.value.toLowerCase();
+    const grid = document.getElementById('resourceGrid');
+    const f    = allResources.filter(r =>
+      r.title.toLowerCase().includes(q) || (r.description && r.description.toLowerCase().includes(q))
+    );
+    if (!f.length) { grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">No matching resources found</div>'; return; }
+    grid.innerHTML = f.map(fmtCard).join('');
+  });
+
+  // Notifications
+  let lastUnread = 0;
+  async function loadNotifications() {
+    const list = document.getElementById('notifList');
+    try {
+      const [sa, ss] = await Promise.all([
+        getDocs(query(collection(db,'notifications'), where('recipientId','==','all'))),
+        getDocs(query(collection(db,'notifications'), where('recipientId','==','all_students')))
+      ]);
+      const all = new Map();
+      [sa, ss].forEach(snap => snap.docs.forEach(d => all.set(d.id, {id:d.id,...d.data()})));
+      const notifs = [...all.values()].sort((a,b) =>
+        (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0))
+      );
+      if (!notifs.length) { list.innerHTML = '<div class="empty">No notifications yet</div>'; return; }
+      let unread = 0;
+      list.innerHTML = notifs.map(n => {
+        if (!n.read) unread++;
+        return `<div class="notif-item ${n.read?'':'unread'}" data-nid="${n.id}">
+          <div class="notif-msg"><strong>${n.title}</strong><br>${n.message}</div>
+          <div class="notif-time">${timeAgo(n.timestamp)}</div>
+        </div>`;
+      }).join('');
+      list.querySelectorAll('.notif-item').forEach(el =>
+        el.addEventListener('click', async () => {
+          try { await updateDoc(doc(db,'notifications',el.dataset.nid),{read:true}); loadNotifications(); }
+          catch(e) {}
+        })
+      );
+      const badge = document.getElementById('notifBadge');
+      if (unread > 0) { badge.textContent = unread; badge.style.display = 'grid'; }
+      else { badge.style.display = 'none'; }
+      if (unread > lastUnread && lastUnread > 0) {
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const osc = ctx.createOscillator(), g = ctx.createGain();
+          osc.connect(g); g.connect(ctx.destination);
+          osc.frequency.value = 800; osc.type = 'sine';
+          g.gain.setValueAtTime(0.3, ctx.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+          osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.5);
+        } catch(e) {}
+      }
+      lastUnread = unread;
+    } catch(e) {
+      console.error('Notifications error:', e);
+      list.innerHTML = '<div class="empty">Error loading notifications</div>';
+    }
+  }
+
+  async function requestNotifPermission() {
+    if (!('Notification' in window) || Notification.permission !== 'default') return;
+    if (confirm('🔔 Enable desktop notifications?')) {
+      const p = await Notification.requestPermission();
+      if (p === 'granted')
+        new Notification('🔔 Notifications Enabled', {
+          body:"You'll receive updates from Jaystarbliss Dynamic Hub",
+          icon:'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS'
+        });
+    }
+  }
+
+  // Init
+  console.log('🚀 Student Portal initialising…');
+  loadResources();
+  loadExams();
+  loadNotifications();
+  setTimeout(requestNotifPermission, 2000);
+  setInterval(loadNotifications, 30000);
+</script>
+
 </body>
 </html>

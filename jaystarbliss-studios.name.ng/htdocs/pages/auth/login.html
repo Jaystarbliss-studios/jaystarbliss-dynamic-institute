@@ -1,512 +1,878 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAYSTARBLISS STUDIOS - Login Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Login — Jaystarbliss Dynamic Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
-            --snow: #FFFAFA;
-            --madder: #A91B0D;
-            --golden: #FFD700;
-            --dark: #1a1a1a;
-            --gray: #4a5568;
+            --madder: #A91B0D; --madder-dark: #7a1309; --madder-lite: #c9210f;
+            --gold: #FFD700; --gold-dim: #b89d00;
+            --snow: #FFFAFA; --dark: #1a1a1a;
+            --green: #2ecc71;
+            --bg: #141414; --surface: #1e1e1e; --surface-2: #272727;
+            --border: rgba(255,255,255,0.07); --border-bright: rgba(169,27,13,0.4);
+            --text: #FFFAFA; --text-muted: #a8a8a8; --text-dim: #5a5a5a;
+            --field-bg: #242424; --field-border: rgba(255,255,255,0.1);
+            --mono: 'Space Mono', monospace; --sans: 'DM Sans', sans-serif;
+            --radius: 22px;
         }
+        [data-theme="light"] {
+            --bg: #ede5e5;
+            --surface: #FFFAFA; --surface-2: #f5efef;
+            --border: rgba(169,27,13,0.1); --border-bright: rgba(169,27,13,0.35);
+            --text: #1a1a1a; --text-muted: #5a4a4a; --text-dim: #9a8a8a;
+            --field-bg: #f5efef; --field-border: rgba(169,27,13,0.15);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 14px; }
 
         body {
-            position: relative;
-            overflow-x: hidden;
+            font-family: var(--sans);
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 1.5rem;
+            background: var(--bg);
+            position: relative; overflow: hidden;
+            transition: background 0.3s;
         }
 
+        /* Background mesh */
         body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            background-image: repeating-linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.03) 0px,
-                rgba(255, 255, 255, 0.03) 10px,
-                transparent 10px,
-                transparent 40px
-            );
-            animation: stripesMove 2s linear infinite;
-            pointer-events: none;
-            z-index: -1;
+            content: '';
+            position: fixed; inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 15% 20%, rgba(169,27,13,0.35) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 85% 80%, rgba(255,215,0,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 60% at 80% 10%, rgba(169,27,13,0.15) 0%, transparent 70%);
+            pointer-events: none; z-index: 0;
+        }
+        [data-theme="light"] body::before {
+            background:
+                radial-gradient(ellipse 60% 50% at 15% 20%, rgba(169,27,13,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 85% 80%, rgba(255,215,0,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 60% at 80% 10%, rgba(169,27,13,0.10) 0%, transparent 70%);
         }
 
-        @keyframes stripesMove {
-            from { transform: translateX(0); }
-            to { transform: translateX(-200px); }
-        }
-
-        body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #A91B0D 0%, #8B1507 100%),
-                url('../../assets/img/favicon.png');
-    background-attachment: fixed;
-    background-size: cover;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-}
-
-        .login-container {
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 450px;
-            width: 100%;
-            padding: 3rem;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .logo {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .logo h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
-            color: var(--madder);
-            margin-bottom: 0.5rem;
-        }
-
-        .logo p {
-            color: var(--gray);
-            font-size: 0.95rem;
-        }
-
-        .user-type-selector {
+        /* CARD — split layout */
+        .card {
+            position: relative; z-index: 1;
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            background: #f7fafc;
-            padding: 0.5rem;
-            border-radius: 12px;
+            width: 100%; max-width: 860px;
+            min-height: 520px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.04);
+            animation: cardIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(24px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .user-type-btn {
-            flex: 1;
-            padding: 0.8rem;
-            border: none;
-            background: transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            color: var(--gray);
-        }
-
-        .user-type-btn.active {
-            background: var(--madder);
-            color: white;
-            box-shadow: 0 4px 12px rgba(169, 27, 13, 0.3);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--madder);
-            box-shadow: 0 0 0 4px rgba(169, 27, 13, 0.1);
-        }
-
-        .password-toggle {
+        /* LEFT PANEL — decorative */
+        .deco-panel {
+            width: 42%;
+            flex-shrink: 0;
+            background: var(--madder-dark);
             position: relative;
-        }
-
-        .password-toggle button {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--gray);
-            padding: 0.5rem;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--madder), #d62a1a);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(169, 27, 13, 0.3);
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(169, 27, 13, 0.4);
-        }
-
-        .login-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .error-message {
-            background: #fee;
-            color: #c33;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-            animation: shake 0.3s ease;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .back-link {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-
-        .back-link a {
-            color: var(--madder);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .back-link a:hover {
-            text-decoration: underline;
-        }
-
-        .register-link {
-    text-align: center;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e2e8f0;
-}
-
-.register-link a {
-    color: var(--golden);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.register-link a:hover {
-    text-decoration: underline;
-}
-
-        .loading {
-            display: none;
-            text-align: center;
+            overflow: hidden;
+            display: flex; flex-direction: column;
+            justify-content: flex-end;
             padding: 2rem;
         }
 
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--madder);
+        /* Blob shapes */
+        .blob {
+            position: absolute;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
+            filter: blur(0px);
+        }
+        .blob-1 {
+            width: 260px; height: 260px;
+            top: -80px; left: -80px;
+            background: radial-gradient(circle at 40% 40%, var(--madder-lite), var(--madder-dark));
+            opacity: 0.9;
+        }
+        .blob-2 {
+            width: 200px; height: 200px;
+            top: 60px; right: -60px;
+            background: radial-gradient(circle at 60% 60%, #d62a1a, #7a1309);
+            opacity: 0.7;
+        }
+        .blob-3 {
+            width: 180px; height: 180px;
+            bottom: -50px; left: 10px;
+            background: radial-gradient(circle at 30% 70%, var(--gold), var(--gold-dim));
+            opacity: 0.55;
+        }
+        .blob-4 {
+            width: 120px; height: 120px;
+            bottom: 80px; right: -30px;
+            background: radial-gradient(circle at 50% 50%, rgba(255,215,0,0.7), rgba(169,27,13,0.4));
+            opacity: 0.6;
+        }
+        .blob-5 {
+            width: 80px; height: 80px;
+            top: 45%; left: 40%;
+            background: radial-gradient(circle, rgba(255,250,250,0.15), transparent);
+            opacity: 0.8;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Stripe texture on deco panel */
+        .deco-panel::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: repeating-linear-gradient(
+                135deg,
+                rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 1px,
+                transparent 1px, transparent 24px
+            );
+            z-index: 1; pointer-events: none;
         }
-        
-        /* Mobile Responsive Styles */
-@media (max-width: 768px) {
-    body {
-        padding: 1rem;
-    }
 
-    .login-container {
-        padding: 2rem 1.5rem;
-        border-radius: 16px;
-        max-width: 100%;
-    }
+        /* Deco content */
+        .deco-content {
+            position: relative; z-index: 2;
+        }
+        .deco-brand {
+            display: flex; align-items: center; gap: 0.7rem;
+            margin-bottom: auto;
+            position: absolute; top: 2rem; left: 2rem;
+        }
+        .brand-mark {
+            width: 34px; height: 34px;
+            background: var(--gold);
+            display: grid; place-items: center;
+            font-family: var(--mono); font-size: 0.68rem; font-weight: 700;
+            color: var(--dark);
+            clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .brand-mark img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .brand-name {
+            font-family: var(--mono); font-size: 0.62rem; font-weight: 700;
+            color: rgba(255,250,250,0.85); text-transform: uppercase;
+            letter-spacing: 0.04em; line-height: 1.3;
+        }
+        .deco-tagline {
+            font-family: var(--mono); font-size: 1.15rem; font-weight: 700;
+            color: #fff; line-height: 1.3; margin-bottom: 0.5rem;
+        }
+        .deco-tagline span { color: var(--gold); }
+        .deco-sub {
+            font-size: 0.75rem; color: rgba(255,250,250,0.5);
+        }
 
-    .logo h1 {
-        font-size: 1.5rem;
-    }
+        /* RIGHT PANEL — form */
+        .form-panel {
+            flex: 1;
+            background: var(--surface);
+            display: flex; flex-direction: column;
+            overflow-y: auto;
+        }
 
-    .logo p {
-        font-size: 0.85rem;
-    }
+        /* ROLE TABS */
+        .role-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .role-tab {
+            flex: 1; padding: 0.9rem 0.5rem 0.8rem;
+            font-family: var(--mono); font-size: 0.58rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            color: var(--text-dim); background: none; border: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: all 0.15s;
+            display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+        }
+        .role-tab .tab-icon { font-size: 1.1rem; }
+        .role-tab:hover { color: var(--text-muted); background: var(--surface-2); }
+        .role-tab.active { color: var(--madder-lite); border-bottom-color: var(--madder); }
 
-    .user-type-selector {
-        flex-wrap: wrap;
-        gap: 0.4rem;
-    }
+        /* FORM BODY */
+        .form-body {
+            flex: 1; padding: 1.8rem 2rem;
+            overflow-y: auto;
+        }
 
-    .user-type-btn {
-        flex: 1 1 calc(50% - 0.2rem);
-        padding: 0.7rem 0.5rem;
-        font-size: 0.75rem;
-    }
+        /* PANES */
+        .pane { display: none; animation: paneIn 0.2s ease both; }
+        .pane.active { display: block; }
+        @keyframes paneIn { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
 
-    .form-group {
-        margin-bottom: 1.2rem;
-    }
+        /* FORM HEADER */
+        .form-title {
+            font-family: var(--mono); font-size: 1rem; font-weight: 700;
+            color: var(--text); margin-bottom: 0.3rem; line-height: 1;
+        }
+        .form-title span { color: var(--madder-lite); }
+        .form-sub { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 1.5rem; }
 
-    .form-group label {
-        font-size: 0.85rem;
-    }
+        /* MESSAGES */
+        .msg {
+            padding: 0.55rem 0.85rem; font-size: 0.73rem;
+            margin-bottom: 1rem; display: none;
+            border-left: 2px solid; border-radius: 0 4px 4px 0;
+            line-height: 1.4;
+        }
+        .msg.show { display: block; animation: shake 0.3s ease; }
+        .msg-error   { background: rgba(169,27,13,0.08); color: #e05a50; border-color: var(--madder); }
+        .msg-success { background: rgba(46,204,113,0.08); color: var(--green); border-color: var(--green); }
+        @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
 
-    .form-group input {
-        padding: 0.9rem;
-        font-size: 0.95rem;
-    }
+        /* INFO BOX */
+        .info-box {
+            padding: 0.6rem 0.85rem;
+            background: rgba(255,215,0,0.06);
+            border-left: 2px solid var(--gold-dim);
+            font-size: 0.72rem; color: var(--text-muted);
+            margin-bottom: 1.2rem; line-height: 1.5;
+        }
+        .info-box strong { color: var(--gold); }
 
-    .login-btn {
-        padding: 0.9rem;
-        font-size: 1rem;
-    }
+        /* FIELDS */
+        .field { margin-bottom: 1rem; }
+        .field label {
+            display: block; margin-bottom: 0.3rem;
+            font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+        }
+        .opt-label { font-size: 0.62rem; color: var(--text-dim); font-weight: 400; margin-left: 0.3rem; }
 
-    .back-link,
-    .register-link {
-        font-size: 0.85rem;
-    }
-}
+        /* Input with icon */
+        .input-wrap { position: relative; }
+        .input-icon {
+            position: absolute; left: 0.85rem; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.85rem; color: var(--text-dim);
+            pointer-events: none;
+        }
+        .field input {
+            width: 100%;
+            padding: 0.65rem 0.85rem 0.65rem 2.4rem;
+            background: var(--field-bg);
+            border: 1px solid var(--field-border);
+            border-radius: 8px;
+            color: var(--text); font-family: var(--sans); font-size: 0.85rem;
+            outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .field input:focus {
+            border-color: var(--madder);
+            box-shadow: 0 0 0 3px rgba(169,27,13,0.12);
+        }
+        .field input::placeholder { color: var(--text-dim); }
 
-@media (max-width: 480px) {
-    .login-container {
-        padding: 1.5rem 1rem;
-    }
+        /* Password eye */
+        .pw-eye {
+            position: absolute; right: 0.75rem; top: 50%;
+            transform: translateY(-50%);
+            background: none; border: none; cursor: pointer;
+            color: var(--text-dim); font-size: 0.8rem;
+            padding: 0.2rem; transition: color 0.15s;
+        }
+        .pw-eye:hover { color: var(--gold); }
+        .field input.has-eye { padding-right: 2.5rem; }
 
-    .logo h1 {
-        font-size: 1.3rem;
-    }
+        /* SUBMIT */
+        .submit-btn {
+            width: 100%; padding: 0.8rem;
+            background: linear-gradient(135deg, var(--madder-lite), var(--madder-dark));
+            color: #fff; border: none;
+            border-radius: 8px;
+            font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.06em;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(169,27,13,0.35);
+            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            margin-top: 0.4rem;
+        }
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 28px rgba(169,27,13,0.45);
+        }
+        .submit-btn:active:not(:disabled) { transform: translateY(0); }
+        .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+        .btn-spinner {
+            width: 13px; height: 13px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff; border-radius: 50%;
+            animation: spin 0.7s linear infinite; display: none;
+        }
+        .submit-btn.loading .btn-spinner { display: block; }
+        .submit-btn.loading .btn-text   { opacity: 0.65; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-    .user-type-btn {
-        flex: 1 1 100%;
-        font-size: 0.8rem;
-    }
+        /* TOGGLE LINK */
+        .toggle-link {
+            text-align: center; margin-top: 1rem;
+            font-size: 0.72rem; color: var(--text-dim);
+        }
+        .toggle-link button {
+            background: none; border: none; cursor: pointer;
+            color: var(--gold); font-size: 0.72rem; font-weight: 600;
+            padding: 0; text-decoration: underline;
+        }
+        .toggle-link button:hover { color: var(--gold-dim); }
 
-    .form-group input {
-        padding: 0.85rem;
-    }
-}
+        /* CARD FOOTER */
+        .form-foot {
+            padding: 0.9rem 2rem;
+            border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .back-link {
+            font-family: var(--mono); font-size: 0.6rem;
+            color: var(--text-dim); text-decoration: none;
+            display: flex; align-items: center; gap: 0.35rem;
+            transition: color 0.15s;
+        }
+        .back-link:hover { color: var(--gold); }
+        .theme-btn {
+            width: 28px; height: 28px;
+            background: var(--surface-2); border: 1px solid var(--border);
+            color: var(--text-muted); display: grid; place-items: center;
+            cursor: pointer; font-size: 0.8rem;
+            border-radius: 6px; transition: all 0.15s;
+        }
+        .theme-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* SUB-VIEW HEADER */
+        .sub-view-head {
+            display: flex; align-items: center; gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .sub-back-btn {
+            background: none; border: none; cursor: pointer;
+            color: var(--text-dim); font-size: 0.75rem;
+            display: flex; align-items: center; gap: 0.25rem;
+            padding: 0; transition: color 0.15s; font-family: var(--mono);
+        }
+        .sub-back-btn:hover { color: var(--gold); }
+        .sub-title {
+            font-family: var(--mono); font-size: 0.9rem; font-weight: 700;
+            color: var(--text); line-height: 1;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 680px) {
+            .card { flex-direction: column; max-width: 420px; }
+            .deco-panel { width: 100%; min-height: 140px; padding: 1.3rem 1.5rem 1.3rem; }
+            .deco-brand { position: static; margin-bottom: 0.7rem; }
+            .blob-1 { width: 160px; height: 160px; top: -50px; left: -50px; }
+            .blob-2 { width: 120px; height: 120px; top: 10px; right: -40px; }
+            .blob-3 { width: 100px; height: 100px; bottom: -30px; left: 20px; }
+            .blob-4 { display: none; }
+            .deco-tagline { font-size: 0.95rem; }
+            .form-body { padding: 1.3rem 1.5rem; }
+            .form-foot { padding: 0.8rem 1.5rem; }
+        }
+        @media (max-width: 420px) {
+            body { padding: 0; align-items: flex-start; }
+            .card { border-radius: 0; min-height: 100vh; }
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo">
-            <h1>WELCOME BACK!</h1>
-            <p>Login Portal</p>
+
+<div class="card">
+
+    <!-- LEFT: DECORATIVE PANEL -->
+    <div class="deco-panel">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+        <div class="blob blob-5"></div>
+
+        <div class="deco-brand">
+            <div class="brand-mark"><img src="../../assets/img/favicon.png" alt="Jaystarbliss Logo"></div>
+            <div class="brand-name">Jaystarbliss<br>Dynamic Hub</div>
         </div>
 
-        <div class="user-type-selector">
-            <button class="user-type-btn" data-type="admin">Admin</button>
-            <button class="user-type-btn active" data-type="school">Affiliated Schools</button>
-            <button class="user-type-btn" data-type="private">Private Pupils</button>
-            <button class="user-type-btn" data-type="staff">Staff Login</button>
+        <div class="deco-content">
+            <div class="deco-tagline">Learn.<br><span>Grow.</span><br>Thrive.</div>
+            <div class="deco-sub">Your educational portal</div>
+        </div>
+    </div>
+
+    <!-- RIGHT: FORM PANEL -->
+    <div class="form-panel">
+
+        <!-- ROLE TABS -->
+        <div class="role-tabs">
+            <button class="role-tab active" data-pane="pane-school">
+                <span class="tab-icon">🏫</span> Schools
+            </button>
+            <button class="role-tab" data-pane="pane-student">
+                <span class="tab-icon">🎓</span> Students
+            </button>
+            <button class="role-tab" data-pane="pane-staff">
+                <span class="tab-icon">👨‍🏫</span> Staff
+            </button>
         </div>
 
-        <div class="error-message" id="errorMessage"></div>
+        <div class="form-body">
 
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" required placeholder="Enter your email">
+            <!-- ══ SCHOOL PANE ══ -->
+            <div class="pane active" id="pane-school">
+                <div class="form-title">Welcome <span>Back</span></div>
+                <div class="form-sub">Sign in with your school credentials</div>
+                <div class="msg msg-error" id="err-school"></div>
+                <form id="form-school" autocomplete="on">
+                    <div class="field">
+                        <label>Email Address</label>
+                        <div class="input-wrap">
+                            <span class="input-icon">✉</span>
+                            <input type="email" id="school-email" placeholder="school@example.com" required autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <div class="input-wrap">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="school-pw" class="has-eye" placeholder="Enter your password" required autocomplete="current-password">
+                            <button type="button" class="pw-eye" data-target="school-pw">👁</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn" id="btn-school">
+                        <div class="btn-spinner"></div>
+                        <span class="btn-text">Login →</span>
+                    </button>
+                </form>
             </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <div class="password-toggle">
-                    <input type="password" id="password" required placeholder="Enter your password">
-                    <button type="button" onclick="togglePassword()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                            <circle cx="12" cy="12" r="3"></circle>
-                        </svg>
-                    </button>
+            <!-- ══ STUDENT PANE ══ -->
+            <div class="pane" id="pane-student">
+
+                <!-- LOGIN VIEW -->
+                <div id="student-login-view">
+                    <div class="form-title">Student <span>Login</span></div>
+                    <div class="form-sub">Enter your username and access code</div>
+                    <div class="msg msg-error" id="err-student"></div>
+                    <form id="form-student" autocomplete="on">
+                        <div class="field">
+                            <label>Username</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">◉</span>
+                                <input type="text" id="student-user" placeholder="Your username" required autocomplete="username">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Access Code</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">🔒</span>
+                                <input type="password" id="student-code" class="has-eye" placeholder="Your access code" required autocomplete="current-password">
+                                <button type="button" class="pw-eye" data-target="student-code">👁</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn" id="btn-student">
+                            <div class="btn-spinner"></div>
+                            <span class="btn-text">Login →</span>
+                        </button>
+                    </form>
+                    <div class="toggle-link">New student? <button id="showRegister">Create an account →</button></div>
+                </div>
+
+                <!-- REGISTER VIEW -->
+                <div id="student-register-view" style="display:none;">
+                    <div class="sub-view-head">
+                        <button class="sub-back-btn" id="showLogin">← Back</button>
+                        <div class="sub-title">Create Account</div>
+                    </div>
+                    <div class="info-box"><strong>Note:</strong> Your access code is provided by your instructor.</div>
+                    <div class="msg msg-error"   id="err-student-reg"></div>
+                    <div class="msg msg-success" id="ok-student-reg"></div>
+                    <form id="form-student-reg" autocomplete="on">
+                        <div class="field">
+                            <label>Full Name</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">◉</span>
+                                <input type="text" id="reg-fullname" placeholder="Your full name" required autocomplete="name">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Username</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">@</span>
+                                <input type="text" id="reg-username" placeholder="Choose a username" required autocomplete="username">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Email <span class="opt-label">(optional)</span></label>
+                            <div class="input-wrap">
+                                <span class="input-icon">✉</span>
+                                <input type="email" id="reg-email" placeholder="your@email.com" autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Access Code</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">🔑</span>
+                                <input type="password" id="reg-code" class="has-eye" placeholder="From your instructor" required autocomplete="new-password">
+                                <button type="button" class="pw-eye" data-target="reg-code">👁</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn" id="btn-student-reg">
+                            <div class="btn-spinner"></div>
+                            <span class="btn-text">Create Account →</span>
+                        </button>
+                    </form>
                 </div>
             </div>
 
-            <button type="submit" class="login-btn" id="loginBtn">Login</button>
-        </form>
+            <!-- ══ STAFF PANE ══ -->
+            <div class="pane" id="pane-staff">
 
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p style="margin-top: 1rem; color: var(--gray);">Logging in...</p>
+                <!-- LOGIN VIEW -->
+                <div id="staff-login-view">
+                    <div class="form-title">Staff <span>Login</span></div>
+                    <div class="form-sub">Sign in with your staff credentials</div>
+                    <div class="msg msg-error" id="err-staff"></div>
+                    <form id="form-staff" autocomplete="on">
+                        <div class="field">
+                            <label>Email Address</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">✉</span>
+                                <input type="email" id="staff-email" placeholder="staff@jaystarbliss.ng" required autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">🔒</span>
+                                <input type="password" id="staff-pw" class="has-eye" placeholder="Enter your password" required autocomplete="current-password">
+                                <button type="button" class="pw-eye" data-target="staff-pw">👁</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn" id="btn-staff">
+                            <div class="btn-spinner"></div>
+                            <span class="btn-text">Login →</span>
+                        </button>
+                    </form>
+                    <div class="toggle-link">New staff member? <button id="showStaffReg">Register here →</button></div>
+                </div>
+
+                <!-- REGISTER VIEW -->
+                <div id="staff-register-view" style="display:none;">
+                    <div class="sub-view-head">
+                        <button class="sub-back-btn" id="showStaffLogin">← Back</button>
+                        <div class="sub-title">Staff Registration</div>
+                    </div>
+                    <div class="info-box"><strong>Staff only.</strong> You'll need the admin registration code to proceed.</div>
+                    <div class="msg msg-error"   id="err-staff-reg"></div>
+                    <div class="msg msg-success" id="ok-staff-reg"></div>
+                    <form id="form-staff-reg" autocomplete="on">
+                        <div class="field">
+                            <label>Registration Code</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">🔑</span>
+                                <input type="text" id="sreg-code" placeholder="Code from admin" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Full Name</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">◉</span>
+                                <input type="text" id="sreg-name" placeholder="Your full name" required autocomplete="name">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Email Address</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">✉</span>
+                                <input type="email" id="sreg-email" placeholder="your@email.com" required autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">🔒</span>
+                                <input type="password" id="sreg-pw" class="has-eye" placeholder="Create a strong password" required autocomplete="new-password">
+                                <button type="button" class="pw-eye" data-target="sreg-pw">👁</button>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password</label>
+                            <div class="input-wrap">
+                                <span class="input-icon">🔒</span>
+                                <input type="password" id="sreg-pw2" class="has-eye" placeholder="Re-enter password" required autocomplete="new-password">
+                                <button type="button" class="pw-eye" data-target="sreg-pw2">👁</button>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn" id="btn-staff-reg">
+                            <div class="btn-spinner"></div>
+                            <span class="btn-text">Create Account →</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div><!-- /form-body -->
+
+        <!-- FOOTER -->
+        <div class="form-foot">
+            <a href="../../index.html" class="back-link">← Main Site</a>
+            <button class="theme-btn" id="themeToggleBtn" title="Toggle theme">◐</button>
         </div>
 
-        <div class="back-link">
-            <a href="../../index.html">← Back to Main Site</a>
-        </div>
+    </div><!-- /form-panel -->
+</div><!-- /card -->
 
-<!-- ADD THIS NEW SECTION -->
-<div class="register-link">
-    <a href="staff-register.html">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="8.5" cy="7" r="4"></circle>
-            <line x1="20" y1="8" x2="20" y2="14"></line>
-            <line x1="23" y1="11" x2="17" y2="11"></line>
-        </svg>
-        Staff? Register Here
-    </a>
-</div>
-    </div>
+<!-- UI SCRIPT — plain, always runs -->
+<script>
+    window.toggleTheme = function() {
+        var html = document.documentElement;
+        html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('jdh-theme', html.dataset.theme);
+    };
+    var saved = localStorage.getItem('jdh-theme');
+    if (saved) document.documentElement.dataset.theme = saved;
 
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-        import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+    function togglePw(id) {
+        var inp = document.getElementById(id);
+        if (inp) inp.type = inp.type === 'password' ? 'text' : 'password';
+    }
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
-            authDomain: "jaystarbliss-studios.firebaseapp.com",
-            projectId: "jaystarbliss-studios",
-            storageBucket: "jaystarbliss-studios.firebasestorage.app",
-            messagingSenderId: "885364100276",
-            appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
-        };
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('themeToggleBtn').addEventListener('click', window.toggleTheme);
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        let currentUserType = 'school';
-
-        // User type selector with IMMEDIATE REDIRECT for Private Students
-        document.querySelectorAll('.user-type-btn').forEach(btn => {
+        // Role tabs
+        document.querySelectorAll('.role-tab').forEach(function(btn) {
             btn.addEventListener('click', function() {
-                const selectedType = this.dataset.type;
-                
-                // ✅ IMMEDIATE REDIRECT for Private Students
-                if (selectedType === 'private') {
-                    window.location.href = 'student-login.html';
-                    return;
-                }
-                
-                // For Admin, School students, and Staff - just update the active state
-                document.querySelectorAll('.user-type-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentUserType = selectedType;
+                document.querySelectorAll('.role-tab').forEach(function(b) { b.classList.remove('active'); });
+                document.querySelectorAll('.pane').forEach(function(p) { p.classList.remove('active'); });
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.pane).classList.add('active');
             });
         });
 
-        // ✅ FORM SUBMIT HANDLER - This is where login actually happens
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const form = document.getElementById('loginForm');
-            const loading = document.getElementById('loading');
-            const errorMessage = document.getElementById('errorMessage');
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            // Show loading
-            form.style.display = 'none';
-            loading.style.display = 'block';
-            errorMessage.classList.remove('show');
-
-            try {
-                // Sign in with Firebase
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-
-                // Get user role from Firestore
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-                const userData = userDoc.data();
-
-                // Verify user type matches selected type
-                if (userData && userData.role === currentUserType) {
-                    // Store user info
-                    sessionStorage.setItem('userRole', currentUserType);
-                    sessionStorage.setItem('userEmail', email);
-                    sessionStorage.setItem('userId', user.uid);
-
-                    // ✅ REDIRECT BASED ON ROLE (INSIDE THE FORM HANDLER)
-                    if (currentUserType === 'admin') {
-                        window.location.href = '../dashboard/admin-dashboard.html';
-                    } else if (currentUserType === 'school') {
-                        window.location.href = '../dashboard/student-portal.html?type=school';
-                    } else if (currentUserType === 'staff') {
-                        window.location.href = '../dashboard/staff-portal.html';
-                    }
-                } else {
-                    throw new Error('Invalid credentials for selected user type');
-                }
-
-            } catch (error) {
-                form.style.display = 'block';
-                loading.style.display = 'none';
-                
-                errorMessage.textContent = 'Invalid credentials. Please try again.';
-                errorMessage.classList.add('show');
-                console.error('Login error:', error);
-            }
+        // Password eyes
+        document.querySelectorAll('.pw-eye').forEach(function(btn) {
+            btn.addEventListener('click', function() { togglePw(btn.dataset.target); });
         });
 
-        // Password toggle
-        window.togglePassword = function() {
-            const passwordInput = document.getElementById('password');
-            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-        };
-    </script>
+        // Student sub-views
+        document.getElementById('showRegister').addEventListener('click', function() {
+            document.getElementById('student-login-view').style.display    = 'none';
+            document.getElementById('student-register-view').style.display = 'block';
+        });
+        document.getElementById('showLogin').addEventListener('click', function() {
+            document.getElementById('student-register-view').style.display = 'none';
+            document.getElementById('student-login-view').style.display    = 'block';
+        });
+
+        // Staff sub-views
+        document.getElementById('showStaffReg').addEventListener('click', function() {
+            document.getElementById('staff-login-view').style.display    = 'none';
+            document.getElementById('staff-register-view').style.display = 'block';
+        });
+        document.getElementById('showStaffLogin').addEventListener('click', function() {
+            document.getElementById('staff-register-view').style.display = 'none';
+            document.getElementById('staff-login-view').style.display    = 'block';
+        });
+    });
+</script>
+
+<!-- FIREBASE MODULE -->
+<script type="module">
+    import { initializeApp }   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword }
+        from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, query, where, serverTimestamp }
+        from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+        authDomain: "jaystarbliss-studios.firebaseapp.com",
+        projectId: "jaystarbliss-studios",
+        storageBucket: "jaystarbliss-studios.firebasestorage.app",
+        messagingSenderId: "885364100276",
+        appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    const STAFF_REG_CODE_FALLBACK = 'JAYSTAR2024';
+
+    const REDIRECTS = {
+        admin:  '../dashboard/admin-dashboard.html',
+        school: '../dashboard/student-portal.html?type=school',
+        staff:  '../dashboard/staff-portal.html',
+    };
+
+    function showMsg(id, text, type) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = text;
+        el.className = 'msg msg-' + type + ' show';
+    }
+    function hideMsg(id) {
+        var el = document.getElementById(id);
+        if (el) el.className = 'msg msg-error';
+    }
+    function setBtnLoading(id, on) {
+        var btn = document.getElementById(id);
+        if (!btn) return;
+        btn.disabled = on;
+        btn.classList.toggle('loading', on);
+    }
+
+    // Shared email/password login — admin can use any tab
+    async function emailLogin(email, password, expectedRole, errId, btnId) {
+        hideMsg(errId);
+        setBtnLoading(btnId, true);
+        try {
+            var cred     = await signInWithEmailAndPassword(auth, email, password);
+            var userSnap = await getDoc(doc(db, 'users', cred.user.uid));
+            var userData = userSnap.data() || {};
+            var role     = userData.role;
+
+            if (role === 'admin') {
+                sessionStorage.setItem('userRole',  'admin');
+                sessionStorage.setItem('userEmail', email);
+                sessionStorage.setItem('userId',    cred.user.uid);
+                window.location.href = REDIRECTS.admin;
+                return;
+            }
+            if (role !== expectedRole) throw new Error('Credentials do not match this role. Try a different tab.');
+
+            sessionStorage.setItem('userRole',  role);
+            sessionStorage.setItem('userEmail', email);
+            sessionStorage.setItem('userId',    cred.user.uid);
+            if (userData.name) sessionStorage.setItem('staffName', userData.name);
+            window.location.href = REDIRECTS[role] || '../dashboard/student-portal.html';
+        } catch(e) {
+            var msg = 'Invalid credentials. Please try again.';
+            if (e.message && (e.message.includes('role') || e.message.includes('code'))) msg = e.message;
+            showMsg(errId, msg, 'error');
+            setBtnLoading(btnId, false);
+        }
+    }
+
+    // School login
+    document.getElementById('form-school').addEventListener('submit', function(e) {
+        e.preventDefault();
+        emailLogin(
+            document.getElementById('school-email').value.trim(),
+            document.getElementById('school-pw').value,
+            'school', 'err-school', 'btn-school'
+        );
+    });
+
+    // Staff login
+    document.getElementById('form-staff').addEventListener('submit', function(e) {
+        e.preventDefault();
+        emailLogin(
+            document.getElementById('staff-email').value.trim(),
+            document.getElementById('staff-pw').value,
+            'staff', 'err-staff', 'btn-staff'
+        );
+    });
+
+    // Student login
+    document.getElementById('form-student').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        hideMsg('err-student');
+        setBtnLoading('btn-student', true);
+        var username = document.getElementById('student-user').value.trim();
+        var code     = document.getElementById('student-code').value.trim();
+        try {
+            var q    = query(collection(db,'individualStudents'), where('username','==',username), where('accessCode','==',code));
+            var snap = await getDocs(q);
+            if (snap.empty) throw new Error('Invalid username or access code.');
+            var sdoc  = snap.docs[0];
+            var sdata = sdoc.data();
+            sessionStorage.setItem('userRole',         'individualStudent');
+            sessionStorage.setItem('studentId',        sdoc.id);
+            sessionStorage.setItem('studentName',      sdata.fullName || sdata.username);
+            sessionStorage.setItem('studentUsername',  sdata.username);
+            window.location.href = '../dashboard/student-personal-portal.html';
+        } catch(e) {
+            showMsg('err-student', e.message || 'Login failed.', 'error');
+            setBtnLoading('btn-student', false);
+        }
+    });
+
+    // Student registration
+    document.getElementById('form-student-reg').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        hideMsg('err-student-reg'); hideMsg('ok-student-reg');
+        setBtnLoading('btn-student-reg', true);
+        var fullName = document.getElementById('reg-fullname').value.trim();
+        var username = document.getElementById('reg-username').value.trim();
+        var email    = document.getElementById('reg-email').value.trim();
+        var code     = document.getElementById('reg-code').value.trim();
+        try {
+            var ex = await getDocs(query(collection(db,'individualStudents'), where('username','==',username)));
+            if (!ex.empty) throw new Error('Username already taken. Choose another.');
+            await addDoc(collection(db,'individualStudents'), {
+                fullName: fullName, username: username,
+                email: email || '', accessCode: code,
+                registeredAt: serverTimestamp()
+            });
+            showMsg('ok-student-reg', '✓ Account created! You can now log in.', 'success');
+            document.getElementById('form-student-reg').reset();
+            setTimeout(function() {
+                document.getElementById('student-register-view').style.display = 'none';
+                document.getElementById('student-login-view').style.display    = 'block';
+            }, 1800);
+        } catch(e) {
+            showMsg('err-student-reg', e.message || 'Registration failed.', 'error');
+        }
+        setBtnLoading('btn-student-reg', false);
+    });
+
+    // Staff registration
+    document.getElementById('form-staff-reg').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        hideMsg('err-staff-reg'); hideMsg('ok-staff-reg');
+        setBtnLoading('btn-staff-reg', true);
+        var regCode = document.getElementById('sreg-code').value.trim();
+        var name    = document.getElementById('sreg-name').value.trim();
+        var email   = document.getElementById('sreg-email').value.trim();
+        var pw      = document.getElementById('sreg-pw').value;
+        var pw2     = document.getElementById('sreg-pw2').value;
+        if (pw !== pw2)    { showMsg('err-staff-reg','Passwords do not match.','error'); setBtnLoading('btn-staff-reg',false); return; }
+        if (pw.length < 6) { showMsg('err-staff-reg','Password must be at least 6 characters.','error'); setBtnLoading('btn-staff-reg',false); return; }
+        try {
+            var codeSnap  = await getDoc(doc(db,'staffRegistration','code'));
+            var validCode = codeSnap.exists() ? codeSnap.data().code : STAFF_REG_CODE_FALLBACK;
+            if (regCode !== validCode) throw new Error('Invalid registration code.');
+            var cred = await createUserWithEmailAndPassword(auth, email, pw);
+            await setDoc(doc(db,'users',cred.user.uid), {
+                email: email, name: name, role: 'staff', createdAt: serverTimestamp()
+            });
+            showMsg('ok-staff-reg','✓ Account created! You can now log in.','success');
+            document.getElementById('form-staff-reg').reset();
+            setTimeout(function() {
+                document.getElementById('staff-register-view').style.display = 'none';
+                document.getElementById('staff-login-view').style.display    = 'block';
+            }, 2000);
+        } catch(e) {
+            var txt = 'Registration failed.';
+            if (e.code === 'auth/email-already-in-use') txt = 'Email already registered.';
+            else if (e.code === 'auth/invalid-email')   txt = 'Invalid email address.';
+            else if (e.code === 'auth/weak-password')   txt = 'Password is too weak.';
+            else if (e.message) txt = e.message;
+            showMsg('err-staff-reg', txt, 'error');
+        }
+        setBtnLoading('btn-staff-reg', false);
+    });
+</script>
 </body>
 </html>

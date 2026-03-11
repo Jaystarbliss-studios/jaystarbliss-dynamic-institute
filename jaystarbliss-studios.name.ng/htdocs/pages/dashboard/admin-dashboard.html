@@ -1,2318 +1,1546 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - JAYSTARBLISS STUDIOS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --snow: #FFFAFA;
-            --madder: #A91B0D;
-            --golden: #FFD700;
-            --dark: #1a1a1a;
-            --gray: #4a5568;
-            --light-gray: #f7fafc;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--light-gray);
-            color: var(--dark);
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--madder), #8B1507);
-            color: white;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .user-info {
-            font-size: 0.9rem;
-        }
-
-        .logout-btn {
-            padding: 0.6rem 1.5rem;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Navigation */
-        .nav-tabs {
-            background: white;
-            display: flex;
-            padding: 0 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            gap: 0.5rem;
-        }
-
-        .nav-tab {
-            padding: 1rem 1.5rem;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--gray);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .nav-tab:hover {
-            color: var(--madder);
-        }
-
-        .nav-tab.active {
-            color: var(--madder);
-            border-bottom-color: var(--madder);
-        }
-
-        /* Content Area */
-        .content {
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Post Form */
-        .post-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            margin-bottom: 2rem;
-        }
-
-        .post-form h2 {
-            color: var(--madder);
-            margin-bottom: 1.5rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--madder);
-            box-shadow: 0 0 0 4px rgba(169, 27, 13, 0.1);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .submit-btn {
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--madder), #d62a1a);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(169, 27, 13, 0.3);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(169, 27, 13, 0.4);
-        }
-
-        .preview-btn {
-            padding: 1rem 2rem;
-            background: var(--golden);
-            color: var(--dark);
-            border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-right: 1rem;
-        }
-
-        .preview-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        /* Posts Grid */
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .post-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .post-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--madder), var(--golden));
-        }
-
-        .post-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(169, 27, 13, 0.15);
-        }
-
-        .post-card h3 {
-            color: var(--madder);
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .post-card p {
-            color: var(--gray);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .post-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-
-        .post-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .action-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .edit-btn {
-            background: #3b82f6;
-            color: white;
-        }
-
-        .edit-btn:hover {
-            background: #2563eb;
-        }
-
-        .delete-btn {
-            background: #ef4444;
-            color: white;
-        }
-
-        .delete-btn:hover {
-            background: #dc2626;
-        }
-
-        .preview-frame {
-            width: 100%;
-            height: 200px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .success-message.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .info-box {
-            background: #fff9e6;
-            border-left: 4px solid var(--golden);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        .info-box strong {
-            color: var(--madder);
-        }
-
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .posts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-
-        @media (max-width: 1024px) {
-    .nav-tabs {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .nav-tab {
-        white-space: nowrap;
-        font-size: 0.85rem;
-        padding: 0.8rem 1rem;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Jaystarbliss Dynamic Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --madder:#A91B0D; --madder-dark:#7a1309; --madder-lite:#c9210f;
+  --gold:#FFD700; --gold-dim:#b89d00;
+  --snow:#FFFAFA; --dark:#1a1a1a; --green:#2ecc71; --blue:#3b82f6;
+  --bg:#141414; --surface:#1e1e1e; --surface-2:#272727;
+  --border:rgba(255,255,255,0.07); --border-bright:rgba(169,27,13,0.4);
+  --text:#FFFAFA; --text-muted:#a8a8a8; --text-dim:#5a5a5a;
+  --field-bg:#242424; --field-border:rgba(255,255,255,0.1);
+  --mono:'Space Mono',monospace; --sans:'DM Sans',sans-serif;
+  --sidebar-w:220px; --topbar-h:52px;
+}
+[data-theme="light"] {
+  --bg:#f0ebeb; --surface:#FFFAFA; --surface-2:#ede8e8;
+  --border:rgba(169,27,13,0.1); --border-bright:rgba(169,27,13,0.35);
+  --text:#1a1a1a; --text-muted:#5a4a4a; --text-dim:#9a8a8a;
+  --field-bg:#f5efef; --field-border:rgba(169,27,13,0.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:14px;}
+body{
+  font-family:var(--sans); background:var(--bg); color:var(--text);
+  display:grid;
+  grid-template-columns:var(--sidebar-w) 1fr;
+  grid-template-rows:var(--topbar-h) 1fr;
+  height:100vh; overflow:hidden;
+  transition:background .25s,color .25s;
 }
 
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        padding: 1rem;
-    }
-    
-    .header h1 {
-        font-size: 1.2rem;
-    }
-    
-    .header-right {
-        width: 100%;
-        justify-content: space-between;
-    }
-    
-    .nav-tabs {
-        padding: 0 0.5rem;
-    }
-    
-    .content {
-        padding: 1rem;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .posts-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .post-form {
-        padding: 1.5rem;
-    }
+/* ── TOPBAR ── */
+.topbar{
+  grid-column:1/-1; grid-row:1;
+  background:var(--madder-dark);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 1.2rem; z-index:100;
+  box-shadow:0 2px 12px rgba(0,0,0,0.4);
 }
-    </style>
+.topbar-left{display:flex;align-items:center;gap:.7rem;}
+.brand-mark{
+  width:28px;height:28px; background:var(--gold);
+  display:grid;place-items:center;
+  font-family:var(--mono);font-size:.58rem;font-weight:700;color:var(--dark);
+  clip-path:polygon(0 0,88% 0,100% 12%,100% 100%,12% 100%,0 88%);
+  flex-shrink:0;
+}
+.topbar-title{font-family:var(--mono);font-size:.72rem;font-weight:700;color:rgba(255,250,250,.9);text-transform:uppercase;letter-spacing:.04em;}
+.topbar-badge{
+  font-family:var(--mono);font-size:.55rem;padding:.15rem .4rem;
+  background:rgba(255,215,0,.15);color:var(--gold);border:1px solid rgba(255,215,0,.25);
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.topbar-right{display:flex;align-items:center;gap:.6rem;}
+.admin-email{font-size:.72rem;color:rgba(255,250,250,.55);}
+.theme-btn{
+  width:26px;height:26px; background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12); color:rgba(255,250,250,.6);
+  display:grid;place-items:center; cursor:pointer; font-size:.75rem;
+  border-radius:4px; transition:all .15s;
+}
+.theme-btn:hover{border-color:var(--gold);color:var(--gold);}
+.logout-btn{
+  padding:.3rem .85rem;
+  background:rgba(169,27,13,.25); border:1px solid rgba(169,27,13,.4);
+  color:var(--snow); font-family:var(--mono); font-size:.58rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.04em; cursor:pointer;
+  border-radius:3px; transition:all .15s;
+}
+.logout-btn:hover{background:var(--madder);}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  grid-column:1; grid-row:2;
+  background:var(--surface); border-right:1px solid var(--border);
+  overflow-y:auto; display:flex;flex-direction:column;
+}
+.sidebar-section{padding:.6rem 0 .3rem;}
+.sidebar-label{
+  font-family:var(--mono);font-size:.55rem;font-weight:700;
+  color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;
+  padding:.3rem 1rem .2rem;
+}
+.nav-item{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.52rem 1rem;
+  font-family:var(--sans);font-size:.75rem;font-weight:500;
+  color:var(--text-muted); background:none; border:none;
+  cursor:pointer; width:100%; text-align:left;
+  border-left:2px solid transparent;
+  transition:all .12s;
+}
+.nav-item:hover{color:var(--text);background:var(--surface-2);}
+.nav-item.active{color:var(--snow);background:rgba(169,27,13,.12);border-left-color:var(--madder);}
+.nav-item .nav-icon{font-size:.9rem;flex-shrink:0;width:18px;text-align:center;}
+.sidebar-divider{height:1px;background:var(--border);margin:.3rem .8rem;}
+
+/* ── MAIN ── */
+.main{
+  grid-column:2; grid-row:2;
+  overflow-y:auto; padding:1.5rem;
+  background:var(--bg);
+}
+
+/* ── TAB CONTENT ── */
+.tab-content{display:none;}
+.tab-content.active{display:block;animation:fadeIn .2s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── PANEL ── */
+.panel{background:var(--surface);border:1px solid var(--border);margin-bottom:1.5rem;}
+.panel-head{
+  padding:.8rem 1.2rem; border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.panel-title{
+  font-family:var(--mono);font-size:.72rem;font-weight:700;
+  color:var(--text);text-transform:uppercase;letter-spacing:.04em;
+  display:flex;align-items:center;gap:.5rem;
+}
+.panel-title::before{content:'';width:4px;height:4px;background:var(--madder);display:inline-block;}
+.panel-body{padding:1.2rem;}
+
+/* ── SECTION HEADING ── */
+.section-head{
+  font-family:var(--mono);font-size:.65rem;font-weight:700;
+  color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;
+  margin:1.5rem 0 .8rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.section-head::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── FORM ── */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-group{margin-bottom:1rem;}
+.form-group label{
+  display:block;margin-bottom:.3rem;
+  font-size:.72rem;font-weight:600;color:var(--text-muted);
+}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%; padding:.6rem .85rem;
+  background:var(--field-bg); border:1px solid var(--field-border);
+  color:var(--text); font-family:var(--sans); font-size:.82rem;
+  outline:none; border-radius:4px; transition:border-color .15s;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+  border-color:var(--gold);box-shadow:0 0 0 2px rgba(255,215,0,.08);
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--text-dim);}
+.form-group select option{background:var(--surface-2);color:var(--text);}
+.form-group textarea{min-height:90px;resize:vertical;}
+.form-group small{font-size:.65rem;color:var(--text-dim);display:block;margin-top:.25rem;}
+
+/* ── BUTTONS ── */
+.btn{
+  padding:.5rem 1.1rem; border:none; cursor:pointer;
+  font-family:var(--mono);font-size:.62rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;
+  border-radius:4px; transition:all .15s;
+}
+.btn-primary{background:var(--madder);color:#fff;}
+.btn-primary:hover{background:var(--madder-lite);}
+.btn-primary:disabled{opacity:.55;cursor:not-allowed;}
+.btn-gold{background:var(--gold);color:var(--dark);}
+.btn-gold:hover{background:var(--gold-dim);}
+.btn-danger{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.25);}
+.btn-danger:hover{background:rgba(239,68,68,.25);}
+.btn-blue{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(59,130,246,.25);}
+.btn-blue:hover{background:rgba(59,130,246,.25);}
+.btn-sm{padding:.3rem .65rem;font-size:.58rem;}
+[data-theme="light"] .btn-danger{background:rgba(220,38,38,.08);color:#dc2626;border-color:rgba(220,38,38,.2);}
+[data-theme="light"] .btn-blue{background:rgba(37,99,235,.08);color:#2563eb;border-color:rgba(37,99,235,.2);}
+
+/* ── MESSAGES ── */
+.msg{
+  padding:.5rem .85rem; font-size:.72rem; margin-bottom:.9rem;
+  display:none; border-left:2px solid; border-radius:0 3px 3px 0;
+}
+.msg.show{display:block;animation:msgIn .25s ease;}
+@keyframes msgIn{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:translateX(0);}}
+.msg-success{background:rgba(46,204,113,.08);color:var(--green);border-color:var(--green);}
+.msg-error{background:rgba(169,27,13,.08);color:#e05a50;border-color:var(--madder);}
+/* legacy class used by existing JS */
+.success-message{padding:.5rem .85rem;font-size:.72rem;margin-bottom:.9rem;display:none;
+  border-left:2px solid var(--green);background:rgba(46,204,113,.08);color:var(--green);border-radius:0 3px 3px 0;}
+.success-message.show{display:block;}
+
+/* ── INFO BOX ── */
+.info-box{
+  padding:.6rem .85rem;
+  background:rgba(255,215,0,.06); border-left:2px solid var(--gold-dim);
+  font-size:.72rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.5;
+}
+.info-box strong{color:var(--gold);}
+.info-box-blue{
+  padding:.6rem .85rem;
+  background:rgba(14,165,233,.06); border-left:2px solid #0ea5e9;
+  font-size:.72rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.5;
+}
+.info-box-blue strong{color:#38bdf8;}
+
+/* ── POSTS GRID ── */
+.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1rem;}
+.post-card{
+  background:var(--surface); border:1px solid var(--border);
+  padding:1.1rem; position:relative; overflow:hidden;
+  transition:border-color .15s;
+}
+.post-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--madder),var(--gold));
+}
+.post-card:hover{border-color:var(--border-bright);}
+.post-card h3{color:var(--text);font-size:.85rem;margin-bottom:.4rem;line-height:1.3;}
+.post-card p{color:var(--text-muted);font-size:.75rem;margin-bottom:.5rem;line-height:1.5;}
+.post-card a{color:var(--gold);font-size:.72rem;}
+.post-card a:hover{color:var(--gold-dim);}
+.post-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.68rem;color:var(--text-dim);margin-bottom:.6rem;
+  font-family:var(--mono);
+}
+.post-actions{display:flex;gap:.4rem;margin-top:.6rem;}
+
+/* ── SCHOOL CARD ── */
+.school-card{
+  background:var(--surface-2); border:1px solid var(--border);
+  padding:1.1rem; border-radius:4px; margin-bottom:.8rem;
+}
+.school-card h3{font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--madder-lite);margin-bottom:.8rem;}
+
+/* ── STUDENT / STAFF CARD ── */
+.person-card{
+  background:var(--surface-2); border:1px solid var(--border);
+  padding:1.1rem; margin-bottom:.8rem; border-left:2px solid var(--border-bright);
+}
+.person-card h3{font-size:.82rem;color:var(--text);margin-bottom:.35rem;}
+.person-card p{font-size:.72rem;color:var(--text-muted);line-height:1.6;}
+
+/* ── ACTIVITY LOG ITEM ── */
+.log-item{
+  background:var(--surface); border:1px solid var(--border);
+  padding:.8rem 1rem; margin-bottom:.5rem;
+  border-left:2px solid var(--madder);
+  display:flex;align-items:start;gap:.6rem;
+}
+.log-icon{font-size:1rem;flex-shrink:0;}
+.log-text{font-size:.75rem;color:var(--text-muted);line-height:1.4;}
+.log-time{font-family:var(--mono);font-size:.62rem;color:var(--text-dim);margin-top:.2rem;}
+
+/* ── PREVIEW FRAME ── */
+.preview-frame{
+  width:100%;height:200px;border:1px solid var(--border);
+  background:var(--surface-2);margin-top:.8rem;border-radius:3px;
+}
+
+/* ── FILTER ROW ── */
+.filter-row{
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;
+  margin-bottom:1rem;padding:.6rem .85rem;
+  background:var(--surface-2);border:1px solid var(--border);
+}
+.filter-row label{font-size:.72rem;color:var(--text-muted);display:flex;align-items:center;gap:.3rem;cursor:pointer;}
+.filter-row input[type=checkbox]{accent-color:var(--madder);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  body{grid-template-columns:0 1fr;}
+  .sidebar{position:fixed;left:-220px;top:var(--topbar-h);height:calc(100vh - var(--topbar-h));
+    width:var(--sidebar-w);z-index:200;transition:left .2s;}
+  .sidebar.open{left:0;}
+  .hamburger{display:flex!important;}
+  .main{grid-column:1/-1;}
+}
+@media(max-width:500px){
+  .form-row{grid-template-columns:1fr;}
+  .posts-grid{grid-template-columns:1fr;}
+}
+.hamburger{
+  display:none;width:28px;height:28px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,250,250,.7);font-size:.9rem;
+  place-items:center;cursor:pointer;border-radius:3px;
+}
+.overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:150;
+}
+.overlay.show{display:block;}
+</style>
 </head>
 <body>
-    <div class="header">
-        <h1>📚 Admin Dashboard</h1>
-        <div class="header-right">
-            <div class="user-info">
-                <strong id="adminEmail">admin@jaystarbliss.com</strong>
-            </div>
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </div>
-    </div>
 
-    <div class="nav-tabs">
-        <button class="nav-tab active" onclick="switchTab('resources')">General Resources</button>
-        <button class="nav-tab" onclick="switchTab('newsCorner')">📰 News Corner</button>
-        <button class="nav-tab" onclick="switchTab('links')">🔗 General Links</button>
-        <button class="nav-tab" onclick="switchTab('exams')">Programmimg Questions</button>
-        <button class="nav-tab" onclick="switchTab('schoolExams')">School Exams</button>
-        <button class="nav-tab" onclick="switchTab('schoolResources')">School Resources</button>
-        <button class="nav-tab" onclick="switchTab('schoolManage')">Manage Schools</button>
-        <button class="nav-tab" onclick="switchTab('studentManage')">Manage Students</button>
-        <button class="nav-tab" onclick="switchTab('studentResources')">Send Resources</button>
-        <button class="nav-tab" onclick="switchTab('staffManage')">Manage Staff</button>
-        <button class="nav-tab" onclick="switchTab('staffResources')"> Staff Resources</button>
-        <button class="nav-tab" onclick="switchTab('staffAccess')">Staff School Access</button>
-        <button class="nav-tab" onclick="switchTab('notifications')">Send Notifications</button>
-        <button class="nav-tab" onclick="switchTab('activityLogs')">Activity Logs</button>
-    </div>
+<!-- OVERLAY for mobile sidebar -->
+<div class="overlay" id="overlay"></div>
 
-    <div class="content">
-        <!-- Resources Tab -->
-        <div id="resources" class="tab-content active">
-            <div class="post-form">
-                <h2>Add New Resource</h2>
-                <div class="info-box">
-                    <strong>💡 How to share files:</strong> Upload your PDF/DOCX files to Google Drive, Dropbox, or OneDrive. Make the file publicly accessible (anyone with the link can view). Then paste the shareable link below.
-                </div>
-                <div class="success-message" id="resourceSuccess">Resource posted successfully!</div>
-                <form id="resourceForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="resourceTitle">Title</label>
-                            <input type="text" id="resourceTitle" required placeholder="e.g., Introduction to Python">
-                        </div>
-                        <div class="form-group">
-                            <label for="resourceCategory">Category</label>
-                            <select id="resourceCategory" required>
-                                <option value="">Select Category</option>
-                                <option value="school">School Lectures</option>
-                                <option value="private">Private Lectures</option>
-                                <option value="both">Both</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="resourceDescription">Description</label>
-                        <textarea id="resourceDescription" required placeholder="Brief description of the resource"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="resourceUrl">File Link (Google Drive, Dropbox, OneDrive)</label>
-                        <input type="url" id="resourceUrl" required placeholder="https://drive.google.com/file/d/...">
-                    </div>
-                    <div>
-                        <button type="submit" class="submit-btn">Post Resource</button>
-                    </div>
-                </form>
-            </div>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="hamburger" id="hamburger">☰</button>
+    <div class="brand-mark">JDH</div>
+    <span class="topbar-title">Admin Dashboard</span>
+    <span class="topbar-badge">Admin</span>
+  </div>
+  <div class="topbar-right">
+    <span class="admin-email" id="adminEmail">admin@jaystarbliss.com</span>
+    <button class="theme-btn" id="themeToggleBtn" title="Toggle theme">◐</button>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  </div>
+</div>
 
-            <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Posted Resources</h3>
-            <div class="posts-grid" id="resourcesGrid"></div>
-        </div>
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Content</div>
+    <button class="nav-item active" data-tab="resources"><span class="nav-icon">📄</span> General Resources</button>
+    <button class="nav-item" data-tab="newsCorner"><span class="nav-icon">📰</span> News Corner</button>
+    <button class="nav-item" data-tab="links"><span class="nav-icon">🔗</span> General Links</button>
+    <button class="nav-item" data-tab="exams"><span class="nav-icon">📝</span> Programming Questions</button>
+  </div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Schools</div>
+    <button class="nav-item" data-tab="schoolExams"><span class="nav-icon">🏫</span> School Exams</button>
+    <button class="nav-item" data-tab="schoolResources"><span class="nav-icon">📚</span> School Resources</button>
+    <button class="nav-item" data-tab="schoolManage"><span class="nav-icon">🔐</span> Manage Schools</button>
+  </div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Students</div>
+    <button class="nav-item" data-tab="studentManage"><span class="nav-icon">👤</span> Manage Students</button>
+    <button class="nav-item" data-tab="studentResources"><span class="nav-icon">📤</span> Send Resources</button>
+  </div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Staff</div>
+    <button class="nav-item" data-tab="staffManage"><span class="nav-icon">👨‍🏫</span> Manage Staff</button>
+    <button class="nav-item" data-tab="staffResources"><span class="nav-icon">📦</span> Staff Resources</button>
+    <button class="nav-item" data-tab="staffAccess"><span class="nav-icon">🔑</span> Staff School Access</button>
+  </div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">System</div>
+    <button class="nav-item" data-tab="notifications"><span class="nav-icon">🔔</span> Notifications</button>
+    <button class="nav-item" data-tab="activityLogs"><span class="nav-icon">📊</span> Activity Logs</button>
+  </div>
+</aside>
 
+<!-- MAIN -->
+<main class="main" id="main">
 
-             <!-- NEWS CORNER -->
-        <div id="newsCorner" class="tab-content">
-        <div class="post-form">
-        <h2>Post to News Corner</h2>
+  <!-- ══ GENERAL RESOURCES ══ -->
+  <div id="resources" class="tab-content active">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Add New Resource</span></div>
+      <div class="panel-body">
         <div class="info-box">
-            <strong>📰 News Corner Posts:</strong> These posts will appear on the public News Corner page for all visitors to see.
+          <strong>💡 How to share files:</strong> Upload your PDF/DOCX files to Google Drive, Dropbox, or OneDrive. Make the file publicly accessible. Then paste the shareable link below.
         </div>
-        <div class="success-message" id="newsSuccess">News post published successfully!</div>
-        
-        <form id="newsForm">
+        <div class="success-message" id="resourceSuccess">Resource posted successfully!</div>
+        <form id="resourceForm">
+          <div class="form-row">
             <div class="form-group">
-                <label for="newsTitle">News Title</label>
-                <input type="text" id="newsTitle" required placeholder="e.g., December Coding Challenge Announced!">
+              <label for="resourceTitle">Title</label>
+              <input type="text" id="resourceTitle" required placeholder="e.g., Introduction to Python">
             </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="newsCategory">Category</label>
-                    <select id="newsCategory" required>
-                        <option value="">Select Category</option>
-                        <option value="announcement">📢 Announcement</option>
-                        <option value="event">🎉 Event</option>
-                        <option value="achievement">🏆 Achievement</option>
-                        <option value="update">🔔 Update</option>
-                        <option value="holiday">🎄 Holiday Special</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="newsAuthor">Author</label>
-                    <input type="text" id="newsAuthor" required placeholder="Your name">
-                </div>
-            </div>
-
             <div class="form-group">
-                <label for="newsExcerpt">Brief Summary (for preview)</label>
-                <textarea id="newsExcerpt" required placeholder="Short description (1-2 sentences)" maxlength="200"></textarea>
+              <label for="resourceCategory">Category</label>
+              <select id="resourceCategory" required>
+                <option value="">Select Category</option>
+                <option value="school">School Lectures</option>
+                <option value="private">Private Lectures</option>
+                <option value="both">Both</option>
+              </select>
             </div>
-
-            <div class="form-group">
-                <label for="newsContent">Full Content</label>
-                <textarea id="newsContent" required placeholder="Full news content" style="min-height: 200px;"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="newsImage">Featured Image URL (optional)</label>
-                <input type="url" id="newsImage" placeholder="https://example.com/image.jpg">
-                <small style="color: var(--gray); display: block; margin-top: 0.5rem;">
-                    Upload image to Google Drive/Imgur and paste link
-                </small>
-            </div>
-
-            <button type="submit" class="submit-btn">Publish News Post</button>
+          </div>
+          <div class="form-group">
+            <label for="resourceDescription">Description</label>
+            <textarea id="resourceDescription" required placeholder="Brief description of the resource"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="resourceUrl">File Link (Google Drive, Dropbox, OneDrive)</label>
+            <input type="url" id="resourceUrl" required placeholder="https://drive.google.com/file/d/...">
+          </div>
+          <button type="submit" class="btn btn-primary">Post Resource</button>
         </form>
       </div>
-      <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Published News Posts</h3>
-      <div class="posts-grid" id="newsGrid"></div>
-        </div>
     </div>
+    <div class="section-head">Posted Resources</div>
+    <div class="posts-grid" id="resourcesGrid"></div>
+  </div>
 
-        <!-- Links Tab -->
-        <div id="links" class="tab-content">
-            <div class="post-form">
-                <h2>Add New Link</h2>
-                <div class="success-message" id="linkSuccess">Link posted successfully!</div>
-                <form id="linkForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="linkTitle">Title</label>
-                            <input type="text" id="linkTitle" required placeholder="e.g., Scratch Project Gallery">
-                        </div>
-                        <div class="form-group">
-                            <label for="linkCategory">Category</label>
-                            <select id="linkCategory" required>
-                                <option value="">Select Category</option>
-                                <option value="school">School Lectures</option>
-                                <option value="private">Private Lectures</option>
-                                <option value="both">Both</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="linkUrl">URL</label>
-                        <input type="url" id="linkUrl" required placeholder="https://example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="linkDescription">Description</label>
-                        <textarea id="linkDescription" required placeholder="Brief description of the link"></textarea>
-                    </div>
-                    <div>
-                        <button type="button" class="preview-btn" onclick="previewLink()">Preview Link</button>
-                        <button type="submit" class="submit-btn">Post Link</button>
-                    </div>
-                    <div id="linkPreviewContainer"></div>
-                </form>
-            </div>
-
-            <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Posted Links</h3>
-            <div class="posts-grid" id="linksGrid"></div>
-        </div>
-
-        <!-- Exams Tab -->
-        <div id="exams" class="tab-content">
-            <div class="post-form">
-                <h2>Add Exam Questions</h2>
-                <div class="success-message" id="examSuccess">Exam questions posted successfully!</div>
-                <form id="examForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="examTitle">Exam Title</label>
-                            <input type="text" id="examTitle" required placeholder="e.g., Mid-Term Python Test">
-                        </div>
-                        <div class="form-group">
-                            <label for="examCategory">Category</label>
-                            <select id="examCategory" required>
-                                <option value="">Select Category</option>
-                                <option value="school">School Lectures</option>
-                                <option value="private">Private Lectures</option>
-                                <option value="both">Both</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="examUrl">Exam Link (Google Forms, etc.)</label>
-                        <input type="url" id="examUrl" required placeholder="https://forms.google.com/...">
-                    </div>
-                    <div class="form-group">
-                        <label for="examDescription">Instructions</label>
-                        <textarea id="examDescription" required placeholder="Exam instructions and details"></textarea>
-                    </div>
-                    <div>
-                        <button type="button" class="preview-btn" onclick="previewExam()">Preview Exam</button>
-                        <button type="submit" class="submit-btn">Post Exam</button>
-                    </div>
-                    <div id="examPreviewContainer"></div>
-                </form>
-            </div>
-
-            <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Posted Exams</h3>
-            <div class="posts-grid" id="examsGrid"></div>
-        </div>
-
-        <!-- School Exams Tab -->
-        <div id="schoolExams" class="tab-content">
-            <div class="post-form">
-                <h2>Add School Exam</h2>
-                <div class="info-box">
-                    <strong>🏫 School-Specific Exams:</strong> These exams will only be visible to students from the selected school when they login through the school portal.
-                </div>
-                <div class="success-message" id="schoolExamSuccess">School exam posted successfully!</div>
-                <form id="schoolExamForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="schoolExamTitle">Exam Title</label>
-                            <input type="text" id="schoolExamTitle" required placeholder="e.g., Term 1 Mathematics Exam">
-                        </div>
-                        <div class="form-group">
-                            <label for="schoolSelect">Select School</label>
-                            <select id="schoolSelect" required>
-                                <option value="">Choose School</option>
-                                <option value="peniel">Peniel Lily Montessori School</option>
-                                <option value="southgold">South Gold Montessori School</option>
-                                <option value="sapphire">Sapphire Explorer Montessori School</option>
-                                <option value="easystars">Easy Stars Early Years Academy</option>
-                                <option value="christycaleb">Christy Caleb International School</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="schoolExamUrl">Exam Link (Google Forms, etc.)</label>
-                        <input type="url" id="schoolExamUrl" required placeholder="https://forms.google.com/...">
-                    </div>
-                    <div class="form-group">
-                        <label for="schoolExamDescription">Instructions</label>
-                        <textarea id="schoolExamDescription" required placeholder="Exam instructions and details"></textarea>
-                    </div>
-                    <div>
-                        <button type="submit" class="submit-btn">Post School Exam</button>
-                    </div>
-                </form>
-            </div>
-
-            <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Posted School Exams</h3>
-            <div class="posts-grid" id="schoolExamsGrid"></div>
-        </div>
-
-        <!-- School Resources Tab -->
-<div id="schoolResources" class="tab-content">
-    <div class="post-form">
-        <h2>Add School-Specific Resources</h2>
+  <!-- ══ NEWS CORNER ══ -->
+  <div id="newsCorner" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Post to News Corner</span></div>
+      <div class="panel-body">
         <div class="info-box">
-            <strong>🏫 School Resources & Links:</strong> These will only be visible to students from the selected school when they access their school resources page.
+          <strong>📰 News Corner Posts:</strong> These posts will appear on the public News Corner page for all visitors to see.
+        </div>
+        <div class="success-message" id="newsSuccess">News post published successfully!</div>
+        <form id="newsForm">
+          <div class="form-group">
+            <label for="newsTitle">News Title</label>
+            <input type="text" id="newsTitle" required placeholder="e.g., December Coding Challenge Announced!">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="newsCategory">Category</label>
+              <select id="newsCategory" required>
+                <option value="">Select Category</option>
+                <option value="announcement">📢 Announcement</option>
+                <option value="event">🎉 Event</option>
+                <option value="achievement">🏆 Achievement</option>
+                <option value="update">🔔 Update</option>
+                <option value="holiday">🎄 Holiday Special</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="newsAuthor">Author</label>
+              <input type="text" id="newsAuthor" required placeholder="Your name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="newsExcerpt">Brief Summary (for preview)</label>
+            <textarea id="newsExcerpt" required placeholder="Short description (1-2 sentences)" maxlength="200"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="newsContent">Full Content</label>
+            <textarea id="newsContent" required placeholder="Full news content" style="min-height:150px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="newsImage">Featured Image URL (optional)</label>
+            <input type="url" id="newsImage" placeholder="https://example.com/image.jpg">
+            <small>Upload image to Google Drive/Imgur and paste link</small>
+          </div>
+          <button type="submit" class="btn btn-primary">Publish News Post</button>
+        </form>
+      </div>
+    </div>
+    <div class="section-head">Published News Posts</div>
+    <div class="posts-grid" id="newsGrid"></div>
+  </div>
+
+  <!-- ══ LINKS ══ -->
+  <div id="links" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Add New Link</span></div>
+      <div class="panel-body">
+        <div class="success-message" id="linkSuccess">Link posted successfully!</div>
+        <form id="linkForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="linkTitle">Title</label>
+              <input type="text" id="linkTitle" required placeholder="e.g., Scratch Project Gallery">
+            </div>
+            <div class="form-group">
+              <label for="linkCategory">Category</label>
+              <select id="linkCategory" required>
+                <option value="">Select Category</option>
+                <option value="school">School Lectures</option>
+                <option value="private">Private Lectures</option>
+                <option value="both">Both</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="linkUrl">URL</label>
+            <input type="url" id="linkUrl" required placeholder="https://example.com">
+          </div>
+          <div class="form-group">
+            <label for="linkDescription">Description</label>
+            <textarea id="linkDescription" required placeholder="Brief description of the link"></textarea>
+          </div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <button type="button" class="btn btn-gold" onclick="previewLink()">Preview Link</button>
+            <button type="submit" class="btn btn-primary">Post Link</button>
+          </div>
+          <div id="linkPreviewContainer"></div>
+        </form>
+      </div>
+    </div>
+    <div class="section-head">Posted Links</div>
+    <div class="posts-grid" id="linksGrid"></div>
+  </div>
+
+  <!-- ══ EXAMS ══ -->
+  <div id="exams" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Add Programming Questions</span></div>
+      <div class="panel-body">
+        <div class="success-message" id="examSuccess">Exam questions posted successfully!</div>
+        <form id="examForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="examTitle">Exam Title</label>
+              <input type="text" id="examTitle" required placeholder="e.g., Mid-Term Python Test">
+            </div>
+            <div class="form-group">
+              <label for="examCategory">Category</label>
+              <select id="examCategory" required>
+                <option value="">Select Category</option>
+                <option value="school">School Lectures</option>
+                <option value="private">Private Lectures</option>
+                <option value="both">Both</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="examUrl">Exam Link (Google Forms, etc.)</label>
+            <input type="url" id="examUrl" required placeholder="https://forms.google.com/...">
+          </div>
+          <div class="form-group">
+            <label for="examDescription">Instructions</label>
+            <textarea id="examDescription" required placeholder="Exam instructions and details"></textarea>
+          </div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <button type="button" class="btn btn-gold" onclick="previewExam()">Preview Exam</button>
+            <button type="submit" class="btn btn-primary">Post Exam</button>
+          </div>
+          <div id="examPreviewContainer"></div>
+        </form>
+      </div>
+    </div>
+    <div class="section-head">Posted Exams</div>
+    <div class="posts-grid" id="examsGrid"></div>
+  </div>
+
+  <!-- ══ SCHOOL EXAMS ══ -->
+  <div id="schoolExams" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Add School Exam</span></div>
+      <div class="panel-body">
+        <div class="info-box">
+          <strong>🏫 School-Specific Exams:</strong> These exams will only be visible to students from the selected school.
+        </div>
+        <div class="success-message" id="schoolExamSuccess">School exam posted successfully!</div>
+        <form id="schoolExamForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="schoolExamTitle">Exam Title</label>
+              <input type="text" id="schoolExamTitle" required placeholder="e.g., Term 1 Mathematics Exam">
+            </div>
+            <div class="form-group">
+              <label for="schoolSelect">Select School</label>
+              <select id="schoolSelect" required>
+                <option value="">Choose School</option>
+                <option value="peniel">Peniel Lily Montessori School</option>
+                <option value="southgold">South Gold Montessori School</option>
+                <option value="sapphire">Sapphire Explorer Montessori School</option>
+                <option value="easystars">Easy Stars Early Years Academy</option>
+                <option value="christycaleb">Christy Caleb International School</option>
+                <option value="royalbreed">Royal Breed Academy</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="schoolExamUrl">Exam Link (Google Forms, etc.)</label>
+            <input type="url" id="schoolExamUrl" required placeholder="https://forms.google.com/...">
+          </div>
+          <div class="form-group">
+            <label for="schoolExamDescription">Instructions</label>
+            <textarea id="schoolExamDescription" required placeholder="Exam instructions and details"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Post School Exam</button>
+        </form>
+      </div>
+    </div>
+    <div class="section-head">Posted School Exams</div>
+    <div class="posts-grid" id="schoolExamsGrid"></div>
+  </div>
+
+  <!-- ══ SCHOOL RESOURCES ══ -->
+  <div id="schoolResources" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Add School-Specific Resources</span></div>
+      <div class="panel-body">
+        <div class="info-box">
+          <strong>🏫 School Resources &amp; Links:</strong> Visible only to students from the selected school.
         </div>
         <div class="success-message" id="schoolResourceSuccess">Resource posted successfully!</div>
-        
         <form id="schoolResourceForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="schoolResourceType">Type</label>
-                    <select id="schoolResourceType" required>
-                        <option value="">Select Type</option>
-                        <option value="resource">📄 File/Document</option>
-                        <option value="link">🔗 Link</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="schoolResourceSchool">Select School</label>
-                    <select id="schoolResourceSchool" required>
-                        <option value="">Choose School</option>
-                        <option value="peniel">Peniel Lily Montessori School</option>
-                        <option value="southgold">South Gold Montessori School</option>
-                        <option value="sapphire">Sapphire Explorer Montessori School</option>
-                        <option value="easystars">Easy Stars Early Years Academy</option>
-                        <option value="christycaleb">Christy Caleb International School</option>
-                    </select>
-                </div>
-            </div>
-
+          <div class="form-row">
             <div class="form-group">
-                <label for="schoolResourceTitle">Title</label>
-                <input type="text" id="schoolResourceTitle" required placeholder="e.g., Mathematics Study Guide">
+              <label for="schoolResourceType">Type</label>
+              <select id="schoolResourceType" required>
+                <option value="">Select Type</option>
+                <option value="resource">📄 File/Document</option>
+                <option value="link">🔗 Link</option>
+              </select>
             </div>
-
             <div class="form-group">
-                <label for="schoolResourceUrl">URL/Link</label>
-                <input type="url" id="schoolResourceUrl" required placeholder="https://...">
-                <small style="color: var(--gray); display: block; margin-top: 0.5rem;">
-                    For files: Upload to Google Drive/Dropbox and paste the shareable link
-                </small>
+              <label for="schoolResourceSchool">Select School</label>
+              <select id="schoolResourceSchool" required>
+                <option value="">Choose School</option>
+                <option value="peniel">Peniel Lily Montessori School</option>
+                <option value="southgold">South Gold Montessori School</option>
+                <option value="sapphire">Sapphire Explorer Montessori School</option>
+                <option value="easystars">Easy Stars Early Years Academy</option>
+                <option value="christycaleb">Christy Caleb International School</option>
+                <option value="royalbreed">Royal Breed Academy</option>
+              </select>
             </div>
-
-            <div class="form-group">
-                <label for="schoolResourceDescription">Description</label>
-                <textarea id="schoolResourceDescription" required placeholder="Brief description"></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">Post to School</button>
+          </div>
+          <div class="form-group">
+            <label for="schoolResourceTitle">Title</label>
+            <input type="text" id="schoolResourceTitle" required placeholder="e.g., Mathematics Study Guide">
+          </div>
+          <div class="form-group">
+            <label for="schoolResourceUrl">URL/Link</label>
+            <input type="url" id="schoolResourceUrl" required placeholder="https://...">
+            <small>For files: Upload to Google Drive/Dropbox and paste the shareable link</small>
+          </div>
+          <div class="form-group">
+            <label for="schoolResourceDescription">Description</label>
+            <textarea id="schoolResourceDescription" required placeholder="Brief description"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Post to School</button>
         </form>
+      </div>
     </div>
-
-    <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Posted School Resources</h3>
+    <div class="section-head">Posted School Resources</div>
     <div class="posts-grid" id="schoolResourcesGrid"></div>
-</div>
+  </div>
 
-        <!-- School Management Tab -->
-        <div id="schoolManage" class="tab-content">
-            <div class="post-form">
-                <h2>Manage School Access Codes</h2>
-                <div class="info-box">
-                    <strong>🔐 Access Codes:</strong> Set or update access codes for each school. Students will need these codes to access their school's exam portal.
-                </div>
-                <div class="success-message" id="schoolManageSuccess">Access code updated successfully!</div>
-                
-                <div style="display: grid; gap: 1.5rem;">
-                    <!-- Peniel Lily -->
-                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px;">
-                        <h3 style="color: var(--madder); margin-bottom: 1rem;">🎓 Peniel Lily Montessori School</h3>
-                        <div class="form-group">
-                            <label for="penielCode">Access Code</label>
-                            <input type="text" id="penielCode" placeholder="Enter access code">
-                        </div>
-                        <button class="submit-btn" style="width: auto;" onclick="updateSchoolCode('peniel')">Update Code</button>
-                    </div>
-
-                    <!-- South Gold -->
-                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px;">
-                        <h3 style="color: var(--madder); margin-bottom: 1rem;">🏆 South Gold Montessori School</h3>
-                        <div class="form-group">
-                            <label for="southgoldCode">Access Code</label>
-                            <input type="text" id="southgoldCode" placeholder="Enter access code">
-                        </div>
-                        <button class="submit-btn" style="width: auto;" onclick="updateSchoolCode('southgold')">Update Code</button>
-                    </div>
-
-                    <!-- Sapphire Explorer -->
-                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px;">
-                        <h3 style="color: var(--madder); margin-bottom: 1rem;">💎 Sapphire Explorer Montessori School</h3>
-                        <div class="form-group">
-                            <label for="sapphireCode">Access Code</label>
-                            <input type="text" id="sapphireCode" placeholder="Enter access code">
-                        </div>
-                        <button class="submit-btn" style="width: auto;" onclick="updateSchoolCode('sapphire')">Update Code</button>
-                    </div>
-
-                    <!-- Easy Stars -->
-                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px;">
-                        <h3 style="color: var(--madder); margin-bottom: 1rem;">⭐ Easy Stars Early Years Academy</h3>
-                        <div class="form-group">
-                            <label for="easystarsCode">Access Code</label>
-                            <input type="text" id="easystarsCode" placeholder="Enter access code">
-                        </div>
-                        <button class="submit-btn" style="width: auto;" onclick="updateSchoolCode('easystars')">Update Code</button>
-                    </div>
-
-                    <!-- Christy Caleb -->
-                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px;">
-                        <h3 style="color: var(--madder); margin-bottom: 1rem;">📚 Christy Caleb International School</h3>
-                        <div class="form-group">
-                            <label for="christycalebCode">Access Code</label>
-                            <input type="text" id="christycalebCode" placeholder="Enter access code">
-                        </div>
-                        <button class="submit-btn" style="width: auto;" onclick="updateSchoolCode('christycaleb')">Update Code</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
- <div id="studentManage" class="tab-content">
-    <div class="post-form">
-        <h2>Add New Student</h2>
+  <!-- ══ MANAGE SCHOOLS ══ -->
+  <div id="schoolManage" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Manage School Access Codes</span></div>
+      <div class="panel-body">
         <div class="info-box">
-            <strong>👤 Create Student Accounts:</strong> Add new students and assign them access codes. They can login with their username and access code.
+          <strong>🔐 Access Codes:</strong> Set or update access codes for each school. Students will need these codes to access their school's portal.
+        </div>
+        <div class="success-message" id="schoolManageSuccess">Access code updated successfully!</div>
+        <div style="display:grid;gap:.8rem;">
+          <div class="school-card">
+            <h3>🎓 Peniel Lily Montessori School</h3>
+            <div class="form-group" style="margin-bottom:.6rem;">
+              <label for="penielCode">Access Code</label>
+              <input type="text" id="penielCode" placeholder="Enter access code">
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('peniel')">Update Code</button>
+          </div>
+          <div class="school-card">
+            <h3>🏆 South Gold Montessori School</h3>
+            <div class="form-group" style="margin-bottom:.6rem;">
+              <label for="southgoldCode">Access Code</label>
+              <input type="text" id="southgoldCode" placeholder="Enter access code">
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('southgold')">Update Code</button>
+          </div>
+          <div class="school-card">
+            <h3>💎 Sapphire Explorer Montessori School</h3>
+            <div class="form-group" style="margin-bottom:.6rem;">
+              <label for="sapphireCode">Access Code</label>
+              <input type="text" id="sapphireCode" placeholder="Enter access code">
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('sapphire')">Update Code</button>
+          </div>
+          <div class="school-card">
+            <h3>⭐ Easy Stars Early Years Academy</h3>
+            <div class="form-group" style="margin-bottom:.6rem;">
+              <label for="easystarsCode">Access Code</label>
+              <input type="text" id="easystarsCode" placeholder="Enter access code">
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('easystars')">Update Code</button>
+          </div>
+          <div class="school-card">
+            <h3>📚 Christy Caleb International School</h3>
+            <div class="form-group" style="margin-bottom:.6rem;">
+              <label for="christycalebCode">Access Code</label>
+              <input type="text" id="christycalebCode" placeholder="Enter access code">
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('christycaleb')">Update Code</button>
+          </div>
+          <div class="school-card">
+            <h3>👑 Royal Breed Academy</h3>
+            <div class="form-group" style="margin-bottom:.6rem;">
+              <label for="royalbreedCode">Access Code</label>
+              <input type="text" id="royalbreedCode" placeholder="Enter access code">
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="updateSchoolCode('royalbreed')">Update Code</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MANAGE STUDENTS ══ -->
+  <div id="studentManage" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Add New Student</span></div>
+      <div class="panel-body">
+        <div class="info-box">
+          <strong>👤 Create Student Accounts:</strong> Add new students and assign them access codes.
         </div>
         <div class="success-message" id="studentAddSuccess">Student added successfully!</div>
-        
         <form id="addStudentForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="newStudentName">Full Name</label>
-                    <input type="text" id="newStudentName" required placeholder="Student's full name">
-                </div>
-                <div class="form-group">
-                    <label for="newStudentUsername">Username</label>
-                    <input type="text" id="newStudentUsername" required placeholder="Unique username">
-                </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="newStudentName">Full Name</label>
+              <input type="text" id="newStudentName" required placeholder="Student's full name">
             </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="newStudentEmail">Email (Optional)</label>
-                    <input type="email" id="newStudentEmail" placeholder="student@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="newStudentCode">Access Code</label>
-                    <input type="text" id="newStudentCode" required placeholder="Create access code">
-                </div>
+            <div class="form-group">
+              <label for="newStudentUsername">Username</label>
+              <input type="text" id="newStudentUsername" required placeholder="Unique username">
             </div>
-            
-            <button type="submit" class="submit-btn">Add Student</button>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="newStudentEmail">Email (Optional)</label>
+              <input type="email" id="newStudentEmail" placeholder="student@example.com">
+            </div>
+            <div class="form-group">
+              <label for="newStudentCode">Access Code</label>
+              <input type="text" id="newStudentCode" required placeholder="Create access code">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Student</button>
         </form>
+      </div>
     </div>
-
-    <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Registered Students</h3>
-    <div id="studentsListContainer" style="display: grid; gap: 1rem;">
-        <div style="text-align: center; padding: 2rem; color: var(--gray);">
-            Loading students...
-        </div>
+    <div class="section-head">Registered Students</div>
+    <div id="studentsListContainer" style="display:grid;gap:.6rem;">
+      <div style="text-align:center;padding:2rem;color:var(--text-dim);font-size:.75rem;">Loading students...</div>
     </div>
-</div>
+  </div>
 
-
-<!-- Student Resources Tab -->
-<div id="studentResources" class="tab-content">
-    <div class="post-form">
-        <h2>Send Resources to Individual Student</h2>
+  <!-- ══ SEND RESOURCES TO STUDENT ══ -->
+  <div id="studentResources" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Send Resources to Individual Student</span></div>
+      <div class="panel-body">
         <div class="info-box">
-            <strong>📤 Personal Resources:</strong> Send resources and links directly to specific students. Only they will see these in their personal portal.
+          <strong>📤 Personal Resources:</strong> Send resources and links directly to specific students.
         </div>
         <div class="success-message" id="studentResourceSuccess">Resource sent successfully!</div>
-        
         <form id="studentResourceForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="targetStudent">Select Student</label>
-                    <select id="targetStudent" required>
-                        <option value="">Choose Student</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="resourceType">Resource Type</label>
-                    <select id="resourceType" required>
-                        <option value="">Select Type</option>
-                        <option value="resource">📄 File/Document</option>
-                        <option value="link">🔗 Link</option>
-                    </select>
-                </div>
-            </div>
-
+          <div class="form-row">
             <div class="form-group">
-                <label for="studentResourceTitle">Title</label>
-                <input type="text" id="studentResourceTitle" required placeholder="e.g., Your Python Assignment">
+              <label for="targetStudent">Select Student</label>
+              <select id="targetStudent" required>
+                <option value="">Choose Student</option>
+              </select>
             </div>
-
             <div class="form-group">
-                <label for="studentResourceUrl">URL/Link</label>
-                <input type="url" id="studentResourceUrl" required placeholder="https://...">
+              <label for="resourceType">Resource Type</label>
+              <select id="resourceType" required>
+                <option value="">Select Type</option>
+                <option value="resource">📄 File/Document</option>
+                <option value="link">🔗 Link</option>
+              </select>
             </div>
-
-            <div class="form-group">
-                <label for="studentResourceDescription">Description</label>
-                <textarea id="studentResourceDescription" required placeholder="Brief description"></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">Send to Student</button>
+          </div>
+          <div class="form-group">
+            <label for="studentResourceTitle">Title</label>
+            <input type="text" id="studentResourceTitle" required placeholder="e.g., Your Python Assignment">
+          </div>
+          <div class="form-group">
+            <label for="studentResourceUrl">URL/Link</label>
+            <input type="url" id="studentResourceUrl" required placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label for="studentResourceDescription">Description</label>
+            <textarea id="studentResourceDescription" required placeholder="Brief description"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send to Student</button>
         </form>
+      </div>
     </div>
-
-    <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Recently Sent Resources</h3>
+    <div class="section-head">Recently Sent Resources</div>
     <div class="posts-grid" id="studentResourcesGrid"></div>
-</div>
+  </div>
 
-
-
-
-  <!-- Staff Management -->
-<div id="staffManage" class="tab-content">
-    <div class="post-form">
-        <h2>Invite New Staff Member</h2>
+  <!-- ══ MANAGE STAFF ══ -->
+  <div id="staffManage" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Invite New Staff Member</span></div>
+      <div class="panel-body">
         <div class="info-box">
-            <strong>👨‍🏫 Staff Registration:</strong> Create an invitation for staff members. They will register themselves using the provided code and link.
+          <strong>👨‍🏫 Staff Registration:</strong> Create an invitation for staff members. They will register themselves using the provided code and link.
         </div>
         <div class="success-message" id="staffAddSuccess">Staff invitation created successfully!</div>
-        
         <form id="addStaffForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="staffName">Full Name</label>
-                    <input type="text" id="staffName" required placeholder="Staff member's name">
-                </div>
-                <div class="form-group">
-                    <label for="staffEmail">Email</label>
-                    <input type="email" id="staffEmail" required placeholder="staff@example.com">
-                </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="staffName">Full Name</label>
+              <input type="text" id="staffName" required placeholder="Staff member's name">
             </div>
-            <button type="submit" class="submit-btn">Create Invitation</button>
+            <div class="form-group">
+              <label for="staffEmail">Email</label>
+              <input type="email" id="staffEmail" required placeholder="staff@example.com">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Create Invitation</button>
         </form>
-
-        <div class="info-box" style="margin-top: 1.5rem; background: #e0f2fe; border-color: #0ea5e9;">
-            <strong>📋 Current Registration Code:</strong> JAYSTAR2024<br>
-            <strong>🔗 Registration Link:</strong> <span id="regLink" style="word-break: break-all;"></span>
+        <div class="info-box-blue" style="margin-top:1rem;">
+          <strong>📋 Current Registration Code:</strong> JAYSTAR2024<br>
+          <strong>🔗 Registration Link:</strong> <span id="regLink" style="word-break:break-all;"></span>
         </div>
-    <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Registered Staff</h3>
+      </div>
+    </div>
+    <div class="section-head">Registered Staff</div>
     <div id="staffListContainer"></div>
-</div>
-</div>
+  </div>
 
-<!-- Staff General Resources Tab -->
-<div id="staffResources" class="tab-content">
-    <div class="post-form">
-        <h2>Add General Resource for All Staff</h2>
+  <!-- ══ STAFF RESOURCES ══ -->
+  <div id="staffResources" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Add General Resource for All Staff</span></div>
+      <div class="panel-body">
         <div class="info-box">
-            <strong>📚 General Staff Resources:</strong> These resources will be visible to all staff members.
+          <strong>📚 General Staff Resources:</strong> These resources will be visible to all staff members.
         </div>
         <div class="success-message" id="staffResourceSuccess">Resource added successfully!</div>
-        
         <form id="staffResourceForm">
-            <div class="form-group">
-                <label for="staffResTitle">Title</label>
-                <input type="text" id="staffResTitle" required placeholder="Resource title">
-            </div>
-            <div class="form-group">
-                <label for="staffResUrl">URL/Link</label>
-                <input type="url" id="staffResUrl" required placeholder="https://...">
-            </div>
-            <div class="form-group">
-                <label for="staffResDescription">Description</label>
-                <textarea id="staffResDescription" required placeholder="Brief description"></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Add Resource</button>
+          <div class="form-group">
+            <label for="staffResTitle">Title</label>
+            <input type="text" id="staffResTitle" required placeholder="Resource title">
+          </div>
+          <div class="form-group">
+            <label for="staffResUrl">URL/Link</label>
+            <input type="url" id="staffResUrl" required placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label for="staffResDescription">Description</label>
+            <textarea id="staffResDescription" required placeholder="Brief description"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Resource</button>
         </form>
+      </div>
     </div>
-
-    <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Posted Staff Resources</h3>
+    <div class="section-head">Posted Staff Resources</div>
     <div class="posts-grid" id="staffResourcesGrid"></div>
-</div>
+  </div>
 
-<!-- Staff School Access Tab -->
-<div id="staffAccess" class="tab-content">
-    <div class="post-form">
-        <h2>Staff School Access Code</h2>
+  <!-- ══ STAFF SCHOOL ACCESS ══ -->
+  <div id="staffAccess" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Staff School Access Code</span></div>
+      <div class="panel-body">
         <div class="info-box">
-            <strong>🔑 Access Control:</strong> Generate an access code that staff members need to send resources to schools.
+          <strong>🔑 Access Control:</strong> Generate an access code that staff members need to send resources to schools.
         </div>
         <div class="success-message" id="accessCodeSuccess">Access code updated successfully!</div>
-        
         <div class="form-group">
-            <label for="schoolAccessCodeInput">Access Code</label>
-            <input type="text" id="schoolAccessCodeInput" placeholder="Enter access code for staff">
+          <label for="schoolAccessCodeInput">Access Code</label>
+          <input type="text" id="schoolAccessCodeInput" placeholder="Enter access code for staff">
         </div>
-        <button class="submit-btn" onclick="updateStaffSchoolAccess()">Update Access Code</button>
-        
-        <div style="margin-top: 1.5rem; padding: 1rem; background: var(--light-gray); border-radius: 8px;">
-            <p style="color: var(--gray); font-size: 0.9rem;">
-                <strong>Current Code:</strong> <span id="currentAccessCode">Loading...</span>
-            </p>
+        <button class="btn btn-primary" onclick="updateStaffSchoolAccess()">Update Access Code</button>
+        <div style="margin-top:1rem;padding:.7rem .85rem;background:var(--surface-2);border:1px solid var(--border);font-size:.72rem;color:var(--text-muted);">
+          <strong style="color:var(--text);">Current Code:</strong> <span id="currentAccessCode" style="font-family:var(--mono);color:var(--gold);">Loading...</span>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- Send Notifications Tab -->
-<div id="notifications" class="tab-content">
-    <div class="post-form">
-        <h2>Send Notifications</h2>
+  <!-- ══ NOTIFICATIONS ══ -->
+  <div id="notifications" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Send Notifications</span></div>
+      <div class="panel-body">
         <div class="success-message" id="notificationSuccess">Notification sent successfully!</div>
-        
         <form id="notificationForm">
-            <div class="form-group">
-                <label for="notifRecipient">Send To</label>
-                <select id="notifRecipient" required>
-                    <option value="">Choose Recipient</option>
-                    <option value="all">🌐 Everyone (All Users)</option>
-                    <option value="all_staff">👨‍🏫 All Staff Members</option>
-                    <option value="all_students">👥 All Students</option>
-                    <option value="specific_staff">📧 Specific Staff Member</option>
-                    <option value="specific_student">📧 Specific Student</option>
-                </select>
-            </div>
-
-            <div class="form-group" id="specificRecipientGroup" style="display: none;">
-                <label for="specificRecipient">Select Person</label>
-                <select id="specificRecipient">
-                    <option value="">Choose person</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="notifTitle">Title</label>
-                <input type="text" id="notifTitle" required placeholder="Notification title">
-            </div>
-
-            <div class="form-group">
-                <label for="notifMessage">Message</label>
-                <textarea id="notifMessage" required placeholder="Your message"></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">Send Notification</button>
+          <div class="form-group">
+            <label for="notifRecipient">Send To</label>
+            <select id="notifRecipient" required>
+              <option value="">Choose Recipient</option>
+              <option value="all">🌐 Everyone (All Users)</option>
+              <option value="all_staff">👨‍🏫 All Staff Members</option>
+              <option value="all_students">👥 All Students</option>
+              <option value="specific_staff">📧 Specific Staff Member</option>
+              <option value="specific_student">📧 Specific Student</option>
+            </select>
+          </div>
+          <div class="form-group" id="specificRecipientGroup" style="display:none;">
+            <label for="specificRecipient">Select Person</label>
+            <select id="specificRecipient">
+              <option value="">Choose person</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="notifTitle">Title</label>
+            <input type="text" id="notifTitle" required placeholder="Notification title">
+          </div>
+          <div class="form-group">
+            <label for="notifMessage">Message</label>
+            <textarea id="notifMessage" required placeholder="Your message"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Notification</button>
         </form>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- Activity Logs Tab -->
-<div id="activityLogs" class="tab-content">
-    <div class="post-form">
-        <h2>Recent Activity</h2>
+  <!-- ══ ACTIVITY LOGS ══ -->
+  <div id="activityLogs" class="tab-content">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Activity Logs</span></div>
+      <div class="panel-body">
         <div class="info-box">
-            <strong>📊 Activity Monitor:</strong> Track all logins and resource sharing activities.
+          <strong>📊 Activity Monitor:</strong> Track all logins and resource sharing activities.
         </div>
-        
-        <div style="margin-bottom: 1rem;">
-            <label style="margin-right: 1rem;">
-                <input type="checkbox" id="filterLogins" checked> Show Logins
-            </label>
-            <label style="margin-right: 1rem;">
-                <input type="checkbox" id="filterResources" checked> Show Resource Activities
-            </label>
-            <button class="submit-btn" style="padding: 0.5rem 1rem;" onclick="loadActivityLogs()">Refresh</button>
+        <div class="filter-row">
+          <label><input type="checkbox" id="filterLogins" checked> Show Logins</label>
+          <label><input type="checkbox" id="filterResources" checked> Show Resource Activities</label>
+          <button class="btn btn-primary btn-sm" onclick="loadActivityLogs()">Refresh</button>
         </div>
+      </div>
     </div>
-
     <div id="activityLogsContainer"></div>
-</div>
-    </div>
+  </div>
 
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-      //import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, where, serverTimestamp, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+</main>
 
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
-            authDomain: "jaystarbliss-studios.firebaseapp.com",
-            projectId: "jaystarbliss-studios",
-            storageBucket: "jaystarbliss-studios.firebasestorage.app",
-            messagingSenderId: "885364100276",
-            appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
-        };
+<!-- PLAIN UI SCRIPT -->
+<script>
+// Theme
+window.toggleTheme = function() {
+  var html = document.documentElement;
+  html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('jdh-theme', html.dataset.theme);
+};
+var _savedTheme = localStorage.getItem('jdh-theme');
+if (_savedTheme) document.documentElement.dataset.theme = _savedTheme;
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+// Tab switching
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+  var tabEl = document.getElementById(tabName);
+  if (tabEl) tabEl.classList.add('active');
+  var navEl = document.querySelector('[data-tab="'+tabName+'"]');
+  if (navEl) navEl.classList.add('active');
+}
+window.switchTab = switchTab;
 
-        // Check authentication
-        if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'admin') {
-            window.location.href = '../auth/login.html';
-        }
+document.addEventListener('DOMContentLoaded', function() {
+  // Theme button
+  document.getElementById('themeToggleBtn').addEventListener('click', window.toggleTheme);
 
-        // Display admin email
-        document.getElementById('adminEmail').textContent = sessionStorage.getItem('userEmail') || 'Admin';
+  // Sidebar nav items
+  document.querySelectorAll('.nav-item[data-tab]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      switchTab(this.dataset.tab);
+      // close mobile sidebar
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('show');
+    });
+  });
 
-        // Tab switching
-        window.switchTab = function(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        };
+  // Mobile hamburger
+  var hamburger = document.getElementById('hamburger');
+  var sidebar   = document.getElementById('sidebar');
+  var overlay   = document.getElementById('overlay');
+  if (hamburger) {
+    hamburger.addEventListener('click', function() {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('show');
+    });
+  }
+  if (overlay) {
+    overlay.addEventListener('click', function() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    });
+  }
 
-        // Logout
-        window.logout = async function() {
-            await signOut(auth);
-            sessionStorage.clear();
-            window.location.href = '../auth/login.html';
-        };
+  // Logout button wiring (actual async logic in module)
+  document.getElementById('logoutBtn').addEventListener('click', function() {
+    if (window._doLogout) window._doLogout();
+  });
+});
+</script>
 
-        // Resource Form Submit with debugging
-        document.getElementById('resourceForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const title = document.getElementById('resourceTitle').value;
-            const category = document.getElementById('resourceCategory').value;
-            const description = document.getElementById('resourceDescription').value;
-            const fileUrl = document.getElementById('resourceUrl').value;
+<!-- FIREBASE MODULE SCRIPT -->
+<script type="module">
+import { initializeApp }   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, where, serverTimestamp, setDoc, getDoc }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-            console.log('Posting resource:', { title, category, description, fileUrl });
+const firebaseConfig = {
+  apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+  authDomain: "jaystarbliss-studios.firebaseapp.com",
+  projectId: "jaystarbliss-studios",
+  storageBucket: "jaystarbliss-studios.firebasestorage.app",
+  messagingSenderId: "885364100276",
+  appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
+};
 
-            try {
-                const docRef = await addDoc(collection(db, 'resources'), {
-                    title: title,
-                    category: category,
-                    description: description,
-                    fileUrl: fileUrl,
-                    timestamp: serverTimestamp()
-                });
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
 
-                console.log('✅ Resource posted successfully with ID:', docRef.id);
-                console.log('Category saved as:', category);
-                
-                document.getElementById('resourceSuccess').classList.add('show');
-                setTimeout(() => document.getElementById('resourceSuccess').classList.remove('show'), 3000);
-                this.reset();
-                loadResources();
-            } catch (error) {
-                console.error('❌ Error posting resource:', error);
-                alert('Error posting resource: ' + error.message);
-            }
-        });
+// Auth guard
+if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'admin') {
+  window.location.href = '../auth/login.html';
+}
+document.getElementById('adminEmail').textContent = sessionStorage.getItem('userEmail') || 'Admin';
 
-        // Link Form Submit
-        document.getElementById('linkForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const title = document.getElementById('linkTitle').value;
-            const category = document.getElementById('linkCategory').value;
-            const url = document.getElementById('linkUrl').value;
-            const description = document.getElementById('linkDescription').value;
+// Logout
+window._doLogout = async function() {
+  await signOut(auth);
+  sessionStorage.clear();
+  window.location.href = '../auth/login.html';
+};
 
-            try {
-                await addDoc(collection(db, 'links'), {
-                    title,
-                    category,
-                    url,
-                    description,
-                    timestamp: serverTimestamp()
-                });
+// ── HELPERS ──────────────────────────────────────────────────
+function showSuccess(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); }, 3000);
+}
 
-                document.getElementById('linkSuccess').classList.add('show');
-                setTimeout(() => document.getElementById('linkSuccess').classList.remove('show'), 3000);
-                this.reset();
-                document.getElementById('linkPreviewContainer').innerHTML = '';
-                loadLinks();
-            } catch (error) {
-                console.error('Error posting link:', error);
-                alert('Error posting link. Please try again.');
-            }
-        });
+// ── RESOURCES ────────────────────────────────────────────────
+document.getElementById('resourceForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const title       = document.getElementById('resourceTitle').value;
+  const category    = document.getElementById('resourceCategory').value;
+  const description = document.getElementById('resourceDescription').value;
+  const fileUrl     = document.getElementById('resourceUrl').value;
+  try {
+    await addDoc(collection(db,'resources'), { title, category, description, fileUrl, timestamp: serverTimestamp() });
+    showSuccess('resourceSuccess'); this.reset(); loadResources();
+  } catch(e) { console.error(e); alert('Error posting resource: '+e.message); }
+});
 
-        // Exam Form Submit
-        document.getElementById('examForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const title = document.getElementById('examTitle').value;
-            const category = document.getElementById('examCategory').value;
-            const url = document.getElementById('examUrl').value;
-            const description = document.getElementById('examDescription').value;
+document.getElementById('linkForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const title = document.getElementById('linkTitle').value;
+  const category = document.getElementById('linkCategory').value;
+  const url = document.getElementById('linkUrl').value;
+  const description = document.getElementById('linkDescription').value;
+  try {
+    await addDoc(collection(db,'links'), { title, category, url, description, timestamp: serverTimestamp() });
+    showSuccess('linkSuccess'); this.reset();
+    document.getElementById('linkPreviewContainer').innerHTML = ''; loadLinks();
+  } catch(e) { console.error(e); alert('Error posting link.'); }
+});
 
-            try {
-                await addDoc(collection(db, 'exams'), {
-                    title,
-                    category,
-                    url,
-                    description,
-                    timestamp: serverTimestamp()
-                });
+document.getElementById('examForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const title = document.getElementById('examTitle').value;
+  const category = document.getElementById('examCategory').value;
+  const url = document.getElementById('examUrl').value;
+  const description = document.getElementById('examDescription').value;
+  try {
+    await addDoc(collection(db,'exams'), { title, category, url, description, timestamp: serverTimestamp() });
+    showSuccess('examSuccess'); this.reset();
+    document.getElementById('examPreviewContainer').innerHTML = ''; loadExams();
+  } catch(e) { console.error(e); alert('Error posting exam.'); }
+});
 
-                document.getElementById('examSuccess').classList.add('show');
-                setTimeout(() => document.getElementById('examSuccess').classList.remove('show'), 3000);
-                this.reset();
-                document.getElementById('examPreviewContainer').innerHTML = '';
-                loadExams();
-            } catch (error) {
-                console.error('Error posting exam:', error);
-                alert('Error posting exam. Please try again.');
-            }
-        });
+window.previewLink = function() {
+  var url = document.getElementById('linkUrl').value;
+  if (url) document.getElementById('linkPreviewContainer').innerHTML = '<iframe src="'+url+'" class="preview-frame"></iframe>';
+};
+window.previewExam = function() {
+  var url = document.getElementById('examUrl').value;
+  if (url) document.getElementById('examPreviewContainer').innerHTML = '<iframe src="'+url+'" class="preview-frame"></iframe>';
+};
 
-        // School Exam Form Submit
-        document.getElementById('schoolExamForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const title = document.getElementById('schoolExamTitle').value;
-            const schoolId = document.getElementById('schoolSelect').value;
-            const url = document.getElementById('schoolExamUrl').value;
-            const description = document.getElementById('schoolExamDescription').value;
+async function loadResources() {
+  const grid = document.getElementById('resourcesGrid'); grid.innerHTML = '';
+  const snap = await getDocs(query(collection(db,'resources'), orderBy('timestamp','desc')));
+  snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'resource')); });
+}
+async function loadLinks() {
+  const grid = document.getElementById('linksGrid'); grid.innerHTML = '';
+  const snap = await getDocs(query(collection(db,'links'), orderBy('timestamp','desc')));
+  snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'link')); });
+}
+async function loadExams() {
+  const grid = document.getElementById('examsGrid'); grid.innerHTML = '';
+  const snap = await getDocs(query(collection(db,'exams'), orderBy('timestamp','desc')));
+  snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'exam')); });
+}
 
-            console.log('Posting school exam:', { title, schoolId, url });
+function createPostCard(data, id, type) {
+  var card = document.createElement('div'); card.className = 'post-card';
+  var cat = data.category === 'both' ? 'All Students' : data.category === 'school' ? 'School' : 'Private';
+  card.innerHTML = '<h3>'+data.title+'</h3>'
+    +'<div class="post-meta"><span>📚 '+cat+'</span><span>'+(data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString() : '')+'</span></div>'
+    +'<p>'+data.description+'</p>'
+    +(data.fileUrl ? '<p><strong>📎 Link:</strong> <a href="'+data.fileUrl+'" target="_blank">Open File</a></p>' : '')
+    +(data.url ? '<p><strong>🔗 URL:</strong> <a href="'+data.url+'" target="_blank">View</a></p>' : '')
+    +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deletePost(\''+id+'\',\''+type+'\')">Delete</button></div>';
+  return card;
+}
+window.deletePost = async function(id, type) {
+  if (!confirm('Delete this post?')) return;
+  var col = type==='resource'?'resources':type==='link'?'links':'exams';
+  try {
+    await deleteDoc(doc(db,col,id));
+    if (type==='resource') loadResources(); else if (type==='link') loadLinks(); else loadExams();
+  } catch(e) { alert('Error deleting: '+e.message); }
+};
 
-            try {
-                await addDoc(collection(db, 'schoolExams'), {
-                    title,
-                    schoolId,
-                    url,
-                    description,
-                    timestamp: serverTimestamp()
-                });
+loadResources(); loadLinks(); loadExams();
 
-                console.log('✅ School exam posted successfully');
-                document.getElementById('schoolExamSuccess').classList.add('show');
-                setTimeout(() => document.getElementById('schoolExamSuccess').classList.remove('show'), 3000);
-                this.reset();
-                loadSchoolExams();
-            } catch (error) {
-                console.error('Error posting school exam:', error);
-                alert('Error posting school exam: ' + error.message);
-            }
-        });
+// ── SCHOOL EXAMS ─────────────────────────────────────────────
+document.getElementById('schoolExamForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const title = document.getElementById('schoolExamTitle').value;
+  const schoolId = document.getElementById('schoolSelect').value;
+  const url = document.getElementById('schoolExamUrl').value;
+  const description = document.getElementById('schoolExamDescription').value;
+  try {
+    await addDoc(collection(db,'schoolExams'), { title, schoolId, url, description, timestamp: serverTimestamp() });
+    showSuccess('schoolExamSuccess'); this.reset(); loadSchoolExams();
+  } catch(e) { alert('Error: '+e.message); }
+});
 
-        // School Resource Form Submit
+const SCHOOL_NAMES = {
+  peniel:'Peniel Lily Montessori', southgold:'South Gold Montessori',
+  sapphire:'Sapphire Explorer', easystars:'Easy Stars Academy',
+  christycaleb:'Christy Caleb International', royalbreed:'Royal Breed Academy'
+};
+
+async function loadSchoolExams() {
+  var grid = document.getElementById('schoolExamsGrid'); grid.innerHTML = '';
+  var snap = await getDocs(query(collection(db,'schoolExams'), orderBy('timestamp','desc')));
+  snap.forEach(function(docSnap) {
+    var data = docSnap.data();
+    var card = document.createElement('div'); card.className = 'post-card';
+    card.innerHTML = '<h3>'+data.title+'</h3>'
+      +'<div class="post-meta"><span>🏫 '+(SCHOOL_NAMES[data.schoolId]||data.schoolId)+'</span><span>'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
+      +'<p>'+data.description+'</p>'
+      +'<p><strong>🔗 URL:</strong> <a href="'+data.url+'" target="_blank">View</a></p>'
+      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteSchoolExam(\''+docSnap.id+'\')">Delete</button></div>';
+    grid.appendChild(card);
+  });
+}
+window.deleteSchoolExam = async function(id) {
+  if (!confirm('Delete this school exam?')) return;
+  await deleteDoc(doc(db,'schoolExams',id)); loadSchoolExams();
+};
+loadSchoolExams();
+
+// ── SCHOOL RESOURCES ─────────────────────────────────────────
 document.getElementById('schoolResourceForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const resourceType = document.getElementById('schoolResourceType').value;
-    const schoolId = document.getElementById('schoolResourceSchool').value;
-    const title = document.getElementById('schoolResourceTitle').value;
-    const url = document.getElementById('schoolResourceUrl').value;
-    const description = document.getElementById('schoolResourceDescription').value;
-
-    console.log('Posting school resource:', { resourceType, schoolId, title });
-
-    try {
-        // Determine which collection to use
-        const collectionName = resourceType === 'link' ? 'schoolLinks' : 'schoolResources';
-        const urlField = resourceType === 'link' ? 'url' : 'fileUrl';
-
-        await addDoc(collection(db, collectionName), {
-            schoolId: schoolId,
-            title: title,
-            [urlField]: url,
-            description: description,
-            timestamp: serverTimestamp()
-        });
-
-        console.log('✅ School resource posted successfully');
-        document.getElementById('schoolResourceSuccess').classList.add('show');
-        setTimeout(() => document.getElementById('schoolResourceSuccess').classList.remove('show'), 3000);
-        this.reset();
-        loadSchoolResources();
-    } catch (error) {
-        console.error('Error posting school resource:', error);
-        alert('Error posting resource: ' + error.message);
-    }
+  e.preventDefault();
+  const resourceType = document.getElementById('schoolResourceType').value;
+  const schoolId = document.getElementById('schoolResourceSchool').value;
+  const title = document.getElementById('schoolResourceTitle').value;
+  const url = document.getElementById('schoolResourceUrl').value;
+  const description = document.getElementById('schoolResourceDescription').value;
+  const colName = resourceType === 'link' ? 'schoolLinks' : 'schoolResources';
+  const urlField = resourceType === 'link' ? 'url' : 'fileUrl';
+  try {
+    await addDoc(collection(db,colName), { schoolId, title, [urlField]: url, description, timestamp: serverTimestamp() });
+    showSuccess('schoolResourceSuccess'); this.reset(); loadSchoolResources();
+  } catch(e) { alert('Error: '+e.message); }
 });
 
-        // Update school access code
-        window.updateSchoolCode = async function(schoolId) {
-            const codeInput = document.getElementById(schoolId + 'Code');
-            const accessCode = codeInput.value.trim();
-
-            if (!accessCode) {
-                alert('Please enter an access code');
-                return;
-            }
-
-            try {
-                await setDoc(doc(db, 'schools', schoolId), {
-                    accessCode: accessCode,
-                    updatedAt: serverTimestamp()
-                });
-
-                console.log('✅ Access code updated for:', schoolId);
-                document.getElementById('schoolManageSuccess').classList.add('show');
-                setTimeout(() => document.getElementById('schoolManageSuccess').classList.remove('show'), 3000);
-                codeInput.value = '';
-            } catch (error) {
-                console.error('Error updating access code:', error);
-                alert('Error updating access code: ' + error.message);
-            }
-        };
-
-        // Load school exams
-        async function loadSchoolExams() {
-            const grid = document.getElementById('schoolExamsGrid');
-            grid.innerHTML = '';
-
-            try {
-                const q = query(collection(db, 'schoolExams'), orderBy('timestamp', 'desc'));
-                const querySnapshot = await getDocs(q);
-
-                const schoolNames = {
-                    'peniel': 'Peniel Lily Montessori',
-                    'southgold': 'South Gold Montessori',
-                    'sapphire': 'Sapphire Explorer',
-                    'easystars': 'Easy Stars Academy',
-                    'christycaleb': 'Christy Caleb International',
-                    'royalbreed': 'ROYAL BREED MONTESSORI SCHOOL'
-                };
-
-                querySnapshot.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    const card = document.createElement('div');
-                    card.className = 'post-card';
-                    card.innerHTML = `
-                        <h3>${data.title}</h3>
-                        <div class="post-meta">
-                            <span>🏫 ${schoolNames[data.schoolId] || data.schoolId}</span>
-                            <span>${new Date(data.timestamp?.toDate()).toLocaleDateString()}</span>
-                        </div>
-                        <p>${data.description}</p>
-                        <p><strong>🔗 URL:</strong> <a href="${data.url}" target="_blank">View</a></p>
-                        <div class="post-actions">
-                            <button class="action-btn delete-btn" onclick="deleteSchoolExam('${docSnap.id}')">Delete</button>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            } catch (error) {
-                console.error('Error loading school exams:', error);
-            }
-        }
-
-        // Load school resources
 async function loadSchoolResources() {
-    const grid = document.getElementById('schoolResourcesGrid');
-    grid.innerHTML = '';
-
-    try {
-        const schoolNames = {
-            'peniel': 'Peniel Lily Montessori',
-            'southgold': 'South Gold Montessori',
-            'sapphire': 'Sapphire Explorer',
-            'easystars': 'Easy Stars Academy',
-            'christycaleb': 'Christy Caleb International'
-        };
-
-        // Get both resources and links
-        const resourcesQuery = query(collection(db, 'schoolResources'), orderBy('timestamp', 'desc'));
-        const linksQuery = query(collection(db, 'schoolLinks'), orderBy('timestamp', 'desc'));
-
-        const [resourcesSnapshot, linksSnapshot] = await Promise.all([
-            getDocs(resourcesQuery),
-            getDocs(linksQuery)
-        ]);
-
-        const allItems = [];
-
-        resourcesSnapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            allItems.push({ id: docSnap.id, data, type: 'resource', collection: 'schoolResources' });
-        });
-
-        linksSnapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            allItems.push({ id: docSnap.id, data, type: 'link', collection: 'schoolLinks' });
-        });
-
-        // Sort by timestamp
-        allItems.sort((a, b) => {
-            const timeA = a.data.timestamp?.toDate() || new Date(0);
-            const timeB = b.data.timestamp?.toDate() || new Date(0);
-            return timeB - timeA;
-        });
-
-        if (allItems.length === 0) {
-            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--gray);">No school resources posted yet</div>';
-            return;
-        }
-
-        allItems.forEach((item) => {
-            const data = item.data;
-            const card = document.createElement('div');
-            card.className = 'post-card';
-            
-            const icon = item.type === 'link' ? '🔗' : '📄';
-            const url = item.type === 'link' ? data.url : data.fileUrl;
-            
-            card.innerHTML = `
-                <h3>${icon} ${data.title}</h3>
-                <div class="post-meta">
-                    <span>🏫 ${schoolNames[data.schoolId] || data.schoolId}</span>
-                    <span>${new Date(data.timestamp?.toDate()).toLocaleDateString()}</span>
-                </div>
-                <p>${data.description}</p>
-                <p><strong>🔗 URL:</strong> <a href="${url}" target="_blank">View</a></p>
-                <div class="post-actions">
-                    <button class="action-btn delete-btn" onclick="deleteSchoolResource('${item.id}', '${item.collection}')">Delete</button>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-    } catch (error) {
-        console.error('Error loading school resources:', error);
-    }
+  var grid = document.getElementById('schoolResourcesGrid'); grid.innerHTML = '';
+  var [rSnap, lSnap] = await Promise.all([
+    getDocs(query(collection(db,'schoolResources'), orderBy('timestamp','desc'))),
+    getDocs(query(collection(db,'schoolLinks'), orderBy('timestamp','desc')))
+  ]);
+  var all = [];
+  rSnap.forEach(function(d){ all.push({id:d.id,data:d.data(),type:'resource',col:'schoolResources'}); });
+  lSnap.forEach(function(d){ all.push({id:d.id,data:d.data(),type:'link',col:'schoolLinks'}); });
+  all.sort(function(a,b){ return (b.data.timestamp?.toDate()||new Date(0))-(a.data.timestamp?.toDate()||new Date(0)); });
+  if (!all.length) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;">No school resources posted yet</div>'; return; }
+  all.forEach(function(item) {
+    var data = item.data;
+    var url = item.type==='link' ? data.url : data.fileUrl;
+    var card = document.createElement('div'); card.className='post-card';
+    card.innerHTML = '<h3>'+(item.type==='link'?'🔗':'📄')+' '+data.title+'</h3>'
+      +'<div class="post-meta"><span>🏫 '+(SCHOOL_NAMES[data.schoolId]||data.schoolId)+'</span><span>'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
+      +'<p>'+data.description+'</p>'
+      +'<p><strong>🔗 URL:</strong> <a href="'+url+'" target="_blank">View</a></p>'
+      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteSchoolResource(\''+item.id+'\',\''+item.col+'\')">Delete</button></div>';
+    grid.appendChild(card);
+  });
 }
+window.deleteSchoolResource = async function(id, colName) {
+  if (!confirm('Delete this school resource?')) return;
+  await deleteDoc(doc(db,colName,id)); loadSchoolResources();
+};
+loadSchoolResources();
 
-        window.deleteSchoolExam = async function(id) {
-            if (confirm('Are you sure you want to delete this school exam?')) {
-                try {
-                    await deleteDoc(doc(db, 'schoolExams', id));
-                    loadSchoolExams();
-                } catch (error) {
-                    console.error('Error deleting school exam:', error);
-                    alert('Error deleting school exam. Please try again.');
-                }
-            }
-        };
-
-        window.deleteSchoolResource = async function(id, collectionName) {
-    if (confirm('Are you sure you want to delete this school resource?')) {
-        try {
-            await deleteDoc(doc(db, collectionName, id));
-            loadSchoolResources();
-        } catch (error) {
-            console.error('Error deleting school resource:', error);
-            alert('Error deleting resource. Please try again.');
-        }
-    }
+// ── MANAGE SCHOOLS ───────────────────────────────────────────
+window.updateSchoolCode = async function(schoolId) {
+  var input = document.getElementById(schoolId+'Code');
+  if (!input.value.trim()) { alert('Please enter an access code'); return; }
+  try {
+    await setDoc(doc(db,'schools',schoolId), { accessCode: input.value.trim(), updatedAt: serverTimestamp() });
+    showSuccess('schoolManageSuccess'); input.value = '';
+  } catch(e) { alert('Error: '+e.message); }
 };
 
-        // Preview functions
-        window.previewLink = function() {
-            const url = document.getElementById('linkUrl').value;
-            if (url) {
-                document.getElementById('linkPreviewContainer').innerHTML = `
-                    <iframe src="${url}" class="preview-frame"></iframe>
-                `;
-            }
-        };
-
-        window.previewExam = function() {
-            const url = document.getElementById('examUrl').value;
-            if (url) {
-                document.getElementById('examPreviewContainer').innerHTML = `
-                    <iframe src="${url}" class="preview-frame"></iframe>
-                `;
-            }
-        };
-
-        // Load and display posts
-        async function loadResources() {
-            const grid = document.getElementById('resourcesGrid');
-            grid.innerHTML = '';
-            const q = query(collection(db, 'resources'), orderBy('timestamp', 'desc'));
-            const querySnapshot = await getDocs(q);
-            
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const card = createPostCard(data, doc.id, 'resource');
-                grid.appendChild(card);
-            });
-        }
-
-        async function loadLinks() {
-            const grid = document.getElementById('linksGrid');
-            grid.innerHTML = '';
-            const q = query(collection(db, 'links'), orderBy('timestamp', 'desc'));
-            const querySnapshot = await getDocs(q);
-            
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const card = createPostCard(data, doc.id, 'link');
-                grid.appendChild(card);
-            });
-        }
-
-        async function loadExams() {
-            const grid = document.getElementById('examsGrid');
-            grid.innerHTML = '';
-            const q = query(collection(db, 'exams'), orderBy('timestamp', 'desc'));
-            const querySnapshot = await getDocs(q);
-            
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const card = createPostCard(data, doc.id, 'exam');
-                grid.appendChild(card);
-            });
-        }
-
-        function createPostCard(data, id, type) {
-            const card = document.createElement('div');
-            card.className = 'post-card';
-            card.innerHTML = `
-                <h3>${data.title}</h3>
-                <div class="post-meta">
-                    <span>📚 ${data.category === 'both' ? 'All Students' : data.category === 'school' ? 'School' : 'Private'}</span>
-                    <span>${new Date(data.timestamp?.toDate()).toLocaleDateString()}</span>
-                </div>
-                <p>${data.description}</p>
-                ${data.fileUrl ? `<p><strong>📎 Link:</strong> <a href="${data.fileUrl}" target="_blank">Open File</a></p>` : ''}
-                ${data.url ? `<p><strong>🔗 URL:</strong> <a href="${data.url}" target="_blank">View</a></p>` : ''}
-                <div class="post-actions">
-                    <button class="action-btn delete-btn" onclick="deletePost('${id}', '${type}')">Delete</button>
-                </div>
-            `;
-            return card;
-        }
-
-        window.deletePost = async function(id, type) {
-            if (confirm('Are you sure you want to delete this post?')) {
-                try {
-                    const collectionName = type === 'resource' ? 'resources' : type === 'link' ? 'links' : 'exams';
-                    await deleteDoc(doc(db, collectionName, id));
-                    
-                    if (type === 'resource') loadResources();
-                    else if (type === 'link') loadLinks();
-                    else loadExams();
-                } catch (error) {
-                    console.error('Error deleting post:', error);
-                    alert('Error deleting post. Please try again.');
-                }
-            }
-        };
-
-        // Initial load
-        loadResources();
-        loadLinks();
-        loadExams();
-        loadSchoolExams();
-        loadSchoolResources();
-
-
-
-
-        
-
-// Add new student
+// ── MANAGE STUDENTS ───────────────────────────────────────────
 document.getElementById('addStudentForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const fullName = document.getElementById('newStudentName').value.trim();
-    const username = document.getElementById('newStudentUsername').value.trim();
-    const email = document.getElementById('newStudentEmail').value.trim();
-    const accessCode = document.getElementById('newStudentCode').value.trim();
-
-    try {
-        // Check if username already exists
-        const usernameQuery = query(collection(db, 'individualStudents'), where('username', '==', username));
-        const usernameSnapshot = await getDocs(usernameQuery);
-
-        if (!usernameSnapshot.empty) {
-            alert('Username already exists! Please choose another one.');
-            return;
-        }
-
-        // Add student to database
-        await addDoc(collection(db, 'individualStudents'), {
-            fullName: fullName,
-            username: username,
-            email: email,
-            accessCode: accessCode,
-            registeredAt: serverTimestamp()
-        });
-
-        console.log('✅ Student added:', username);
-        document.getElementById('studentAddSuccess').classList.add('show');
-        setTimeout(() => document.getElementById('studentAddSuccess').classList.remove('show'), 3000);
-        
-        this.reset();
-        loadStudentsList();
-        loadStudentsDropdown(); // Refresh dropdown in Send Resources tab
-        
-    } catch (error) {
-        console.error('Error adding student:', error);
-        alert('Error adding student: ' + error.message);
-    }
+  e.preventDefault();
+  var fullName = document.getElementById('newStudentName').value.trim();
+  var username = document.getElementById('newStudentUsername').value.trim();
+  var email    = document.getElementById('newStudentEmail').value.trim();
+  var code     = document.getElementById('newStudentCode').value.trim();
+  try {
+    var ex = await getDocs(query(collection(db,'individualStudents'), where('username','==',username)));
+    if (!ex.empty) { alert('Username already exists! Choose another.'); return; }
+    await addDoc(collection(db,'individualStudents'), { fullName, username, email, accessCode: code, registeredAt: serverTimestamp() });
+    showSuccess('studentAddSuccess'); this.reset(); loadStudentsList(); loadStudentsDropdown();
+  } catch(e) { alert('Error: '+e.message); }
 });
 
-// Load students list
 async function loadStudentsList() {
-    const container = document.getElementById('studentsListContainer');
-    container.innerHTML = '';
-
-    try {
-        const querySnapshot = await getDocs(collection(db, 'individualStudents'));
-
-        if (querySnapshot.empty) {
-            container.innerHTML = `
-                <div style="text-align: center; padding: 2rem; color: var(--gray);">
-                    <p>No students registered yet</p>
-                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">Add your first student using the form above</p>
-                </div>
-            `;
-            return;
-        }
-
-        querySnapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            const studentCard = document.createElement('div');
-            studentCard.style.cssText = 'background: var(--light-gray); padding: 1.5rem; border-radius: 12px;';
-            studentCard.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
-                    <div>
-                        <h3 style="color: var(--madder); margin-bottom: 0.5rem;">👤 ${data.fullName || data.username}</h3>
-                        <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.5rem;">
-                            <strong>Username:</strong> ${data.username}<br>
-                            ${data.email ? `<strong>Email:</strong> ${data.email}<br>` : ''}
-                            <strong>Current Code:</strong> ${data.accessCode}<br>
-                            <strong>Registered:</strong> ${new Date(data.registeredAt?.toDate()).toLocaleDateString()}
-                        </p>
-                    </div>
-                    <button class="action-btn delete-btn" onclick="deleteStudent('${docSnap.id}')" style="margin-top: 0;">Delete</button>
-                </div>
-                <div class="form-group" style="margin-bottom: 0.5rem;">
-                    <label for="code_${docSnap.id}">Update Access Code</label>
-                    <input type="text" id="code_${docSnap.id}" placeholder="Enter new access code" value="${data.accessCode}">
-                </div>
-                <button class="submit-btn" style="width: auto;" onclick="updateStudentCode('${docSnap.id}')">Update Code</button>
-            `;
-            container.appendChild(studentCard);
-        });
-    } catch (error) {
-        console.error('Error loading students:', error);
-        container.innerHTML = `
-            <div style="text-align: center; padding: 2rem; color: #c00;">
-                <p>Error loading students</p>
-                <p style="font-size: 0.85rem; margin-top: 0.5rem;">${error.message}</p>
-            </div>
-        `;
-    }
+  var container = document.getElementById('studentsListContainer');
+  container.innerHTML = '';
+  var snap = await getDocs(collection(db,'individualStudents'));
+  if (snap.empty) {
+    container.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;">No students registered yet</div>';
+    return;
+  }
+  snap.forEach(function(docSnap) {
+    var data = docSnap.data();
+    var card = document.createElement('div'); card.className = 'person-card';
+    card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:.6rem;">'
+      +'<div><h3>👤 '+(data.fullName||data.username)+'</h3>'
+      +'<p><strong>Username:</strong> '+data.username+'<br>'
+      +(data.email?'<strong>Email:</strong> '+data.email+'<br>':'')
+      +'<strong>Code:</strong> <span style="font-family:var(--mono);color:var(--gold);">'+data.accessCode+'</span><br>'
+      +'<strong>Registered:</strong> '+(data.registeredAt?new Date(data.registeredAt.toDate()).toLocaleDateString():'')+'</p></div>'
+      +'<button class="btn btn-danger btn-sm" onclick="deleteStudent(\''+docSnap.id+'\')">Delete</button>'
+      +'</div>'
+      +'<div class="form-group" style="margin-bottom:.4rem;"><label>Update Access Code</label>'
+      +'<input type="text" id="code_'+docSnap.id+'" value="'+data.accessCode+'" placeholder="New access code">'
+      +'</div>'
+      +'<button class="btn btn-primary btn-sm" onclick="updateStudentCode(\''+docSnap.id+'\')">Update Code</button>';
+    container.appendChild(card);
+  });
 }
-
-// Update student access code
-window.updateStudentCode = async function(studentId) {
-    const codeInput = document.getElementById('code_' + studentId);
-    const newCode = codeInput.value.trim();
-
-    if (!newCode) {
-        alert('Please enter an access code');
-        return;
-    }
-
-    try {
-        await setDoc(doc(db, 'individualStudents', studentId), {
-            accessCode: newCode
-        }, { merge: true });
-
-        alert('Access code updated successfully!');
-        console.log('✅ Access code updated for student:', studentId);
-    } catch (error) {
-        console.error('Error updating code:', error);
-        alert('Error updating access code: ' + error.message);
-    }
+window.updateStudentCode = async function(id) {
+  var val = document.getElementById('code_'+id).value.trim();
+  if (!val) { alert('Enter an access code'); return; }
+  await setDoc(doc(db,'individualStudents',id), { accessCode: val }, { merge: true });
+  alert('Access code updated!');
 };
-
-// Delete student
-window.deleteStudent = async function(studentId) {
-    if (!confirm('Are you sure you want to delete this student? This will also delete all their resources.')) {
-        return;
-    }
-
-    try {
-        // Delete student
-        await deleteDoc(doc(db, 'individualStudents', studentId));
-
-        // Delete their resources
-        const resourcesQuery = query(collection(db, 'personalResources'), where('studentId', '==', studentId));
-        const linksQuery = query(collection(db, 'personalLinks'), where('studentId', '==', studentId));
-        
-        const [resourcesSnapshot, linksSnapshot] = await Promise.all([
-            getDocs(resourcesQuery),
-            getDocs(linksQuery)
-        ]);
-
-        const deletePromises = [];
-        resourcesSnapshot.forEach(doc => deletePromises.push(deleteDoc(doc.ref)));
-        linksSnapshot.forEach(doc => deletePromises.push(deleteDoc(doc.ref)));
-        
-        await Promise.all(deletePromises);
-
-        console.log('✅ Student and their resources deleted');
-        loadStudentsList();
-        loadStudentsDropdown();
-    } catch (error) {
-        console.error('Error deleting student:', error);
-        alert('Error deleting student: ' + error.message);
-    }
+window.deleteStudent = async function(id) {
+  if (!confirm('Delete this student and all their resources?')) return;
+  await deleteDoc(doc(db,'individualStudents',id));
+  var [rSnap,lSnap] = await Promise.all([
+    getDocs(query(collection(db,'personalResources'), where('studentId','==',id))),
+    getDocs(query(collection(db,'personalLinks'), where('studentId','==',id)))
+  ]);
+  var dels = [];
+  rSnap.forEach(function(d){ dels.push(deleteDoc(d.ref)); });
+  lSnap.forEach(function(d){ dels.push(deleteDoc(d.ref)); });
+  await Promise.all(dels);
+  loadStudentsList(); loadStudentsDropdown();
 };
-
-// Load students dropdown for sending resources
 async function loadStudentsDropdown() {
-    const dropdown = document.getElementById('targetStudent');
-    dropdown.innerHTML = '<option value="">Choose Student</option>';
-
-    try {
-        const querySnapshot = await getDocs(collection(db, 'individualStudents'));
-        querySnapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            const option = document.createElement('option');
-            option.value = docSnap.id;
-            option.textContent = `${data.fullName || data.username} (@${data.username})`;
-            dropdown.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Error loading students dropdown:', error);
-    }
+  var dd = document.getElementById('targetStudent');
+  dd.innerHTML = '<option value="">Choose Student</option>';
+  var snap = await getDocs(collection(db,'individualStudents'));
+  snap.forEach(function(d) {
+    var data = d.data();
+    var opt = document.createElement('option');
+    opt.value = d.id;
+    opt.textContent = (data.fullName||data.username)+' (@'+data.username+')';
+    dd.appendChild(opt);
+  });
 }
+loadStudentsList(); loadStudentsDropdown();
 
-// Send resource to student 
+// ── SEND RESOURCES TO STUDENT ─────────────────────────────────
 document.getElementById('studentResourceForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const studentId = document.getElementById('targetStudent').value;
-    const resourceType = document.getElementById('resourceType').value;
-    const title = document.getElementById('studentResourceTitle').value;
-    const url = document.getElementById('studentResourceUrl').value;
-    const description = document.getElementById('studentResourceDescription').value;
-
-    try {
-        const collectionName = resourceType === 'link' ? 'personalLinks' : 'personalResources';
-        
-        await addDoc(collection(db, collectionName), {
-            studentId: studentId,
-            title: title,
-            [resourceType === 'link' ? 'url' : 'fileUrl']: url,
-            description: description,
-            timestamp: serverTimestamp()
-        });
-
-        document.getElementById('studentResourceSuccess').classList.add('show');
-        setTimeout(() => document.getElementById('studentResourceSuccess').classList.remove('show'), 3000);
-        this.reset();
-        loadStudentResources();
-        console.log('✅ Resource sent to student');
-    } catch (error) {
-        console.error('Error sending resource:', error);
-        alert('Error sending resource: ' + error.message);
-    }
+  e.preventDefault();
+  var studentId = document.getElementById('targetStudent').value;
+  var type = document.getElementById('resourceType').value;
+  var title = document.getElementById('studentResourceTitle').value;
+  var url = document.getElementById('studentResourceUrl').value;
+  var desc = document.getElementById('studentResourceDescription').value;
+  var col = type==='link'?'personalLinks':'personalResources';
+  try {
+    await addDoc(collection(db,col), { studentId, title, [type==='link'?'url':'fileUrl']: url, description: desc, timestamp: serverTimestamp() });
+    showSuccess('studentResourceSuccess'); this.reset(); loadStudentResources();
+  } catch(e) { alert('Error: '+e.message); }
 });
-
-// Load sent student resources 
 async function loadStudentResources() {
-    const grid = document.getElementById('studentResourcesGrid');
-    grid.innerHTML = '';
-
-    try {
-        const collections = ['personalResources', 'personalLinks'];
-        const allResources = [];
-
-        for (const collName of collections) {
-            const q = query(collection(db, collName), orderBy('timestamp', 'desc'));
-            const snapshot = await getDocs(q);
-            snapshot.forEach(doc => {
-                allResources.push({ id: doc.id, collection: collName, ...doc.data() });
-            });
-        }
-
-        allResources.sort((a, b) => b.timestamp?.toDate() - a.timestamp?.toDate());
-
-        if (allResources.length === 0) {
-            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--gray);">No resources sent yet</div>';
-            return;
-        }
-
-        for (const resource of allResources.slice(0, 10)) {
-            const studentDoc = await getDoc(doc(db, 'individualStudents', resource.studentId));
-            const studentName = studentDoc.exists() ? studentDoc.data().fullName || studentDoc.data().username : 'Unknown';
-
-            const card = document.createElement('div');
-            card.className = 'post-card';
-            card.innerHTML = `
-                <h3>${resource.title}</h3>
-                <div class="post-meta">
-                    <span>👤 ${studentName}</span>
-                    <span>${new Date(resource.timestamp?.toDate()).toLocaleDateString()}</span>
-                </div>
-                <p>${resource.description}</p>
-                <p><strong>🔗:</strong> <a href="${resource.url || resource.fileUrl}" target="_blank">View</a></p>
-                <div class="post-actions">
-                    <button class="action-btn delete-btn" onclick="deleteStudentResource('${resource.id}', '${resource.collection}')">Delete</button>
-                </div>
-            `;
-            grid.appendChild(card);
-        }
-    } catch (error) {
-        console.error('Error loading student resources:', error);
-    }
+  var grid = document.getElementById('studentResourcesGrid'); grid.innerHTML = '';
+  var all = [];
+  for (var col of ['personalResources','personalLinks']) {
+    var snap = await getDocs(query(collection(db,col), orderBy('timestamp','desc')));
+    snap.forEach(function(d){ all.push({id:d.id,col:col,...d.data()}); });
+  }
+  all.sort(function(a,b){ return (b.timestamp?.toDate()||0)-(a.timestamp?.toDate()||0); });
+  if (!all.length) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;">No resources sent yet</div>'; return; }
+  for (var res of all.slice(0,10)) {
+    var sDoc = await getDoc(doc(db,'individualStudents',res.studentId));
+    var sName = sDoc.exists()?(sDoc.data().fullName||sDoc.data().username):'Unknown';
+    var card = document.createElement('div'); card.className='post-card';
+    card.innerHTML='<h3>'+res.title+'</h3>'
+      +'<div class="post-meta"><span>👤 '+sName+'</span><span>'+(res.timestamp?new Date(res.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
+      +'<p>'+res.description+'</p>'
+      +'<p><strong>🔗:</strong> <a href="'+(res.url||res.fileUrl)+'" target="_blank">View</a></p>'
+      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteStudentResource(\''+res.id+'\',\''+res.col+'\')">Delete</button></div>';
+    grid.appendChild(card);
+  }
 }
-
-window.deleteStudentResource = async function(id, collectionName) {
-    if (confirm('Delete this resource?')) {
-        try {
-            await deleteDoc(doc(db, collectionName, id));
-            loadStudentResources();
-        } catch (error) {
-            console.error('Error deleting:', error);
-            alert('Error deleting resource');
-        }
-    }
+window.deleteStudentResource = async function(id, col) {
+  if (confirm('Delete this resource?')) { await deleteDoc(doc(db,col,id)); loadStudentResources(); }
 };
-
-// Initialize everything
-loadStudentsList();
-loadStudentsDropdown();
 loadStudentResources();
 
-
-// GOD EEEH!!!
-
+// ── MANAGE STAFF ─────────────────────────────────────────────
 document.getElementById('addStaffForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const name = document.getElementById('staffName').value.trim();
-    const email = document.getElementById('staffEmail').value.trim();
-
-    try {
-        // Store staff invitation
-        await addDoc(collection(db, 'pendingStaff'), {
-            email: email,
-            name: name,
-            invitedAt: serverTimestamp(),
-            invitedBy: sessionStorage.getItem('userId')
-        });
-
-        // Update or create the registration code
-        await setDoc(doc(db, 'staffRegistration', 'code'), {
-            code: 'JAYSTAR2024', // Admin can change this code
-            updatedAt: serverTimestamp()
-        });
-
-        document.getElementById('staffAddSuccess').classList.add('show');
-        setTimeout(() => document.getElementById('staffAddSuccess').classList.remove('show'), 3000);
-
-        // Show detailed instructions
-        alert(`✅ Staff invitation created!\n\n📧 Send this information to ${name}:\n\nEmail: ${email}\n🔑 Registration Code: JAYSTAR2024\n🔗 Registration Link: ${window.location.origin}/staff-register.html\n\nThey should:\n1. Visit the registration link\n2. Enter the code: JAYSTAR2024\n3. Create their account with email: ${email}\n4. Set their own password`);
-
-        this.reset();
-        loadStaffList();
-        
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error creating invitation: ' + error.message);
-    }
+  e.preventDefault();
+  var name  = document.getElementById('staffName').value.trim();
+  var email = document.getElementById('staffEmail').value.trim();
+  try {
+    await addDoc(collection(db,'pendingStaff'), { email, name, invitedAt: serverTimestamp(), invitedBy: sessionStorage.getItem('userId') });
+    await setDoc(doc(db,'staffRegistration','code'), { code:'JAYSTAR2024', updatedAt: serverTimestamp() });
+    showSuccess('staffAddSuccess');
+    alert('✅ Staff invitation created!\n\nSend to '+name+':\nEmail: '+email+'\n🔑 Code: JAYSTAR2024\n🔗 Link: '+window.location.origin+'/staff-register.html');
+    this.reset(); loadStaffList();
+  } catch(e) { alert('Error: '+e.message); }
 });
-
-// Load staff list
 async function loadStaffList() {
-    const container = document.getElementById('staffListContainer');
-    container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--gray);">Loading...</div>';
-
-    try {
-        const q = query(collection(db, 'users'), where('role', '==', 'staff'));
-        const snapshot = await getDocs(q);
-
-        if (snapshot.empty) {
-            container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--gray);">No staff members added yet</div>';
-            return;
-        }
-
-        container.innerHTML = '';
-        snapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            const card = document.createElement('div');
-            card.className = 'resource-card';
-            card.innerHTML = `
-                <h3>👨‍🏫 ${data.name}</h3>
-                <p><strong>Email:</strong> ${data.email}</p>
-                <p><strong>Added:</strong> ${new Date(data.createdAt?.toDate()).toLocaleDateString()}</p>
-                <button class="action-btn delete-btn" onclick="deleteStaff('${docSnap.id}')">Remove Staff</button>
-            `;
-            container.appendChild(card);
-        });
-    } catch (error) {
-        console.error('Error loading staff:', error);
-    }
+  var container = document.getElementById('staffListContainer');
+  container.innerHTML = '<div style="padding:1rem;color:var(--text-dim);font-size:.75rem;">Loading...</div>';
+  var snap = await getDocs(query(collection(db,'users'), where('role','==','staff')));
+  if (snap.empty) { container.innerHTML='<div style="padding:1.5rem;color:var(--text-dim);font-size:.75rem;text-align:center;">No staff members yet</div>'; return; }
+  container.innerHTML = '';
+  snap.forEach(function(docSnap) {
+    var data = docSnap.data();
+    var card = document.createElement('div'); card.className='person-card';
+    card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:start;">'
+      +'<div><h3>👨‍🏫 '+data.name+'</h3>'
+      +'<p><strong>Email:</strong> '+data.email+'<br>'
+      +'<strong>Added:</strong> '+(data.createdAt?new Date(data.createdAt.toDate()).toLocaleDateString():'')+'</p></div>'
+      +'<button class="btn btn-danger btn-sm" onclick="deleteStaff(\''+docSnap.id+'\')">Remove</button>'
+      +'</div>';
+    container.appendChild(card);
+  });
 }
-
-window.deleteStaff = async function(staffId) {
-    if (!confirm('Remove this staff member? This will NOT delete their students.')) return;
-    
-    try {
-        await deleteDoc(doc(db, 'users', staffId));
-        loadStaffList();
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error removing staff');
-    }
+window.deleteStaff = async function(id) {
+  if (!confirm('Remove this staff member?')) return;
+  await deleteDoc(doc(db,'users',id)); loadStaffList();
 };
-
-// Staff general resources
-document.getElementById('staffResourceForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const title = document.getElementById('staffResTitle').value;
-    const url = document.getElementById('staffResUrl').value;
-    const description = document.getElementById('staffResDescription').value;
-
-    try {
-        await addDoc(collection(db, 'staffGeneralResources'), {
-            title, url, description,
-            timestamp: serverTimestamp()
-        });
-
-        document.getElementById('staffResourceSuccess').classList.add('show');
-        setTimeout(() => document.getElementById('staffResourceSuccess').classList.remove('show'), 3000);
-        this.reset();
-        loadStaffResources();
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error adding resource');
-    }
-});
-
-async function loadStaffResources() {
-    const grid = document.getElementById('staffResourcesGrid');
-    grid.innerHTML = '';
-
-    try {
-        const q = query(collection(db, 'staffGeneralResources'), orderBy('timestamp', 'desc'));
-        const snapshot = await getDocs(q);
-
-        if (snapshot.empty) {
-            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--gray);">No resources posted yet</div>';
-            return;
-        }
-
-        snapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            const card = document.createElement('div');
-            card.className = 'post-card';
-            card.innerHTML = `
-                <h3>${data.title}</h3>
-                <p>${data.description}</p>
-                <p><strong>📎:</strong> <a href="${data.url}" target="_blank">Open</a></p>
-                <div class="post-actions">
-                    <button class="action-btn delete-btn" onclick="deleteStaffResource('${docSnap.id}')">Delete</button>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-window.deleteStaffResource = async function(id) {
-    if (confirm('Delete this resource?')) {
-        try {
-            await deleteDoc(doc(db, 'staffGeneralResources', id));
-            loadStaffResources();
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
-};
-
-// Staff school access code
-window.updateStaffSchoolAccess = async function() {
-    const code = document.getElementById('schoolAccessCodeInput').value.trim();
-    
-    if (!code) {
-        alert('Please enter an access code');
-        return;
-    }
-
-    try {
-        await setDoc(doc(db, 'staffSchoolAccess', 'accessCode'), {
-            code: code,
-            updatedAt: serverTimestamp()
-        });
-
-        document.getElementById('accessCodeSuccess').classList.add('show');
-        setTimeout(() => document.getElementById('accessCodeSuccess').classList.remove('show'), 3000);
-        loadCurrentAccessCode();
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error updating access code');
-    }
-};
-
-async function loadCurrentAccessCode() {
-    try {
-        const docSnap = await getDoc(doc(db, 'staffSchoolAccess', 'accessCode'));
-        if (docSnap.exists()) {
-            document.getElementById('currentAccessCode').textContent = docSnap.data().code;
-        } else {
-            document.getElementById('currentAccessCode').textContent = 'Not set';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-// Notifications
-document.getElementById('notifRecipient').addEventListener('change', async function() {
-    const value = this.value;
-    const specificGroup = document.getElementById('specificRecipientGroup');
-    const specificSelect = document.getElementById('specificRecipient');
-    
-    if (value === 'specific_staff' || value === 'specific_student') {
-        specificGroup.style.display = 'block';
-        specificSelect.innerHTML = '<option value="">Loading...</option>';
-        
-        try {
-            if (value === 'specific_staff') {
-                const q = query(collection(db, 'users'), where('role', '==', 'staff'));
-                const snapshot = await getDocs(q);
-                specificSelect.innerHTML = '<option value="">Choose staff member</option>';
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const option = document.createElement('option');
-                    option.value = doc.id;
-                    option.textContent = `${data.name} (${data.email})`;
-                    specificSelect.appendChild(option);
-                });
-            } else {
-                const snapshot = await getDocs(collection(db, 'individualStudents'));
-                specificSelect.innerHTML = '<option value="">Choose student</option>';
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const option = document.createElement('option');
-                    option.value = doc.id;
-                    option.textContent = `${data.fullName || data.username}`;
-                    specificSelect.appendChild(option);
-                });
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    } else {
-        specificGroup.style.display = 'none';
-    }
-});
-
-document.getElementById('notificationForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const recipient = document.getElementById('notifRecipient').value;
-    const specificRecipient = document.getElementById('specificRecipient').value;
-    const title = document.getElementById('notifTitle').value;
-    const message = document.getElementById('notifMessage').value;
-
-    let recipientId = recipient;
-    if (recipient === 'specific_staff' || recipient === 'specific_student') {
-        if (!specificRecipient) {
-            alert('Please select a person');
-            return;
-        }
-        recipientId = specificRecipient;
-    }
-
-    try {
-        await addDoc(collection(db, 'notifications'), {
-            recipientId: recipientId,
-            title: title,
-            message: message,
-            read: false,
-            timestamp: serverTimestamp()
-        });
-
-        document.getElementById('notificationSuccess').classList.add('show');
-        setTimeout(() => document.getElementById('notificationSuccess').classList.remove('show'), 3000);
-        this.reset();
-        document.getElementById('specificRecipientGroup').style.display = 'none';
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error sending notification');
-    }
-});
-
-// Activity Logs
-async function loadActivityLogs() {
-    const container = document.getElementById('activityLogsContainer');
-    const showLogins = document.getElementById('filterLogins').checked;
-    const showResources = document.getElementById('filterResources').checked;
-    
-    container.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
-
-    try {
-        const q = query(collection(db, 'activityLogs'), orderBy('timestamp', 'desc'));
-        const snapshot = await getDocs(q);
-
-        if (snapshot.empty) {
-            container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--gray);">No activity yet</div>';
-            return;
-        }
-
-        container.innerHTML = '';
-        snapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            
-            // Filter based on checkboxes
-            if (!showLogins && (data.type === 'login' || data.type === 'logout')) return;
-            if (!showResources && data.type.includes('resource')) return;
-
-            const card = document.createElement('div');
-            card.style.cssText = 'background: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--madder);';
-            
-            let icon = '📊';
-            let description = '';
-            
-            switch(data.type) {
-                case 'login':
-                    icon = '🔓';
-                    description = `${data.userType} logged in: ${data.userEmail}`;
-                    break;
-                case 'logout':
-                    icon = '🔒';
-                    description = `${data.userType} logged out: ${data.userEmail}`;
-                    break;
-                case 'staff_resource_sent':
-                    icon = '📤';
-                    description = `Staff ${data.staffEmail} sent "${data.resourceTitle}" to a student`;
-                    break;
-                case 'staff_school_resource_sent':
-                    icon = '🏫';
-                    description = `Staff ${data.staffEmail} sent "${data.resourceTitle}" to a school`;
-                    break;
-                case 'student_added':
-                    icon = '👤';
-                    description = `Staff ${data.staffEmail} added student: ${data.studentUsername}`;
-                    break;
-            }
-
-            card.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: start;">
-                    <div>
-                        <p style="font-weight: 600; margin-bottom: 0.3rem;">${icon} ${description}</p>
-                        <p style="font-size: 0.85rem; color: var(--gray);">${new Date(data.timestamp?.toDate()).toLocaleString()}</p>
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    } catch (error) {
-        console.error('Error:', error);
-        container.innerHTML = '<div style="text-align: center; padding: 2rem; color: #c00;">Error loading logs</div>';
-    }
-}
-// Display the registration link
-document.getElementById('regLink').textContent = window.location.origin + '/staff-register.html';
-
-// Initialize new sections
 loadStaffList();
+document.getElementById('regLink').textContent = window.location.origin+'/staff-register.html';
+
+// ── STAFF RESOURCES ───────────────────────────────────────────
+document.getElementById('staffResourceForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var title = document.getElementById('staffResTitle').value;
+  var url   = document.getElementById('staffResUrl').value;
+  var desc  = document.getElementById('staffResDescription').value;
+  try {
+    await addDoc(collection(db,'staffGeneralResources'), { title, url, description: desc, timestamp: serverTimestamp() });
+    showSuccess('staffResourceSuccess'); this.reset(); loadStaffResources();
+  } catch(e) { alert('Error: '+e.message); }
+});
+async function loadStaffResources() {
+  var grid = document.getElementById('staffResourcesGrid'); grid.innerHTML = '';
+  var snap = await getDocs(query(collection(db,'staffGeneralResources'), orderBy('timestamp','desc')));
+  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;">No resources posted yet</div>'; return; }
+  snap.forEach(function(docSnap) {
+    var data = docSnap.data();
+    var card = document.createElement('div'); card.className='post-card';
+    card.innerHTML='<h3>'+data.title+'</h3><p>'+data.description+'</p>'
+      +'<p><strong>📎:</strong> <a href="'+data.url+'" target="_blank">Open</a></p>'
+      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteStaffResource(\''+docSnap.id+'\')">Delete</button></div>';
+    grid.appendChild(card);
+  });
+}
+window.deleteStaffResource = async function(id) {
+  if (confirm('Delete this resource?')) { await deleteDoc(doc(db,'staffGeneralResources',id)); loadStaffResources(); }
+};
 loadStaffResources();
+
+// ── STAFF SCHOOL ACCESS ───────────────────────────────────────
+window.updateStaffSchoolAccess = async function() {
+  var code = document.getElementById('schoolAccessCodeInput').value.trim();
+  if (!code) { alert('Please enter a code'); return; }
+  await setDoc(doc(db,'staffSchoolAccess','accessCode'), { code, updatedAt: serverTimestamp() });
+  showSuccess('accessCodeSuccess'); loadCurrentAccessCode();
+};
+async function loadCurrentAccessCode() {
+  var snap = await getDoc(doc(db,'staffSchoolAccess','accessCode'));
+  document.getElementById('currentAccessCode').textContent = snap.exists() ? snap.data().code : 'Not set';
+}
 loadCurrentAccessCode();
+
+// ── NOTIFICATIONS ─────────────────────────────────────────────
+document.getElementById('notifRecipient').addEventListener('change', async function() {
+  var val = this.value;
+  var group = document.getElementById('specificRecipientGroup');
+  var select = document.getElementById('specificRecipient');
+  if (val === 'specific_staff' || val === 'specific_student') {
+    group.style.display = 'block';
+    select.innerHTML = '<option value="">Loading...</option>';
+    if (val === 'specific_staff') {
+      var snap = await getDocs(query(collection(db,'users'), where('role','==','staff')));
+      select.innerHTML = '<option value="">Choose staff member</option>';
+      snap.forEach(function(d){ var data=d.data(); var o=document.createElement('option'); o.value=d.id; o.textContent=data.name+' ('+data.email+')'; select.appendChild(o); });
+    } else {
+      var snap = await getDocs(collection(db,'individualStudents'));
+      select.innerHTML = '<option value="">Choose student</option>';
+      snap.forEach(function(d){ var data=d.data(); var o=document.createElement('option'); o.value=d.id; o.textContent=(data.fullName||data.username); select.appendChild(o); });
+    }
+  } else { group.style.display = 'none'; }
+});
+document.getElementById('notificationForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var recipient = document.getElementById('notifRecipient').value;
+  var specific  = document.getElementById('specificRecipient').value;
+  var title     = document.getElementById('notifTitle').value;
+  var message   = document.getElementById('notifMessage').value;
+  var recipientId = recipient;
+  if ((recipient==='specific_staff'||recipient==='specific_student') && !specific) { alert('Please select a person'); return; }
+  if (recipient==='specific_staff'||recipient==='specific_student') recipientId = specific;
+  try {
+    await addDoc(collection(db,'notifications'), { recipientId, title, message, read: false, timestamp: serverTimestamp() });
+    showSuccess('notificationSuccess'); this.reset();
+    document.getElementById('specificRecipientGroup').style.display = 'none';
+  } catch(e) { alert('Error: '+e.message); }
+});
+
+// ── ACTIVITY LOGS ─────────────────────────────────────────────
+async function loadActivityLogs() {
+  var container = document.getElementById('activityLogsContainer');
+  var showLogins    = document.getElementById('filterLogins').checked;
+  var showResources = document.getElementById('filterResources').checked;
+  container.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;">Loading...</div>';
+  var snap = await getDocs(query(collection(db,'activityLogs'), orderBy('timestamp','desc')));
+  if (snap.empty) { container.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;">No activity yet</div>'; return; }
+  container.innerHTML = '';
+  snap.forEach(function(docSnap) {
+    var data = docSnap.data();
+    if (!showLogins    && (data.type==='login'||data.type==='logout')) return;
+    if (!showResources && data.type && data.type.includes('resource')) return;
+    var ICONS = { login:'🔓', logout:'🔒', staff_resource_sent:'📤', staff_school_resource_sent:'🏫', student_added:'👤' };
+    var DESCS = {
+      login: data.userType+' logged in: '+data.userEmail,
+      logout: data.userType+' logged out: '+data.userEmail,
+      staff_resource_sent: 'Staff '+data.staffEmail+' sent "'+data.resourceTitle+'" to a student',
+      staff_school_resource_sent: 'Staff '+data.staffEmail+' sent "'+data.resourceTitle+'" to a school',
+      student_added: 'Staff '+data.staffEmail+' added student: '+data.studentUsername
+    };
+    var item = document.createElement('div'); item.className='log-item';
+    item.innerHTML='<div class="log-icon">'+(ICONS[data.type]||'📊')+'</div>'
+      +'<div><div class="log-text">'+(DESCS[data.type]||data.type)+'</div>'
+      +'<div class="log-time">'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleString():'')+'</div></div>';
+    container.appendChild(item);
+  });
+}
+window.loadActivityLogs = loadActivityLogs;
 loadActivityLogs();
 
-
-// News Form Submit Handler
+// ── NEWS CORNER ───────────────────────────────────────────────
 document.getElementById('newsForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const title = document.getElementById('newsTitle').value.trim();
-    const category = document.getElementById('newsCategory').value;
-    const author = document.getElementById('newsAuthor').value.trim();
-    const excerpt = document.getElementById('newsExcerpt').value.trim();
-    const content = document.getElementById('newsContent').value.trim();
-    const imageUrl = document.getElementById('newsImage').value.trim();
-
-    console.log('Publishing news:', { title, category, author });
-
-    try {
-        await addDoc(collection(db, 'newsCorner'), {
-            title: title,
-            category: category,
-            author: author,
-            excerpt: excerpt,
-            content: content,
-            imageUrl: imageUrl || '',
-            timestamp: serverTimestamp(),
-            views: 0
-        });
-
-        console.log('✅ News post published successfully');
-        document.getElementById('newsSuccess').classList.add('show');
-        setTimeout(() => document.getElementById('newsSuccess').classList.remove('show'), 3000);
-        this.reset();
-        loadNewsCorner();
-    } catch (error) {
-        console.error('❌ Error publishing news:', error);
-        alert('Error publishing news: ' + error.message);
-    }
+  e.preventDefault();
+  var title    = document.getElementById('newsTitle').value.trim();
+  var category = document.getElementById('newsCategory').value;
+  var author   = document.getElementById('newsAuthor').value.trim();
+  var excerpt  = document.getElementById('newsExcerpt').value.trim();
+  var content  = document.getElementById('newsContent').value.trim();
+  var imageUrl = document.getElementById('newsImage').value.trim();
+  try {
+    await addDoc(collection(db,'newsCorner'), { title, category, author, excerpt, content, imageUrl: imageUrl||'', timestamp: serverTimestamp(), views: 0 });
+    showSuccess('newsSuccess'); this.reset(); loadNewsCorner();
+  } catch(e) { alert('Error: '+e.message); }
 });
 
-// Load News Corner posts for admin view
+const CAT_ICONS  = { announcement:'📢', event:'🎉', achievement:'🏆', update:'🔔', holiday:'🎄' };
+const CAT_LABELS = { announcement:'Announcement', event:'Event', achievement:'Achievement', update:'Update', holiday:'Holiday Special' };
+
 async function loadNewsCorner() {
-    const grid = document.getElementById('newsGrid');
-    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--gray);">Loading news posts...</div>';
-
-    try {
-        const q = query(collection(db, 'newsCorner'), orderBy('timestamp', 'desc'));
-        const snapshot = await getDocs(q);
-
-        if (snapshot.empty) {
-            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--gray);">No news posts yet. Create your first post above!</div>';
-            return;
-        }
-
-        grid.innerHTML = '';
-
-        const categoryIcons = {
-            'announcement': '📢',
-            'event': '🎉',
-            'achievement': '🏆',
-            'update': '🔔',
-            'holiday': '🎄'
-        };
-
-        const categoryLabels = {
-            'announcement': 'Announcement',
-            'event': 'Event',
-            'achievement': 'Achievement',
-            'update': 'Update',
-            'holiday': 'Holiday Special'
-        };
-
-        snapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            const card = document.createElement('div');
-            card.className = 'post-card';
-            
-            const imagePreview = data.imageUrl ? 
-                `<img src="${data.imageUrl}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;" alt="${data.title}">` : 
-                '';
-
-            card.innerHTML = `
-                ${imagePreview}
-                <h3>${data.title}</h3>
-                <div class="post-meta">
-                    <span>${categoryIcons[data.category] || '📰'} ${categoryLabels[data.category] || data.category}</span>
-                    <span>👁️ ${data.views || 0} views</span>
-                </div>
-                <p style="font-size: 0.9rem; color: var(--gray); margin-bottom: 0.75rem;">${data.excerpt}</p>
-                <div class="post-meta" style="margin-top: 0.5rem; border-top: 1px solid #e2e8f0; padding-top: 0.75rem;">
-                    <span>✍️ ${data.author}</span>
-                    <span>${new Date(data.timestamp?.toDate()).toLocaleDateString()}</span>
-                </div>
-                <div class="post-actions" style="margin-top: 1rem;">
-                    <button class="action-btn edit-btn" onclick="editNewsPost('${docSnap.id}', ${JSON.stringify(data).replace(/"/g, '&quot;')})">Edit</button>
-                    <button class="action-btn delete-btn" onclick="deleteNewsPost('${docSnap.id}')">Delete</button>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-    } catch (error) {
-        console.error('Error loading news:', error);
-        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #c00;">Error loading news posts</div>';
-    }
+  var grid = document.getElementById('newsGrid');
+  grid.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;">Loading news posts...</div>';
+  var snap = await getDocs(query(collection(db,'newsCorner'), orderBy('timestamp','desc')));
+  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;">No news posts yet.</div>'; return; }
+  grid.innerHTML = '';
+  snap.forEach(function(docSnap) {
+    var data = docSnap.data();
+    var card = document.createElement('div'); card.className='post-card';
+    var imgPrev = data.imageUrl ? '<img src="'+data.imageUrl+'" style="width:100%;height:130px;object-fit:cover;margin-bottom:.6rem;border-radius:2px;" alt="">' : '';
+    var dataStr = JSON.stringify(data).replace(/"/g,'&quot;');
+    card.innerHTML = imgPrev
+      +'<h3>'+data.title+'</h3>'
+      +'<div class="post-meta"><span>'+(CAT_ICONS[data.category]||'📰')+' '+(CAT_LABELS[data.category]||data.category)+'</span><span>👁️ '+(data.views||0)+' views</span></div>'
+      +'<p>'+data.excerpt+'</p>'
+      +'<div class="post-meta" style="border-top:1px solid var(--border);padding-top:.5rem;margin-top:.4rem;"><span>✍️ '+data.author+'</span><span>'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
+      +'<div class="post-actions" style="margin-top:.6rem;">'
+      +'<button class="btn btn-blue btn-sm" onclick="editNewsPost(\''+docSnap.id+'\','+dataStr+')">Edit</button>'
+      +'<button class="btn btn-danger btn-sm" onclick="deleteNewsPost(\''+docSnap.id+'\')">Delete</button>'
+      +'</div>';
+    grid.appendChild(card);
+  });
 }
-
-// Edit news post
 window.editNewsPost = function(docId, data) {
-    // Parse the data if it's a string
-    if (typeof data === 'string') {
-        data = JSON.parse(data);
-    }
-
-    // Scroll to form
-    document.getElementById('newsCorner').scrollIntoView({ behavior: 'smooth' });
-
-    // Populate form fields
-    document.getElementById('newsTitle').value = data.title || '';
-    document.getElementById('newsCategory').value = data.category || '';
-    document.getElementById('newsAuthor').value = data.author || '';
-    document.getElementById('newsExcerpt').value = data.excerpt || '';
-    document.getElementById('newsContent').value = data.content || '';
-    document.getElementById('newsImage').value = data.imageUrl || '';
-
-    // Change submit button to update mode
-    const form = document.getElementById('newsForm');
-    const submitBtn = form.querySelector('.submit-btn');
-    submitBtn.textContent = 'Update News Post';
-    submitBtn.style.background = 'linear-gradient(135deg, #0ea5e9, #0284c7)';
-
-    // Store the doc ID for updating
-    form.dataset.editingId = docId;
-
-    // Modify form submit handler
-    form.onsubmit = async function(e) {
-        e.preventDefault();
-        
-        const title = document.getElementById('newsTitle').value.trim();
-        const category = document.getElementById('newsCategory').value;
-        const author = document.getElementById('newsAuthor').value.trim();
-        const excerpt = document.getElementById('newsExcerpt').value.trim();
-        const content = document.getElementById('newsContent').value.trim();
-        const imageUrl = document.getElementById('newsImage').value.trim();
-
-        try {
-            await setDoc(doc(db, 'newsCorner', form.dataset.editingId), {
-                title: title,
-                category: category,
-                author: author,
-                excerpt: excerpt,
-                content: content,
-                imageUrl: imageUrl || '',
-                timestamp: data.timestamp, // Keep original timestamp
-                views: data.views || 0 // Keep view count
-            });
-            
-
-            console.log('✅ News post updated successfully');
-            alert('News post updated successfully!');
-            
-            // Reset form
-            this.reset();
-            delete form.dataset.editingId;
-            submitBtn.textContent = 'Publish News Post';
-            submitBtn.style.background = 'linear-gradient(135deg, var(--madder), #d62a1a)';
-            
-            // Restore original submit handler
-            form.onsubmit = document.getElementById('newsForm').onsubmit;
-            
-            loadNewsCorner();
-        } catch (error) {
-            console.error('Error updating news:', error);
-            alert('Error updating news: ' + error.message);
-        }
-    };
-};
-
-// Delete news post
-window.deleteNewsPost = async function(docId) {
-    if (!confirm('Are you sure you want to delete this news post? This action cannot be undone.')) {
-        return;
-    }
-
+  if (typeof data==='string') data=JSON.parse(data);
+  document.getElementById('newsCorner').scrollIntoView({behavior:'smooth'});
+  document.getElementById('newsTitle').value    = data.title||'';
+  document.getElementById('newsCategory').value = data.category||'';
+  document.getElementById('newsAuthor').value   = data.author||'';
+  document.getElementById('newsExcerpt').value  = data.excerpt||'';
+  document.getElementById('newsContent').value  = data.content||'';
+  document.getElementById('newsImage').value    = data.imageUrl||'';
+  var form = document.getElementById('newsForm');
+  var btn  = form.querySelector('.btn');
+  btn.textContent = 'Update News Post';
+  btn.style.background = '#0ea5e9';
+  form.dataset.editingId = docId;
+  form.onsubmit = async function(e) {
+    e.preventDefault();
     try {
-        await deleteDoc(doc(db, 'newsCorner', docId));
-        console.log('✅ News post deleted');
-        alert('News post deleted successfully!');
-        loadNewsCorner();
-    } catch (error) {
-        console.error('Error deleting news:', error);
-        alert('Error deleting post: ' + error.message);
-    }
+      await setDoc(doc(db,'newsCorner',form.dataset.editingId), {
+        title: document.getElementById('newsTitle').value.trim(),
+        category: document.getElementById('newsCategory').value,
+        author:   document.getElementById('newsAuthor').value.trim(),
+        excerpt:  document.getElementById('newsExcerpt').value.trim(),
+        content:  document.getElementById('newsContent').value.trim(),
+        imageUrl: document.getElementById('newsImage').value.trim()||'',
+        timestamp: data.timestamp, views: data.views||0
+      });
+      alert('News post updated!');
+      this.reset(); delete form.dataset.editingId;
+      btn.textContent='Publish News Post'; btn.style.background='';
+      form.onsubmit = null; loadNewsCorner();
+    } catch(e) { alert('Error: '+e.message); }
+  };
 };
-
-// Initialize - load news posts when page loads
+window.deleteNewsPost = async function(id) {
+  if (!confirm('Delete this news post?')) return;
+  await deleteDoc(doc(db,'newsCorner',id)); alert('Deleted!'); loadNewsCorner();
+};
 loadNewsCorner();
+
 </script>
 </body>
 </html>

@@ -1,271 +1,522 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Resources - JAYSTARBLISS STUDIOS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        snow: '#FFFAFA',
-                        madder: '#A91B0D',
-                        golden: '#FFD700',
-                    }
-                }
-            }
-        }
-    </script>
+    <title>School Resources — Jaystarbliss Dynamic Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        :root {
+            --madder: #A91B0D; --madder-dark: #7a1309; --madder-lite: #c9210f;
+            --gold: #FFD700; --gold-dim: #b89d00; --snow: #FFFAFA; --dark: #1a1a1a;
+            --green: #2ecc71; --bg: #141414; --surface: #1e1e1e; --surface-2: #272727;
+            --border: rgba(255,255,255,0.07); --border-bright: rgba(169,27,13,0.4);
+            --text: #FFFAFA; --text-muted: #a8a8a8; --text-dim: #5a5a5a;
+            --topbar-h: 56px;
+            --mono: 'Space Mono', monospace; --sans: 'DM Sans', sans-serif;
         }
-        .poppins {
-            font-family: 'Poppins', sans-serif;
+        [data-theme="light"] {
+            --bg: #f5f0f0; --surface: #FFFAFA; --surface-2: #ede8e8;
+            --border: rgba(169,27,13,0.1); --border-bright: rgba(169,27,13,0.35);
+            --text: #1a1a1a; --text-muted: #5a4a4a; --text-dim: #9a8a8a;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 14px; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; }
+
+        /* TOPBAR */
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
+            padding: 0 1.5rem; gap: 1rem;
+            height: var(--topbar-h);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .brand-mark {
+            width: 28px; height: 28px; background: var(--madder);
+            display: grid; place-items: center;
+            font-family: var(--mono); font-size: 0.7rem; font-weight: 700;
+            color: var(--snow);
+            clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
+            flex-shrink: 0;
+        }
+        .brand-name { font-family: var(--mono); font-size: 0.72rem; font-weight: 700; color: var(--text); text-transform: uppercase; }
+        .topbar-divider { width: 1px; height: 24px; background: var(--border); }
+        .topbar-breadcrumb { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; }
+        .topbar-breadcrumb span { color: var(--gold); }
+        .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
+        .icon-btn {
+            width: 32px; height: 32px; background: var(--surface-2); border: 1px solid var(--border);
+            color: var(--text-muted); display: grid; place-items: center; cursor: pointer;
+            font-size: 0.85rem; transition: all 0.15s;
+        }
+        .icon-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.4rem 0.9rem;
+            font-family: var(--mono); font-size: 0.65rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            background: transparent; color: var(--text-muted);
+            border: 1px solid var(--border); cursor: pointer; transition: all 0.15s;
+        }
+        .back-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* SCHOOL HERO */
+        .school-hero {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem;
+            position: relative; overflow: hidden;
+        }
+        .school-hero::before {
+            content: 'JDH';
+            position: absolute; right: 2rem; top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--mono); font-size: 5rem; font-weight: 700;
+            color: rgba(169,27,13,0.06); pointer-events: none;
+        }
+        .school-hero-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 1.2rem; }
+        .school-icon {
+            width: 48px; height: 48px; background: var(--madder);
+            display: grid; place-items: center; font-size: 1.4rem; flex-shrink: 0;
+            clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
+        }
+        .school-name { font-family: var(--mono); font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1; }
+        .school-name span { color: var(--gold); }
+        .school-badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            margin-top: 0.4rem;
+            font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase;
+            letter-spacing: 0.06em; color: var(--text-muted);
+        }
+        .school-badge::before { content: ''; width: 5px; height: 5px; background: var(--green); display: inline-block; }
+
+        /* TAB BAR */
+        .tab-bar-wrap {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: var(--topbar-h); z-index: 90;
+        }
+        .tab-bar { max-width: 1200px; margin: 0 auto; display: flex; padding: 0 1.5rem; }
+        .tab-btn {
+            padding: 0.8rem 1.2rem;
+            font-family: var(--mono); font-size: 0.65rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            color: var(--text-dim); background: none; border: none; cursor: pointer;
+            border-bottom: 2px solid transparent; margin-bottom: -1px;
+            transition: all 0.15s; display: flex; align-items: center; gap: 0.4rem;
+        }
+        .tab-btn:hover { color: var(--text-muted); }
+        .tab-btn.active { color: var(--madder-lite); border-bottom-color: var(--madder); }
+        .tab-count {
+            background: var(--madder); color: var(--snow);
+            font-family: var(--mono); font-size: 0.58rem;
+            padding: 1px 5px; border: 1px solid var(--madder-dark);
+            display: none;
+        }
+        .tab-count.show { display: inline-block; }
+
+        /* MAIN */
+        .main { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+        /* TAB PANES */
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        /* SECTION HEADER */
+        .section-head {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1.2rem; padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-title {
+            font-family: var(--mono); font-size: 0.8rem; font-weight: 700;
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .section-title::before { content: ''; width: 6px; height: 6px; background: var(--madder); display: inline-block; }
+        .section-meta { font-family: var(--mono); font-size: 0.62rem; color: var(--text-dim); }
+
+        /* RESOURCE GRID */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1px; background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        /* RESOURCE CARD */
+        .r-card {
+            background: var(--surface);
+            padding: 1.2rem;
+            display: flex; flex-direction: column; gap: 0.6rem;
+            transition: background 0.15s;
+            position: relative; overflow: hidden;
+        }
+        .r-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 2px; background: var(--madder);
+        }
+        .r-card:hover { background: var(--surface-2); }
+        .r-card-type {
+            font-family: var(--mono); font-size: 0.58rem; color: var(--text-dim);
+            text-transform: uppercase; letter-spacing: 0.08em;
+        }
+        .r-card-title { font-size: 0.85rem; font-weight: 600; color: var(--text); line-height: 1.35; }
+        .r-card-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; flex: 1; }
+        .r-card-meta { font-family: var(--mono); font-size: 0.62rem; color: var(--text-dim); }
+        .r-card-btn {
+            width: 100%; padding: 0.6rem;
+            font-family: var(--mono); font-size: 0.65rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            border: none; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 0.4rem;
+            transition: background 0.15s; margin-top: 0.2rem;
+        }
+        .r-card-btn.primary { background: var(--madder); color: var(--snow); }
+        .r-card-btn.primary:hover { background: var(--madder-lite); }
+        .r-card-btn.secondary { background: transparent; color: var(--gold); border: 1px solid var(--gold-dim); }
+        .r-card-btn.secondary:hover { background: rgba(255,215,0,0.08); }
+
+        /* EMPTY STATE */
+        .empty {
+            grid-column: 1 / -1;
+            text-align: center; padding: 4rem 1rem;
+            color: var(--text-dim); font-family: var(--mono); font-size: 0.7rem;
+        }
+        .empty-icon { font-size: 2.5rem; margin-bottom: 0.8rem; opacity: 0.4; }
+        .empty-sub { margin-top: 0.3rem; font-size: 0.62rem; }
+
+        /* LOADING SHIMMER */
+        .shimmer {
+            background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.2s infinite;
+            height: 160px;
+        }
+        @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+        /* SEARCH */
+        .search-bar {
+            display: flex; align-items: center; gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+        .search-wrap { position: relative; flex: 1; max-width: 320px; }
+        .search-icon { position: absolute; left: 0.7rem; color: var(--text-dim); font-size: 0.8rem; pointer-events: none; top: 50%; transform: translateY(-50%); }
+        .form-control {
+            background: var(--surface-2); border: 1px solid var(--border);
+            color: var(--text); padding: 0.45rem 0.8rem 0.45rem 2rem;
+            font-family: var(--sans); font-size: 0.8rem;
+            outline: none; width: 100%; transition: border-color 0.15s;
+        }
+        .form-control:focus { border-color: var(--gold); }
+        .form-control::placeholder { color: var(--text-dim); }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .r-card { animation: fadeUp 0.25s ease both; }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .resource-grid { grid-template-columns: 1fr; }
+            .school-hero-inner { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+            .main { padding: 1rem; }
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <!-- Header -->
-    <header class="bg-gradient-to-r from-madder to-red-800 text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div>
-                    <h1 id="schoolName" class="poppins text-3xl font-bold">🏫 School Resources</h1>
-                    <div id="schoolBadge" class="inline-block mt-2 bg-white/20 px-4 py-1.5 rounded-full text-sm border border-white/30">
-                        Loading...
-                    </div>
-                </div>
-                <button onclick="goBack()" class="bg-white/20 hover:bg-white/30 border-2 border-white/30 px-6 py-2.5 rounded-lg font-semibold transition-all hover:-translate-y-0.5">
-                    ← Back to Portal
-                </button>
-            </div>
-        </div>
-    </header>
+<body>
 
-    <!-- Navigation Tabs -->
-    <nav class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex gap-2">
-                <button onclick="switchTab('resources')" class="nav-tab active px-6 py-4 font-semibold text-gray-600 border-b-3 border-transparent hover:text-madder transition-colors">
-                    📖 Resources
-                </button>
-                <button onclick="switchTab('links')" class="nav-tab px-6 py-4 font-semibold text-gray-600 border-b-3 border-transparent hover:text-madder transition-colors">
-                    🔗 Links
-                </button>
-            </div>
-        </div>
+<!-- TOPBAR -->
+<header class="topbar">
+    <div class="brand-mark">JDH</div>
+    <span class="brand-name">Jaystarbliss</span>
+    <div class="topbar-divider"></div>
+    <nav class="topbar-breadcrumb">
+        <span>Student Portal</span> ›
+        <span id="breadcrumbSchool">School Resources</span>
     </nav>
+    <div class="topbar-right">
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme">◐</button>
+        <button class="back-btn" id="backBtn">← Back to Portal</button>
+    </div>
+</header>
 
-    <!-- Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Resources Tab -->
-        <div id="resources" class="tab-content">
-            <h2 class="poppins text-2xl font-bold text-madder mb-6">📚 School Learning Resources</h2>
-            <div id="resourcesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="col-span-full text-center py-16 text-gray-500">
-                    <svg class="w-20 h-20 mx-auto mb-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                    </svg>
-                    <p class="text-lg">Loading resources...</p>
-                </div>
+<!-- SCHOOL HERO -->
+<div class="school-hero">
+    <div class="school-hero-inner">
+        <div class="school-icon">🏫</div>
+        <div>
+            <div class="school-name">Welcome, <span id="schoolNameEl">School</span></div>
+            <div class="school-badge" id="schoolBadgeEl">Loading...</div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar-wrap">
+    <div class="tab-bar">
+        <button class="tab-btn active" data-target="tab-resources">
+            📄 Resources <span class="tab-count" id="countResources">0</span>
+        </button>
+        <button class="tab-btn" data-target="tab-links">
+            🔗 Links <span class="tab-count" id="countLinks">0</span>
+        </button>
+        <button class="tab-btn" data-target="tab-exams">
+            📝 Exams <span class="tab-count" id="countExams">0</span>
+        </button>
+    </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- RESOURCES TAB -->
+    <div class="tab-pane active" id="tab-resources">
+        <div class="section-head">
+            <div class="section-title">Learning Resources</div>
+            <div class="section-meta" id="metaResources">—</div>
+        </div>
+        <div class="search-bar">
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input class="form-control" type="text" placeholder="Search resources..." id="searchResources">
             </div>
         </div>
+        <div class="resource-grid" id="resourcesGrid">
+            <div class="shimmer"></div><div class="shimmer"></div><div class="shimmer"></div>
+        </div>
+    </div>
 
-        <!-- Links Tab -->
-        <div id="links" class="tab-content hidden">
-            <h2 class="poppins text-2xl font-bold text-madder mb-6">🔗 School Links</h2>
-            <div id="linksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="col-span-full text-center py-16 text-gray-500">
-                    <svg class="w-20 h-20 mx-auto mb-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                    </svg>
-                    <p class="text-lg">Loading links...</p>
-                </div>
+    <!-- LINKS TAB -->
+    <div class="tab-pane" id="tab-links">
+        <div class="section-head">
+            <div class="section-title">School Links</div>
+            <div class="section-meta" id="metaLinks">—</div>
+        </div>
+        <div class="search-bar">
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input class="form-control" type="text" placeholder="Search links..." id="searchLinks">
             </div>
         </div>
-    </main>
+        <div class="resource-grid" id="linksGrid">
+            <div class="shimmer"></div><div class="shimmer"></div><div class="shimmer"></div>
+        </div>
+    </div>
 
-    <style>
-        .nav-tab.active {
-            color: #A91B0D;
-            border-bottom-color: #A91B0D;
-        }
-    </style>
+    <!-- EXAMS TAB -->
+    <div class="tab-pane" id="tab-exams">
+        <div class="section-head">
+            <div class="section-title">Examination Questions</div>
+            <div class="section-meta" id="metaExams">—</div>
+        </div>
+        <div class="resource-grid" id="examsGrid">
+            <div class="shimmer"></div><div class="shimmer"></div><div class="shimmer"></div>
+        </div>
+    </div>
 
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+</main>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
-            authDomain: "jaystarbliss-studios.firebaseapp.com",
-            projectId: "jaystarbliss-studios",
-            storageBucket: "jaystarbliss-studios.firebasestorage.app",
-            messagingSenderId: "885364100276",
-            appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
-        };
+<!-- UI SCRIPT — plain, always runs -->
+<script>
+    // Theme
+    window.toggleTheme = function() {
+        var html = document.documentElement;
+        html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('jdh-theme', html.dataset.theme);
+    };
+    var saved = localStorage.getItem('jdh-theme');
+    if (saved) document.documentElement.dataset.theme = saved;
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    // Tabs
+    window.switchTab = function(name) {
+        document.querySelectorAll('.tab-pane').forEach(function(p) {
+            p.classList.toggle('active', p.id === name);
+        });
+        document.querySelectorAll('.tab-btn').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.target === name);
+        });
+    };
 
-        const schoolId = sessionStorage.getItem('schoolId');
-        const schoolName = sessionStorage.getItem('schoolName');
-
-        console.log('School ID:', schoolId);
-        console.log('School Name:', schoolName);
-
-        if (!schoolId) {
-            alert('No school selected. Redirecting...');
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('themeToggleBtn').addEventListener('click', window.toggleTheme);
+        document.getElementById('backBtn').addEventListener('click', function() {
             window.location.href = '../dashboard/student-portal.html';
+        });
+        document.querySelectorAll('.tab-btn').forEach(function(b) {
+            b.addEventListener('click', function() { window.switchTab(b.dataset.target); });
+        });
+    });
+</script>
+
+<!-- FIREBASE MODULE SCRIPT -->
+<script type="module">
+    import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getFirestore, collection, getDocs, query, where }
+        from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+        authDomain: "jaystarbliss-studios.firebaseapp.com",
+        projectId: "jaystarbliss-studios",
+        storageBucket: "jaystarbliss-studios.firebasestorage.app",
+        messagingSenderId: "885364100276",
+        appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    const schoolId   = sessionStorage.getItem('schoolId');
+    const schoolName = sessionStorage.getItem('schoolName');
+
+    if (!schoolId) {
+        alert('No school selected. Redirecting...');
+        window.location.href = '../dashboard/student-portal.html';
+    }
+
+    const schoolNames = {
+        peniel:       'Peniel Lily Montessori School',
+        southgold:    'South Gold Montessori School',
+        sapphire:     'Sapphire Explorer Montessori School',
+        easystars:    'Easy Stars Early Years Academy',
+        christycaleb: 'Christy Caleb International School',
+        royalbreed:   'Royal Breed Academy'
+    };
+
+    const displayName = schoolNames[schoolId] || schoolName || 'School Resources';
+    document.getElementById('schoolNameEl').textContent  = displayName;
+    document.getElementById('schoolBadgeEl').textContent = displayName;
+    document.getElementById('breadcrumbSchool').textContent = displayName;
+    document.title = displayName + ' — Jaystarbliss Dynamic Hub';
+
+    // Helpers
+    const fmtDate = ts => {
+        if (!ts) return 'Recent';
+        const d = ts.toDate ? ts.toDate() : new Date(ts);
+        return d.toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'});
+    };
+
+    const sortByTime = arr => arr.sort((a,b) =>
+        (b.data.timestamp?.toDate()||new Date(0)) - (a.data.timestamp?.toDate()||new Date(0))
+    );
+
+    function buildCard(data, kind) {
+        const isLink = kind === 'link';
+        const isExam = kind === 'exam';
+        const url    = data.url || data.fileUrl || '#';
+        const icon   = isExam ? '📝' : isLink ? '🔗' : '📄';
+        const label  = isExam ? 'Open Exam →' : isLink ? '↗ Open Link' : '↓ Download';
+        const btnCls = isLink ? 'secondary' : 'primary';
+        const typeLabel = isExam ? 'Exam' : isLink ? 'Link' : 'Resource';
+
+        return `
+        <div class="r-card">
+            <div class="r-card-type">${icon} ${typeLabel}</div>
+            <div class="r-card-title">${data.title || 'Untitled'}</div>
+            ${data.description ? `<div class="r-card-desc">${data.description}</div>` : ''}
+            <div class="r-card-meta">📅 ${fmtDate(data.timestamp)}</div>
+            <button class="r-card-btn ${btnCls}" onclick="window.open('${url}','_blank')">${label}</button>
+        </div>`;
+    }
+
+    function emptyState(msg, sub) {
+        return `<div class="empty"><div class="empty-icon">📭</div>${msg}<div class="empty-sub">${sub || 'Check back later!'}</div></div>`;
+    }
+
+    function errorState(msg) {
+        return `<div class="empty" style="color:var(--madder-lite)"><div class="empty-icon">⚠</div>Error loading data<div class="empty-sub">${msg}</div></div>`;
+    }
+
+    // Search helper
+    function attachSearch(inputId, gridId, dataRef) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        input.addEventListener('input', function() {
+            const q   = this.value.toLowerCase();
+            const grid = document.getElementById(gridId);
+            const f   = dataRef.filter(d =>
+                (d.title||'').toLowerCase().includes(q) ||
+                (d.description||'').toLowerCase().includes(q)
+            );
+            grid.innerHTML = f.length
+                ? f.map(d => buildCard(d, d._kind || 'resource')).join('')
+                : emptyState('No matches found', 'Try a different keyword');
+        });
+    }
+
+    // Load resources
+    async function loadResources() {
+        const grid = document.getElementById('resourcesGrid');
+        try {
+            const snap = await getDocs(query(collection(db, 'schoolResources'), where('schoolId','==',schoolId)));
+            let docs = [];
+            snap.forEach(d => docs.push({id:d.id, ...d.data(), _kind:'resource'}));
+            sortByTime(docs.map(d => ({data:d}))).forEach((w,i) => { docs[i] = w.data; });
+            // re-sort directly
+            docs.sort((a,b) => (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0)));
+
+            const c = docs.length;
+            const cnt = document.getElementById('countResources');
+            cnt.textContent = c; if (c) cnt.classList.add('show');
+            document.getElementById('metaResources').textContent = c + ' item' + (c !== 1 ? 's' : '') + ' available';
+            grid.innerHTML = c ? docs.map(d => buildCard(d, 'resource')).join('') : emptyState('No resources yet for your school');
+            attachSearch('searchResources', 'resourcesGrid', docs);
+        } catch(e) {
+            console.error('Resources error:', e);
+            grid.innerHTML = errorState(e.message);
         }
+    }
 
-        const schoolNames = {
-            'peniel': 'Peniel Lily Montessori School',
-            'southgold': 'South Gold Montessori School',
-            'sapphire': 'Sapphire Explorer Montessori School',
-            'easystars': 'Easy Stars Early Years Academy',
-            'christycaleb': 'Christy Caleb International School',
-            'royalbreed': 'Royal Breed Academy'
-        };
+    // Load links
+    async function loadLinks() {
+        const grid = document.getElementById('linksGrid');
+        try {
+            const snap = await getDocs(query(collection(db, 'schoolLinks'), where('schoolId','==',schoolId)));
+            let docs = [];
+            snap.forEach(d => docs.push({id:d.id, ...d.data(), _kind:'link'}));
+            docs.sort((a,b) => (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0)));
 
-        document.getElementById('schoolName').textContent = 'Welcome ' + (schoolNames[schoolId] || schoolName || 'School Resources');
-        document.getElementById('schoolBadge').textContent = schoolNames[schoolId] || schoolName || 'School';
-
-        window.switchTab = function(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabName).classList.remove('hidden');
-            event.target.classList.add('active');
-        };
-
-        window.goBack = function() {
-            window.location.href = '../dashboard/student-portal.html';
-        };
-
-        async function loadSchoolResources() {
-            const grid = document.getElementById('resourcesGrid');
-            grid.innerHTML = '';
-
-            try {
-                // Load without orderBy to avoid index requirement
-                const q = query(collection(db, 'schoolResources'), where('schoolId', '==', schoolId));
-                const querySnapshot = await getDocs(q);
-
-                // Sort in JavaScript instead
-                const docs = [];
-                querySnapshot.forEach((doc) => {
-                    docs.push({ id: doc.id, data: doc.data() });
-                });
-                docs.sort((a, b) => (b.data.timestamp?.toDate() || 0) - (a.data.timestamp?.toDate() || 0));
-
-                if (docs.length === 0) {
-                    grid.innerHTML = `
-                        <div class="col-span-full text-center py-16 text-gray-500">
-                            <svg class="w-20 h-20 mx-auto mb-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                            </svg>
-                            <p class="text-lg">No resources available yet for your school</p>
-                            <p class="text-sm mt-2">Check back later!</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                docs.forEach((item) => {
-                    const card = createResourceCard(item.data, 'resource');
-                    grid.appendChild(card);
-                });
-            } catch (error) {
-                console.error('❌ Error loading resources:', error);
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-16 text-red-600">
-                        <p class="text-lg font-semibold">Error loading resources</p>
-                        <p class="text-sm mt-2">${error.message}</p>
-                    </div>
-                `;
-            }
+            const c = docs.length;
+            const cnt = document.getElementById('countLinks');
+            cnt.textContent = c; if (c) cnt.classList.add('show');
+            document.getElementById('metaLinks').textContent = c + ' link' + (c !== 1 ? 's' : '') + ' available';
+            grid.innerHTML = c ? docs.map(d => buildCard(d, 'link')).join('') : emptyState('No links yet for your school');
+            attachSearch('searchLinks', 'linksGrid', docs);
+        } catch(e) {
+            console.error('Links error:', e);
+            grid.innerHTML = errorState(e.message);
         }
+    }
 
-        async function loadSchoolLinks() {
-            const grid = document.getElementById('linksGrid');
-            grid.innerHTML = '';
+    // Load exams
+    async function loadExams() {
+        const grid = document.getElementById('examsGrid');
+        try {
+            const snap = await getDocs(collection(db, 'schoolExams'));
+            let docs = [];
+            snap.forEach(d => {
+                const data = d.data();
+                if (data.schoolId === schoolId) docs.push({id:d.id, ...data, _kind:'exam'});
+            });
+            docs.sort((a,b) => (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0)));
 
-            try {
-                // Load without orderBy to avoid index requirement
-                const q = query(collection(db, 'schoolLinks'), where('schoolId', '==', schoolId));
-                const querySnapshot = await getDocs(q);
-
-                // Sort in JavaScript instead
-                const docs = [];
-                querySnapshot.forEach((doc) => {
-                    docs.push({ id: doc.id, data: doc.data() });
-                });
-                docs.sort((a, b) => (b.data.timestamp?.toDate() || 0) - (a.data.timestamp?.toDate() || 0));
-
-                if (docs.length === 0) {
-                    grid.innerHTML = `
-                        <div class="col-span-full text-center py-16 text-gray-500">
-                            <svg class="w-20 h-20 mx-auto mb-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                            </svg>
-                            <p class="text-lg">No links available yet for your school</p>
-                            <p class="text-sm mt-2">Check back later!</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                docs.forEach((item) => {
-                    const card = createResourceCard(item.data, 'link');
-                    grid.appendChild(card);
-                });
-            } catch (error) {
-                console.error('❌ Error loading links:', error);
-                grid.innerHTML = `
-                    <div class="col-span-full text-center py-16 text-red-600">
-                        <p class="text-lg font-semibold">Error loading links</p>
-                        <p class="text-sm mt-2">${error.message}</p>
-                    </div>
-                `;
-            }
+            const c = docs.length;
+            const cnt = document.getElementById('countExams');
+            cnt.textContent = c; if (c) cnt.classList.add('show');
+            document.getElementById('metaExams').textContent = c + ' exam' + (c !== 1 ? 's' : '') + ' available';
+            grid.innerHTML = c ? docs.map(d => buildCard(d, 'exam')).join('') : emptyState('No exams yet', 'Your teacher will upload exams soon!');
+        } catch(e) {
+            console.error('Exams error:', e);
+            grid.innerHTML = errorState(e.message);
         }
+    }
 
-        function createResourceCard(data, type) {
-            const card = document.createElement('div');
-            card.className = 'bg-white rounded-2xl shadow-md hover:shadow-xl transition-all hover:-translate-y-1 p-6 border-t-4 border-madder';
-
-            const icon = type === 'link' ? '🔗' : '📄';
-            const buttonText = type === 'link' ? 'Open Link' : 'Download';
-            const url = type === 'link' ? data.url : data.fileUrl;
-
-            card.innerHTML = `
-                <div class="text-5xl mb-4">${icon}</div>
-                <h3 class="poppins text-xl font-bold text-madder mb-2">${data.title}</h3>
-                <p class="text-sm text-gray-500 mb-3">📅 ${new Date(data.timestamp?.toDate()).toLocaleDateString()}</p>
-                <p class="text-gray-600 mb-4 line-clamp-3">${data.description}</p>
-                <button onclick="window.open('${url}', '_blank')" class="w-full bg-gradient-to-r from-madder to-red-700 hover:from-red-800 hover:to-red-900 text-white py-3 rounded-lg font-semibold transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                    </svg>
-                    ${buttonText}
-                </button>
-            `;
-
-            return card;
-        }
-
-        loadSchoolResources();
-        loadSchoolLinks();
-    </script>
+    loadResources();
+    loadLinks();
+    loadExams();
+</script>
 </body>
 </html>

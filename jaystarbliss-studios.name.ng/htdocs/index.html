@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jaystarbliss Dynamic Hub - Tech Education for Complete beginners</title>
 
-    <!-- ✅ FONTS: Swapped to match dashboard design system (Space Mono + DM Sans) -->
+    <!-- ✅ FONTS: Inter (body) + Poppins (headings) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
 
 <meta name="msvalidate.01" content="1615D671BF36C75CE953315AE3C2DCAB" />
 <meta property="og:title" content="Jaystarbliss Dynamic Hub" />
@@ -112,9 +112,9 @@ body::before {
     to { transform: translateX(-200px); }
 }
 
-/* ✅ FONT CHANGE: Inter → DM Sans for body */
+/* ✅ FONT CHANGE: Inter for body text */
 body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: var(--snow);
     color: var(--dark);
     line-height: 1.6;
@@ -242,7 +242,7 @@ nav.scrolled {
     color: var(--snow);
     font-size: 1.1rem;
     /* ✅ FONT CHANGE: Poppins → Space Mono */
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     box-shadow: 0 3px 10px rgba(169, 27, 13, 0.3);
     transition: all 0.3s ease;
     flex-shrink: 0;
@@ -263,7 +263,7 @@ nav.scrolled {
     font-size: 0.78rem;
     font-weight: 700;
     color: var(--dark);
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.04em;
     white-space: nowrap;
 }
@@ -377,12 +377,12 @@ nav.scrolled {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ✅ FONT CHANGE: Poppins → Space Mono for hero heading */
+/* ✅ FONT CHANGE: Poppins for hero heading */
 .hero h1 {
     font-size: clamp(1.8rem, 5vw, 3.5rem);
     font-weight: 700;
     margin-bottom: 1.5rem;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.15;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     letter-spacing: -0.02em;
@@ -419,7 +419,7 @@ nav.scrolled {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
     font-size: 0.9rem;
-    /* DM Sans inherits */
+    font-family: 'Poppins', sans-serif;
 }
 
 .cta-button:hover {
@@ -472,7 +472,7 @@ section {
     font-weight: 700;
     color: var(--dark);
     margin-bottom: 1rem;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.25;
     letter-spacing: -0.02em;
 }
@@ -521,12 +521,12 @@ section {
     100% { transform: translateX(100%); }
 }
 
-/* ✅ FONT CHANGE: Poppins → Space Mono for about headings */
+/* ✅ FONT CHANGE: Poppins for about headings */
 .about-text h3 {
     font-size: clamp(1.1rem, 3vw, 1.5rem);
     color: var(--madder);
     margin-bottom: 1.5rem;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
     letter-spacing: -0.01em;
 }
@@ -564,7 +564,7 @@ section {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 700;
     color: var(--madder);
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
 }
 
 .stat-label {
@@ -643,12 +643,12 @@ section {
     transform: scale(1.1) rotate(5deg);
 }
 
-/* ✅ FONT CHANGE: Poppins → Space Mono for service card headings */
+/* ✅ FONT CHANGE: Poppins for service card headings */
 .service-card h3 {
     font-size: clamp(1rem, 2.5vw, 1.2rem);
     color: var(--dark);
     margin-bottom: 1rem;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
     letter-spacing: -0.01em;
 }
@@ -723,7 +723,7 @@ section {
     color: var(--madder);
     font-size: clamp(1rem, 2.5vw, 1.2rem);
     margin-bottom: 0.5rem;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
     letter-spacing: -0.01em;
 }
@@ -867,7 +867,7 @@ section {
     font-size: clamp(1.1rem, 3vw, 1.5rem);
     color: var(--madder);
     margin-bottom: 1.5rem;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
     letter-spacing: -0.01em;
 }
@@ -951,7 +951,7 @@ section {
     font-weight: 600;
     margin-bottom: 0.3rem;
     font-size: clamp(0.95rem, 2vw, 1.1rem);
-    /* DM Sans inherits */
+    font-family: 'Poppins', sans-serif;
 }
 
 .contact-item p {
@@ -990,7 +990,7 @@ section {
     font-weight: 600;
     font-size: 0.85rem;
     /* ✅ Space Mono for form labels — matches dashboard style */
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
@@ -1004,7 +1004,7 @@ section {
     color: var(--dark);
     border-radius: 12px;
     font-size: 1rem;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     transition: all 0.3s ease;
     background: var(--snow);
 }
@@ -1030,7 +1030,7 @@ section {
     border-radius: 12px;
     font-size: 0.9rem;
     font-weight: 700;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
@@ -1069,7 +1069,7 @@ footer {
     font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Poppins', sans-serif;
     letter-spacing: 0.05em;
 }
 

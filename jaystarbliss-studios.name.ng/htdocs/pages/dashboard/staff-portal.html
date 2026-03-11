@@ -314,7 +314,7 @@
   <div class="topbar-brand"><img src="../../assets/img/favicon.png" alt="Jaystarbliss" style="height:32px;vertical-align:middle;margin-right:8px;"></div>
   <span class="topbar-role">STAFF</span>
   <span id="staffEmailDisplay">Loading…</span>
-  <button class="btn btn-ghost btn-sm" id="themeBtn" onclick="toggleTheme()" title="Toggle theme"><i data-lucide="moon" style="width:16px;height:16px;"></i></button>
+  <button class="btn btn-ghost btn-sm" id="themeBtn" onclick="toggleTheme()" title="Toggle theme"><i data-lucide="moon" style="width:16px;height:16px;display:block;"></i></button>
   <button class="btn btn-ghost btn-sm" onclick="doLogout()">Logout</button>
 </header>
 
@@ -718,8 +718,11 @@
     const saved = localStorage.getItem('jdh-theme') || 'dark';
     document.documentElement.setAttribute('data-theme', saved);
     document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.getElementById('themeBtn');
-      if(btn) btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+      const btn = document.getElementById('themeBtn').querySelector('[data-lucide]');
+      if(btn) {
+        btn.setAttribute('data-lucide', saved === 'dark' ? 'sun' : 'moon');
+        lucide.createIcons();
+      }
     });
   })();
 
@@ -729,7 +732,11 @@
     const next = cur === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
     localStorage.setItem('jdh-theme', next);
-    document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️' : '🌙';
+    const btn = document.getElementById('themeBtn').querySelector('[data-lucide]');
+    if(btn) {
+      btn.setAttribute('data-lucide', next === 'dark' ? 'sun' : 'moon');
+      lucide.createIcons();
+    }
   }
 
   /* Sidebar (mobile) */

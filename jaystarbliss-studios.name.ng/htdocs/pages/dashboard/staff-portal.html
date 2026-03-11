@@ -1,1732 +1,1406 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - JAYSTARBLISS STUDIOS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --snow: #FFFAFA;
-            --madder: #A91B0D;
-            --golden: #FFD700;
-            --dark: #1a1a1a;
-            --gray: #4a5568;
-            --light-gray: #f7fafc;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--light-gray);
-            color: var(--dark);
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--madder), #8B1507);
-            color: white;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .user-info {
-            font-size: 0.9rem;
-        }
-
-        .logout-btn {
-            padding: 0.6rem 1.5rem;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Navigation */
-        .nav-tabs {
-            background: white;
-            display: flex;
-            padding: 0 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            gap: 0.5rem;
-        }
-
-        .nav-tab {
-            padding: 1rem 1.5rem;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--gray);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .nav-tab:hover {
-            color: var(--madder);
-        }
-
-        .nav-tab.active {
-            color: var(--madder);
-            border-bottom-color: var(--madder);
-        }
-
-        /* Content Area */
-        .content {
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Post Form */
-        .post-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            margin-bottom: 2rem;
-        }
-
-        .post-form h2 {
-            color: var(--madder);
-            margin-bottom: 1.5rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--madder);
-            box-shadow: 0 0 0 4px rgba(169, 27, 13, 0.1);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .submit-btn {
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--madder), #d62a1a);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(169, 27, 13, 0.3);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(169, 27, 13, 0.4);
-        }
-
-        .preview-btn {
-            padding: 1rem 2rem;
-            background: var(--golden);
-            color: var(--dark);
-            border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-right: 1rem;
-        }
-
-        .preview-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        /* Posts Grid */
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .post-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .post-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--madder), var(--golden));
-        }
-
-        .post-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(169, 27, 13, 0.15);
-        }
-
-        .post-card h3 {
-            color: var(--madder);
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .post-card p {
-            color: var(--gray);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .post-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-
-        .post-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .action-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .edit-btn {
-            background: #3b82f6;
-            color: white;
-        }
-
-        .edit-btn:hover {
-            background: #2563eb;
-        }
-
-        .delete-btn {
-            background: #ef4444;
-            color: white;
-        }
-
-        .delete-btn:hover {
-            background: #dc2626;
-        }
-
-        .preview-frame {
-            width: 100%;
-            height: 200px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .success-message.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .info-box {
-            background: #fff9e6;
-            border-left: 4px solid var(--golden);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        .info-box strong {
-            color: var(--madder);
-        }
-
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .posts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-
-        @media (max-width: 1024px) {
-    .nav-tabs {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff Portal — Jaystarbliss Dynamic Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --madder: #A91B0D; --madder-dark: #7a1309; --madder-lite: #c9210f;
+      --gold: #FFD700; --gold-dim: #b89d00;
+      --snow: #FFFAFA; --dark: #1a1a1a;
+      --green: #2ecc71; --blue: #3b82f6;
+      --bg: #141414; --surface: #1e1e1e; --surface-2: #272727;
+      --border: rgba(255,255,255,0.07); --border-bright: rgba(169,27,13,0.4);
+      --text: #FFFAFA; --text-muted: #a8a8a8; --text-dim: #5a5a5a;
+      --sidebar-w: 240px; --topbar-h: 56px;
     }
-    
-    .nav-tab {
-        white-space: nowrap;
-        font-size: 0.85rem;
-        padding: 0.8rem 1rem;
+    [data-theme="light"] {
+      --bg: #f5f0f0; --surface: #FFFAFA; --surface-2: #ede8e8;
+      --border: rgba(169,27,13,0.1); --border-bright: rgba(169,27,13,0.3);
+      --text: #1a1a1a; --text-muted: #5a4a4a; --text-dim: #aaa;
     }
-}
-
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        padding: 1rem;
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg); color: var(--text);
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      grid-template-rows: var(--topbar-h) 1fr;
+      min-height: 100vh;
+      transition: background .3s, color .3s;
     }
-    
-    .header h1 {
-        font-size: 1.2rem;
+
+    /* ── TOPBAR ── */
+    .topbar {
+      grid-column: 1/-1; grid-row: 1;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 20px; gap: 12px;
+      position: sticky; top:0; z-index:200;
     }
-    
-    .header-right {
-        width: 100%;
-        justify-content: space-between;
+    .topbar-brand {
+      font-family: 'Space Mono', monospace;
+      font-size: .72rem; font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; color: var(--madder);
+      margin-right: auto;
     }
-    
-    .nav-tabs {
-        padding: 0 0.5rem;
+    .topbar-brand span { color: var(--gold); }
+    #staffEmailDisplay {
+      font-size: .78rem; color: var(--text-muted);
+      font-family: 'Space Mono', monospace;
+      max-width: 180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
     }
-    
-    .content {
-        padding: 1rem;
+    .topbar-role {
+      font-size:.7rem; background: rgba(169,27,13,.15);
+      color: var(--madder); padding: 2px 8px;
+      font-family:'Space Mono',monospace; letter-spacing:.05em;
+      border: 1px solid var(--border-bright);
     }
-    
-    .form-row {
-        grid-template-columns: 1fr;
+    .btn { 
+      font-family: 'Space Mono', monospace;
+      font-size:.72rem; font-weight:700; letter-spacing:.06em;
+      text-transform:uppercase; cursor:pointer;
+      border:none; transition: all .2s;
     }
-    
-    .posts-grid {
-        grid-template-columns: 1fr;
+    .btn-ghost {
+      background:transparent; color:var(--text-muted);
+      border: 1px solid var(--border); padding: 6px 14px;
     }
-    
-    .post-form {
-        padding: 1.5rem;
+    .btn-ghost:hover { border-color:var(--madder); color:var(--madder); }
+    .btn-primary {
+      background:var(--madder); color:#fff; padding:8px 18px;
+      border: 1px solid var(--madder-lite);
     }
-}
+    .btn-primary:hover { background:var(--madder-lite); }
+    .btn-gold { background:var(--gold); color:#1a1a1a; padding:8px 18px; }
+    .btn-gold:hover { background:var(--gold-dim); }
+    .btn-danger { background:rgba(231,76,60,.15); color:#e74c3c; padding:6px 12px; border:1px solid rgba(231,76,60,.3); }
+    .btn-danger:hover { background:rgba(231,76,60,.25); }
+    .btn-blue { background:rgba(59,130,246,.15); color:#3b82f6; padding:6px 12px; border:1px solid rgba(59,130,246,.3); }
+    .btn-blue:hover { background:rgba(59,130,246,.25); }
+    .btn-sm { padding: 5px 10px; font-size:.65rem; }
+    #themeBtn { width:32px; height:32px; display:grid; place-items:center; font-size:1rem; }
+    #hamBtn { display:none; width:32px; height:32px; flex-direction:column; justify-content:center; gap:5px; background:none; border:none; cursor:pointer; }
+    #hamBtn span { display:block; height:2px; background:var(--text-muted); transition: .3s; }
 
-/* Notification Bell */
-.notification-bell {
-    position: fixed;
-    top: 90%;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--madder), #d62a1a);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(169, 27, 13, 0.4);
-    transition: all 0.3s ease;
-    z-index: 999;
-}
-
-.notification-bell:hover {
-    transform: translateY(-3px) scale(1.05);
-}
-
-.notification-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: var(--golden);
-    color: var(--dark);
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    border: 2px solid white;
-}
-
-.notification-panel {
-    position: fixed;
-    top: 0;
-    right: -400px;
-    width: 400px;
-    height: 100vh;
-    background: white;
-    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
-    transition: right 0.4s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.notification-panel.open {
-    right: 0;
-}
-
-.notification-header {
-    background: linear-gradient(135deg, var(--madder), #8B1507);
-    color: white;
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.notification-header h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.3rem;
-    margin: 0;
-}
-
-.mark-read-btn {
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-.close-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.notification-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1rem;
-}
-
-.notification-item {
-    background: var(--light-gray);
-    padding: 1.2rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    border-left: 4px solid var(--madder);
-    display: flex;
-    gap: 1rem;
-}
-
-.notification-item.unread {
-    background: #fff9e6;
-    border-left-color: var(--golden);
-}
-
-.notification-content {
-    flex: 1;
-}
-
-.notification-content h4 {
-    color: var(--madder);
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-}
-
-.notification-content p {
-    color: var(--gray);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-.notification-time {
-    font-size: 0.75rem;
-    color: var(--gray);
-}
-
-.mark-read-single {
-    background: var(--madder);
-    border: none;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.notification-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.notification-overlay.open {
-    opacity: 1;
-    visibility: visible;
-}
-
-@media (max-width: 768px) {
-    .notification-panel {
-        width: 100%;
-        right: -100%;
+    /* ── SIDEBAR ── */
+    .sidebar {
+      grid-column:1; grid-row:2;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display:flex; flex-direction:column;
+      position: sticky; top:var(--topbar-h); height:calc(100vh - var(--topbar-h));
+      overflow-y:auto; z-index:100;
     }
-}
-    </style>
+    .sidebar-section {
+      padding: 20px 12px 4px;
+      font-family:'Space Mono',monospace; font-size:.6rem;
+      letter-spacing:.15em; text-transform:uppercase;
+      color:var(--text-dim);
+    }
+    .nav-item {
+      display:flex; align-items:center; gap:10px;
+      padding:9px 16px; cursor:pointer;
+      font-size:.82rem; color:var(--text-muted);
+      border-left: 2px solid transparent;
+      transition: all .15s; user-select:none;
+    }
+    .nav-item:hover { color:var(--text); background:var(--surface-2); }
+    .nav-item.active {
+      color:var(--madder); background:rgba(169,27,13,.08);
+      border-left-color: var(--madder);
+    }
+    .nav-item .ni { font-size:.9rem; width:18px; text-align:center; }
+    .sidebar-foot {
+      margin-top:auto; padding:16px;
+      border-top:1px solid var(--border);
+      font-size:.75rem; color:var(--text-dim);
+      font-family:'Space Mono',monospace;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      grid-column:2; grid-row:2;
+      overflow-y:auto; padding: 28px;
+      display:flex; flex-direction:column; gap:20px;
+    }
+    .tab-pane { display:none; flex-direction:column; gap:20px; animation: fadeup .25s ease; }
+    .tab-pane.active { display:flex; }
+    @keyframes fadeup { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── PANEL ── */
+    .panel {
+      background:var(--surface);
+      border: 1px solid var(--border);
+    }
+    .panel-head {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px; border-bottom:1px solid var(--border);
+    }
+    .panel-title {
+      font-family:'Space Mono',monospace; font-size:.78rem;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--text);
+    }
+    .panel-body { padding:20px; }
+
+    /* ── FORM STYLES ── */
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-group label {
+      font-family:'Space Mono',monospace; font-size:.65rem;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--surface-2); color:var(--text);
+      border: 1px solid var(--border); 
+      padding: 10px 14px; font-size:.88rem;
+      font-family:'DM Sans',sans-serif;
+      transition: border .2s; outline:none;
+      width:100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--madder); }
+    .form-group textarea { min-height:100px; resize:vertical; }
+    .form-group select option { background: var(--surface-2); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-actions { display:flex; gap:10px; flex-wrap:wrap; }
+
+    /* ── INFO / SUCCESS BOXES ── */
+    .info-box {
+      background: rgba(255,215,0,.06); border-left:3px solid var(--gold);
+      padding:12px 16px; font-size:.83rem; color:var(--text-muted);
+      display:flex; gap:8px; align-items:flex-start;
+    }
+    .info-box.blue { background:rgba(59,130,246,.06); border-left-color:#3b82f6; }
+    .info-box.red { background:rgba(169,27,13,.07); border-left-color:var(--madder); }
+    .info-box strong { color:var(--text); }
+    .msg {
+      padding:10px 14px; font-size:.82rem; display:none;
+      background: rgba(46,204,113,.1); border-left:3px solid var(--green); color:var(--green);
+    }
+    .msg.show { display:block; animation:fadeup .3s ease; }
+
+    /* ── RESOURCE CARDS ── */
+    .resource-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+      gap:14px; margin-top:4px;
+    }
+    .resource-card {
+      background:var(--surface-2); border:1px solid var(--border);
+      padding:16px; position:relative;
+      transition: border-color .2s;
+    }
+    .resource-card:hover { border-color: var(--border-bright); }
+    .resource-card::before {
+      content:''; position:absolute; top:0; left:0;
+      width:3px; height:100%; background:var(--madder);
+    }
+    .resource-card h4 { font-size:.88rem; color:var(--text); margin-bottom:6px; }
+    .resource-card p { font-size:.8rem; color:var(--text-muted); line-height:1.5; margin-bottom:10px; }
+    .resource-card a { color:var(--gold); font-size:.78rem; text-decoration:none; }
+    .resource-card a:hover { text-decoration:underline; }
+    .card-meta { font-size:.72rem; color:var(--text-dim); font-family:'Space Mono',monospace; margin-bottom:8px; }
+    .pill { display:inline-block; font-size:.65rem; padding:2px 8px; font-family:'Space Mono',monospace; letter-spacing:.06em; }
+    .pill-gold { background:rgba(255,215,0,.12); color:var(--gold); border:1px solid rgba(255,215,0,.25); }
+    .pill-dim  { background:var(--surface-2); color:var(--text-dim); border:1px solid var(--border); }
+    .card-actions { display:flex; gap:6px; margin-top:10px; }
+
+    /* ── STUDENT CARDS ── */
+    .person-card {
+      background:var(--surface-2); border:1px solid var(--border);
+      padding:16px; display:flex; flex-direction:column; gap:12px;
+    }
+    .person-card-head { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+    .person-card-info { flex:1; }
+    .person-card-info h4 { font-size:.9rem; color:var(--text); margin-bottom:4px; }
+    .person-card-info p { font-size:.78rem; color:var(--text-muted); line-height:1.7; font-family:'Space Mono',monospace; }
+    .person-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+
+    /* ── SCHOOL CARDS ── */
+    .school-card { background:var(--surface-2); border:1px solid var(--border); padding:20px; }
+    .school-card h4 { font-size:.85rem; color:var(--madder); margin-bottom:12px; font-family:'Space Mono',monospace; letter-spacing:.06em; }
+    .school-card-grid { display:grid; gap:14px; }
+
+    /* ── NOTIFICATION PANEL ── */
+    .notif-bell {
+      position:fixed; bottom:28px; right:24px;
+      width:48px; height:48px; background:var(--madder);
+      display:grid; place-items:center; font-size:1.2rem;
+      cursor:pointer; z-index:500;
+      box-shadow: 0 4px 20px rgba(169,27,13,.5);
+      border: 1px solid var(--madder-lite);
+      transition: transform .2s;
+    }
+    .notif-bell:hover { transform:scale(1.08); }
+    .notif-badge {
+      position:absolute; top:-6px; right:-6px;
+      background:var(--gold); color:#1a1a1a;
+      width:20px; height:20px; border-radius:50%;
+      font-size:.65rem; font-weight:700; font-family:'Space Mono',monospace;
+      display:none; place-items:center;
+      border: 2px solid var(--bg);
+    }
+    .notif-panel {
+      position:fixed; top:0; right:-380px; width:360px; height:100vh;
+      background:var(--surface); border-left:1px solid var(--border);
+      z-index:600; transition:right .35s ease;
+      display:flex; flex-direction:column;
+    }
+    .notif-panel.open { right:0; }
+    .notif-head {
+      padding:16px 20px; border-bottom:1px solid var(--border);
+      display:flex; align-items:center; gap:10px;
+    }
+    .notif-head h3 { font-family:'Space Mono',monospace; font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text); flex:1; }
+    .notif-list { flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; }
+    .notif-item {
+      padding:12px; border:1px solid var(--border); background:var(--surface-2);
+      border-left:3px solid var(--border-bright); display:flex; gap:10px;
+    }
+    .notif-item.unread { border-left-color:var(--gold); background:rgba(255,215,0,.04); }
+    .notif-content { flex:1; }
+    .notif-content h4 { font-size:.8rem; color:var(--text); margin-bottom:3px; }
+    .notif-content p { font-size:.75rem; color:var(--text-muted); margin-bottom:4px; line-height:1.5; }
+    .notif-time { font-size:.65rem; color:var(--text-dim); font-family:'Space Mono',monospace; }
+    .notif-overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,.5);
+      z-index:590; opacity:0; pointer-events:none; transition:opacity .3s;
+    }
+    .notif-overlay.open { opacity:1; pointer-events:all; }
+    .empty-state { text-align:center; padding:40px 20px; color:var(--text-dim); font-size:.83rem; }
+
+    /* ── SECTION HEAD ── */
+    .section-head { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .section-title { font-family:'Space Mono',monospace; font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      body { grid-template-columns:1fr; }
+      .sidebar {
+        position:fixed; left:-260px; top:0; height:100vh;
+        width:240px; z-index:300; transition:left .3s;
+        grid-row:unset; grid-column:unset;
+      }
+      .sidebar.open { left:0; }
+      .main { grid-column:1; padding:16px; }
+      #hamBtn { display:flex; }
+      .mob-overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:299; display:none; }
+      .mob-overlay.open { display:block; }
+    }
+    @media(max-width:500px){
+      .form-row { grid-template-columns:1fr; }
+      .resource-grid { grid-template-columns:1fr; }
+      .person-grid { grid-template-columns:1fr; }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Staff Dashboard</h1>
-        <div class="header-right">
-            <div class="user-info">
-                <strong id="staffEmail">admin@jaystarbliss.com</strong>
-            </div>
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </div>
-    </div>
 
-    <div class="nav-tabs">
-        <button class="nav-tab active" onclick="switchTab('resources')">📖 Resources</button>
-        <button class="nav-tab" onclick="switchTab('links')">🔗 Links</button>
-        <button class="nav-tab" onclick="switchTab('exams')">📝 Exam Questions</button>
-        <button class="nav-tab" onclick="switchTab('schoolExams')">🏫 School Exams</button>
-        <button class="nav-tab" onclick="switchTab('schoolResources')">🎓 School Resources</button>
-        <button class="nav-tab" onclick="switchTab('schoolManage')">⚙️ Manage Schools</button>
-        <button class="nav-tab" onclick="switchTab('studentManage')">👥 Manage Students</button>
-        <button class="nav-tab" onclick="switchTab('studentResources')">📤 Send Resources</button>
-    </div>
+<!-- TOPBAR -->
+<header class="topbar">
+  <button id="hamBtn" onclick="toggleSidebar()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="topbar-brand"><img src="../../assets/img/favicon.png" alt="Jaystarbliss" style="height:32px;vertical-align:middle;margin-right:8px;"></div>
+  <span class="topbar-role">STAFF</span>
+  <span id="staffEmailDisplay">Loading…</span>
+  <button class="btn btn-ghost btn-sm" id="themeBtn" onclick="toggleTheme()" title="Toggle theme"><i data-lucide="moon" style="width:16px;height:16px;"></i></button>
+  <button class="btn btn-ghost btn-sm" onclick="doLogout()">Logout</button>
+</header>
 
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-section">Content</div>
+  <div class="nav-item active" onclick="switchTab('resources',this)"><i class="ni" data-lucide="book-open" style="width:16px;height:16px;"></i> Resources</div>
+  <div class="nav-item" onclick="switchTab('links',this)"><i class="ni" data-lucide="link" style="width:16px;height:16px;"></i> Links</div>
+  <div class="nav-item" onclick="switchTab('exams',this)"><i class="ni" data-lucide="file-text" style="width:16px;height:16px;"></i> Exam Questions</div>
 
-        <!-- Notification Bell -->
-<div id="notificationBell" class="notification-bell" onclick="toggleNotifications()">
-    🔔
-    <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+  <div class="sidebar-section">Schools</div>
+  <div class="nav-item" onclick="switchTab('schoolExams',this)"><i class="ni" data-lucide="school" style="width:16px;height:16px;"></i> School Exams</div>
+  <div class="nav-item" onclick="switchTab('schoolResources',this)"><i class="ni" data-lucide="graduation-cap" style="width:16px;height:16px;"></i> School Resources</div>
+  <div class="nav-item" onclick="switchTab('schoolManage',this)"><i class="ni" data-lucide="settings" style="width:16px;height:16px;"></i> Manage Schools</div>
+
+  <div class="sidebar-section">Students</div>
+  <div class="nav-item" onclick="switchTab('studentManage',this)"><i class="ni" data-lucide="users" style="width:16px;height:16px;"></i> Manage Students</div>
+  <div class="nav-item" onclick="switchTab('studentResources',this)"><i class="ni" data-lucide="send" style="width:16px;height:16px;"></i> Send Resources</div>
+
+  <div class="sidebar-foot">Jaystarbliss Dynamic Hub<br/>Staff Portal v2</div>
+</nav>
+
+<div class="mob-overlay" id="mobOverlay" onclick="toggleSidebar()"></div>
+
+<!-- NOTIFICATION PANEL -->
+<div class="notif-bell" id="notifBell" onclick="toggleNotif()">
+  <i data-lucide="bell" style="width:20px;height:20px;"></i>
+  <span class="notif-badge" id="notifBadge"></span>
 </div>
-
-<div id="notificationPanel" class="notification-panel">
-    <div class="notification-header">
-        <h3>📬 Notifications</h3>
-        <button onclick="markAllAsRead()" class="mark-read-btn">Mark all read</button>
-        <button onclick="toggleNotifications()" class="close-btn">✕</button>
-    </div>
-    <div id="notificationList" class="notification-list">
-        <div style="text-align: center; padding: 2rem; color: var(--gray);">
-            Loading...
-        </div>
-    </div>
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-head">
+    <h3><i data-lucide="mail" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;"></i>Notifications</h3>
+    <button class="btn btn-ghost btn-sm" onclick="markAllRead()">Mark all read</button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleNotif()"><i data-lucide="x" style="width:16px;height:16px;"></i></button>
+  </div>
+  <div class="notif-list" id="notifList"><div class="empty-state">Loading…</div></div>
 </div>
+<div class="notif-overlay" id="notifOverlay" onclick="toggleNotif()"></div>
 
-<div id="notificationOverlay" class="notification-overlay" onclick="toggleNotifications()"></div>
+<!-- MAIN -->
+<main class="main">
 
-
-    <div class="content">
-        <!--Resources Tab-->
-
-
-        <!-- Links Tab -->
-        
-
-        <!-- Exams Tab -->
-        
-
-        <!-- School Exams Tab -->
-        <div id="schoolExams" class="tab-content">
-            <div class="post-form">
-                <h2>Add School Exam</h2>
-                <div class="info-box">
-                    <strong>🏫 School-Specific Exams:</strong> These exams will only be visible to students from the selected school when they login through the school portal.
-                </div>
-                <div class="success-message" id="schoolExamSuccess">School exam posted successfully!</div>
-                <form id="schoolExamForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="schoolExamTitle">Exam Title</label>
-                            <input type="text" id="schoolExamTitle" required placeholder="e.g., Term 1 Mathematics Exam">
-                        </div>
-                        <div class="form-group">
-                            <label for="schoolSelect">Select School</label>
-                            <select id="schoolSelect" required>
-                                <option value="">Choose School</option>
-                                <option value="peniel">Peniel Lily Montessori School</option>
-                                <option value="southgold">South Gold Montessori School</option>
-                                <option value="sapphire">Sapphire Explorer Montessori School</option>
-                                <option value="easystars">Easy Stars Early Years Academy</option>
-                                <option value="christycaleb">Christy Caleb International School</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="schoolExamUrl">Exam Link (Google Forms, etc.)</label>
-                        <input type="url" id="schoolExamUrl" required placeholder="https://forms.google.com/...">
-                    </div>
-                    <div class="form-group">
-                        <label for="schoolExamDescription">Instructions</label>
-                        <textarea id="schoolExamDescription" required placeholder="Exam instructions and details"></textarea>
-                    </div>
-                    <div>
-                        <button type="submit" class="submit-btn">Post School Exam</button>
-                    </div>
-                </form>
-            </div>
-
-            <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Posted School Exams</h3>
-            <div class="posts-grid" id="schoolExamsGrid"></div>
-        </div>
-
-        <!-- School Resources Tab -->
-<div id="schoolResources" class="tab-content">
-    <div class="post-form">
-        <h2>Add School-Specific Resources</h2>
-        <div class="info-box">
-            <strong>🏫 School Resources & Links:</strong> These will only be visible to students from the selected school when they access their school resources page.
-        </div>
-        <div class="success-message" id="schoolResourceSuccess">Resource posted successfully!</div>
-        
-        <form id="schoolResourceForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="schoolResourceType">Type</label>
-                    <select id="schoolResourceType" required>
-                        <option value="">Select Type</option>
-                        <option value="resource">📄 File/Document</option>
-                        <option value="link">🔗 Link</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="schoolResourceSchool">Select School</label>
-                    <select id="schoolResourceSchool" required>
-                        <option value="">Choose School</option>
-                        <option value="peniel">Peniel Lily Montessori School</option>
-                        <option value="southgold">South Gold Montessori School</option>
-                        <option value="sapphire">Sapphire Explorer Montessori School</option>
-                        <option value="easystars">Easy Stars Early Years Academy</option>
-                        <option value="christycaleb">Christy Caleb International School</option>
-                    </select>
-                </div>
-            </div>
-
+  <!-- ══════════════════════════════════════
+       TAB: RESOURCES
+  ══════════════════════════════════════ -->
+  <div class="tab-pane active" id="resources">
+    <div class="panel">
+      <div class="panel-head"><i data-lucide="book-open" style="width:18px;height:18px;margin-right:8px;"></i><span class="panel-title">Post General Resource</span></div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="info-box"><strong>General Resources</strong> — visible to all students on the main student portal.</div>
+        <div class="msg" id="resMsg">Resource posted successfully!</div>
+        <form id="resourceForm" style="display:flex;flex-direction:column;gap:14px;">
+          <div class="form-row">
             <div class="form-group">
-                <label for="schoolResourceTitle">Title</label>
-                <input type="text" id="schoolResourceTitle" required placeholder="e.g., Mathematics Study Guide">
+              <label>Resource Title</label>
+              <input id="resTitle" type="text" required placeholder="e.g., Python Basics Guide" />
             </div>
-
             <div class="form-group">
-                <label for="schoolResourceUrl">URL/Link</label>
-                <input type="url" id="schoolResourceUrl" required placeholder="https://...">
-                <small style="color: var(--gray); display: block; margin-top: 0.5rem;">
-                    For files: Upload to Google Drive/Dropbox and paste the shareable link
-                </small>
+              <label>Category</label>
+              <select id="resCategory" required>
+                <option value="">Select category</option>
+                <option value="coding">💻 Coding</option>
+                <option value="music">🎵 Music</option>
+                <option value="art">🎨 Art</option>
+                <option value="math">📐 Mathematics</option>
+                <option value="science">🔬 Science</option>
+                <option value="general">📚 General</option>
+              </select>
             </div>
-
-            <div class="form-group">
-                <label for="schoolResourceDescription">Description</label>
-                <textarea id="schoolResourceDescription" required placeholder="Brief description"></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">Post to School</button>
+          </div>
+          <div class="form-group">
+            <label>Resource URL</label>
+            <input id="resUrl" type="url" required placeholder="https://drive.google.com/..." />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="resDesc" required placeholder="Brief description of the resource..."></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Post Resource</button>
+          </div>
         </form>
+      </div>
     </div>
 
-    <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Posted School Resources</h3>
-    <div class="posts-grid" id="schoolResourcesGrid"></div>
-</div>
+    <div class="section-head">
+      <span class="section-title">Posted Resources</span>
+    </div>
+    <div class="resource-grid" id="resourcesGrid"><div class="empty-state">Loading…</div></div>
+  </div>
 
-        <!-- School Management Tab -->
-        <div id="schoolManage" class="tab-content">
-            <div class="post-form">
-                <h2>Manage School Access Codes</h2>
-                <div class="info-box">
-                    <strong>🔐 Access Codes:</strong> Set or update access codes for each school. Students will need these codes to access their school's exam portal.
-                </div>
-                <div class="success-message" id="schoolManageSuccess">Access code updated successfully!</div>
-                
-                <div style="display: grid; gap: 1.5rem;">
-                    <!-- Peniel Lily -->
-                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px;">
-                        <h3 style="color: var(--madder); margin-bottom: 1rem;">🎓 Peniel Lily Montessori School</h3>
-                        <div class="form-group">
-                            <label for="penielCode">Access Code</label>
-                            <input type="text" id="penielCode" placeholder="Enter access code">
-                        </div>
-                        <button class="submit-btn" style="width: auto;" onclick="updateSchoolCode('peniel')">Update Code</button>
-                    </div>
-
-                    <!-- South Gold -->
-                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px;">
-                        <h3 style="color: var(--madder); margin-bottom: 1rem;">🏆 South Gold Montessori School</h3>
-                        <div class="form-group">
-                            <label for="southgoldCode">Access Code</label>
-                            <input type="text" id="southgoldCode" placeholder="Enter access code">
-                        </div>
-                        <button class="submit-btn" style="width: auto;" onclick="updateSchoolCode('southgold')">Update Code</button>
-                    </div>
-
-                    <!-- Sapphire Explorer -->
-                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px;">
-                        <h3 style="color: var(--madder); margin-bottom: 1rem;">💎 Sapphire Explorer Montessori School</h3>
-                        <div class="form-group">
-                            <label for="sapphireCode">Access Code</label>
-                            <input type="text" id="sapphireCode" placeholder="Enter access code">
-                        </div>
-                        <button class="submit-btn" style="width: auto;" onclick="updateSchoolCode('sapphire')">Update Code</button>
-                    </div>
-
-                    <!-- Easy Stars -->
-                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px;">
-                        <h3 style="color: var(--madder); margin-bottom: 1rem;">⭐ Easy Stars Early Years Academy</h3>
-                        <div class="form-group">
-                            <label for="easystarsCode">Access Code</label>
-                            <input type="text" id="easystarsCode" placeholder="Enter access code">
-                        </div>
-                        <button class="submit-btn" style="width: auto;" onclick="updateSchoolCode('easystars')">Update Code</button>
-                    </div>
-
-                    <!-- Christy Caleb -->
-                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px;">
-                        <h3 style="color: var(--madder); margin-bottom: 1rem;">📚 Christy Caleb International School</h3>
-                        <div class="form-group">
-                            <label for="christycalebCode">Access Code</label>
-                            <input type="text" id="christycalebCode" placeholder="Enter access code">
-                        </div>
-                        <button class="submit-btn" style="width: auto;" onclick="updateSchoolCode('christycaleb')">Update Code</button>
-                    </div>
-                </div>
+  <!-- ══════════════════════════════════════
+       TAB: LINKS
+  ══════════════════════════════════════ -->
+  <div class="tab-pane" id="links">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">🔗 Post General Link</span></div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="info-box"><strong>General Links</strong> — helpful URLs visible to all students on the portal.</div>
+        <div class="msg" id="linkMsg">Link posted successfully!</div>
+        <form id="linkForm" style="display:flex;flex-direction:column;gap:14px;">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Link Title</label>
+              <input id="linkTitle" type="text" required placeholder="e.g., Free Scratch Tutorial" />
             </div>
-        </div>
-
- <div id="studentManage" class="tab-content">
-    <div class="post-form">
-        <h2>Add New Student</h2>
-        <div class="info-box">
-            <strong>👤 Create Student Accounts:</strong> Add new students and assign them access codes. They can login with their username and access code.
-        </div>
-        <div class="success-message" id="studentAddSuccess">Student added successfully!</div>
-        
-        <form id="addStudentForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="newStudentName">Full Name</label>
-                    <input type="text" id="newStudentName" required placeholder="Student's full name">
-                </div>
-                <div class="form-group">
-                    <label for="newStudentUsername">Username</label>
-                    <input type="text" id="newStudentUsername" required placeholder="Unique username">
-                </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="linkCategory" required>
+                <option value="">Select category</option>
+                <option value="tutorial">📹 Tutorial</option>
+                <option value="tool">🛠️ Tool</option>
+                <option value="reference">📖 Reference</option>
+                <option value="game">🎮 Game</option>
+                <option value="other">🔖 Other</option>
+              </select>
             </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="newStudentEmail">Email (Optional)</label>
-                    <input type="email" id="newStudentEmail" placeholder="student@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="newStudentCode">Access Code</label>
-                    <input type="text" id="newStudentCode" required placeholder="Create access code">
-                </div>
-            </div>
-            
-            <button type="submit" class="submit-btn">Add Student</button>
+          </div>
+          <div class="form-group">
+            <label>URL</label>
+            <input id="linkUrl" type="url" required placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="linkDesc" required placeholder="What is this link about?"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Post Link</button>
+          </div>
         </form>
+      </div>
     </div>
 
-    <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Registered Students</h3>
-    <div id="studentsListContainer" style="display: grid; gap: 1rem;">
-        <div style="text-align: center; padding: 2rem; color: var(--gray);">
-            Loading students...
-        </div>
+    <div class="section-head">
+      <span class="section-title">Posted Links</span>
     </div>
-</div>
+    <div class="resource-grid" id="linksGrid"><div class="empty-state">Loading…</div></div>
+  </div>
 
-
-<!-- Student Resources Tab -->
-<div id="studentResources" class="tab-content">
-    <div class="post-form">
-        <h2>Send Resources to Individual Student</h2>
-        <div class="info-box">
-            <strong>📤 Personal Resources:</strong> Send resources and links directly to specific students. Only they will see these in their personal portal.
-        </div>
-        <div class="success-message" id="studentResourceSuccess">Resource sent successfully!</div>
-        
-        <form id="studentResourceForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="targetStudent">Select Student</label>
-                    <select id="targetStudent" required>
-                        <option value="">Choose Student</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="resourceType">Resource Type</label>
-                    <select id="resourceType" required>
-                        <option value="">Select Type</option>
-                        <option value="resource">📄 File/Document</option>
-                        <option value="link">🔗 Link</option>
-                    </select>
-                </div>
-            </div>
-
+  <!-- ══════════════════════════════════════
+       TAB: EXAMS
+  ══════════════════════════════════════ -->
+  <div class="tab-pane" id="exams">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">📝 Post General Exam</span></div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="info-box"><strong>General Exams</strong> — available to all students across the platform.</div>
+        <div class="msg" id="examMsg">Exam posted successfully!</div>
+        <form id="examForm" style="display:flex;flex-direction:column;gap:14px;">
+          <div class="form-row">
             <div class="form-group">
-                <label for="studentResourceTitle">Title</label>
-                <input type="text" id="studentResourceTitle" required placeholder="e.g., Your Python Assignment">
+              <label>Exam Title</label>
+              <input id="examTitle" type="text" required placeholder="e.g., Term 1 Coding Quiz" />
             </div>
-
             <div class="form-group">
-                <label for="studentResourceUrl">URL/Link</label>
-                <input type="url" id="studentResourceUrl" required placeholder="https://...">
+              <label>Subject</label>
+              <select id="examSubject" required>
+                <option value="">Select subject</option>
+                <option value="coding">💻 Coding</option>
+                <option value="music">🎵 Music</option>
+                <option value="art">🎨 Art</option>
+                <option value="math">📐 Mathematics</option>
+                <option value="science">🔬 Science</option>
+                <option value="general">📚 General</option>
+              </select>
             </div>
-
-            <div class="form-group">
-                <label for="studentResourceDescription">Description</label>
-                <textarea id="studentResourceDescription" required placeholder="Brief description"></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">Send to Student</button>
+          </div>
+          <div class="form-group">
+            <label>Exam Link (Google Forms, etc.)</label>
+            <input id="examUrl" type="url" required placeholder="https://forms.google.com/..." />
+          </div>
+          <div class="form-group">
+            <label>Instructions</label>
+            <textarea id="examDesc" required placeholder="Instructions and exam details..."></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Post Exam</button>
+          </div>
         </form>
+      </div>
     </div>
 
-    <h3 style="margin: 2rem 0 1rem; color: var(--madder); font-family: Poppins;">Recently Sent Resources</h3>
-    <div class="posts-grid" id="studentResourcesGrid"></div>
-</div>
+    <div class="section-head">
+      <span class="section-title">Posted Exams</span>
+    </div>
+    <div class="resource-grid" id="examsGrid"><div class="empty-state">Loading…</div></div>
+  </div>
 
+  <!-- ══════════════════════════════════════
+       TAB: SCHOOL EXAMS
+  ══════════════════════════════════════ -->
+  <div class="tab-pane" id="schoolExams">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">🏫 Post School Exam</span></div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="info-box"><strong>School-Specific Exams</strong> — only visible to students from the selected school portal.</div>
+        <div class="msg" id="schoolExamMsg">School exam posted successfully!</div>
+        <form id="schoolExamForm" style="display:flex;flex-direction:column;gap:14px;">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Exam Title</label>
+              <input id="schoolExamTitle" type="text" required placeholder="e.g., Term 1 Mathematics Exam" />
+            </div>
+            <div class="form-group">
+              <label>Select School</label>
+              <select id="schoolExamSchool" required>
+                <option value="">Choose School</option>
+                <option value="peniel">Peniel Lily Montessori School</option>
+                <option value="southgold">South Gold Montessori School</option>
+                <option value="sapphire">Sapphire Explorer Montessori School</option>
+                <option value="easystars">Easy Stars Early Years Academy</option>
+                <option value="christycaleb">Christy Caleb International School</option>
+                <option value="royalbreed">Royal Breed Academy</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Exam Link (Google Forms, etc.)</label>
+            <input id="schoolExamUrl" type="url" required placeholder="https://forms.google.com/..." />
+          </div>
+          <div class="form-group">
+            <label>Instructions</label>
+            <textarea id="schoolExamDesc" required placeholder="Exam instructions and details"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Post School Exam</button>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, where, serverTimestamp, setDoc, getDoc, updateDoc} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+    <div class="section-head"><span class="section-title">Posted School Exams</span></div>
+    <div class="resource-grid" id="schoolExamsGrid"><div class="empty-state">Loading…</div></div>
+  </div>
 
-    // Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
-        authDomain: "jaystarbliss-studios.firebaseapp.com",
-        projectId: "jaystarbliss-studios",
-        storageBucket: "jaystarbliss-studios.firebasestorage.app",
-        messagingSenderId: "885364100276",
-        appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
-    };
+  <!-- ══════════════════════════════════════
+       TAB: SCHOOL RESOURCES
+  ══════════════════════════════════════ -->
+  <div class="tab-pane" id="schoolResources">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">🎓 Post School Resource or Link</span></div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="info-box"><strong>School Resources &amp; Links</strong> — visible only to students from the selected school.</div>
+        <div class="msg" id="schoolResMsg">Resource posted successfully!</div>
+        <form id="schoolResourceForm" style="display:flex;flex-direction:column;gap:14px;">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Type</label>
+              <select id="schoolResType" required>
+                <option value="">Select type</option>
+                <option value="resource">📄 File / Document</option>
+                <option value="link">🔗 Link</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Select School</label>
+              <select id="schoolResSchool" required>
+                <option value="">Choose School</option>
+                <option value="peniel">Peniel Lily Montessori School</option>
+                <option value="southgold">South Gold Montessori School</option>
+                <option value="sapphire">Sapphire Explorer Montessori School</option>
+                <option value="easystars">Easy Stars Early Years Academy</option>
+                <option value="christycaleb">Christy Caleb International School</option>
+                <option value="royalbreed">Royal Breed Academy</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Title</label>
+            <input id="schoolResTitle" type="text" required placeholder="e.g., Mathematics Study Guide" />
+          </div>
+          <div class="form-group">
+            <label>URL / Link</label>
+            <input id="schoolResUrl" type="url" required placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="schoolResDesc" required placeholder="Brief description"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Post to School</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+    <div class="section-head"><span class="section-title">Posted School Resources</span></div>
+    <div class="resource-grid" id="schoolResGrid"><div class="empty-state">Loading…</div></div>
+  </div>
 
-    // Check authentication for STAFF ]
-    if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'staff') {
-        window.location.href = '../auth/login.html';
-    }
-    // Request notification permission on login
-async function requestNotificationPermission() {
-    if (!('Notification' in window)) {
-        console.log('❌ Browser does not support notifications');
-        return;
-    }
-    
-    if (Notification.permission === 'default') {
-        // Show a friendly prompt first
-        const permitNotifications = confirm(
-            '🔔 Would you like to receive notifications even when you\'re not on this page?\n\n' +
-            'Click OK to enable desktop notifications.'
-        );
-        
-        if (permitNotifications) {
-            const permission = await Notification.requestPermission();
-            if (permission === 'granted') {
-                console.log('✅ Notification permission granted');
-                showWelcomeNotification();
-            }
-        }
-    }
-}
+  <!-- ══════════════════════════════════════
+       TAB: MANAGE SCHOOLS (read-only for staff)
+  ══════════════════════════════════════ -->
+  <div class="tab-pane" id="schoolManage">
+    <div class="info-box red">
+      <div><strong>⚠️ Admin-Only Section</strong><br/>School access codes can only be updated by administrators. Contact your admin to change a school's code. You can view current codes below as reference.</div>
+    </div>
+    <div class="school-card-grid" id="schoolCodesDisplay">
+      <div class="empty-state">Loading school codes…</div>
+    </div>
+  </div>
 
-// Show welcome notification
-function showWelcomeNotification() {
-    if (Notification.permission === 'granted') {
-        new Notification('🎉 Notifications Enabled!', {
-            body: 'You\'ll now receive important updates from Jaystarbliss Dynamic Hub',
-            icon: 'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS',
-            badge: 'https://via.placeholder.com/96/FFD700/000000?text=!',
-            tag: 'welcome',
-            requireInteraction: false
-        });
-    }
-}
+  <!-- ══════════════════════════════════════
+       TAB: MANAGE STUDENTS
+  ══════════════════════════════════════ -->
+  <div class="tab-pane" id="studentManage">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">👥 Add New Student</span></div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="info-box"><strong>Create Student Accounts</strong> — students login with their username and access code.</div>
+        <div class="msg" id="studentAddMsg">Student added successfully!</div>
+        <form id="addStudentForm" style="display:flex;flex-direction:column;gap:14px;">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input id="newStudentName" type="text" required placeholder="Student's full name" />
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input id="newStudentUsername" type="text" required placeholder="Unique username" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email (Optional)</label>
+              <input id="newStudentEmail" type="email" placeholder="student@example.com" />
+            </div>
+            <div class="form-group">
+              <label>Access Code</label>
+              <input id="newStudentCode" type="text" required placeholder="Create access code" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Add Student</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-// Request permission after page loads
-setTimeout(() => {
-    requestNotificationPermission();
-}, 2000); // Wait 2 seconds after login
+    <div class="section-head"><span class="section-title">Registered Students</span></div>
+    <div class="person-grid" id="studentsGrid"><div class="empty-state">Loading students…</div></div>
+  </div>
 
-    // ✅ FIXED: Display staff email (not adminEmail)
-    document.getElementById('staffEmail').textContent = sessionStorage.getItem('userEmail') || 'Staff';
+  <!-- ══════════════════════════════════════
+       TAB: SEND RESOURCES (to individual students)
+  ══════════════════════════════════════ -->
+  <div class="tab-pane" id="studentResources">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">📤 Send to Individual Student</span></div>
+      <div class="panel-body" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="info-box"><strong>Personal Resources</strong> — sent directly to a specific student. Only they can see it in their personal portal.</div>
+        <div class="msg" id="personalResMsg">Resource sent successfully!</div>
+        <form id="personalResForm" style="display:flex;flex-direction:column;gap:14px;">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Select Student</label>
+              <select id="targetStudent" required>
+                <option value="">Choose Student</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Resource Type</label>
+              <select id="personalResType" required>
+                <option value="">Select type</option>
+                <option value="resource">📄 File / Document</option>
+                <option value="link">🔗 Link</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Title</label>
+            <input id="personalResTitle" type="text" required placeholder="e.g., Your Python Assignment" />
+          </div>
+          <div class="form-group">
+            <label>URL / Link</label>
+            <input id="personalResUrl" type="url" required placeholder="https://..." />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="personalResDesc" required placeholder="Brief description"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Send to Student</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-    // Tab switching
-    window.switchTab = function(tabName) {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
-        document.getElementById(tabName).classList.add('active');
-        event.target.classList.add('active');
-    };
+    <div class="section-head"><span class="section-title">Recently Sent Resources</span></div>
+    <div class="resource-grid" id="personalResGrid"><div class="empty-state">Loading…</div></div>
+  </div>
 
-    // Logout
-    window.logout = async function() {
-        await signOut(auth);
-        sessionStorage.clear();
-        window.location.href = '../auth/login.html';
-    };
-
-    // School Exam Form Submit
-    document.getElementById('schoolExamForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const title = document.getElementById('schoolExamTitle').value;
-        const schoolId = document.getElementById('schoolSelect').value;
-        const url = document.getElementById('schoolExamUrl').value;
-        const description = document.getElementById('schoolExamDescription').value;
-
-        console.log('Posting school exam:', { title, schoolId, url });
-
-        try {
-            await addDoc(collection(db, 'schoolExams'), {
-                title,
-                schoolId,
-                url,
-                description,
-                timestamp: serverTimestamp()
-            });
-
-            console.log('✅ School exam posted successfully');
-            document.getElementById('schoolExamSuccess').classList.add('show');
-            setTimeout(() => document.getElementById('schoolExamSuccess').classList.remove('show'), 3000);
-            this.reset();
-            loadSchoolExams();
-        } catch (error) {
-            console.error('Error posting school exam:', error);
-            alert('Error posting school exam: ' + error.message);
-        }
+</main>
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPT 1 — Plain script: UI only (theme, tabs, sidebar, notif panel)
+     Runs immediately, never waits for Firebase
+════════════════════════════════════════════════════════ -->
+<script>
+  /* Theme */
+  (function(){
+    const saved = localStorage.getItem('jdh-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('themeBtn');
+      if(btn) btn.textContent = saved === 'dark' ? '☀️' : '🌙';
     });
+  })();
 
-    // School Resource Form Submit
-    document.getElementById('schoolResourceForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const resourceType = document.getElementById('schoolResourceType').value;
-        const schoolId = document.getElementById('schoolResourceSchool').value;
-        const title = document.getElementById('schoolResourceTitle').value;
-        const url = document.getElementById('schoolResourceUrl').value;
-        const description = document.getElementById('schoolResourceDescription').value;
+  function toggleTheme() {
+    const html = document.documentElement;
+    const cur = html.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('jdh-theme', next);
+    document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️' : '🌙';
+  }
 
-        console.log('Posting school resource:', { resourceType, schoolId, title });
+  /* Sidebar (mobile) */
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('mobOverlay').classList.toggle('open');
+  }
 
-        try {
-            const collectionName = resourceType === 'link' ? 'schoolLinks' : 'schoolResources';
-            const urlField = resourceType === 'link' ? 'url' : 'fileUrl';
+  /* Tab switching */
+  function switchTab(name, el) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const pane = document.getElementById(name);
+    if (pane) pane.classList.add('active');
+    if (el) el.classList.add('active');
+    // Close mobile sidebar on nav
+    if (window.innerWidth <= 900) toggleSidebar();
+  }
 
-            await addDoc(collection(db, collectionName), {
-                schoolId: schoolId,
-                title: title,
-                [urlField]: url,
-                description: description,
-                timestamp: serverTimestamp()
-            });
-
-            console.log('✅ School resource posted successfully');
-            document.getElementById('schoolResourceSuccess').classList.add('show');
-            setTimeout(() => document.getElementById('schoolResourceSuccess').classList.remove('show'), 3000);
-            this.reset();
-            loadSchoolResources();
-        } catch (error) {
-            console.error('Error posting school resource:', error);
-            alert('Error posting resource: ' + error.message);
-        }
-    });
-
-    // Update school access code - STAFF CANNOT DO THIS
-    window.updateSchoolCode = async function(schoolId) {
-        alert('⚠️ Only administrators can update school access codes. Please contact an admin.');
-    };
-
-    // Load school exams
-    async function loadSchoolExams() {
-        const grid = document.getElementById('schoolExamsGrid');
-        grid.innerHTML = '';
-
-        try {
-            const q = query(collection(db, 'schoolExams'), orderBy('timestamp', 'desc'));
-            const querySnapshot = await getDocs(q);
-
-            const schoolNames = {
-                'peniel': 'Peniel Lily Montessori',
-                'southgold': 'South Gold Montessori',
-                'sapphire': 'Sapphire Explorer',
-                'easystars': 'Easy Stars Academy',
-                'christycaleb': 'Christy Caleb International'
-            };
-
-            if (querySnapshot.empty) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--gray);">No school exams posted yet</div>';
-                return;
-            }
-
-            querySnapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                const card = document.createElement('div');
-                card.className = 'post-card';
-                card.innerHTML = `
-                    <h3>${data.title}</h3>
-                    <div class="post-meta">
-                        <span>🏫 ${schoolNames[data.schoolId] || data.schoolId}</span>
-                        <span>${new Date(data.timestamp?.toDate()).toLocaleDateString()}</span>
-                    </div>
-                    <p>${data.description}</p>
-                    <p><strong>🔗 URL:</strong> <a href="${data.url}" target="_blank">View</a></p>
-                    <div class="post-actions">
-                        <button class="action-btn delete-btn" onclick="deleteSchoolExam('${docSnap.id}')">Delete</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        } catch (error) {
-            console.error('Error loading school exams:', error);
-            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #c00;">Error loading exams</div>';
-        }
+  /* Notification panel */
+  function toggleNotif() {
+    document.getElementById('notifPanel').classList.toggle('open');
+    document.getElementById('notifOverlay').classList.toggle('open');
+    if (document.getElementById('notifPanel').classList.contains('open')) {
+      if (window._loadNotif) window._loadNotif();
     }
+  }
 
-    // Load school resources
-    async function loadSchoolResources() {
-        const grid = document.getElementById('schoolResourcesGrid');
-        grid.innerHTML = '';
+  /* Logout */
+  function doLogout() {
+    if (window._doLogout) { window._doLogout(); return; }
+    sessionStorage.clear();
+    window.location.href = '../auth/login.html';
+  }
+</script>
 
-        try {
-            const schoolNames = {
-                'peniel': 'Peniel Lily Montessori',
-                'southgold': 'South Gold Montessori',
-                'sapphire': 'Sapphire Explorer',
-                'easystars': 'Easy Stars Academy',
-                'christycaleb': 'Christy Caleb International'
-            };
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPT 2 — Firebase module: data, auth, Firestore
+════════════════════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import {
+  getFirestore, collection, addDoc, getDocs, deleteDoc, doc,
+  query, orderBy, where, serverTimestamp, setDoc, getDoc, updateDoc
+} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-            const resourcesQuery = query(collection(db, 'schoolResources'), orderBy('timestamp', 'desc'));
-            const linksQuery = query(collection(db, 'schoolLinks'), orderBy('timestamp', 'desc'));
-
-            const [resourcesSnapshot, linksSnapshot] = await Promise.all([
-                getDocs(resourcesQuery),
-                getDocs(linksQuery)
-            ]);
-
-            const allItems = [];
-
-            resourcesSnapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                allItems.push({ id: docSnap.id, data, type: 'resource', collection: 'schoolResources' });
-            });
-
-            linksSnapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                allItems.push({ id: docSnap.id, data, type: 'link', collection: 'schoolLinks' });
-            });
-
-            allItems.sort((a, b) => {
-                const timeA = a.data.timestamp?.toDate() || new Date(0);
-                const timeB = b.data.timestamp?.toDate() || new Date(0);
-                return timeB - timeA;
-            });
-
-            if (allItems.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--gray);">No school resources posted yet</div>';
-                return;
-            }
-
-            allItems.forEach((item) => {
-                const data = item.data;
-                const card = document.createElement('div');
-                card.className = 'post-card';
-                
-                const icon = item.type === 'link' ? '🔗' : '📄';
-                const url = item.type === 'link' ? data.url : data.fileUrl;
-                
-                card.innerHTML = `
-                    <h3>${icon} ${data.title}</h3>
-                    <div class="post-meta">
-                        <span>🏫 ${schoolNames[data.schoolId] || data.schoolId}</span>
-                        <span>${new Date(data.timestamp?.toDate()).toLocaleDateString()}</span>
-                    </div>
-                    <p>${data.description}</p>
-                    <p><strong>🔗 URL:</strong> <a href="${url}" target="_blank">View</a></p>
-                    <div class="post-actions">
-                        <button class="action-btn delete-btn" onclick="deleteSchoolResource('${item.id}', '${item.collection}')">Delete</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        } catch (error) {
-            console.error('Error loading school resources:', error);
-            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #c00;">Error loading resources</div>';
-        }
-    }
-
-    window.deleteSchoolExam = async function(id) {
-        if (confirm('Are you sure you want to delete this school exam?')) {
-            try {
-                await deleteDoc(doc(db, 'schoolExams', id));
-                loadSchoolExams();
-            } catch (error) {
-                console.error('Error deleting school exam:', error);
-                alert('Error deleting school exam. Please try again.');
-            }
-        }
-    };
-
-    window.deleteSchoolResource = async function(id, collectionName) {
-        if (confirm('Are you sure you want to delete this school resource?')) {
-            try {
-                await deleteDoc(doc(db, collectionName, id));
-                loadSchoolResources();
-            } catch (error) {
-                console.error('Error deleting school resource:', error);
-                alert('Error deleting resource. Please try again.');
-            }
-        }
-    };
-
-    // Add new student
-    document.getElementById('addStudentForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const fullName = document.getElementById('newStudentName').value.trim();
-        const username = document.getElementById('newStudentUsername').value.trim();
-        const email = document.getElementById('newStudentEmail').value.trim();
-        const accessCode = document.getElementById('newStudentCode').value.trim();
-
-        try {
-            const usernameQuery = query(collection(db, 'individualStudents'), where('username', '==', username));
-            const usernameSnapshot = await getDocs(usernameQuery);
-
-            if (!usernameSnapshot.empty) {
-                alert('Username already exists! Please choose another one.');
-                return;
-            }
-
-            await addDoc(collection(db, 'individualStudents'), {
-                fullName: fullName,
-                username: username,
-                email: email,
-                accessCode: accessCode,
-                staffId: sessionStorage.getItem('userId'), // Track which staff added this student
-                registeredAt: serverTimestamp()
-            });
-
-            console.log('✅ Student added:', username);
-            document.getElementById('studentAddSuccess').classList.add('show');
-            setTimeout(() => document.getElementById('studentAddSuccess').classList.remove('show'), 3000);
-            
-            this.reset();
-            loadStudentsList();
-            loadStudentsDropdown();
-            
-        } catch (error) {
-            console.error('Error adding student:', error);
-            alert('Error adding student: ' + error.message);
-        }
-    });
-
-    // Load students list
-    async function loadStudentsList() {
-        const container = document.getElementById('studentsListContainer');
-        container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--gray);">Loading students...</div>';
-
-        try {
-            const querySnapshot = await getDocs(collection(db, 'individualStudents'));
-
-            if (querySnapshot.empty) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: var(--gray);">
-                        <p>No students registered yet</p>
-                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Add your first student using the form above</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = '';
-            querySnapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                const studentCard = document.createElement('div');
-                studentCard.style.cssText = 'background: var(--light-gray); padding: 1.5rem; border-radius: 12px;';
-                studentCard.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
-                        <div>
-                            <h3 style="color: var(--madder); margin-bottom: 0.5rem;">👤 ${data.fullName || data.username}</h3>
-                            <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.5rem;">
-                                <strong>Username:</strong> ${data.username}<br>
-                                ${data.email ? `<strong>Email:</strong> ${data.email}<br>` : ''}
-                                <strong>Current Code:</strong> ${data.accessCode}<br>
-                                <strong>Registered:</strong> ${new Date(data.registeredAt?.toDate()).toLocaleDateString()}
-                            </p>
-                        </div>
-                        <button class="action-btn delete-btn" onclick="deleteStudent('${docSnap.id}')" style="margin-top: 0;">Delete</button>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 0.5rem;">
-                        <label for="code_${docSnap.id}">Update Access Code</label>
-                        <input type="text" id="code_${docSnap.id}" placeholder="Enter new access code" value="${data.accessCode}">
-                    </div>
-                    <button class="submit-btn" style="width: auto;" onclick="updateStudentCode('${docSnap.id}')">Update Code</button>
-                `;
-                container.appendChild(studentCard);
-            });
-        } catch (error) {
-            console.error('Error loading students:', error);
-            container.innerHTML = `
-                <div style="text-align: center; padding: 2rem; color: #c00;">
-                    <p>Error loading students</p>
-                    <p style="font-size: 0.85rem; margin-top: 0.5rem;">${error.message}</p>
-                </div>
-            `;
-        }
-    }
-
-    window.updateStudentCode = async function(studentId) {
-        const codeInput = document.getElementById('code_' + studentId);
-        const newCode = codeInput.value.trim();
-
-        if (!newCode) {
-            alert('Please enter an access code');
-            return;
-        }
-
-        try {
-            await setDoc(doc(db, 'individualStudents', studentId), {
-                accessCode: newCode
-            }, { merge: true });
-
-            alert('Access code updated successfully!');
-            console.log('✅ Access code updated for student:', studentId);
-        } catch (error) {
-            console.error('Error updating code:', error);
-            alert('Error updating access code: ' + error.message);
-        }
-    };
-
-    window.deleteStudent = async function(studentId) {
-        if (!confirm('Are you sure you want to delete this student? This will also delete all their resources.')) {
-            return;
-        }
-
-        try {
-            await deleteDoc(doc(db, 'individualStudents', studentId));
-
-            const resourcesQuery = query(collection(db, 'personalResources'), where('studentId', '==', studentId));
-            const linksQuery = query(collection(db, 'personalLinks'), where('studentId', '==', studentId));
-            
-            const [resourcesSnapshot, linksSnapshot] = await Promise.all([
-                getDocs(resourcesQuery),
-                getDocs(linksQuery)
-            ]);
-
-            const deletePromises = [];
-            resourcesSnapshot.forEach(doc => deletePromises.push(deleteDoc(doc.ref)));
-            linksSnapshot.forEach(doc => deletePromises.push(deleteDoc(doc.ref)));
-            
-            await Promise.all(deletePromises);
-
-            console.log('✅ Student and their resources deleted');
-            loadStudentsList();
-            loadStudentsDropdown();
-        } catch (error) {
-            console.error('Error deleting student:', error);
-            alert('Error deleting student: ' + error.message);
-        }
-    };
-
-    async function loadStudentsDropdown() {
-        const dropdown = document.getElementById('targetStudent');
-        dropdown.innerHTML = '<option value="">Choose Student</option>';
-
-        try {
-            const querySnapshot = await getDocs(collection(db, 'individualStudents'));
-            querySnapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                const option = document.createElement('option');
-                option.value = docSnap.id;
-                option.textContent = `${data.fullName || data.username} (@${data.username})`;
-                dropdown.appendChild(option);
-            });
-        } catch (error) {
-            console.error('Error loading students dropdown:', error);
-        }
-    }
-
-    document.getElementById('studentResourceForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        const studentId = document.getElementById('targetStudent').value;
-        const resourceType = document.getElementById('resourceType').value;
-        const title = document.getElementById('studentResourceTitle').value;
-        const url = document.getElementById('studentResourceUrl').value;
-        const description = document.getElementById('studentResourceDescription').value;
-
-        try {
-            const collectionName = resourceType === 'link' ? 'personalLinks' : 'personalResources';
-            
-            await addDoc(collection(db, collectionName), {
-                studentId: studentId,
-                title: title,
-                [resourceType === 'link' ? 'url' : 'fileUrl']: url,
-                description: description,
-                timestamp: serverTimestamp()
-            });
-
-            document.getElementById('studentResourceSuccess').classList.add('show');
-            setTimeout(() => document.getElementById('studentResourceSuccess').classList.remove('show'), 3000);
-            this.reset();
-            loadStudentResources();
-            console.log('✅ Resource sent to student');
-        } catch (error) {
-            console.error('Error sending resource:', error);
-            alert('Error sending resource: ' + error.message);
-        }
-    });
-
-    async function loadStudentResources() {
-        const grid = document.getElementById('studentResourcesGrid');
-        grid.innerHTML = '';
-
-        try {
-            const collections = ['personalResources', 'personalLinks'];
-            const allResources = [];
-
-            for (const collName of collections) {
-                const q = query(collection(db, collName), orderBy('timestamp', 'desc'));
-                const snapshot = await getDocs(q);
-                snapshot.forEach(doc => {
-                    allResources.push({ id: doc.id, collection: collName, ...doc.data() });
-                });
-            }
-
-            allResources.sort((a, b) => b.timestamp?.toDate() - a.timestamp?.toDate());
-
-            if (allResources.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--gray);">No resources sent yet</div>';
-                return;
-            }
-
-            for (const resource of allResources.slice(0, 10)) {
-                const studentDoc = await getDoc(doc(db, 'individualStudents', resource.studentId));
-                const studentName = studentDoc.exists() ? studentDoc.data().fullName || studentDoc.data().username : 'Unknown';
-
-                const card = document.createElement('div');
-                card.className = 'post-card';
-                card.innerHTML = `
-                    <h3>${resource.title}</h3>
-                    <div class="post-meta">
-                        <span>👤 ${studentName}</span>
-                        <span>${new Date(resource.timestamp?.toDate()).toLocaleDateString()}</span>
-                    </div>
-                    <p>${resource.description}</p>
-                    <p><strong>🔗:</strong> <a href="${resource.url || resource.fileUrl}" target="_blank">View</a></p>
-                    <div class="post-actions">
-                        <button class="action-btn delete-btn" onclick="deleteStudentResource('${resource.id}', '${resource.collection}')">Delete</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            }
-        } catch (error) {
-            console.error('Error loading student resources:', error);
-            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #c00;">Error loading resources</div>';
-        }
-    }
-
-    window.deleteStudentResource = async function(id, collectionName) {
-        if (confirm('Delete this resource?')) {
-            try {
-                await deleteDoc(doc(db, collectionName, id));
-                loadStudentResources();
-            } catch (error) {
-                console.error('Error deleting:', error);
-                alert('Error deleting resource');
-            }
-        }
-    };
-
-    // Initialize everything
-    loadSchoolExams();
-    loadSchoolResources();
-    loadStudentsList();
-    loadStudentsDropdown();
-    loadStudentResources();
-
-    // ============ NOTIFICATION SYSTEM ============
-window.toggleNotifications = function() {
-    const panel = document.getElementById('notificationPanel');
-    const overlay = document.getElementById('notificationOverlay');
-    const isOpen = panel.classList.contains('open');
-    
-    if (isOpen) {
-        panel.classList.remove('open');
-        overlay.classList.remove('open');
-    } else {
-        panel.classList.add('open');
-        overlay.classList.add('open');
-        loadNotifications();
-    }
+const firebaseConfig = {
+  apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+  authDomain: "jaystarbliss-studios.firebaseapp.com",
+  projectId: "jaystarbliss-studios",
+  storageBucket: "jaystarbliss-studios.firebasestorage.app",
+  messagingSenderId: "885364100276",
+  appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
 };
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* ── AUTH GUARD ── */
+const role = sessionStorage.getItem('userRole');
+if (!role || role !== 'staff') {
+  window.location.href = '../auth/login.html';
+}
+document.getElementById('staffEmailDisplay').textContent =
+  sessionStorage.getItem('userEmail') || sessionStorage.getItem('staffName') || 'Staff';
+
+/* ── LOGOUT ── */
+window._doLogout = async function() {
+  try { await signOut(auth); } catch(e) {}
+  sessionStorage.clear();
+  window.location.href = '../auth/login.html';
+};
+
+/* ─────────────────────────────────────────────
+   HELPERS
+───────────────────────────────────────────── */
+const SCHOOL_NAMES = {
+  peniel: 'Peniel Lily Montessori',
+  southgold: 'South Gold Montessori',
+  sapphire: 'Sapphire Explorer Montessori',
+  easystars: 'Easy Stars Early Years Academy',
+  christycaleb: 'Christy Caleb International',
+  royalbreed: 'Royal Breed Academy'
+};
+
+function fmt(ts) {
+  if (!ts) return '—';
+  try { return ts.toDate().toLocaleDateString(); } catch(e){ return '—'; }
+}
+
+function showMsg(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+function emptyGrid(id, msg) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = `<div class="empty-state">${msg}</div>`;
+}
+
+/* ─────────────────────────────────────────────
+   TAB: RESOURCES
+───────────────────────────────────────────── */
+document.getElementById('resourceForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  try {
+    await addDoc(collection(db, 'resources'), {
+      title: document.getElementById('resTitle').value.trim(),
+      category: document.getElementById('resCategory').value,
+      fileUrl: document.getElementById('resUrl').value.trim(),
+      description: document.getElementById('resDesc').value.trim(),
+      postedBy: sessionStorage.getItem('userId') || 'staff',
+      timestamp: serverTimestamp()
+    });
+    showMsg('resMsg'); this.reset(); loadResources();
+  } catch(err) { alert('Error: ' + err.message); }
+});
+
+async function loadResources() {
+  const grid = document.getElementById('resourcesGrid');
+  grid.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    const snap = await getDocs(query(collection(db,'resources'), orderBy('timestamp','desc')));
+    if (snap.empty) { emptyGrid('resourcesGrid','No resources posted yet.'); return; }
+    grid.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const card = document.createElement('div');
+      card.className = 'resource-card';
+      card.innerHTML = `
+        <span class="pill pill-gold">${data.category || 'general'}</span>
+        <h4>${data.title}</h4>
+        <p>${data.description}</p>
+        <a href="${data.fileUrl}" target="_blank">🔗 View Resource</a>
+        <div class="card-meta">${fmt(data.timestamp)}</div>
+        <div class="card-actions">
+          <button class="btn btn-danger btn-sm" onclick="window._delResource('${d.id}')">Delete</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+  } catch(e) { emptyGrid('resourcesGrid','Error loading resources.'); }
+}
+
+window._delResource = async function(id) {
+  if (!confirm('Delete this resource?')) return;
+  try { await deleteDoc(doc(db,'resources',id)); loadResources(); }
+  catch(e) { alert('Error: ' + e.message); }
+};
+
+/* ─────────────────────────────────────────────
+   TAB: LINKS
+───────────────────────────────────────────── */
+document.getElementById('linkForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  try {
+    await addDoc(collection(db, 'links'), {
+      title: document.getElementById('linkTitle').value.trim(),
+      category: document.getElementById('linkCategory').value,
+      url: document.getElementById('linkUrl').value.trim(),
+      description: document.getElementById('linkDesc').value.trim(),
+      postedBy: sessionStorage.getItem('userId') || 'staff',
+      timestamp: serverTimestamp()
+    });
+    showMsg('linkMsg'); this.reset(); loadLinks();
+  } catch(err) { alert('Error: ' + err.message); }
+});
+
+async function loadLinks() {
+  const grid = document.getElementById('linksGrid');
+  grid.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    const snap = await getDocs(query(collection(db,'links'), orderBy('timestamp','desc')));
+    if (snap.empty) { emptyGrid('linksGrid','No links posted yet.'); return; }
+    grid.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const card = document.createElement('div');
+      card.className = 'resource-card';
+      card.innerHTML = `
+        <span class="pill pill-gold">${data.category || 'other'}</span>
+        <h4>${data.title}</h4>
+        <p>${data.description}</p>
+        <a href="${data.url}" target="_blank">🔗 Open Link</a>
+        <div class="card-meta">${fmt(data.timestamp)}</div>
+        <div class="card-actions">
+          <button class="btn btn-danger btn-sm" onclick="window._delLink('${d.id}')">Delete</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+  } catch(e) { emptyGrid('linksGrid','Error loading links.'); }
+}
+
+window._delLink = async function(id) {
+  if (!confirm('Delete this link?')) return;
+  try { await deleteDoc(doc(db,'links',id)); loadLinks(); }
+  catch(e) { alert('Error: ' + e.message); }
+};
+
+/* ─────────────────────────────────────────────
+   TAB: EXAMS (general)
+───────────────────────────────────────────── */
+document.getElementById('examForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  try {
+    await addDoc(collection(db, 'exams'), {
+      title: document.getElementById('examTitle').value.trim(),
+      subject: document.getElementById('examSubject').value,
+      url: document.getElementById('examUrl').value.trim(),
+      description: document.getElementById('examDesc').value.trim(),
+      postedBy: sessionStorage.getItem('userId') || 'staff',
+      timestamp: serverTimestamp()
+    });
+    showMsg('examMsg'); this.reset(); loadExams();
+  } catch(err) { alert('Error: ' + err.message); }
+});
+
+async function loadExams() {
+  const grid = document.getElementById('examsGrid');
+  grid.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    const snap = await getDocs(query(collection(db,'exams'), orderBy('timestamp','desc')));
+    if (snap.empty) { emptyGrid('examsGrid','No exams posted yet.'); return; }
+    grid.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const card = document.createElement('div');
+      card.className = 'resource-card';
+      card.innerHTML = `
+        <span class="pill pill-gold">${data.subject || 'general'}</span>
+        <h4>${data.title}</h4>
+        <p>${data.description}</p>
+        <a href="${data.url}" target="_blank">📝 Open Exam</a>
+        <div class="card-meta">${fmt(data.timestamp)}</div>
+        <div class="card-actions">
+          <button class="btn btn-danger btn-sm" onclick="window._delExam('${d.id}')">Delete</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+  } catch(e) { emptyGrid('examsGrid','Error loading exams.'); }
+}
+
+window._delExam = async function(id) {
+  if (!confirm('Delete this exam?')) return;
+  try { await deleteDoc(doc(db,'exams',id)); loadExams(); }
+  catch(e) { alert('Error: ' + e.message); }
+};
+
+/* ─────────────────────────────────────────────
+   TAB: SCHOOL EXAMS
+───────────────────────────────────────────── */
+document.getElementById('schoolExamForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  try {
+    await addDoc(collection(db, 'schoolExams'), {
+      title: document.getElementById('schoolExamTitle').value.trim(),
+      schoolId: document.getElementById('schoolExamSchool').value,
+      url: document.getElementById('schoolExamUrl').value.trim(),
+      description: document.getElementById('schoolExamDesc').value.trim(),
+      timestamp: serverTimestamp()
+    });
+    showMsg('schoolExamMsg'); this.reset(); loadSchoolExams();
+  } catch(err) { alert('Error: ' + err.message); }
+});
+
+async function loadSchoolExams() {
+  const grid = document.getElementById('schoolExamsGrid');
+  grid.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    const snap = await getDocs(query(collection(db,'schoolExams'), orderBy('timestamp','desc')));
+    if (snap.empty) { emptyGrid('schoolExamsGrid','No school exams posted yet.'); return; }
+    grid.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const card = document.createElement('div');
+      card.className = 'resource-card';
+      card.innerHTML = `
+        <span class="pill pill-gold">🏫 ${SCHOOL_NAMES[data.schoolId] || data.schoolId}</span>
+        <h4>${data.title}</h4>
+        <p>${data.description}</p>
+        <a href="${data.url}" target="_blank">📝 Open Exam</a>
+        <div class="card-meta">${fmt(data.timestamp)}</div>
+        <div class="card-actions">
+          <button class="btn btn-danger btn-sm" onclick="window._delSchoolExam('${d.id}')">Delete</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+  } catch(e) { emptyGrid('schoolExamsGrid','Error loading school exams.'); }
+}
+
+window._delSchoolExam = async function(id) {
+  if (!confirm('Delete this school exam?')) return;
+  try { await deleteDoc(doc(db,'schoolExams',id)); loadSchoolExams(); }
+  catch(e) { alert('Error: ' + e.message); }
+};
+
+/* ─────────────────────────────────────────────
+   TAB: SCHOOL RESOURCES
+───────────────────────────────────────────── */
+document.getElementById('schoolResourceForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const resType = document.getElementById('schoolResType').value;
+  try {
+    const collName = resType === 'link' ? 'schoolLinks' : 'schoolResources';
+    const urlField = resType === 'link' ? 'url' : 'fileUrl';
+    await addDoc(collection(db, collName), {
+      schoolId: document.getElementById('schoolResSchool').value,
+      title: document.getElementById('schoolResTitle').value.trim(),
+      [urlField]: document.getElementById('schoolResUrl').value.trim(),
+      description: document.getElementById('schoolResDesc').value.trim(),
+      timestamp: serverTimestamp()
+    });
+    showMsg('schoolResMsg'); this.reset(); loadSchoolResources();
+  } catch(err) { alert('Error: ' + err.message); }
+});
+
+async function loadSchoolResources() {
+  const grid = document.getElementById('schoolResGrid');
+  grid.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    const [rSnap, lSnap] = await Promise.all([
+      getDocs(query(collection(db,'schoolResources'), orderBy('timestamp','desc'))),
+      getDocs(query(collection(db,'schoolLinks'), orderBy('timestamp','desc')))
+    ]);
+    const all = [];
+    rSnap.forEach(d => all.push({ id:d.id, coll:'schoolResources', type:'resource', ...d.data() }));
+    lSnap.forEach(d => all.push({ id:d.id, coll:'schoolLinks', type:'link', ...d.data() }));
+    all.sort((a,b)=>(b.timestamp?.toDate()||new Date(0))-(a.timestamp?.toDate()||new Date(0)));
+    if (!all.length) { emptyGrid('schoolResGrid','No school resources posted yet.'); return; }
+    grid.innerHTML = '';
+    all.forEach(item => {
+      const url = item.type==='link' ? item.url : item.fileUrl;
+      const card = document.createElement('div');
+      card.className = 'resource-card';
+      card.innerHTML = `
+        <span class="pill pill-gold">🏫 ${SCHOOL_NAMES[item.schoolId]||item.schoolId}</span>
+        <span class="pill pill-dim" style="margin-left:4px;">${item.type==='link'?'🔗 Link':'📄 File'}</span>
+        <h4 style="margin-top:8px;">${item.title}</h4>
+        <p>${item.description}</p>
+        <a href="${url}" target="_blank">Open</a>
+        <div class="card-meta">${fmt(item.timestamp)}</div>
+        <div class="card-actions">
+          <button class="btn btn-danger btn-sm" onclick="window._delSchoolRes('${item.id}','${item.coll}')">Delete</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+  } catch(e) { emptyGrid('schoolResGrid','Error loading resources.'); }
+}
+
+window._delSchoolRes = async function(id, coll) {
+  if (!confirm('Delete this resource?')) return;
+  try { await deleteDoc(doc(db,coll,id)); loadSchoolResources(); }
+  catch(e) { alert('Error: ' + e.message); }
+};
+
+/* ─────────────────────────────────────────────
+   TAB: MANAGE SCHOOLS (read-only for staff)
+───────────────────────────────────────────── */
+async function loadSchoolCodes() {
+  const container = document.getElementById('schoolCodesDisplay');
+  container.innerHTML = '';
+  const schools = [
+    { id:'peniel', label:'🎓 Peniel Lily Montessori School' },
+    { id:'southgold', label:'🏆 South Gold Montessori School' },
+    { id:'sapphire', label:'💎 Sapphire Explorer Montessori School' },
+    { id:'easystars', label:'⭐ Easy Stars Early Years Academy' },
+    { id:'christycaleb', label:'📚 Christy Caleb International School' },
+    { id:'royalbreed', label:'👑 Royal Breed Academy' }
+  ];
+  container.style.cssText = 'display:grid;gap:14px;';
+  for (const s of schools) {
+    let code = '—';
+    try {
+      const schoolDoc = await getDoc(doc(db,'schools',s.id));
+      if (schoolDoc.exists()) code = schoolDoc.data().accessCode || '(not set)';
+    } catch(e) { code = '(error)'; }
+    const card = document.createElement('div');
+    card.className = 'school-card';
+    card.innerHTML = `
+      <h4>${s.label}</h4>
+      <p style="font-size:.82rem;color:var(--text-muted);">
+        Current Code: <span style="font-family:'Space Mono',monospace;color:var(--gold);">${code}</span>
+      </p>
+      <p style="font-size:.75rem;color:var(--text-dim);margin-top:6px;">Contact admin to update this code.</p>`;
+    container.appendChild(card);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   TAB: MANAGE STUDENTS
+───────────────────────────────────────────── */
+document.getElementById('addStudentForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const fullName = document.getElementById('newStudentName').value.trim();
+  const username = document.getElementById('newStudentUsername').value.trim();
+  const email = document.getElementById('newStudentEmail').value.trim();
+  const accessCode = document.getElementById('newStudentCode').value.trim();
+  try {
+    const dupQ = query(collection(db,'individualStudents'), where('username','==',username));
+    const dupSnap = await getDocs(dupQ);
+    if (!dupSnap.empty) { alert('Username already exists! Choose another.'); return; }
+    await addDoc(collection(db,'individualStudents'), {
+      fullName, username, email, accessCode,
+      staffId: sessionStorage.getItem('userId') || '',
+      registeredAt: serverTimestamp()
+    });
+    showMsg('studentAddMsg'); this.reset();
+    loadStudents(); loadStudentsDropdown();
+  } catch(err) { alert('Error: ' + err.message); }
+});
+
+async function loadStudents() {
+  const grid = document.getElementById('studentsGrid');
+  grid.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    const snap = await getDocs(collection(db,'individualStudents'));
+    if (snap.empty) { emptyGrid('studentsGrid','No students registered yet.'); return; }
+    grid.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const card = document.createElement('div');
+      card.className = 'person-card';
+      card.innerHTML = `
+        <div class="person-card-head">
+          <div class="person-card-info">
+            <h4>👤 ${data.fullName || data.username}</h4>
+            <p>@${data.username}${data.email ? '<br/>'+data.email : ''}<br/>Code: ${data.accessCode}<br/>Registered: ${fmt(data.registeredAt)}</p>
+          </div>
+          <button class="btn btn-danger btn-sm" onclick="window._delStudent('${d.id}')">Delete</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input class="form-group input" id="code_${d.id}" type="text" value="${data.accessCode}" placeholder="New access code" style="background:var(--surface);border:1px solid var(--border);color:var(--text);padding:8px 12px;flex:1;font-family:'DM Sans',sans-serif;font-size:.85rem;"/>
+          <button class="btn btn-gold btn-sm" onclick="window._updateCode('${d.id}')">Update Code</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+  } catch(e) { emptyGrid('studentsGrid','Error loading students.'); }
+}
+
+window._updateCode = async function(id) {
+  const newCode = document.getElementById('code_'+id)?.value.trim();
+  if (!newCode) { alert('Enter a code first.'); return; }
+  try {
+    await setDoc(doc(db,'individualStudents',id), { accessCode:newCode }, { merge:true });
+    alert('Access code updated!');
+  } catch(e) { alert('Error: ' + e.message); }
+};
+
+window._delStudent = async function(id) {
+  if (!confirm('Delete this student and all their resources?')) return;
+  try {
+    await deleteDoc(doc(db,'individualStudents',id));
+    const [rSnap,lSnap] = await Promise.all([
+      getDocs(query(collection(db,'personalResources'), where('studentId','==',id))),
+      getDocs(query(collection(db,'personalLinks'), where('studentId','==',id)))
+    ]);
+    const dels = [];
+    rSnap.forEach(d=>dels.push(deleteDoc(d.ref)));
+    lSnap.forEach(d=>dels.push(deleteDoc(d.ref)));
+    await Promise.all(dels);
+    loadStudents(); loadStudentsDropdown();
+  } catch(e) { alert('Error: ' + e.message); }
+};
+
+async function loadStudentsDropdown() {
+  const sel = document.getElementById('targetStudent');
+  sel.innerHTML = '<option value="">Choose Student</option>';
+  try {
+    const snap = await getDocs(collection(db,'individualStudents'));
+    snap.forEach(d => {
+      const data = d.data();
+      const opt = document.createElement('option');
+      opt.value = d.id;
+      opt.textContent = `${data.fullName||data.username} (@${data.username})`;
+      sel.appendChild(opt);
+    });
+  } catch(e) { console.error(e); }
+}
+
+/* ─────────────────────────────────────────────
+   TAB: SEND TO INDIVIDUAL STUDENT
+───────────────────────────────────────────── */
+document.getElementById('personalResForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const studentId = document.getElementById('targetStudent').value;
+  const resType = document.getElementById('personalResType').value;
+  const urlField = resType === 'link' ? 'url' : 'fileUrl';
+  try {
+    await addDoc(collection(db, resType==='link'?'personalLinks':'personalResources'), {
+      studentId,
+      title: document.getElementById('personalResTitle').value.trim(),
+      [urlField]: document.getElementById('personalResUrl').value.trim(),
+      description: document.getElementById('personalResDesc').value.trim(),
+      sentBy: sessionStorage.getItem('userId') || 'staff',
+      timestamp: serverTimestamp()
+    });
+    showMsg('personalResMsg'); this.reset(); loadPersonalResources();
+  } catch(err) { alert('Error: ' + err.message); }
+});
+
+async function loadPersonalResources() {
+  const grid = document.getElementById('personalResGrid');
+  grid.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    const all = [];
+    for (const c of ['personalResources','personalLinks']) {
+      const snap = await getDocs(query(collection(db,c), orderBy('timestamp','desc')));
+      snap.forEach(d => all.push({ id:d.id, coll:c, ...d.data() }));
+    }
+    all.sort((a,b)=>(b.timestamp?.toDate()||new Date(0))-(a.timestamp?.toDate()||new Date(0)));
+    if (!all.length) { emptyGrid('personalResGrid','No resources sent yet.'); return; }
+    grid.innerHTML = '';
+    for (const item of all.slice(0,12)) {
+      let studentName = 'Unknown';
+      try {
+        const sDoc = await getDoc(doc(db,'individualStudents',item.studentId));
+        if (sDoc.exists()) studentName = sDoc.data().fullName || sDoc.data().username;
+      } catch(e) {}
+      const url = item.url || item.fileUrl || '#';
+      const card = document.createElement('div');
+      card.className = 'resource-card';
+      card.innerHTML = `
+        <span class="pill pill-dim">👤 ${studentName}</span>
+        <h4 style="margin-top:8px;">${item.title}</h4>
+        <p>${item.description}</p>
+        <a href="${url}" target="_blank">🔗 View</a>
+        <div class="card-meta">${fmt(item.timestamp)}</div>
+        <div class="card-actions">
+          <button class="btn btn-danger btn-sm" onclick="window._delPersonalRes('${item.id}','${item.coll}')">Delete</button>
+        </div>`;
+      grid.appendChild(card);
+    }
+  } catch(e) { emptyGrid('personalResGrid','Error loading resources.'); }
+}
+
+window._delPersonalRes = async function(id, coll) {
+  if (!confirm('Delete this resource?')) return;
+  try { await deleteDoc(doc(db,coll,id)); loadPersonalResources(); }
+  catch(e) { alert('Error: ' + e.message); }
+};
+
+/* ─────────────────────────────────────────────
+   NOTIFICATIONS
+───────────────────────────────────────────── */
+let _lastNotifCount = 0;
 
 async function loadNotifications() {
-    const notificationList = document.getElementById('notificationList');
-    notificationList.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
-
-    const staffId = sessionStorage.getItem('userId');
-    console.log('📬 Loading notifications for staff:', staffId);
-
-    try {
-        // Get notifications without orderBy
-        const allQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all'));
-        const staffQuery = query(collection(db, 'notifications'), where('recipientId', '==', 'all_staff'));
-        const personalQuery = query(collection(db, 'notifications'), where('recipientId', '==', staffId));
-
-        const [allSnapshot, staffSnapshot, personalSnapshot] = await Promise.all([
-            getDocs(allQuery),
-            getDocs(staffQuery),
-            getDocs(personalQuery)
-        ]);
-
-        const allNotifications = [];
-        
-        allSnapshot.forEach(docSnap => {
-            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
-        });
-        
-        staffSnapshot.forEach(docSnap => {
-            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
-        });
-        
-        personalSnapshot.forEach(docSnap => {
-            allNotifications.push({ id: docSnap.id, ...docSnap.data() });
-        });
-
-        // Remove duplicates
-        const uniqueNotifications = Array.from(new Map(
-            allNotifications.map(item => [item.id, item])
-        ).values());
-
-        // Sort by timestamp manually
-        uniqueNotifications.sort((a, b) => {
-            const timeA = a.timestamp?.toDate() || new Date(0);
-            const timeB = b.timestamp?.toDate() || new Date(0);
-            return timeB - timeA;
-        });
-
-        console.log('✅ Found', uniqueNotifications.length, 'notifications');
-
-        if (uniqueNotifications.length === 0) {
-            notificationList.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--gray);">No notifications yet</div>';
-            updateBadge(0);
-            return;
-        }
-
-        notificationList.innerHTML = '';
-        let unreadCount = 0;
-
-        uniqueNotifications.forEach(notif => {
-            if (!notif.read) unreadCount++;
-
-            const notifCard = document.createElement('div');
-            notifCard.className = `notification-item ${notif.read ? 'read' : 'unread'}`;
-            notifCard.innerHTML = `
-                <div class="notification-content">
-                    <h4>${notif.title}</h4>
-                    <p>${notif.message}</p>
-                    <span class="notification-time">${formatTime(notif.timestamp)}</span>
-                </div>
-                ${!notif.read ? `<button class="mark-read-single" onclick="markAsRead('${notif.id}')">✓</button>` : ''}
-            `;
-            notificationList.appendChild(notifCard);
-        });
-
-        updateBadge(unreadCount);
-    // Check if there are new notifications and play sound
-if (unreadCount > lastNotificationCount && lastNotificationCount > 0) {
-    playNotificationSound();
+  const list = document.getElementById('notifList');
+  list.innerHTML = '<div class="empty-state">Loading…</div>';
+  const staffId = sessionStorage.getItem('userId');
+  try {
+    const [allSnap, staffSnap, personalSnap] = await Promise.all([
+      getDocs(query(collection(db,'notifications'), where('recipientId','==','all'))),
+      getDocs(query(collection(db,'notifications'), where('recipientId','==','all_staff'))),
+      getDocs(query(collection(db,'notifications'), where('recipientId','==',staffId)))
+    ]);
+    const map = new Map();
+    [allSnap, staffSnap, personalSnap].forEach(s =>
+      s.forEach(d => map.set(d.id, { id:d.id, ...d.data() }))
+    );
+    const notifs = [...map.values()].sort((a,b)=>{
+      return (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0));
+    });
+    if (!notifs.length) {
+      list.innerHTML = '<div class="empty-state">No notifications yet.</div>';
+      updateBadge(0); return;
+    }
+    list.innerHTML = '';
+    let unread = 0;
+    notifs.forEach(n => {
+      if (!n.read) unread++;
+      const el = document.createElement('div');
+      el.className = 'notif-item' + (n.read?'':' unread');
+      el.innerHTML = `
+        <div class="notif-content">
+          <h4>${n.title||'Notification'}</h4>
+          <p>${n.message||''}</p>
+          <span class="notif-time">${timeAgo(n.timestamp)}</span>
+        </div>
+        ${!n.read?`<button class="btn btn-ghost btn-sm" onclick="window._markRead('${n.id}')">✓</button>`:''}`;
+      list.appendChild(el);
+    });
+    if (unread > _lastNotifCount && _lastNotifCount > 0) pingSound();
+    _lastNotifCount = unread;
+    updateBadge(unread);
+  } catch(e) {
+    list.innerHTML = `<div class="empty-state">Error loading notifications.<br/><small>${e.message}</small></div>`;
+  }
 }
 
-// If there are new unread notifications, show browser notification
-if (unreadCount > lastNotificationCount && lastNotificationCount > 0) {
-    playNotificationSound(); // Play sound
-    
-    // Show browser notification with the latest message
-    if (uniqueNotifications.length > 0) {
-        const latestNotif = uniqueNotifications[0];
-        showBrowserNotification(
-            '🔔 ' + latestNotif.title,
-            latestNotif.message
-        );
-    }
-}
+window._loadNotif = loadNotifications;
 
-lastNotificationCount = unreadCount;
-    } catch (error) {
-        console.error('❌ Error loading notifications:', error);
-        console.error('Error details:', error.message);
-        notificationList.innerHTML = `<div style="text-align: center; padding: 2rem; color: #c00;">Error loading notifications<br><small>${error.message}</small></div>`;
-    }
-}
-
-window.markAsRead = async function(notificationId) {
-    try {
-        await updateDoc(doc(db, 'notifications', notificationId), { read: true });
-        loadNotifications();
-    } catch (error) {
-        console.error('Error:', error);
-    }
+window._markRead = async function(id) {
+  try { await updateDoc(doc(db,'notifications',id),{ read:true }); loadNotifications(); }
+  catch(e) { console.error(e); }
 };
 
-window.markAllAsRead = async function() {
-    try {
-        const notificationList = document.getElementById('notificationList');
-        const unreadItems = notificationList.querySelectorAll('.notification-item.unread');
-        
-        const promises = [];
-        unreadItems.forEach(item => {
-            const btn = item.querySelector('.mark-read-single');
-            if (btn) {
-                const notifId = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
-                promises.push(updateDoc(doc(db, 'notifications', notifId), { read: true }));
-            }
-        });
-
-        await Promise.all(promises);
-        loadNotifications();
-    } catch (error) {
-        console.error('Error:', error);
+window.markAllRead = async function() {
+  const items = document.querySelectorAll('.notif-item.unread');
+  const promises = [];
+  items.forEach(el => {
+    const btn = el.querySelector('button[onclick]');
+    if (btn) {
+      const m = btn.getAttribute('onclick').match(/'([^']+)'/);
+      if (m) promises.push(updateDoc(doc(db,'notifications',m[1]),{ read:true }));
     }
+  });
+  try { await Promise.all(promises); loadNotifications(); } catch(e) {}
 };
 
 function updateBadge(count) {
-    const badge = document.getElementById('notificationBadge');
-    if (count > 0) {
-        badge.textContent = count;
-        badge.style.display = 'flex';
-    } else {
-        badge.style.display = 'none';
-    }
+  const b = document.getElementById('notifBadge');
+  b.style.display = count > 0 ? 'grid' : 'none';
+  b.textContent = count;
 }
 
-function formatTime(timestamp) {
-    if (!timestamp) return 'Just now';
-    const date = timestamp.toDate();
-    const now = new Date();
-    const diff = now - date;
-    
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-    
-    if (minutes < 1) return 'Just now';
-    if (minutes < 60) return `${minutes}m ago`;
-    if (hours < 24) return `${hours}h ago`;
-    return `${days}d ago`;
+function timeAgo(ts) {
+  if (!ts) return 'just now';
+  const diff = Date.now() - ts.toDate().getTime();
+  const m = Math.floor(diff/60000);
+  const h = Math.floor(diff/3600000);
+  const d = Math.floor(diff/86400000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m}m ago`;
+  if (h < 24) return `${h}h ago`;
+  return `${d}d ago`;
 }
 
-// Play notification sound
-function playNotificationSound() {
-    // Create audio context for modern browsers
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    // Create oscillator for a pleasant notification beep
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    // Set frequency for a pleasant "ding" sound
-    oscillator.frequency.value = 800;
-    oscillator.type = 'sine';
-    
-    // Volume envelope for smooth sound
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-    
-    // Play the sound
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.5);
-    
-    console.log('🔊 Notification sound played');
+function pingSound() {
+  try {
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.connect(g); g.connect(ctx.destination);
+    osc.frequency.value = 800; osc.type = 'sine';
+    g.gain.setValueAtTime(0.25, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime+0.5);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime+0.5);
+  } catch(e) {}
 }
 
-// Check for new notifications and play sound
-let lastNotificationCount = 0;
+/* ─────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────── */
+loadResources();
+loadLinks();
+loadExams();
+loadSchoolExams();
+loadSchoolResources();
+loadSchoolCodes();
+loadStudents();
+loadStudentsDropdown();
+loadPersonalResources();
 
-async function checkForNewNotifications() {
-    try {
-        const currentBadge = document.getElementById('notificationBadge');
-        const currentCount = parseInt(currentBadge.textContent) || 0;
-        
-        if (currentCount > lastNotificationCount && lastNotificationCount > 0) {
-            // New notification arrived!
-            playNotificationSound();
-            
-            // Optional: Show browser notification too
-            if (Notification.permission === 'granted') {
-                showBrowserNotification();
-            }
-        }
-        
-        lastNotificationCount = currentCount;
-    } catch (error) {
-        console.error('Error checking notifications:', error);
-    }
-}
-
-// Auto-load notifications with sound check
-setTimeout(() => {
-    loadNotifications();
-    lastNotificationCount = parseInt(document.getElementById('notificationBadge').textContent) || 0;
-}, 1000);
-
+// Poll notifications every 30s
+setTimeout(() => { loadNotifications(); _lastNotifCount = 0; }, 1200);
 setInterval(() => {
-    if (!document.getElementById('notificationPanel').classList.contains('open')) {
-        loadNotifications();
-    }
+  if (!document.getElementById('notifPanel').classList.contains('open')) loadNotifications();
 }, 30000);
 
-// Show browser notification for new message
-function showBrowserNotification(title = 'New Notification', message = 'You have a new message') {
-    if (Notification.permission === 'granted') {
-        const notification = new Notification(title, {
-            body: message,
-            icon: 'https://via.placeholder.com/128/A91B0D/FFFFFF?text=JS',
-            badge: 'https://via.placeholder.com/96/FFD700/000000?text=!',
-            tag: 'jaystar-notification',
-            requireInteraction: true, // Stays until user clicks
-            vibrate: [200, 100, 200], // Vibration pattern for mobile
-            data: {
-                url: window.location.href
-            }
-        });
-        
-        // When user clicks notification, focus the window
-        notification.onclick = function(event) {
-            event.preventDefault();
-            window.focus();
-            
-            // Open notification panel
-            document.getElementById('notificationPanel').classList.add('open');
-            document.getElementById('notificationOverlay').classList.add('open');
-            
-            notification.close();
-        };
-    }
-}
+// Ask notification permission
+setTimeout(async () => {
+  if ('Notification' in window && Notification.permission === 'default') {
+    const ok = confirm('🔔 Allow desktop notifications from Jaystarbliss Dynamic Hub?');
+    if (ok) await Notification.requestPermission();
+  }
+}, 2500);
 </script>
+<script>lucide.createIcons();</script>
 </body>
 </html>

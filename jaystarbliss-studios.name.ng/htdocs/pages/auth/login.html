@@ -6,6 +6,7 @@
     <title>Login — Jaystarbliss Dynamic Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
         :root {
             --madder: #A91B0D; --madder-dark: #7a1309; --madder-lite: #c9210f;
@@ -414,13 +415,13 @@
         <!-- ROLE TABS -->
         <div class="role-tabs">
             <button class="role-tab active" data-pane="pane-school">
-                <span class="tab-icon">🏫</span> Schools
+                <i class="tab-icon" data-lucide="school" style="width:18px;height:18px;"></i> Schools
             </button>
             <button class="role-tab" data-pane="pane-student">
-                <span class="tab-icon">🎓</span> Students
+                <i class="tab-icon" data-lucide="graduation-cap" style="width:18px;height:18px;"></i> Students
             </button>
             <button class="role-tab" data-pane="pane-staff">
-                <span class="tab-icon">👨‍🏫</span> Staff
+                <i class="tab-icon" data-lucide="users" style="width:18px;height:18px;"></i> Staff
             </button>
         </div>
 
@@ -435,16 +436,16 @@
                     <div class="field">
                         <label>Email Address</label>
                         <div class="input-wrap">
-                            <span class="input-icon">✉</span>
+                            <i class="input-icon" data-lucide="mail" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                             <input type="email" id="school-email" placeholder="school@example.com" required autocomplete="email">
                         </div>
                     </div>
                     <div class="field">
                         <label>Password</label>
                         <div class="input-wrap">
-                            <span class="input-icon">🔒</span>
+                            <i class="input-icon" data-lucide="lock" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                             <input type="password" id="school-pw" class="has-eye" placeholder="Enter your password" required autocomplete="current-password">
-                            <button type="button" class="pw-eye" data-target="school-pw">👁</button>
+                            <button type="button" class="pw-eye" data-target="school-pw"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
                         </div>
                     </div>
                     <button type="submit" class="submit-btn" id="btn-school">
@@ -466,16 +467,16 @@
                         <div class="field">
                             <label>Username</label>
                             <div class="input-wrap">
-                                <span class="input-icon">◉</span>
+                                <i class="input-icon" data-lucide="user" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="text" id="student-user" placeholder="Your username" required autocomplete="username">
                             </div>
                         </div>
                         <div class="field">
                             <label>Access Code</label>
                             <div class="input-wrap">
-                                <span class="input-icon">🔒</span>
+                                <i class="input-icon" data-lucide="lock" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="password" id="student-code" class="has-eye" placeholder="Your access code" required autocomplete="current-password">
-                                <button type="button" class="pw-eye" data-target="student-code">👁</button>
+                                <button type="button" class="pw-eye" data-target="student-code"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
                             </div>
                         </div>
                         <button type="submit" class="submit-btn" id="btn-student">
@@ -499,30 +500,30 @@
                         <div class="field">
                             <label>Full Name</label>
                             <div class="input-wrap">
-                                <span class="input-icon">◉</span>
+                                <i class="input-icon" data-lucide="user" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="text" id="reg-fullname" placeholder="Your full name" required autocomplete="name">
                             </div>
                         </div>
                         <div class="field">
                             <label>Username</label>
                             <div class="input-wrap">
-                                <span class="input-icon">@</span>
+                                <i class="input-icon" data-lucide="at-sign" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="text" id="reg-username" placeholder="Choose a username" required autocomplete="username">
                             </div>
                         </div>
                         <div class="field">
                             <label>Email <span class="opt-label">(optional)</span></label>
                             <div class="input-wrap">
-                                <span class="input-icon">✉</span>
+                                <i class="input-icon" data-lucide="mail" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="email" id="reg-email" placeholder="your@email.com" autocomplete="email">
                             </div>
                         </div>
                         <div class="field">
                             <label>Access Code</label>
                             <div class="input-wrap">
-                                <span class="input-icon">🔑</span>
+                                <i class="input-icon" data-lucide="key" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="password" id="reg-code" class="has-eye" placeholder="From your instructor" required autocomplete="new-password">
-                                <button type="button" class="pw-eye" data-target="reg-code">👁</button>
+                                <button type="button" class="pw-eye" data-target="reg-code"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
                             </div>
                         </div>
                         <button type="submit" class="submit-btn" id="btn-student-reg">
@@ -578,38 +579,38 @@
                         <div class="field">
                             <label>Registration Code</label>
                             <div class="input-wrap">
-                                <span class="input-icon">🔑</span>
+                                <i class="input-icon" data-lucide="key" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="text" id="sreg-code" placeholder="Code from admin" required>
                             </div>
                         </div>
                         <div class="field">
                             <label>Full Name</label>
                             <div class="input-wrap">
-                                <span class="input-icon">◉</span>
+                                <i class="input-icon" data-lucide="user" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="text" id="sreg-name" placeholder="Your full name" required autocomplete="name">
                             </div>
                         </div>
                         <div class="field">
                             <label>Email Address</label>
                             <div class="input-wrap">
-                                <span class="input-icon">✉</span>
+                                <i class="input-icon" data-lucide="mail" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="email" id="sreg-email" placeholder="your@email.com" required autocomplete="email">
                             </div>
                         </div>
                         <div class="field">
                             <label>Password</label>
                             <div class="input-wrap">
-                                <span class="input-icon">🔒</span>
+                                <i class="input-icon" data-lucide="lock" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="password" id="sreg-pw" class="has-eye" placeholder="Create a strong password" required autocomplete="new-password">
-                                <button type="button" class="pw-eye" data-target="sreg-pw">👁</button>
+                                <button type="button" class="pw-eye" data-target="sreg-pw"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
                             </div>
                         </div>
                         <div class="field">
                             <label>Confirm Password</label>
                             <div class="input-wrap">
-                                <span class="input-icon">🔒</span>
+                                <i class="input-icon" data-lucide="lock" style="width:16px;height:16px;position:absolute;left:0.85rem;"></i>
                                 <input type="password" id="sreg-pw2" class="has-eye" placeholder="Re-enter password" required autocomplete="new-password">
-                                <button type="button" class="pw-eye" data-target="sreg-pw2">👁</button>
+                                <button type="button" class="pw-eye" data-target="sreg-pw2"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
                             </div>
                         </div>
                         <button type="submit" class="submit-btn" id="btn-staff-reg">
@@ -624,8 +625,8 @@
 
         <!-- FOOTER -->
         <div class="form-foot">
-            <a href="../../index.html" class="back-link">← Main Site</a>
-            <button class="theme-btn" id="themeToggleBtn" title="Toggle theme">◐</button>
+            <a href="../../index.html" class="back-link"><i data-lucide="arrow-left" style="width:16px;height:16px;vertical-align:middle;margin-right:4px;"></i>Main Site</a>
+            <button class="theme-btn" id="themeToggleBtn" title="Toggle theme"><i data-lucide="sun" style="width:16px;height:16px;"></i></button>
         </div>
 
     </div><!-- /form-panel -->
@@ -874,5 +875,6 @@
         setBtnLoading('btn-staff-reg', false);
     });
 </script>
+<script>lucide.createIcons();</script>
 </body>
 </html>

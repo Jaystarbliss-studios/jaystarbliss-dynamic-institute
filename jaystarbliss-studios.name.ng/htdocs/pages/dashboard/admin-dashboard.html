@@ -6,6 +6,7 @@
 <title>Admin — Jaystarbliss Dynamic Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
 :root {
   --madder:#A91B0D; --madder-dark:#7a1309; --madder-lite:#c9210f;
@@ -304,14 +305,14 @@ body{
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-left">
-    <button class="hamburger" id="hamburger">☰</button>
+    <button class="hamburger" id="hamburger"><i data-lucide="menu" style="width:20px;height:20px;"></i></button>
     <div class="brand-mark">JDH</div>
     <span class="topbar-title">Admin Dashboard</span>
     <span class="topbar-badge">Admin</span>
   </div>
   <div class="topbar-right">
     <span class="admin-email" id="adminEmail">admin@jaystarbliss.com</span>
-    <button class="theme-btn" id="themeToggleBtn" title="Toggle theme">◐</button>
+    <button class="theme-btn" id="themeToggleBtn" title="Toggle theme"><i data-lucide="sun" style="width:16px;height:16px;"></i></button>
     <button class="logout-btn" id="logoutBtn">Logout</button>
   </div>
 </div>
@@ -320,36 +321,36 @@ body{
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-section">
     <div class="sidebar-label">Content</div>
-    <button class="nav-item active" data-tab="resources"><span class="nav-icon">📄</span> General Resources</button>
-    <button class="nav-item" data-tab="newsCorner"><span class="nav-icon">📰</span> News Corner</button>
-    <button class="nav-item" data-tab="links"><span class="nav-icon">🔗</span> General Links</button>
-    <button class="nav-item" data-tab="exams"><span class="nav-icon">📝</span> Programming Questions</button>
+    <button class="nav-item active" data-tab="resources"><i class="nav-icon" data-lucide="file" style="width:16px;height:16px;"></i> General Resources</button>
+    <button class="nav-item" data-tab="newsCorner"><i class="nav-icon" data-lucide="newspaper" style="width:16px;height:16px;"></i> News Corner</button>
+    <button class="nav-item" data-tab="links"><i class="nav-icon" data-lucide="link" style="width:16px;height:16px;"></i> General Links</button>
+    <button class="nav-item" data-tab="exams"><i class="nav-icon" data-lucide="file-text" style="width:16px;height:16px;"></i> Programming Questions</button>
   </div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">
     <div class="sidebar-label">Schools</div>
-    <button class="nav-item" data-tab="schoolExams"><span class="nav-icon">🏫</span> School Exams</button>
-    <button class="nav-item" data-tab="schoolResources"><span class="nav-icon">📚</span> School Resources</button>
-    <button class="nav-item" data-tab="schoolManage"><span class="nav-icon">🔐</span> Manage Schools</button>
+    <button class="nav-item" data-tab="schoolExams"><i class="nav-icon" data-lucide="school" style="width:16px;height:16px;"></i> School Exams</button>
+    <button class="nav-item" data-tab="schoolResources"><i class="nav-icon" data-lucide="book" style="width:16px;height:16px;"></i> School Resources</button>
+    <button class="nav-item" data-tab="schoolManage"><i class="nav-icon" data-lucide="lock" style="width:16px;height:16px;"></i> Manage Schools</button>
   </div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">
     <div class="sidebar-label">Students</div>
-    <button class="nav-item" data-tab="studentManage"><span class="nav-icon">👤</span> Manage Students</button>
-    <button class="nav-item" data-tab="studentResources"><span class="nav-icon">📤</span> Send Resources</button>
+    <button class="nav-item" data-tab="studentManage"><i class="nav-icon" data-lucide="user" style="width:16px;height:16px;"></i> Manage Students</button>
+    <button class="nav-item" data-tab="studentResources"><i class="nav-icon" data-lucide="send" style="width:16px;height:16px;"></i> Send Resources</button>
   </div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">
     <div class="sidebar-label">Staff</div>
-    <button class="nav-item" data-tab="staffManage"><span class="nav-icon">👨‍🏫</span> Manage Staff</button>
-    <button class="nav-item" data-tab="staffResources"><span class="nav-icon">📦</span> Staff Resources</button>
-    <button class="nav-item" data-tab="staffAccess"><span class="nav-icon">🔑</span> Staff School Access</button>
+    <button class="nav-item" data-tab="staffManage"><i class="nav-icon" data-lucide="users" style="width:16px;height:16px;"></i> Manage Staff</button>
+    <button class="nav-item" data-tab="staffResources"><i class="nav-icon" data-lucide="package" style="width:16px;height:16px;"></i> Staff Resources</button>
+    <button class="nav-item" data-tab="staffAccess"><i class="nav-icon" data-lucide="key" style="width:16px;height:16px;"></i> Staff School Access</button>
   </div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">
     <div class="sidebar-label">System</div>
-    <button class="nav-item" data-tab="notifications"><span class="nav-icon">🔔</span> Notifications</button>
-    <button class="nav-item" data-tab="activityLogs"><span class="nav-icon">📊</span> Activity Logs</button>
+    <button class="nav-item" data-tab="notifications"><i class="nav-icon" data-lucide="bell" style="width:16px;height:16px;"></i> Notifications</button>
+    <button class="nav-item" data-tab="activityLogs"><i class="nav-icon" data-lucide="bar-chart-2" style="width:16px;height:16px;"></i> Activity Logs</button>
   </div>
 </aside>
 
@@ -1542,5 +1543,6 @@ window.deleteNewsPost = async function(id) {
 loadNewsCorner();
 
 </script>
+<script>lucide.createIcons();</script>
 </body>
 </html>

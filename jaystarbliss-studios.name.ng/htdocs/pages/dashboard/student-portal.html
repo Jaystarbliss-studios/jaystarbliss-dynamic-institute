@@ -6,6 +6,7 @@
     <title>Student Portal — Jaystarbliss Dynamic Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
         :root {
             --madder: #A91B0D; --madder-dark: #7a1309; --madder-lite: #c9210f;
@@ -189,9 +190,9 @@
         <span>Student Portal</span> › <span id="breadcrumbActive">Overview</span>
     </nav>
     <div class="topbar-right">
-        <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme">◐</button>
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme"><i data-lucide="moon" style="width:18px;height:18px;"></i></button>
         <button class="icon-btn" id="notifToggleBtn" title="Notifications">
-            🔔 <span class="badge" id="notifBadge" style="display:none;">0</span>
+            <i data-lucide="bell" style="width:18px;height:18px;"></i> <span class="badge" id="notifBadge" style="display:none;">0</span>
         </button>
         <div class="avatar" id="userAvatar">ST</div>
     </div>
@@ -201,26 +202,26 @@
     <div class="sidebar-section">
         <div class="sidebar-label">Main</div>
         <a class="nav-item active" data-tab="overview" href="#">
-            <span class="nav-icon">▣</span> Overview
+            <i class="nav-icon" data-lucide="layout-grid" style="width:16px;height:16px;"></i> Overview
         </a>
         <a class="nav-item" data-tab="resources" href="#">
-            <span class="nav-icon">◎</span> Resources
+            <i class="nav-icon" data-lucide="book-open" style="width:16px;height:16px;"></i> Resources
             <span class="nav-badge" id="resourceCount">0</span>
         </a>
         <a class="nav-item" data-tab="exams" href="#">
-            <span class="nav-icon">✦</span> Exams
+            <i class="nav-icon" data-lucide="file-text" style="width:16px;height:16px;"></i> Exams
             <span class="nav-badge" id="examCount">0</span>
         </a>
         <a class="nav-item" data-tab="activity" href="#">
-            <span class="nav-icon">≋</span> Activity
+            <i class="nav-icon" data-lucide="activity" style="width:16px;height:16px;"></i> Activity
         </a>
     </div>
     <div class="sidebar-section">
         <div class="sidebar-label">Account</div>
-        <button class="nav-item" id="sidebarCardBtn"><span class="nav-icon">◉</span> Student Card</button>
-        <button class="nav-item" id="sidebarSchoolBtn"><span class="nav-icon">🏫</span> School Resources</button>
-        <button class="nav-item" id="sidebarThemeBtn"><span class="nav-icon">◐</span> Toggle Theme</button>
-<button class="nav-item" id="sidebarLogoutBtn" onclick="logout()"><span class="nav-icon">↪</span> Logout</button>
+        <button class="nav-item" id="sidebarCardBtn"><i class="nav-icon" data-lucide="id-card" style="width:16px;height:16px;"></i> Student Card</button>
+        <button class="nav-item" id="sidebarSchoolBtn"><i class="nav-icon" data-lucide="school" style="width:16px;height:16px;"></i> School Resources</button>
+        <button class="nav-item" id="sidebarThemeBtn"><i class="nav-icon" data-lucide="moon" style="width:16px;height:16px;"></i> Toggle Theme</button>
+        <button class="nav-item" id="sidebarLogoutBtn" onclick="logout()"><i class="nav-icon" data-lucide="log-out" style="width:16px;height:16px;"></i> Logout</button>
     </div>
     <div class="sidebar-footer">
         <div class="user-card">
@@ -244,8 +245,8 @@
                 <div class="page-meta" id="welcomeMessage">Welcome back — Loading...</div>
             </div>
             <div class="flex gap-sm">
-                <button class="btn btn-ghost btn-sm" id="headerCardBtn">🖨 Print Card</button>
-                <button class="btn btn-primary btn-sm" id="headerSchoolBtn">🏫 School Resources</button>
+                <button class="btn btn-ghost btn-sm" id="headerCardBtn"><i data-lucide="printer" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>Print Card</button>
+                <button class="btn btn-primary btn-sm" id="headerSchoolBtn"><i data-lucide="school" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;"></i>School Resources</button>
             </div>
         </div>
 
@@ -305,10 +306,10 @@
                 <div class="panel">
                     <div class="panel-head"><div class="panel-title">Quick Actions</div></div>
                     <div class="panel-body" style="display:flex;flex-direction:column;gap:0.5rem;">
-                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="resources">◎ Browse Resources</button>
-                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="exams">✦ Take Exams</button>
-                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" id="qaSchoolBtn">🏫 School Resources</button>
-                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" id="qaCardBtn">🖨 Print Student Card</button>
+                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="resources"><i data-lucide="book-open" style="width:14px;height:14px;margin-right:8px;"></i>Browse Resources</button>
+                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" data-goto="exams"><i data-lucide="file-text" style="width:14px;height:14px;margin-right:8px;"></i>Take Exams</button>
+                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" id="qaSchoolBtn"><i data-lucide="school" style="width:14px;height:14px;margin-right:8px;"></i>School Resources</button>
+                        <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;" id="qaCardBtn"><i data-lucide="printer" style="width:14px;height:14px;margin-right:8px;"></i>Print Student Card</button>
                         <div class="divider"></div>
                         <button class="btn btn-primary" style="width:100%;justify-content:flex-start;" data-goto="resources">+ Browse More</button>
                     </div>
@@ -322,7 +323,7 @@
                 <div class="panel-head">
                     <div class="panel-title">Learning Resources</div>
                     <div class="search-wrap">
-                        <span class="search-icon">🔍</span>
+                        <i class="search-icon" data-lucide="search" style="width:16px;height:16px;position:absolute;left:12px;top:50%;transform:translateY(-50%);"></i>
                         <input class="form-control" style="width:200px;" type="text" placeholder="Search resources..." id="resourceSearch">
                     </div>
                 </div>
@@ -806,5 +807,6 @@
     setTimeout(requestNotifPermission, 2000);
     setInterval(loadNotifications, 30000);
 </script>
+<script>lucide.createIcons();</script>
 </body>
 </html>

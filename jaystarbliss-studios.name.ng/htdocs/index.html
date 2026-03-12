@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
@@ -281,7 +281,7 @@
         .hero-bg {
             position: absolute; inset: 0; z-index: 0;
             background:
-                linear-gradient(160deg, rgba(169,27,13,0.55) 0%, rgba(0,0,0,0.85) 60%, rgba(10,10,11,0.95) 100%),
+                linear-gradient(160deg, rgba(169,27,13,0.55) 0%, rgba(0,0,0,0.55) 60%, rgba(10,10,11,0.65) 100%),
                 url('assets/img/children learning.png') center/cover no-repeat;
         }
         /* Red grid over hero */
@@ -378,11 +378,11 @@
             line-height: 1.1;
             letter-spacing: -0.02em;
             color: #FFFAFA;
-            text-shadow: 2px 0 rgba(255,215,0,0.3), -2px 0 rgba(169,27,13,0.3);
+            text-shadow: 2px 0 rgb(243, 242, 238), -2px 0 rgba(169,27,13,0.3);
         }
         .hero h1 span {
             color: transparent;
-            background: linear-gradient(135deg, #fff 0%, #9ca3af 100%);
+            background: linear-gradient(135deg, #fff 0%, #830404 100%);
             -webkit-background-clip: text;
             background-clip: text;
         }
@@ -1082,14 +1082,15 @@
             <div class="hero-ring"></div>
             <div class="hero-ring"></div>
         </div>
-        <div class="hero-log">
+       <!--<div class="hero-log">
             [LOG] CPU_LOAD: 24%<br>
             [LOG] MEMORY: OPTIMAL<br>
             [LOG] UPLINK: ESTABLISHED<br>
             [LOG] SESSION: SUMMER_ACTIVE
-        </div>
+        </div>-->
+
         <div class="hero-content">
-            <span class="hero-eyebrow">Status: Summer Session Online</span>
+            <span class="hero-eyebrow">Status: Online</span>
             <h1>Welcome to the<br><span>Summer Session!</span></h1>
             <p>From Logic to Syntax, We Make Programming Fun, Interactive, and Accessible for Every Child</p>
             <div class="cta-buttons">
@@ -1432,7 +1433,7 @@
         const moonIcon = document.querySelector('.moon-icon');
         const html = document.documentElement;
 
-        const currentTheme = localStorage.getItem('theme') || 'dark';
+        const currentTheme = localStorage.getItem('theme') || 'light';
         html.setAttribute('data-theme', currentTheme);
         updateThemeIcon(currentTheme);
 

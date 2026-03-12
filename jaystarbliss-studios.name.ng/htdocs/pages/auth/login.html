@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -51,13 +51,16 @@ html{font-size:14px}
 body {
   font-family: var(--sans);
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
   background: var(--bg);
   position: relative;
-  overflow: hidden;
+  /* FIX 1: removed overflow:hidden so mobile footer is reachable */
+  overflow-x: hidden;
+  overflow-y: auto;
   transition: background 0.3s;
 }
 
@@ -174,13 +177,22 @@ body::before {
   border-bottom-color: var(--cr-g);
   animation: spin2 7s linear infinite;
 }
-.ring-3 {
+/* FIX 3: 4th ring — same orbit as ring-2, opposite spin, gold accent */
+.ring-4 {
+  width: 76%; height: 76%;
+  border-color: rgba(255,215,0,0.06);
+  border-top-color: rgba(255,215,0,0.55);
+  animation: spin1 9s linear infinite;
+  transform: rotate(90deg);
+}
+/*.ring-3 {
   width: 54%; height: 54%;
   border-color: rgba(255,46,0,0.06);
   border-left-color: var(--gold);
   animation: spin3 4s linear infinite;
-}
-/* small orbiting dot on each ring */
+}*/
+
+/* orbiting dot on each ring */
 .ring::after {
   content:'';
   position:absolute;
@@ -191,6 +203,7 @@ body::before {
 }
 .ring-1::after { background: var(--cr); box-shadow: 0 0 8px var(--cr); }
 .ring-2::after { background: var(--cr-g); box-shadow: 0 0 6px var(--cr-g); top:auto;bottom:-3.5px; }
+.ring-4::after { background: var(--gold); box-shadow: 0 0 6px var(--gold); top:-3.5px; left:50%; transform:translateX(-50%); }
 .ring-3::after { background: var(--gold); box-shadow: 0 0 6px var(--gold); top:50%;left:-3.5px;transform:translateY(-50%); }
 
 @keyframes spin1 { to{transform:rotate(360deg)} }
@@ -199,7 +212,7 @@ body::before {
 
 /* center lock icon */
 .orbital-core {
-  position:relative;z-index:3;
+  position:relative; z-index:3;
   width:68px;height:68px;
   border-radius:50%;
   background: rgba(255,46,0,0.08);
@@ -421,6 +434,8 @@ body::before {
   flex-shrink:0;
   background:var(--surf2);
   transition:background 0.3s;
+  /* FIX 1: always visible, never squished */
+  min-height: 52px;
 }
 .back-link {
   font-family:var(--mono);font-size:0.58rem;
@@ -455,18 +470,129 @@ body::before {
   color:var(--text);line-height:1;
 }
 
-/* ── RESPONSIVE ──────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE FIXES
+   ═══════════════════════════════════════════════════════════ */
 @media(max-width:700px){
-  .card{flex-direction:column;max-width:440px;}
-  .deco-panel{width:100%;min-height:160px;padding:1.3rem 1.5rem;}
-  .orbital-wrap{top:50%;width:160px;height:160px;transform:translate(-50%,-50%);}
-  .deco-brand{position:static;margin-bottom:0.5rem;}
-  .form-body{padding:1.3rem 1.5rem;}
-  .form-foot{padding:0.8rem 1.5rem;}
+
+  body {
+    padding: 0;
+    align-items: flex-start;
+  }
+
+  /* Card stacks vertically and fills screen */
+  .card {
+    flex-direction:column;
+    max-width: 100%;
+    width: 100%;
+    min-height: 100dvh;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  /* ── DECO PANEL on mobile: horizontal layout ── */
+  .deco-panel {
+    width: 100%;
+    min-height: 170px;
+    padding: 1.2rem 1.4rem;
+    flex-direction: row;           /* brand + stats LEFT, orbital RIGHT */
+    align-items: center;
+    justify-content: space-between;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Brand stays top-left — override its absolute position */
+  .deco-brand {
+    position: static;
+    margin-bottom: 0;
+    align-self: flex-start;
+  }
+
+  /* Left column: brand on top, tagline + stats below */
+  .deco-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* FIX 4: tagline becomes a single line on mobile */
+  .deco-tagline {
+    font-size: 0.82rem;
+    white-space: nowrap;
+    line-height: 1;
+    margin-bottom: 0;
+  }
+  /* Hide the <br> tags visually on mobile */
+  .deco-tagline br { display: none; }
+  /* Replace line breaks with separator dots */
+  .deco-tagline .tag-sep { display: inline; }
+
+  /* Hide sys-stats on mobile to save space */
+  .sys-stats { display: none; }
+  .deco-content { margin: 0; }
+
+  /* FIX 2: Orbital moves to RIGHT side of deco-panel */
+  .orbital-wrap {
+    position: relative;    /* detach from absolute */
+    top: auto; left: auto;
+    transform: none;
+    width: 130px;
+    height: 130px;
+    flex-shrink: 0;
+    margin-left: 1rem;
+    align-self: center;
+  }
+
+  /* Scale orbital core down to fit */
+  .orbital-core {
+    width: 44px;
+    height: 44px;
+  }
+  .orbital-core svg {
+    width: 18px;
+    height: 18px;
+  }
+  /* Scale ring dots down */
+  .ring::after {
+    width: 5px;
+    height: 5px;
+    top: -2.5px;
+  }
+  .ring-2::after { bottom: -2.5px; top: auto; }
+  .ring-4::after { top: -2.5px; }
+  .ring-3::after { top: 50%; left: -2.5px; transform: translateY(-50%); }
+
+  /* Form panel fills remaining space and scrolls */
+  .form-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* let card handle scroll */
+  }
+
+  .form-body {
+    padding: 1.3rem 1.4rem;
+    flex: 1;
+  }
+
+  /* FIX 1: Footer always visible at bottom */
+  .form-foot {
+    padding: 0.8rem 1.4rem;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+  }
 }
-@media(max-width:420px){
-  body{padding:0;align-items:flex-start;}
-  .card{border-radius:0;min-height:100vh;}
+
+/* Extra small phones */
+@media(max-width:380px){
+  .deco-panel { min-height: 150px; }
+  .orbital-wrap { width: 110px; height: 110px; }
+  .deco-tagline { font-size: 0.72rem; }
 }
 </style>
 </head>
@@ -478,18 +604,43 @@ body::before {
   <!-- ══ DECO PANEL ══════════════════════════════════════════ -->
   <div class="deco-panel">
 
-    <div class="deco-brand">
-      <div class="brand-mark">
-        <img src="../../assets/img/favicon.png" alt="JDH" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <span class="brand-mark-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">J</span>
-      </div>
-      <div class="brand-name">Jaystarbliss<br>Dynamic Hub</div>
-    </div>
+    <!--
+      On mobile we use a wrapper div (.deco-left-col) to stack
+      brand + tagline + stats in a left column, with orbital on right.
+      On desktop this wrapper has no effect (unstyled above 700px).
+    -->
+    <div class="deco-left-col">
 
-    <!-- Orbital animation -->
+      <div class="deco-brand">
+        <div class="brand-mark">
+          <img src="../../assets/img/favicon.png" alt="JDH" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <span class="brand-mark-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">J</span>
+        </div>
+        <div class="brand-name">Jaystarbliss<br>Dynamic Hub</div>
+      </div>
+
+      <div class="deco-content">
+        <!-- FIX 4: <span class="tag-sep"> provides the dot separators on mobile -->
+        <div class="deco-tagline">
+          Learn.<span class="tag-sep"> </span><br>
+          <span>Grow.</span><span class="tag-sep"> </span><br>
+          Thrive.
+        </div>
+      </div>
+
+      <div class="sys-stats">
+        <span class="sys-stat">Protocol: AES-256-GCM</span>
+        <span class="sys-stat">Status: Surveillance Active</span>
+        <span class="sys-stat">Node: 0xFF-JDH-init</span>
+      </div>
+
+    </div><!-- /deco-left-col -->
+
+    <!-- FIX 2 + 3: Orbital with 4 rings, moves right on mobile -->
     <div class="orbital-wrap">
       <div class="ring ring-1"></div>
       <div class="ring ring-2"></div>
+      <div class="ring ring-4"></div><!-- NEW 4th ring, same orbit as ring-2 -->
       <div class="ring ring-3"></div>
       <div class="orbital-core">
         <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -497,17 +648,6 @@ body::before {
           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
       </div>
-    </div>
-
-    <div class="deco-content">
-      <div class="deco-tagline">Learn.<br><span>Grow.</span><br>Thrive.</div>
-      <div class="deco-sub">Secure Access Terminal</div>
-    </div>
-
-    <div class="sys-stats">
-      <span class="sys-stat">Protocol: AES-256-GCM</span>
-      <span class="sys-stat">Status: Surveillance Active</span>
-      <span class="sys-stat">Node: 0xFF-JDH-MISSION</span>
     </div>
 
   </div><!-- /deco-panel -->
@@ -731,7 +871,7 @@ body::before {
 
     </div><!-- /form-body -->
 
-    <!-- CARD FOOTER -->
+    <!-- CARD FOOTER — FIX 1: sticky bottom, always visible -->
     <div class="form-foot">
       <a href="../../index.html" class="back-link">
         <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>

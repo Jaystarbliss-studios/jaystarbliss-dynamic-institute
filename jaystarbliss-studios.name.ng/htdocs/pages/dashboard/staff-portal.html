@@ -2,53 +2,58 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Staff Portal — Jaystarbliss Dynamic Hub</title>
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon.png">
-    <link rel="apple-touch-icon" href="../../assets/img/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="../../assets/img/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
   <style>
-  /* ── CSS VARIABLES ── */
+  /* ══════════════════════════════════════════
+     CSS VARIABLES
+  ══════════════════════════════════════════ */
   :root {
---crimson:#D93B22; --crimson-dark:#D93B22; --crimson-glow:rgba(217,59,34,0.4);
-    --obsidian:#050505; --surface:rgba(15,15,17,0.85); --surface-2:rgba(20,20,22,0.9);
+    --crimson:#D93B22; --crimson-dark:#b52e18; --crimson-glow:rgba(217,59,34,0.4);
+    --obsidian:#050505; --surface:rgba(15,15,17,0.92); --surface-2:rgba(20,20,22,0.95);
     --border:rgba(230,25,5,0.18); --border-bright:rgba(230,25,5,0.5);
     --text:#f1f5f9; --text-muted:#94a3b8; --text-dim:rgba(230,25,5,0.4);
     --gold:#FFD700; --gold-dim:#b89d00;
     --green:#22c55e; --blue:#38bdf8;
     --field-bg:rgba(5,5,5,0.8); --field-border:rgba(230,25,5,0.2);
     --mono:'Space Mono',monospace; --sans:'Public Sans',sans-serif;
-    --sidebar-w:260px; --topbar-h:64px;
-    --glass-bg:rgba(15,15,17,0.7); --glass-blur:blur(12px);
+    --sidebar-w:270px; --topbar-h:56px;
+    --glass-bg:rgba(15,15,17,0.75); --glass-blur:blur(14px);
+    --radius:10px; --radius-sm:6px;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
   }
   [data-theme="light"] {
     --crimson:#C41203; --crimson-dark:#8f0d02; --crimson-glow:rgba(196,18,3,0.25);
-    --obsidian:#f5f5f5; --surface:rgba(255,255,255,0.92); --surface-2:rgba(240,240,242,0.95);
+    --obsidian:#f0f0f2; --surface:rgba(255,255,255,0.95); --surface-2:rgba(240,240,242,0.97);
     --border:rgba(196,18,3,0.15); --border-bright:rgba(196,18,3,0.4);
     --text:#0f0f10; --text-muted:#3d3d45; --text-dim:rgba(196,18,3,0.45);
     --gold:#b8860b; --gold-dim:#8a6508;
     --green:#16a34a; --blue:#0369a1;
-    --field-bg:rgba(255,255,255,0.9); --field-border:rgba(196,18,3,0.18);
-    --glass-bg:rgba(255,255,255,0.75); --glass-blur:blur(12px);
+    --field-bg:rgba(255,255,255,0.92); --field-border:rgba(196,18,3,0.18);
+    --glass-bg:rgba(255,255,255,0.82); --glass-blur:blur(14px);
   }
 
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{font-size:14px;}
-  body{
-    font-family:var(--sans);
-    background:var(--obsidian);
-    color:var(--text);
-    display:grid;
-    grid-template-columns:var(--sidebar-w) 1fr;
-    grid-template-rows:var(--topbar-h) 1fr;
-    height:100vh; overflow:hidden;
+  /* ══════════════════════════════════════════
+     RESET & BASE
+  ══════════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 14px; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--sans);
+    background: var(--obsidian);
+    color: var(--text);
+    min-height: 100vh;
     background-image:
       radial-gradient(ellipse at 10% 20%, rgba(230,25,5,0.06) 0%, transparent 50%),
       radial-gradient(ellipse at 90% 80%, rgba(230,25,5,0.04) 0%, transparent 50%);
-    transition:background .25s, color .25s;
+    transition: background .25s, color .25s;
+    overflow-x: hidden;
   }
   [data-theme="light"] body {
     background-image:
@@ -56,868 +61,1149 @@
       radial-gradient(ellipse at 90% 80%, rgba(196,18,3,0.03) 0%, transparent 50%);
   }
 
-  /* ── TOPBAR ── */
-  .topbar{
-    grid-column:1/-1; grid-row:1;
-    background:var(--surface);
-    backdrop-filter:blur(16px);
-    border-bottom:1px solid var(--border);
-    display:flex; align-items:center; justify-content:space-between;
-    padding:0 1.5rem; z-index:100;
-    box-shadow:0 2px 24px rgba(0,0,0,0.6);
+  /* ══════════════════════════════════════════
+     LAYOUT WRAPPER (desktop grid)
+  ══════════════════════════════════════════ */
+  .layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    grid-template-rows: var(--topbar-h) 1fr;
+    height: 100vh;
+    overflow: hidden;
   }
-  .topbar-left{display:flex;align-items:center;gap:1rem;}
-  .brand-logo{height:34px;display:block;}
-  .brand-text{display:flex;flex-direction:column;gap:1px;}
-  .topbar-title{font-family:var(--mono);font-size:.8rem;font-weight:700;color:var(--crimson);letter-spacing:-.02em;}
-  .topbar-sub{font-family:var(--mono);font-size:.52rem;color:rgba(230,25,5,0.5);text-transform:uppercase;letter-spacing:.18em;}
-  .topbar-right{display:flex;align-items:center;gap:.8rem;}
-  .staff-role-pill{
-    padding:.3rem .75rem;
-    background:rgba(230,25,5,0.12);
-    border:1px solid rgba(230,25,5,0.3);
-    border-radius:4px;
-    font-family:var(--mono);font-size:.58rem;font-weight:700;
-    color:var(--crimson);text-transform:uppercase;letter-spacing:.08em;
-  }
-  .email-pill{
-    display:flex;align-items:center;gap:.4rem;
-    padding:.35rem .75rem;
-    border:1px solid var(--border);
-    border-radius:6px;
-    font-family:var(--mono);font-size:.62rem;
-  }
-  .email-pill span:first-child{color:var(--text-dim);}
-  .email-pill span:last-child{color:var(--crimson);}
-  .theme-btn{
-    width:34px;height:34px;
-    background:transparent; border:1px solid var(--border);
-    color:var(--crimson); border-radius:6px;
-    display:grid;place-items:center; cursor:pointer;
-    transition:all .15s;
-  }
-  .theme-btn:hover{background:rgba(230,25,5,0.1);}
-  .theme-btn .material-symbols-outlined{font-size:1.1rem;}
-  .logout-btn{
-    display:flex;align-items:center;gap:.4rem;
-    padding:.4rem .9rem;
-    background:rgba(230,25,5,0.1); border:1px solid rgba(230,25,5,0.3);
-    color:var(--crimson); font-family:var(--mono); font-size:.62rem; font-weight:700;
-    text-transform:uppercase; letter-spacing:.05em; cursor:pointer;
-    border-radius:6px; transition:all .15s;
-  }
-  .logout-btn:hover{background:var(--crimson);color:#fff;}
-  .logout-btn .material-symbols-outlined{font-size:.9rem;}
-  .hamburger{
-    display:none;width:32px;height:32px;
-    background:rgba(230,25,5,0.08);border:1px solid var(--border);
-    color:var(--crimson);place-items:center;cursor:pointer;border-radius:6px;
-  }
-  .hamburger .material-symbols-outlined{font-size:1.1rem;}
 
-  /* ── SIDEBAR ── */
-  .sidebar{
-    grid-column:1; grid-row:2;
-    background:rgba(5,5,5,0.95);
-    border-right:1px solid var(--border);
-    overflow-y:auto; display:flex;flex-direction:column;
-    padding:1rem 0;
-    transition:background .25s;
+  /* ══════════════════════════════════════════
+     TOPBAR
+  ══════════════════════════════════════════ */
+  .topbar {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    background: var(--surface);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem 0 1rem;
+    z-index: 200;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.5);
+    gap: .5rem;
   }
-  [data-theme="light"] .sidebar{background:var(--surface-2);}
-  .sidebar-section{padding:.5rem 0 .2rem;}
-  .sidebar-label{
-    font-family:var(--mono);font-size:.52rem;font-weight:700;
-    color:rgba(230,25,5,0.35);text-transform:uppercase;letter-spacing:.2em;
-    padding:.5rem 1.2rem .3rem;
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    flex-shrink: 0;
   }
-  .nav-item{
-    display:flex;align-items:center;gap:.7rem;
-    padding:.62rem 1.2rem;
-    font-family:var(--mono);font-size:.65rem;font-weight:700;text-transform:uppercase;
-    color:var(--text-muted); background:none; border:none;
-    cursor:pointer; width:100%; text-align:left;
-    border-right:2px solid transparent;
-    transition:all .12s; letter-spacing:.03em;
-  }
-  .nav-item .material-symbols-outlined{font-size:1.05rem;flex-shrink:0;transition:transform .15s;}
-  .nav-item:hover{color:var(--crimson);background:rgba(230,25,5,0.05);}
-  .nav-item:hover .material-symbols-outlined{transform:scale(1.1);}
-  .nav-item.active{
-    color:var(--crimson);
-    background:rgba(230,25,5,0.1);
-    border-right-color:var(--crimson);
-  }
-  .sidebar-divider{height:1px;background:var(--border);margin:.4rem 1rem;}
+  .brand-logo { height: 30px; display: block; flex-shrink: 0; }
+  .brand-text { display: flex; flex-direction: column; gap: 1px; }
+  .topbar-title { font-family: var(--mono); font-size: .75rem; font-weight: 700; color: var(--crimson); letter-spacing: -.02em; }
+  .topbar-sub { font-family: var(--mono); font-size: .5rem; color: rgba(230,25,5,0.5); text-transform: uppercase; letter-spacing: .15em; }
 
-  /* Status widget */
-  .status-widget{
-    margin:auto 1rem 1rem;
-    background:var(--glass-bg);
-    backdrop-filter:var(--glass-blur);
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:1rem;
-    display:flex;flex-direction:column;gap:.6rem;
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-shrink: 0;
   }
-  .status-widget-header{display:flex;justify-content:space-between;align-items:center;}
-  .status-label{font-family:var(--mono);font-size:.55rem;color:var(--crimson);text-transform:uppercase;letter-spacing:.1em;}
-  .status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(34,197,94,0.6);animation:pulse 2s infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
-  .status-bar{width:100%;height:4px;background:rgba(230,25,5,0.1);border-radius:2px;overflow:hidden;}
-  .status-bar-fill{height:100%;width:82%;background:var(--crimson);border-radius:2px;}
-  .status-text{font-family:var(--mono);font-size:.55rem;color:var(--text-muted);}
+  .staff-role-pill {
+    padding: .28rem .6rem;
+    background: rgba(230,25,5,0.12);
+    border: 1px solid rgba(230,25,5,0.3);
+    border-radius: 4px;
+    font-family: var(--mono); font-size: .55rem; font-weight: 700;
+    color: var(--crimson); text-transform: uppercase; letter-spacing: .06em;
+    white-space: nowrap;
+  }
+  .email-pill {
+    display: flex; align-items: center; gap: .3rem;
+    padding: .3rem .6rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: var(--mono); font-size: .6rem;
+    white-space: nowrap;
+  }
+  .email-pill span:first-child { color: var(--text-dim); }
+  .email-pill span:last-child { color: var(--crimson); max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
+  .theme-btn {
+    width: 32px; height: 32px; flex-shrink: 0;
+    background: transparent; border: 1px solid var(--border);
+    color: var(--crimson); border-radius: 6px;
+    display: grid; place-items: center; cursor: pointer;
+    transition: all .15s;
+  }
+  .theme-btn:hover { background: rgba(230,25,5,0.1); }
+  .theme-btn .material-symbols-outlined { font-size: 1rem; }
+  .logout-btn {
+    display: flex; align-items: center; gap: .35rem;
+    padding: .38rem .75rem;
+    background: rgba(230,25,5,0.1); border: 1px solid rgba(230,25,5,0.3);
+    color: var(--crimson); font-family: var(--mono); font-size: .58rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .04em; cursor: pointer;
+    border-radius: 6px; transition: all .15s; white-space: nowrap;
+  }
+  .logout-btn:hover { background: var(--crimson); color: #fff; }
+  .logout-btn .material-symbols-outlined { font-size: .9rem; }
+  .hamburger {
+    width: 34px; height: 34px; flex-shrink: 0;
+    background: rgba(230,25,5,0.08); border: 1px solid var(--border);
+    color: var(--crimson); display: grid; place-items: center; cursor: pointer; border-radius: 6px;
+  }
+  .hamburger .material-symbols-outlined { font-size: 1.1rem; }
 
-  /* ── MAIN ── */
-  .main{
-    grid-column:2; grid-row:2;
-    overflow-y:auto;
-    background:var(--obsidian);
-    background-image:radial-gradient(ellipse at 80% 20%, rgba(230,25,5,0.05) 0%, transparent 40%);
-    padding:1.4rem 1.5rem 2rem;
-    display:flex;flex-direction:column;gap:1.2rem;
+  /* ══════════════════════════════════════════
+     SIDEBAR
+  ══════════════════════════════════════════ */
+  .sidebar {
+    grid-column: 1;
+    grid-row: 2;
+    background: rgba(5,5,5,0.97);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: .8rem 0;
+    transition: background .25s;
+    /* Scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(230,25,5,0.2) transparent;
   }
-  [data-theme="light"] .main{background:var(--obsidian);}
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(230,25,5,0.2); border-radius: 2px; }
+  [data-theme="light"] .sidebar { background: var(--surface-2); }
 
-  /* ── TAB PANES ── */
-  .tab-pane{display:none;flex-direction:column;gap:1.2rem;animation:fadeIn .2s ease;}
-  .tab-pane.active{display:flex;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .sidebar-section { padding: .4rem 0 .2rem; }
+  .sidebar-label {
+    font-family: var(--mono); font-size: .5rem; font-weight: 700;
+    color: rgba(230,25,5,0.35); text-transform: uppercase; letter-spacing: .2em;
+    padding: .5rem 1.2rem .3rem;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: .65rem;
+    padding: .6rem 1.2rem;
+    font-family: var(--mono); font-size: .62rem; font-weight: 700; text-transform: uppercase;
+    color: var(--text-muted); background: none; border: none;
+    cursor: pointer; width: 100%; text-align: left;
+    border-right: 2px solid transparent;
+    transition: all .12s; letter-spacing: .02em;
+  }
+  .nav-item .material-symbols-outlined { font-size: 1rem; flex-shrink: 0; transition: transform .15s; }
+  .nav-item:hover { color: var(--crimson); background: rgba(230,25,5,0.06); }
+  .nav-item:hover .material-symbols-outlined { transform: scale(1.1); }
+  .nav-item.active {
+    color: var(--crimson);
+    background: rgba(230,25,5,0.1);
+    border-right-color: var(--crimson);
+  }
+  .sidebar-divider { height: 1px; background: var(--border); margin: .4rem 1rem; }
 
-  /* ── PANEL ── */
-  .panel{
-    background:var(--glass-bg);
-    backdrop-filter:var(--glass-blur);
-    border:1px solid var(--border);
-    border-radius:12px;
-    overflow:hidden;
+  /* Status Widget */
+  .status-widget {
+    margin: auto 1rem 1rem;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: .9rem;
+    display: flex; flex-direction: column; gap: .5rem;
   }
-  .panel-head{
-    padding:.9rem 1.3rem;
-    border-bottom:1px solid var(--border);
-    display:flex;align-items:center;gap:.5rem;
-  }
-  .panel-title{
-    font-family:var(--mono);font-size:.68rem;font-weight:700;
-    color:var(--text);text-transform:uppercase;letter-spacing:.04em;
-    display:flex;align-items:center;gap:.5rem;
-  }
-  .panel-title .material-symbols-outlined{color:var(--crimson);font-size:1rem;}
-  .panel-body{padding:1.2rem;display:flex;flex-direction:column;gap:1rem;}
+  .status-widget-header { display: flex; justify-content: space-between; align-items: center; }
+  .status-label { font-family: var(--mono); font-size: .52rem; color: var(--crimson); text-transform: uppercase; letter-spacing: .1em; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(34,197,94,0.6); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+  .status-bar { width: 100%; height: 4px; background: rgba(230,25,5,0.1); border-radius: 2px; overflow: hidden; }
+  .status-bar-fill { height: 100%; width: 82%; background: var(--crimson); border-radius: 2px; }
+  .status-text { font-family: var(--mono); font-size: .52rem; color: var(--text-muted); }
 
-  /* ── SECTION HEAD ── */
-  .section-head{
-    display:flex;align-items:center;gap:.6rem;
-    font-family:var(--mono);font-size:.62rem;font-weight:700;
-    color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;
-    margin:.4rem 0;
+  /* ══════════════════════════════════════════
+     MAIN CONTENT AREA
+  ══════════════════════════════════════════ */
+  .main {
+    grid-column: 2;
+    grid-row: 2;
+    overflow-y: auto;
+    background: var(--obsidian);
+    background-image: radial-gradient(ellipse at 80% 20%, rgba(230,25,5,0.05) 0%, transparent 40%);
+    padding: 1.4rem 1.5rem 2rem;
+    display: flex; flex-direction: column; gap: 1.2rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(230,25,5,0.15) transparent;
   }
-  .section-head::after{content:'';flex:1;height:1px;background:var(--border);}
+  .main::-webkit-scrollbar { width: 4px; }
+  .main::-webkit-scrollbar-thumb { background: rgba(230,25,5,0.2); border-radius: 2px; }
 
-  /* ── FORMS ── */
-  .form-group{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.8rem;}
-  .form-group label{
-    font-family:var(--mono);font-size:.6rem;font-weight:700;
-    color:rgba(230,25,5,0.55);text-transform:uppercase;letter-spacing:.1em;
+  /* ══════════════════════════════════════════
+     TAB PANES
+  ══════════════════════════════════════════ */
+  .tab-pane { display: none; flex-direction: column; gap: 1.2rem; animation: fadeIn .2s ease; }
+  .tab-pane.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ══════════════════════════════════════════
+     PANEL
+  ══════════════════════════════════════════ */
+  .panel {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .panel-head {
+    padding: .85rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .panel-title {
+    font-family: var(--mono); font-size: .65rem; font-weight: 700;
+    color: var(--text); text-transform: uppercase; letter-spacing: .04em;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .panel-title .material-symbols-outlined { color: var(--crimson); font-size: .95rem; }
+  .panel-body { padding: 1.1rem; display: flex; flex-direction: column; gap: .9rem; }
+
+  /* ══════════════════════════════════════════
+     SECTION HEAD
+  ══════════════════════════════════════════ */
+  .section-head {
+    display: flex; align-items: center; gap: .6rem;
+    font-family: var(--mono); font-size: .6rem; font-weight: 700;
+    color: var(--text-muted); text-transform: uppercase; letter-spacing: .1em;
+    margin: .2rem 0;
+  }
+  .section-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ══════════════════════════════════════════
+     FORMS
+  ══════════════════════════════════════════ */
+  .form-group { display: flex; flex-direction: column; gap: .32rem; margin-bottom: .7rem; }
+  .form-group label {
+    font-family: var(--mono); font-size: .58rem; font-weight: 700;
+    color: rgba(230,25,5,0.55); text-transform: uppercase; letter-spacing: .1em;
   }
   .form-group input,
   .form-group textarea,
-  .form-group select{
-    background:var(--field-bg); color:var(--text);
-    border:1px solid var(--field-border);
-    padding:.6rem .9rem; font-size:.82rem;
-    font-family:var(--sans);
-    transition:border .15s; outline:none;
-    width:100%; border-radius:6px;
+  .form-group select {
+    background: var(--field-bg); color: var(--text);
+    border: 1px solid var(--field-border);
+    padding: .6rem .85rem; font-size: .82rem;
+    font-family: var(--sans);
+    transition: border .15s; outline: none;
+    width: 100%; border-radius: var(--radius-sm);
+    -webkit-appearance: none;
+    appearance: none;
   }
   .form-group input:focus,
   .form-group textarea:focus,
-  .form-group select:focus{
-    border-color:var(--crimson);
-    box-shadow:0 0 0 2px rgba(230,25,5,0.12);
+  .form-group select:focus {
+    border-color: var(--crimson);
+    box-shadow: 0 0 0 2px rgba(230,25,5,0.12);
   }
   .form-group input::placeholder,
-  .form-group textarea::placeholder{color:rgba(230,25,5,0.15);}
-  .form-group select option{background:#0d0d0f;color:var(--text);}
-  .form-group textarea{min-height:90px;resize:vertical;}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-  .form-actions{display:flex;gap:.6rem;flex-wrap:wrap;}
+  .form-group textarea::placeholder { color: rgba(230,25,5,0.15); }
+  .form-group select option { background: #0d0d0f; color: var(--text); }
+  [data-theme="light"] .form-group select option { background: #fff; }
+  .form-group textarea { min-height: 85px; resize: vertical; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+  .form-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
 
-  /* ── BUTTONS ── */
-  .btn{
-    padding:.55rem 1.1rem; border:none; cursor:pointer;
-    font-family:var(--mono);font-size:.62rem;font-weight:700;
-    text-transform:uppercase;letter-spacing:.05em;
-    border-radius:6px; transition:all .15s;
+  /* ══════════════════════════════════════════
+     BUTTONS
+  ══════════════════════════════════════════ */
+  .btn {
+    padding: .55rem 1rem; border: none; cursor: pointer;
+    font-family: var(--mono); font-size: .6rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .05em;
+    border-radius: var(--radius-sm); transition: all .15s;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
-  .btn-primary{
-    background:rgba(230,25,5,0.15);
-    border:1px solid rgba(230,25,5,0.4);
-    color:var(--crimson);
-  }
-  .btn-primary:hover{background:var(--crimson);color:#fff;box-shadow:0 4px 12px rgba(230,25,5,0.3);}
-  .btn-gold{background:rgba(255,215,0,0.12);border:1px solid rgba(255,215,0,0.3);color:var(--gold);}
-  .btn-gold:hover{background:var(--gold);color:#000;}
-  .btn-danger{background:rgba(230,25,5,0.1);color:var(--crimson);border:1px solid rgba(230,25,5,0.25);}
-  .btn-danger:hover{background:var(--crimson);color:#fff;}
-  .btn-blue{background:rgba(56,189,248,0.1);color:var(--blue);border:1px solid rgba(56,189,248,0.2);}
-  .btn-blue:hover{background:var(--blue);color:#000;}
-  .btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border);}
-  .btn-ghost:hover{border-color:var(--crimson);color:var(--crimson);}
-  .btn-sm{padding:.3rem .65rem;font-size:.58rem;}
+  .btn-primary { background: rgba(230,25,5,0.15); border: 1px solid rgba(230,25,5,0.4); color: var(--crimson); }
+  .btn-primary:hover, .btn-primary:active { background: var(--crimson); color: #fff; box-shadow: 0 4px 12px rgba(230,25,5,0.3); }
+  .btn-gold { background: rgba(255,215,0,0.12); border: 1px solid rgba(255,215,0,0.3); color: var(--gold); }
+  .btn-gold:hover, .btn-gold:active { background: var(--gold); color: #000; }
+  .btn-danger { background: rgba(230,25,5,0.1); color: var(--crimson); border: 1px solid rgba(230,25,5,0.25); }
+  .btn-danger:hover, .btn-danger:active { background: var(--crimson); color: #fff; }
+  .btn-blue { background: rgba(56,189,248,0.1); color: var(--blue); border: 1px solid rgba(56,189,248,0.2); }
+  .btn-blue:hover, .btn-blue:active { background: var(--blue); color: #000; }
+  .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+  .btn-ghost:hover, .btn-ghost:active { border-color: var(--crimson); color: var(--crimson); }
+  .btn-sm { padding: .3rem .6rem; font-size: .56rem; }
 
-  /* ── INFO BOXES ── */
-  .info-box{
-    padding:.7rem .9rem;
-    background:rgba(255,215,0,0.05); border-left:2px solid rgba(255,215,0,0.35);
-    font-size:.75rem; color:var(--text-muted); line-height:1.6;
-    border-radius:0 6px 6px 0;
+  /* ══════════════════════════════════════════
+     INFO BOXES
+  ══════════════════════════════════════════ */
+  .info-box {
+    padding: .65rem .85rem;
+    background: rgba(255,215,0,0.05); border-left: 2px solid rgba(255,215,0,0.35);
+    font-size: .73rem; color: var(--text-muted); line-height: 1.6;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
-  .info-box strong{color:var(--gold);}
-  .info-box.red{background:rgba(230,25,5,0.06);border-left-color:var(--crimson);}
-  .info-box.red strong{color:var(--crimson);}
-  .info-box.blue{background:rgba(56,189,248,0.05);border-left-color:var(--blue);}
-  .info-box.blue strong{color:var(--blue);}
+  .info-box strong { color: var(--gold); }
+  .info-box.red { background: rgba(230,25,5,0.06); border-left-color: var(--crimson); }
+  .info-box.red strong { color: var(--crimson); }
+  .info-box.blue { background: rgba(56,189,248,0.05); border-left-color: var(--blue); }
+  .info-box.blue strong { color: var(--blue); }
 
-  /* ── MSG ── */
-  .msg{
-    padding:.55rem .9rem; font-family:var(--mono); font-size:.68rem;
-    margin-bottom:.4rem; display:none;
-    border-left:2px solid var(--green);
-    background:rgba(34,197,94,0.08);color:var(--green);
-    border-radius:0 6px 6px 0; letter-spacing:.03em;
+  /* ══════════════════════════════════════════
+     MSG FLASH
+  ══════════════════════════════════════════ */
+  .msg {
+    padding: .5rem .85rem; font-family: var(--mono); font-size: .65rem;
+    margin-bottom: .3rem; display: none;
+    border-left: 2px solid var(--green);
+    background: rgba(34,197,94,0.08); color: var(--green);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0; letter-spacing: .03em;
   }
-  .msg.show{display:block;animation:msgIn .25s ease;}
-  @keyframes msgIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:translateX(0);}}
+  .msg.show { display: block; animation: msgIn .25s ease; }
+  @keyframes msgIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
 
-  /* ── RESOURCE GRID & CARD ── */
-  .resource-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:1rem; margin-top:.2rem;
+  /* ══════════════════════════════════════════
+     RESOURCE GRID & CARD
+  ══════════════════════════════════════════ */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem; margin-top: .2rem;
   }
-  .resource-card{
-    background:var(--glass-bg);
-    backdrop-filter:var(--glass-blur);
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:1.1rem; position:relative; overflow:hidden;
-    transition:all .2s;
+  .resource-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem; position: relative; overflow: hidden;
+    transition: all .2s;
   }
-  .resource-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:2px;
-    background:linear-gradient(90deg,var(--crimson),rgba(230,25,5,0.05));
+  .resource-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--crimson), rgba(230,25,5,0.05));
   }
-  .resource-card:hover{border-color:var(--border-bright);box-shadow:0 0 16px var(--crimson-glow);}
-  .resource-card h4{
-    font-family:var(--mono);font-size:.72rem;font-weight:700;
-    color:var(--text);margin:.5rem 0 .3rem;text-transform:uppercase;line-height:1.3;
+  .resource-card:hover { border-color: var(--border-bright); box-shadow: 0 0 16px var(--crimson-glow); }
+  .resource-card h4 {
+    font-family: var(--mono); font-size: .7rem; font-weight: 700;
+    color: var(--text); margin: .45rem 0 .3rem; text-transform: uppercase; line-height: 1.35;
   }
-  .resource-card p{font-size:.75rem;color:var(--text-muted);line-height:1.5;margin-bottom:.5rem;}
-  .resource-card a{color:var(--crimson);font-size:.72rem;text-decoration:none;}
-  .resource-card a:hover{opacity:.75;}
-  .card-meta{font-family:var(--mono);font-size:.6rem;color:var(--text-dim);margin:.4rem 0;}
-  .card-actions{display:flex;gap:.4rem;margin-top:.5rem;}
+  .resource-card p { font-size: .73rem; color: var(--text-muted); line-height: 1.55; margin-bottom: .5rem; }
+  .resource-card a { color: var(--crimson); font-size: .7rem; text-decoration: none; word-break: break-word; }
+  .resource-card a:hover { opacity: .75; }
+  .card-meta { font-family: var(--mono); font-size: .58rem; color: var(--text-dim); margin: .35rem 0; }
+  .card-actions { display: flex; gap: .4rem; margin-top: .45rem; flex-wrap: wrap; }
 
-  /* ── PILLS ── */
-  .pill{
-    display:inline-block;font-family:var(--mono);font-size:.58rem;
-    padding:.2rem .6rem;border-radius:4px;letter-spacing:.05em;
+  /* ══════════════════════════════════════════
+     PILLS
+  ══════════════════════════════════════════ */
+  .pill {
+    display: inline-block; font-family: var(--mono); font-size: .56rem;
+    padding: .18rem .55rem; border-radius: 4px; letter-spacing: .04em;
   }
-  .pill-crimson{background:rgba(230,25,5,0.12);color:var(--crimson);border:1px solid rgba(230,25,5,0.25);}
-  .pill-gold{background:rgba(255,215,0,0.1);color:var(--gold);border:1px solid rgba(255,215,0,0.2);}
-  .pill-dim{background:rgba(255,255,255,0.05);color:var(--text-muted);border:1px solid var(--border);}
+  .pill-crimson { background: rgba(230,25,5,0.12); color: var(--crimson); border: 1px solid rgba(230,25,5,0.25); }
+  .pill-gold { background: rgba(255,215,0,0.1); color: var(--gold); border: 1px solid rgba(255,215,0,0.2); }
+  .pill-dim { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border); }
 
-  /* ── PERSON CARD ── */
-  .person-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;}
-  .person-card{
-    background:var(--glass-bg);
-    backdrop-filter:var(--glass-blur);
-    border:1px solid var(--border);
-    border-left:2px solid var(--crimson);
-    border-radius:0 10px 10px 0;
-    padding:1.1rem;display:flex;flex-direction:column;gap:.8rem;
-    transition:all .2s;
+  /* ══════════════════════════════════════════
+     PERSON CARD
+  ══════════════════════════════════════════ */
+  .person-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .person-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--crimson);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 1rem; display: flex; flex-direction: column; gap: .75rem;
+    transition: all .2s;
   }
-  .person-card:hover{border-color:var(--border-bright);box-shadow:0 0 12px var(--crimson-glow);}
-  .person-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem;}
-  .person-card-info h4{font-family:var(--mono);font-size:.75rem;color:var(--text);margin-bottom:.3rem;}
-  .person-card-info p{font-family:var(--mono);font-size:.65rem;color:var(--text-muted);line-height:1.8;}
+  .person-card:hover { border-color: var(--border-bright); box-shadow: 0 0 12px var(--crimson-glow); }
+  .person-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: .75rem; }
+  .person-card-info h4 { font-family: var(--mono); font-size: .72rem; color: var(--text); margin-bottom: .3rem; }
+  .person-card-info p { font-family: var(--mono); font-size: .62rem; color: var(--text-muted); line-height: 1.8; }
+  .person-card-update { display: flex; gap: .55rem; align-items: center; }
+  .person-card-update input {
+    background: var(--field-bg); border: 1px solid var(--field-border); color: var(--text);
+    padding: .48rem .75rem; flex: 1; font-family: var(--sans); font-size: .78rem;
+    border-radius: var(--radius-sm); outline: none; min-width: 0;
+    transition: border .15s;
+  }
+  .person-card-update input:focus { border-color: var(--crimson); }
 
-  /* ── SCHOOL CARD ── */
-  .school-card-grid{display:grid;gap:1rem;}
-  .school-card{
-    background:var(--glass-bg);
-    backdrop-filter:var(--glass-blur);
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:1.1rem;
+  /* ══════════════════════════════════════════
+     SCHOOL CARD
+  ══════════════════════════════════════════ */
+  .school-card-grid { display: grid; gap: .9rem; }
+  .school-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
   }
-  .school-card h4{
-    font-family:var(--mono);font-size:.68rem;font-weight:700;
-    color:var(--crimson);margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.05em;
-  }
-
-  /* ── EMPTY STATE ── */
-  .empty-state{
-    padding:2.5rem;text-align:center;
-    font-family:var(--mono);font-size:.68rem;
-    color:var(--text-dim);letter-spacing:.05em;
-    text-transform:uppercase;
-  }
-
-  /* ── NOTIFICATION BELL ── */
-  .notif-bell{
-    position:fixed; bottom:28px; right:24px;
-    width:48px; height:48px;
-    background:var(--crimson);
-    border:1px solid rgba(230,25,5,0.5);
-    border-radius:12px;
-    display:grid;place-items:center;
-    cursor:pointer; z-index:500;
-    box-shadow:0 4px 20px rgba(230,25,5,0.45);
-    transition:transform .2s,box-shadow .2s;
-  }
-  .notif-bell:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(230,25,5,0.6);}
-  .notif-bell .material-symbols-outlined{color:#fff;font-size:1.25rem;}
-  .notif-badge{
-    position:absolute; top:-6px; right:-6px;
-    background:var(--gold); color:#000;
-    width:20px; height:20px; border-radius:50%;
-    font-family:var(--mono);font-size:.6rem;font-weight:700;
-    display:none;place-items:center;
-    border:2px solid var(--obsidian);
+  .school-card h4 {
+    font-family: var(--mono); font-size: .65rem; font-weight: 700;
+    color: var(--crimson); margin-bottom: .7rem; text-transform: uppercase; letter-spacing: .05em;
   }
 
-  /* ── NOTIFICATION PANEL ── */
-  .notif-panel{
-    position:fixed; top:0; right:-390px; width:370px; height:100vh;
-    background:rgba(5,5,5,0.97);
-    backdrop-filter:blur(20px);
-    border-left:1px solid var(--border);
-    z-index:600; transition:right .35s ease;
-    display:flex;flex-direction:column;
+  /* ══════════════════════════════════════════
+     EMPTY STATE
+  ══════════════════════════════════════════ */
+  .empty-state {
+    padding: 2rem; text-align: center;
+    font-family: var(--mono); font-size: .65rem;
+    color: var(--text-dim); letter-spacing: .05em;
+    text-transform: uppercase;
+    grid-column: 1 / -1;
   }
-  [data-theme="light"] .notif-panel{background:rgba(255,255,255,0.97);}
-  .notif-panel.open{right:0;}
-  .notif-head{
-    padding:1rem 1.2rem; border-bottom:1px solid var(--border);
-    display:flex;align-items:center;gap:.6rem;
-  }
-  .notif-head h3{
-    font-family:var(--mono);font-size:.72rem;font-weight:700;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--text);flex:1;
-    display:flex;align-items:center;gap:.4rem;
-  }
-  .notif-head h3 .material-symbols-outlined{color:var(--crimson);font-size:1rem;}
-  .notif-list{flex:1;overflow-y:auto;padding:.8rem;display:flex;flex-direction:column;gap:.6rem;}
-  .notif-item{
-    padding:.9rem 1rem;
-    border:1px solid var(--border);
-    background:var(--glass-bg);
-    border-left:2px solid var(--border);
-    border-radius:0 8px 8px 0;
-    display:flex;gap:.8rem;
-    transition:border-color .15s;
-  }
-  .notif-item.unread{
-    border-left-color:var(--gold);
-    background:rgba(255,215,0,0.04);
-  }
-  .notif-content{flex:1;}
-  .notif-content h4{font-family:var(--mono);font-size:.7rem;color:var(--text);margin-bottom:.25rem;}
-  .notif-content p{font-size:.73rem;color:var(--text-muted);line-height:1.5;margin-bottom:.3rem;}
-  .notif-time{font-family:var(--mono);font-size:.6rem;color:var(--text-dim);}
-  .notif-overlay{
-    position:fixed;inset:0;background:rgba(0,0,0,0.5);
-    z-index:590;opacity:0;pointer-events:none;transition:opacity .3s;
-    backdrop-filter:blur(2px);
-  }
-  .notif-overlay.open{opacity:1;pointer-events:all;}
 
-  /* ── MOBILE OVERLAY ── */
-  .mob-overlay{
-    display:none;position:fixed;inset:0;
-    background:rgba(0,0,0,0.55);z-index:299;
-    backdrop-filter:blur(2px);
+  /* ══════════════════════════════════════════
+     NOTIFICATION BELL (FAB)
+  ══════════════════════════════════════════ */
+  .notif-bell {
+    position: fixed; bottom: calc(24px + var(--safe-bottom)); right: 20px;
+    width: 46px; height: 46px;
+    background: var(--crimson);
+    border: 1px solid rgba(230,25,5,0.5);
+    border-radius: 12px;
+    display: grid; place-items: center;
+    cursor: pointer; z-index: 500;
+    box-shadow: 0 4px 20px rgba(230,25,5,0.45);
+    transition: transform .2s, box-shadow .2s;
+    -webkit-tap-highlight-color: transparent;
   }
-  .mob-overlay.open{display:block;}
-
-  /* ── FOOTER ── */
-  .main-footer{
-    padding:1rem;text-align:center;
-    border-top:1px solid var(--border);margin-top:.5rem;
+  .notif-bell:hover, .notif-bell:active { transform: scale(1.08); box-shadow: 0 6px 28px rgba(230,25,5,0.6); }
+  .notif-bell .material-symbols-outlined { color: #fff; font-size: 1.2rem; }
+  .notif-badge {
+    position: absolute; top: -6px; right: -6px;
+    background: var(--gold); color: #000;
+    width: 20px; height: 20px; border-radius: 50%;
+    font-family: var(--mono); font-size: .58rem; font-weight: 700;
+    display: none; place-items: center;
+    border: 2px solid var(--obsidian);
   }
-  .main-footer p{font-family:var(--mono);font-size:.55rem;text-transform:uppercase;letter-spacing:.4em;color:rgba(230,25,5,0.2);}
 
-  /* ── RESPONSIVE ── */
-  @media(max-width:900px){
-    body{grid-template-columns:1fr;}
-    .sidebar{
-      position:fixed;left:-280px;top:0;height:100vh;
-      width:var(--sidebar-w);z-index:300;transition:left .3s;
-      grid-row:unset;grid-column:unset;
+  /* ══════════════════════════════════════════
+     NOTIFICATION PANEL (slide-in drawer)
+  ══════════════════════════════════════════ */
+  .notif-panel {
+    position: fixed; top: 0; right: -400px; width: min(380px, 100vw); height: 100vh;
+    background: rgba(5,5,5,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid var(--border);
+    z-index: 700; transition: right .3s cubic-bezier(.4,0,.2,1);
+    display: flex; flex-direction: column;
+  }
+  [data-theme="light"] .notif-panel { background: rgba(255,255,255,0.97); }
+  .notif-panel.open { right: 0; }
+  .notif-head {
+    padding: .9rem 1.1rem; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .notif-head h3 {
+    font-family: var(--mono); font-size: .7rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--text); flex: 1;
+    display: flex; align-items: center; gap: .4rem;
+  }
+  .notif-head h3 .material-symbols-outlined { color: var(--crimson); font-size: .95rem; }
+  .notif-list { flex: 1; overflow-y: auto; padding: .7rem; display: flex; flex-direction: column; gap: .55rem; }
+  .notif-item {
+    padding: .85rem .95rem;
+    border: 1px solid var(--border);
+    background: var(--glass-bg);
+    border-left: 2px solid var(--border);
+    border-radius: 0 8px 8px 0;
+    display: flex; gap: .75rem;
+    transition: border-color .15s;
+  }
+  .notif-item.unread { border-left-color: var(--gold); background: rgba(255,215,0,0.04); }
+  .notif-content { flex: 1; min-width: 0; }
+  .notif-content h4 { font-family: var(--mono); font-size: .67rem; color: var(--text); margin-bottom: .25rem; }
+  .notif-content p { font-size: .71rem; color: var(--text-muted); line-height: 1.5; margin-bottom: .3rem; }
+  .notif-time { font-family: var(--mono); font-size: .58rem; color: var(--text-dim); }
+  .notif-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    z-index: 690; opacity: 0; pointer-events: none; transition: opacity .3s;
+    backdrop-filter: blur(2px);
+  }
+  .notif-overlay.open { opacity: 1; pointer-events: all; }
+
+  /* ══════════════════════════════════════════
+     MOBILE SIDEBAR OVERLAY
+  ══════════════════════════════════════════ */
+  .mob-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6); z-index: 299;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .mob-overlay.open { display: block; }
+
+  /* ══════════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════════ */
+  .main-footer {
+    padding: 1rem; text-align: center;
+    border-top: 1px solid var(--border); margin-top: .5rem;
+  }
+  .main-footer p { font-family: var(--mono); font-size: .52rem; text-transform: uppercase; letter-spacing: .35em; color: rgba(230,25,5,0.2); }
+
+  /* ══════════════════════════════════════════
+     ★ MOBILE BOTTOM NAV BAR ★
+     Replaces sidebar nav on mobile — shown below ~768px
+  ══════════════════════════════════════════ */
+  .mobile-nav-bar {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(5,5,5,0.97);
+    border-top: 1px solid var(--border);
+    z-index: 200;
+    padding: 0;
+    padding-bottom: var(--safe-bottom);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  [data-theme="light"] .mobile-nav-bar { background: rgba(255,255,255,0.97); }
+  .mobile-nav-scroll {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
+  }
+  .mobile-nav-scroll::-webkit-scrollbar { display: none; }
+  .mobile-nav-item {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2px; padding: .55rem .75rem;
+    min-width: 68px; flex-shrink: 0;
+    scroll-snap-align: start;
+    background: none; border: none; cursor: pointer;
+    color: var(--text-muted);
+    font-family: var(--mono); font-size: .44rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .04em;
+    border-top: 2px solid transparent;
+    transition: all .15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mobile-nav-item .material-symbols-outlined { font-size: 1.15rem; }
+  .mobile-nav-item.active { color: var(--crimson); border-top-color: var(--crimson); }
+  .mobile-nav-item:active { background: rgba(230,25,5,0.08); }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE BREAKPOINTS
+  ══════════════════════════════════════════ */
+
+  /* ─── Tablet (< 1024px) ─── */
+  @media (max-width: 1024px) {
+    .email-pill { display: none; }
+  }
+
+  /* ─── Mobile (≤ 768px) — MAIN BREAKPOINT ─── */
+  @media (max-width: 768px) {
+    /* Switch layout to single column, no sidebar in flow */
+    .layout {
+      grid-template-columns: 1fr;
+      grid-template-rows: var(--topbar-h) 1fr;
+      height: 100vh;
+      overflow: hidden;
     }
-    .sidebar.open{left:0;}
-    .main{grid-column:1;padding:1rem;}
-    .hamburger{display:grid!important;}
+
+    /* Sidebar slides in as overlay */
+    .sidebar {
+      position: fixed;
+      left: -290px;
+      top: 0;
+      height: 100vh;
+      width: var(--sidebar-w);
+      z-index: 300;
+      transition: left .3s cubic-bezier(.4,0,.2,1);
+      grid-row: unset;
+      grid-column: unset;
+      /* Hide the nav items in sidebar — we use bottom nav bar instead */
+    }
+    /* Keep sidebar available for hamburger slide-in with full nav */
+    .sidebar.open { left: 0; }
+
+    /* Main fills full width, leave room for bottom nav */
+    .main {
+      grid-column: 1;
+      padding: 1rem 1rem calc(72px + var(--safe-bottom));
+      gap: 1rem;
+    }
+
+    /* Show mobile bottom nav bar */
+    .mobile-nav-bar { display: block; }
+
+    /* Notification bell moves up to avoid overlap with bottom nav */
+    .notif-bell {
+      bottom: calc(72px + 12px + var(--safe-bottom));
+      right: 16px;
+      width: 42px; height: 42px;
+    }
+
+    /* Topbar adjustments */
+    .topbar { padding: 0 .8rem; }
+    .staff-role-pill { display: none; } /* Role shown in sidebar */
+    .logout-btn span:not(.material-symbols-outlined) { display: none; }
+    .logout-btn { padding: .38rem .55rem; }
+
+    /* Form rows stack on mobile */
+    .form-row { grid-template-columns: 1fr; gap: .6rem; }
+
+    /* Resource grid: single column on mobile */
+    .resource-grid { grid-template-columns: 1fr; }
+
+    /* Person grid: single column */
+    .person-grid { grid-template-columns: 1fr; }
+
+    /* Person card update row stacks */
+    .person-card-update { flex-wrap: wrap; }
+    .person-card-update input { min-width: 120px; }
+
+    /* Panel body padding reduced */
+    .panel-body { padding: .9rem; }
+
+    /* Info boxes slightly smaller text */
+    .info-box { font-size: .7rem; }
   }
-  @media(max-width:500px){
-    .form-row{grid-template-columns:1fr;}
-    .resource-grid{grid-template-columns:1fr;}
-    .person-grid{grid-template-columns:1fr;}
+
+  /* ─── Small mobile (≤ 420px) ─── */
+  @media (max-width: 420px) {
+    html { font-size: 13px; }
+
+    .topbar { padding: 0 .65rem; }
+    .brand-text { display: none; } /* Only icon on very small screens */
+    .main { padding: .85rem .85rem calc(72px + var(--safe-bottom)); }
+
+    .mobile-nav-item { min-width: 60px; padding: .5rem .55rem; font-size: .4rem; }
+    .mobile-nav-item .material-symbols-outlined { font-size: 1.1rem; }
+
+    .resource-card { padding: .85rem; }
+    .resource-card h4 { font-size: .65rem; }
+    .resource-card p { font-size: .7rem; }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select { font-size: .8rem; padding: .55rem .75rem; }
+
+    .btn { font-size: .58rem; padding: .5rem .85rem; }
   }
   </style>
 </head>
 <body>
 
-<!-- MOB OVERLAY -->
+<!-- MOB OVERLAY (for sidebar) -->
 <div class="mob-overlay" id="mobOverlay" onclick="toggleSidebar()"></div>
 
-<!-- ── TOPBAR ── -->
-<header class="topbar">
-  <div class="topbar-left">
-    <button class="hamburger" id="hamburger" style="display:none;" onclick="toggleSidebar()">
-      <span class="material-symbols-outlined">menu</span>
-    </button>
-    <img src="../../assets/img/favicon.png" alt="JDH" class="brand-logo" onerror="this.style.display='none'">
-    <div class="brand-text">
-      <div class="topbar-title">JDH Staff</div>
-      <div class="topbar-sub">Operations Terminal</div>
-    </div>
-  </div>
-  <div class="topbar-right">
-    <span class="staff-role-pill">STAFF</span>
-    <div class="email-pill">
-      <span>USER:</span>
-      <span id="staffEmailDisplay">Loading…</span>
-    </div>
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">
-      <span class="material-symbols-outlined">contrast</span>
-    </button>
-    <button class="logout-btn" onclick="doLogout()">
-      <span class="material-symbols-outlined">logout</span>
-      EXIT_SESSION
-    </button>
-  </div>
-</header>
+<div class="layout">
 
-<!-- ── SIDEBAR ── -->
-<nav class="sidebar" id="sidebar">
-  <div class="sidebar-section">
-    <div class="sidebar-label">Content</div>
-    <button class="nav-item active" onclick="switchTab('resources',this)">
-      <span class="material-symbols-outlined">menu_book</span> Resources
-    </button>
-    <button class="nav-item" onclick="switchTab('links',this)">
-      <span class="material-symbols-outlined">link</span> Links
-    </button>
-    <button class="nav-item" onclick="switchTab('exams',this)">
-      <span class="material-symbols-outlined">quiz</span> Exam Questions
-    </button>
-  </div>
-  <div class="sidebar-divider"></div>
-  <div class="sidebar-section">
-    <div class="sidebar-label">Schools</div>
-    <button class="nav-item" onclick="switchTab('schoolExams',this)">
-      <span class="material-symbols-outlined">school</span> School Exams
-    </button>
-    <button class="nav-item" onclick="switchTab('schoolResources',this)">
-      <span class="material-symbols-outlined">auto_stories</span> School Resources
-    </button>
-    <button class="nav-item" onclick="switchTab('schoolManage',this)">
-      <span class="material-symbols-outlined">lock</span> Manage Schools
-    </button>
-  </div>
-  <div class="sidebar-divider"></div>
-  <div class="sidebar-section">
-    <div class="sidebar-label">Students</div>
-    <button class="nav-item" onclick="switchTab('studentManage',this)">
-      <span class="material-symbols-outlined">groups</span> Manage Students
-    </button>
-    <button class="nav-item" onclick="switchTab('studentResources',this)">
-      <span class="material-symbols-outlined">send</span> Send Resources
-    </button>
-  </div>
-
-  <!-- Status Widget -->
-  <div class="status-widget">
-    <div class="status-widget-header">
-      <span class="status-label">Status</span>
-      <div class="status-dot"></div>
+  <!-- ═══════════════════════════════════
+       TOPBAR
+  ═══════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <img src="../../assets/img/favicon.png" alt="JDH" class="brand-logo" onerror="this.style.display='none'">
+      <div class="brand-text">
+        <div class="topbar-title">JDH Staff</div>
+        <div class="topbar-sub">Operations Terminal</div>
+      </div>
     </div>
-    <div class="status-bar"><div class="status-bar-fill"></div></div>
-    <p class="status-text">PORTAL: OPERATIONAL</p>
+    <div class="topbar-right">
+      <span class="staff-role-pill">STAFF</span>
+      <div class="email-pill">
+        <span>USER:</span>
+        <span id="staffEmailDisplay">Loading…</span>
+      </div>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">
+        <span class="material-symbols-outlined">contrast</span>
+      </button>
+      <button class="logout-btn" onclick="doLogout()" title="Exit Session">
+        <span class="material-symbols-outlined">logout</span>
+        <span>EXIT</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════
+       SIDEBAR (desktop + mobile slide-in)
+  ═══════════════════════════════════ -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Content</div>
+      <button class="nav-item active" onclick="switchTab('resources',this)">
+        <span class="material-symbols-outlined">menu_book</span> Resources
+      </button>
+      <button class="nav-item" onclick="switchTab('links',this)">
+        <span class="material-symbols-outlined">link</span> Links
+      </button>
+      <button class="nav-item" onclick="switchTab('exams',this)">
+        <span class="material-symbols-outlined">quiz</span> Exam Questions
+      </button>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Schools</div>
+      <button class="nav-item" onclick="switchTab('schoolExams',this)">
+        <span class="material-symbols-outlined">school</span> School Exams
+      </button>
+      <button class="nav-item" onclick="switchTab('schoolResources',this)">
+        <span class="material-symbols-outlined">auto_stories</span> School Resources
+      </button>
+      <button class="nav-item" onclick="switchTab('schoolManage',this)">
+        <span class="material-symbols-outlined">lock</span> Manage Schools
+      </button>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Students</div>
+      <button class="nav-item" onclick="switchTab('studentManage',this)">
+        <span class="material-symbols-outlined">groups</span> Manage Students
+      </button>
+      <button class="nav-item" onclick="switchTab('studentResources',this)">
+        <span class="material-symbols-outlined">send</span> Send Resources
+      </button>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Session</div>
+      <button class="nav-item" onclick="toggleTheme()">
+        <span class="material-symbols-outlined">contrast</span> Toggle Theme
+      </button>
+      <button class="nav-item" onclick="doLogout()">
+        <span class="material-symbols-outlined">logout</span> Exit Session
+      </button>
+    </div>
+    <!-- Status Widget -->
+    <div class="status-widget">
+      <div class="status-widget-header">
+        <span class="status-label">Status</span>
+        <div class="status-dot"></div>
+      </div>
+      <div class="status-bar"><div class="status-bar-fill"></div></div>
+      <p class="status-text">PORTAL: OPERATIONAL</p>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════ -->
+  <main class="main">
+
+    <!-- ══ RESOURCES ══ -->
+    <div class="tab-pane active" id="resources">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">add_circle</span> Post General Resource</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box"><strong>General Resources</strong> — visible to all students on the main student portal.</div>
+          <div class="msg" id="resMsg">Resource posted successfully!</div>
+          <form id="resourceForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Resource Title</label>
+                <input id="resTitle" type="text" required placeholder="e.g., Python Basics Guide" autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label>Category</label>
+                <select id="resCategory" required>
+                  <option value="">Select category</option>
+                  <option value="coding">💻 Coding</option>
+                  <option value="music">🎵 Music</option>
+                  <option value="art">🎨 Art</option>
+                  <option value="math">📐 Mathematics</option>
+                  <option value="science">🔬 Science</option>
+                  <option value="general">📚 General</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Resource URL</label>
+              <input id="resUrl" type="url" required placeholder="https://drive.google.com/..." autocomplete="off" inputmode="url" />
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="resDesc" required placeholder="Brief description of the resource..."></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">POST_RESOURCE</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted Resources</div>
+      <div class="resource-grid" id="resourcesGrid"><div class="empty-state">Loading…</div></div>
+    </div>
+
+    <!-- ══ LINKS ══ -->
+    <div class="tab-pane" id="links">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">add_link</span> Post General Link</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box"><strong>General Links</strong> — helpful URLs visible to all students on the portal.</div>
+          <div class="msg" id="linkMsg">Link posted successfully!</div>
+          <form id="linkForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Link Title</label>
+                <input id="linkTitle" type="text" required placeholder="e.g., Free Scratch Tutorial" autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label>Category</label>
+                <select id="linkCategory" required>
+                  <option value="">Select category</option>
+                  <option value="tutorial">📹 Tutorial</option>
+                  <option value="tool">🛠️ Tool</option>
+                  <option value="reference">📖 Reference</option>
+                  <option value="game">🎮 Game</option>
+                  <option value="other">🔖 Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>URL</label>
+              <input id="linkUrl" type="url" required placeholder="https://..." inputmode="url" />
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="linkDesc" required placeholder="What is this link about?"></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">POST_LINK</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted Links</div>
+      <div class="resource-grid" id="linksGrid"><div class="empty-state">Loading…</div></div>
+    </div>
+
+    <!-- ══ EXAMS ══ -->
+    <div class="tab-pane" id="exams">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">quiz</span> Post General Exam</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box"><strong>General Exams</strong> — available to all students across the platform.</div>
+          <div class="msg" id="examMsg">Exam posted successfully!</div>
+          <form id="examForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Exam Title</label>
+                <input id="examTitle" type="text" required placeholder="e.g., Term 1 Coding Quiz" autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label>Subject</label>
+                <select id="examSubject" required>
+                  <option value="">Select subject</option>
+                  <option value="coding">💻 Coding</option>
+                  <option value="music">🎵 Music</option>
+                  <option value="art">🎨 Art</option>
+                  <option value="math">📐 Mathematics</option>
+                  <option value="science">🔬 Science</option>
+                  <option value="general">📚 General</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Exam Link (Google Forms, etc.)</label>
+              <input id="examUrl" type="url" required placeholder="https://forms.google.com/..." inputmode="url" />
+            </div>
+            <div class="form-group">
+              <label>Instructions</label>
+              <textarea id="examDesc" required placeholder="Instructions and exam details..."></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">POST_EXAM</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted Exams</div>
+      <div class="resource-grid" id="examsGrid"><div class="empty-state">Loading…</div></div>
+    </div>
+
+    <!-- ══ SCHOOL EXAMS ══ -->
+    <div class="tab-pane" id="schoolExams">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">school</span> Post School Exam</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box"><strong>School-Specific Exams</strong> — only visible to students from the selected school portal.</div>
+          <div class="msg" id="schoolExamMsg">School exam posted successfully!</div>
+          <form id="schoolExamForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Exam Title</label>
+                <input id="schoolExamTitle" type="text" required placeholder="e.g., Term 1 Mathematics Exam" autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label>Select School</label>
+                <select id="schoolExamSchool" required>
+                  <option value="">Choose School</option>
+                  <option value="peniel">Peniel Lily Montessori School</option>
+                  <option value="southgold">South Gold Montessori School</option>
+                  <option value="sapphire">Sapphire Explorer Montessori School</option>
+                  <option value="easystars">Easy Stars Early Years Academy</option>
+                  <option value="christycaleb">Christy Caleb International School</option>
+                  <option value="royalbreed">Royal Breed Academy</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Exam Link (Google Forms, etc.)</label>
+              <input id="schoolExamUrl" type="url" required placeholder="https://forms.google.com/..." inputmode="url" />
+            </div>
+            <div class="form-group">
+              <label>Instructions</label>
+              <textarea id="schoolExamDesc" required placeholder="Exam instructions and details"></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">POST_SCHOOL_EXAM</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted School Exams</div>
+      <div class="resource-grid" id="schoolExamsGrid"><div class="empty-state">Loading…</div></div>
+    </div>
+
+    <!-- ══ SCHOOL RESOURCES ══ -->
+    <div class="tab-pane" id="schoolResources">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">auto_stories</span> Post School Resource or Link</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box"><strong>School Resources &amp; Links</strong> — visible only to students from the selected school.</div>
+          <div class="msg" id="schoolResMsg">Resource posted successfully!</div>
+          <form id="schoolResourceForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Type</label>
+                <select id="schoolResType" required>
+                  <option value="">Select type</option>
+                  <option value="resource">📄 File / Document</option>
+                  <option value="link">🔗 Link</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select School</label>
+                <select id="schoolResSchool" required>
+                  <option value="">Choose School</option>
+                  <option value="peniel">Peniel Lily Montessori School</option>
+                  <option value="southgold">South Gold Montessori School</option>
+                  <option value="sapphire">Sapphire Explorer Montessori School</option>
+                  <option value="easystars">Easy Stars Early Years Academy</option>
+                  <option value="christycaleb">Christy Caleb International School</option>
+                  <option value="royalbreed">Royal Breed Academy</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Title</label>
+              <input id="schoolResTitle" type="text" required placeholder="e.g., Mathematics Study Guide" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label>URL / Link</label>
+              <input id="schoolResUrl" type="url" required placeholder="https://..." inputmode="url" />
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="schoolResDesc" required placeholder="Brief description"></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">POST_TO_SCHOOL</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Posted School Resources</div>
+      <div class="resource-grid" id="schoolResGrid"><div class="empty-state">Loading…</div></div>
+    </div>
+
+    <!-- ══ MANAGE SCHOOLS (read-only) ══ -->
+    <div class="tab-pane" id="schoolManage">
+      <div class="info-box red">
+        <strong>⚠️ Admin-Only Section</strong> — School access codes can only be updated by administrators. Contact your admin to change a school's code. Current codes are shown below for reference.
+      </div>
+      <div class="school-card-grid" id="schoolCodesDisplay">
+        <div class="empty-state">Loading school codes…</div>
+      </div>
+    </div>
+
+    <!-- ══ MANAGE STUDENTS ══ -->
+    <div class="tab-pane" id="studentManage">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">person_add</span> Add New Student</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box"><strong>Create Student Accounts</strong> — students login with their username and access code.</div>
+          <div class="msg" id="studentAddMsg">Student added successfully!</div>
+          <form id="addStudentForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input id="newStudentName" type="text" required placeholder="Student's full name" autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label>Username</label>
+                <input id="newStudentUsername" type="text" required placeholder="Unique username" autocomplete="off" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Email (Optional)</label>
+                <input id="newStudentEmail" type="email" placeholder="student@example.com" autocomplete="email" inputmode="email" />
+              </div>
+              <div class="form-group">
+                <label>Access Code</label>
+                <input id="newStudentCode" type="text" required placeholder="Create access code" autocomplete="off" />
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">ADD_STUDENT</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Registered Students</div>
+      <div class="person-grid" id="studentsGrid"><div class="empty-state">Loading students…</div></div>
+    </div>
+
+    <!-- ══ SEND RESOURCES TO STUDENT ══ -->
+    <div class="tab-pane" id="studentResources">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title"><span class="material-symbols-outlined">send</span> Send to Individual Student</span>
+        </div>
+        <div class="panel-body">
+          <div class="info-box"><strong>Personal Resources</strong> — sent directly to a specific student. Only they can see it in their personal portal.</div>
+          <div class="msg" id="personalResMsg">Resource sent successfully!</div>
+          <form id="personalResForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Select Student</label>
+                <select id="targetStudent" required>
+                  <option value="">Choose Student</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Resource Type</label>
+                <select id="personalResType" required>
+                  <option value="">Select type</option>
+                  <option value="resource">📄 File / Document</option>
+                  <option value="link">🔗 Link</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Title</label>
+              <input id="personalResTitle" type="text" required placeholder="e.g., Your Python Assignment" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label>URL / Link</label>
+              <input id="personalResUrl" type="url" required placeholder="https://..." inputmode="url" />
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="personalResDesc" required placeholder="Brief description"></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">TRANSMIT_RESOURCE</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="section-head">Recently Sent Resources</div>
+      <div class="resource-grid" id="personalResGrid"><div class="empty-state">Loading…</div></div>
+    </div>
+
+    <div class="main-footer">
+      <p>Jaystarbliss Dynamic Hub — Staff Terminal v2</p>
+    </div>
+
+  </main>
+
+</div><!-- /layout -->
+
+<!-- ══════════════════════════════════════════
+     MOBILE BOTTOM NAV BAR
+     Scrollable row of icons for all 8 sections
+══════════════════════════════════════════ -->
+<nav class="mobile-nav-bar" id="mobileNavBar">
+  <div class="mobile-nav-scroll">
+    <button class="mobile-nav-item active" data-tab="resources" onclick="switchTab('resources',this)">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span>Resources</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="links" onclick="switchTab('links',this)">
+      <span class="material-symbols-outlined">link</span>
+      <span>Links</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="exams" onclick="switchTab('exams',this)">
+      <span class="material-symbols-outlined">quiz</span>
+      <span>Exams</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="schoolExams" onclick="switchTab('schoolExams',this)">
+      <span class="material-symbols-outlined">school</span>
+      <span>Sch.Exams</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="schoolResources" onclick="switchTab('schoolResources',this)">
+      <span class="material-symbols-outlined">auto_stories</span>
+      <span>Sch.Res</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="schoolManage" onclick="switchTab('schoolManage',this)">
+      <span class="material-symbols-outlined">lock</span>
+      <span>Schools</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="studentManage" onclick="switchTab('studentManage',this)">
+      <span class="material-symbols-outlined">groups</span>
+      <span>Students</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="studentResources" onclick="switchTab('studentResources',this)">
+      <span class="material-symbols-outlined">send</span>
+      <span>Send</span>
+    </button>
   </div>
 </nav>
 
-<!-- ── NOTIFICATION BELL ── -->
+<!-- NOTIFICATION BELL (FAB) -->
 <div class="notif-bell" id="notifBell" onclick="toggleNotif()">
   <span class="material-symbols-outlined">notifications</span>
   <span class="notif-badge" id="notifBadge"></span>
 </div>
 
-<!-- ── NOTIFICATION PANEL ── -->
+<!-- NOTIFICATION PANEL (slide-in) -->
 <div class="notif-panel" id="notifPanel">
   <div class="notif-head">
     <h3><span class="material-symbols-outlined">mail</span> Notifications</h3>
     <button class="btn btn-ghost btn-sm" onclick="markAllRead()">Mark all read</button>
     <button class="btn btn-ghost btn-sm" onclick="toggleNotif()">
-      <span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle;">close</span>
+      <span class="material-symbols-outlined" style="font-size:.95rem;vertical-align:middle;">close</span>
     </button>
   </div>
   <div class="notif-list" id="notifList"><div class="empty-state">Loading…</div></div>
 </div>
 <div class="notif-overlay" id="notifOverlay" onclick="toggleNotif()"></div>
 
-<!-- ── MAIN ── -->
-<main class="main">
-
-  <!-- ══ RESOURCES ══ -->
-  <div class="tab-pane active" id="resources">
-    <div class="panel">
-      <div class="panel-head">
-        <span class="panel-title"><span class="material-symbols-outlined">add_circle</span> Post General Resource</span>
-      </div>
-      <div class="panel-body">
-        <div class="info-box"><strong>General Resources</strong> — visible to all students on the main student portal.</div>
-        <div class="msg" id="resMsg">Resource posted successfully!</div>
-        <form id="resourceForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Resource Title</label>
-              <input id="resTitle" type="text" required placeholder="e.g., Python Basics Guide" />
-            </div>
-            <div class="form-group">
-              <label>Category</label>
-              <select id="resCategory" required>
-                <option value="">Select category</option>
-                <option value="coding">💻 Coding</option>
-                <option value="music">🎵 Music</option>
-                <option value="art">🎨 Art</option>
-                <option value="math">📐 Mathematics</option>
-                <option value="science">🔬 Science</option>
-                <option value="general">📚 General</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Resource URL</label>
-            <input id="resUrl" type="url" required placeholder="https://drive.google.com/..." />
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea id="resDesc" required placeholder="Brief description of the resource..."></textarea>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">POST_RESOURCE</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Posted Resources</div>
-    <div class="resource-grid" id="resourcesGrid"><div class="empty-state">Loading…</div></div>
-  </div>
-
-  <!-- ══ LINKS ══ -->
-  <div class="tab-pane" id="links">
-    <div class="panel">
-      <div class="panel-head">
-        <span class="panel-title"><span class="material-symbols-outlined">add_link</span> Post General Link</span>
-      </div>
-      <div class="panel-body">
-        <div class="info-box"><strong>General Links</strong> — helpful URLs visible to all students on the portal.</div>
-        <div class="msg" id="linkMsg">Link posted successfully!</div>
-        <form id="linkForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Link Title</label>
-              <input id="linkTitle" type="text" required placeholder="e.g., Free Scratch Tutorial" />
-            </div>
-            <div class="form-group">
-              <label>Category</label>
-              <select id="linkCategory" required>
-                <option value="">Select category</option>
-                <option value="tutorial">📹 Tutorial</option>
-                <option value="tool">🛠️ Tool</option>
-                <option value="reference">📖 Reference</option>
-                <option value="game">🎮 Game</option>
-                <option value="other">🔖 Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>URL</label>
-            <input id="linkUrl" type="url" required placeholder="https://..." />
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea id="linkDesc" required placeholder="What is this link about?"></textarea>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">POST_LINK</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Posted Links</div>
-    <div class="resource-grid" id="linksGrid"><div class="empty-state">Loading…</div></div>
-  </div>
-
-  <!-- ══ EXAMS ══ -->
-  <div class="tab-pane" id="exams">
-    <div class="panel">
-      <div class="panel-head">
-        <span class="panel-title"><span class="material-symbols-outlined">quiz</span> Post General Exam</span>
-      </div>
-      <div class="panel-body">
-        <div class="info-box"><strong>General Exams</strong> — available to all students across the platform.</div>
-        <div class="msg" id="examMsg">Exam posted successfully!</div>
-        <form id="examForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Exam Title</label>
-              <input id="examTitle" type="text" required placeholder="e.g., Term 1 Coding Quiz" />
-            </div>
-            <div class="form-group">
-              <label>Subject</label>
-              <select id="examSubject" required>
-                <option value="">Select subject</option>
-                <option value="coding">💻 Coding</option>
-                <option value="music">🎵 Music</option>
-                <option value="art">🎨 Art</option>
-                <option value="math">📐 Mathematics</option>
-                <option value="science">🔬 Science</option>
-                <option value="general">📚 General</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Exam Link (Google Forms, etc.)</label>
-            <input id="examUrl" type="url" required placeholder="https://forms.google.com/..." />
-          </div>
-          <div class="form-group">
-            <label>Instructions</label>
-            <textarea id="examDesc" required placeholder="Instructions and exam details..."></textarea>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">POST_EXAM</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Posted Exams</div>
-    <div class="resource-grid" id="examsGrid"><div class="empty-state">Loading…</div></div>
-  </div>
-
-  <!-- ══ SCHOOL EXAMS ══ -->
-  <div class="tab-pane" id="schoolExams">
-    <div class="panel">
-      <div class="panel-head">
-        <span class="panel-title"><span class="material-symbols-outlined">school</span> Post School Exam</span>
-      </div>
-      <div class="panel-body">
-        <div class="info-box"><strong>School-Specific Exams</strong> — only visible to students from the selected school portal.</div>
-        <div class="msg" id="schoolExamMsg">School exam posted successfully!</div>
-        <form id="schoolExamForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Exam Title</label>
-              <input id="schoolExamTitle" type="text" required placeholder="e.g., Term 1 Mathematics Exam" />
-            </div>
-            <div class="form-group">
-              <label>Select School</label>
-              <select id="schoolExamSchool" required>
-                <option value="">Choose School</option>
-                <option value="peniel">Peniel Lily Montessori School</option>
-                <option value="southgold">South Gold Montessori School</option>
-                <option value="sapphire">Sapphire Explorer Montessori School</option>
-                <option value="easystars">Easy Stars Early Years Academy</option>
-                <option value="christycaleb">Christy Caleb International School</option>
-                <option value="royalbreed">Royal Breed Academy</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Exam Link (Google Forms, etc.)</label>
-            <input id="schoolExamUrl" type="url" required placeholder="https://forms.google.com/..." />
-          </div>
-          <div class="form-group">
-            <label>Instructions</label>
-            <textarea id="schoolExamDesc" required placeholder="Exam instructions and details"></textarea>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">POST_SCHOOL_EXAM</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Posted School Exams</div>
-    <div class="resource-grid" id="schoolExamsGrid"><div class="empty-state">Loading…</div></div>
-  </div>
-
-  <!-- ══ SCHOOL RESOURCES ══ -->
-  <div class="tab-pane" id="schoolResources">
-    <div class="panel">
-      <div class="panel-head">
-        <span class="panel-title"><span class="material-symbols-outlined">auto_stories</span> Post School Resource or Link</span>
-      </div>
-      <div class="panel-body">
-        <div class="info-box"><strong>School Resources &amp; Links</strong> — visible only to students from the selected school.</div>
-        <div class="msg" id="schoolResMsg">Resource posted successfully!</div>
-        <form id="schoolResourceForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Type</label>
-              <select id="schoolResType" required>
-                <option value="">Select type</option>
-                <option value="resource">📄 File / Document</option>
-                <option value="link">🔗 Link</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Select School</label>
-              <select id="schoolResSchool" required>
-                <option value="">Choose School</option>
-                <option value="peniel">Peniel Lily Montessori School</option>
-                <option value="southgold">South Gold Montessori School</option>
-                <option value="sapphire">Sapphire Explorer Montessori School</option>
-                <option value="easystars">Easy Stars Early Years Academy</option>
-                <option value="christycaleb">Christy Caleb International School</option>
-                <option value="royalbreed">Royal Breed Academy</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Title</label>
-            <input id="schoolResTitle" type="text" required placeholder="e.g., Mathematics Study Guide" />
-          </div>
-          <div class="form-group">
-            <label>URL / Link</label>
-            <input id="schoolResUrl" type="url" required placeholder="https://..." />
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea id="schoolResDesc" required placeholder="Brief description"></textarea>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">POST_TO_SCHOOL</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Posted School Resources</div>
-    <div class="resource-grid" id="schoolResGrid"><div class="empty-state">Loading…</div></div>
-  </div>
-
-  <!-- ══ MANAGE SCHOOLS (read-only) ══ -->
-  <div class="tab-pane" id="schoolManage">
-    <div class="info-box red">
-      <strong>⚠️ Admin-Only Section</strong> — School access codes can only be updated by administrators. Contact your admin to change a school's code. Current codes are shown below for reference.
-    </div>
-    <div class="school-card-grid" id="schoolCodesDisplay">
-      <div class="empty-state">Loading school codes…</div>
-    </div>
-  </div>
-
-  <!-- ══ MANAGE STUDENTS ══ -->
-  <div class="tab-pane" id="studentManage">
-    <div class="panel">
-      <div class="panel-head">
-        <span class="panel-title"><span class="material-symbols-outlined">person_add</span> Add New Student</span>
-      </div>
-      <div class="panel-body">
-        <div class="info-box"><strong>Create Student Accounts</strong> — students login with their username and access code.</div>
-        <div class="msg" id="studentAddMsg">Student added successfully!</div>
-        <form id="addStudentForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Full Name</label>
-              <input id="newStudentName" type="text" required placeholder="Student's full name" />
-            </div>
-            <div class="form-group">
-              <label>Username</label>
-              <input id="newStudentUsername" type="text" required placeholder="Unique username" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Email (Optional)</label>
-              <input id="newStudentEmail" type="email" placeholder="student@example.com" />
-            </div>
-            <div class="form-group">
-              <label>Access Code</label>
-              <input id="newStudentCode" type="text" required placeholder="Create access code" />
-            </div>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">ADD_STUDENT</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Registered Students</div>
-    <div class="person-grid" id="studentsGrid"><div class="empty-state">Loading students…</div></div>
-  </div>
-
-  <!-- ══ SEND RESOURCES TO STUDENT ══ -->
-  <div class="tab-pane" id="studentResources">
-    <div class="panel">
-      <div class="panel-head">
-        <span class="panel-title"><span class="material-symbols-outlined">send</span> Send to Individual Student</span>
-      </div>
-      <div class="panel-body">
-        <div class="info-box"><strong>Personal Resources</strong> — sent directly to a specific student. Only they can see it in their personal portal.</div>
-        <div class="msg" id="personalResMsg">Resource sent successfully!</div>
-        <form id="personalResForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Select Student</label>
-              <select id="targetStudent" required>
-                <option value="">Choose Student</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Resource Type</label>
-              <select id="personalResType" required>
-                <option value="">Select type</option>
-                <option value="resource">📄 File / Document</option>
-                <option value="link">🔗 Link</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Title</label>
-            <input id="personalResTitle" type="text" required placeholder="e.g., Your Python Assignment" />
-          </div>
-          <div class="form-group">
-            <label>URL / Link</label>
-            <input id="personalResUrl" type="url" required placeholder="https://..." />
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea id="personalResDesc" required placeholder="Brief description"></textarea>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">TRANSMIT_RESOURCE</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="section-head">Recently Sent Resources</div>
-    <div class="resource-grid" id="personalResGrid"><div class="empty-state">Loading…</div></div>
-  </div>
-
-  <div class="main-footer">
-    <p>Jaystarbliss Dynamic Hub — Staff Terminal v2</p>
-  </div>
-
-</main>
-
-<!-- ── SCRIPT 1: UI (theme, tabs, sidebar, notif toggle) ── -->
+<!-- ══════════════════════════════════════════
+     SCRIPT 1: UI
+══════════════════════════════════════════ -->
 <script>
-  /* Theme */
-  (function(){
+  /* ─── Theme ─── */
+  (function() {
     const saved = localStorage.getItem('jdh-theme') || 'dark';
     document.documentElement.setAttribute('data-theme', saved);
   })();
@@ -929,23 +1215,48 @@
     localStorage.setItem('jdh-theme', next);
   }
 
+  /* ─── Sidebar toggle (mobile slide-in) ─── */
   function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('open');
     document.getElementById('mobOverlay').classList.toggle('open');
   }
 
+  /* ─── Tab switching ─── */
   function switchTab(name, el) {
+    // Deactivate all panes
     document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    // Deactivate all sidebar nav items
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    // Deactivate all bottom nav items
+    document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
+
+    // Activate pane
     const pane = document.getElementById(name);
     if (pane) pane.classList.add('active');
-    if (el) el.classList.add('active');
-    if (window.innerWidth <= 900) {
+
+    // Activate matching sidebar item
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + name + "'")) {
+        n.classList.add('active');
+      }
+    });
+
+    // Activate matching bottom nav item
+    document.querySelectorAll('.mobile-nav-item').forEach(n => {
+      if (n.dataset.tab === name) n.classList.add('active');
+    });
+
+    // Close sidebar on mobile after nav
+    if (window.innerWidth <= 768) {
       document.getElementById('sidebar').classList.remove('open');
       document.getElementById('mobOverlay').classList.remove('open');
     }
+
+    // Scroll main to top on tab switch
+    document.querySelector('.main').scrollTop = 0;
   }
 
+  /* ─── Notifications ─── */
   function toggleNotif() {
     document.getElementById('notifPanel').classList.toggle('open');
     document.getElementById('notifOverlay').classList.toggle('open');
@@ -954,6 +1265,7 @@
     }
   }
 
+  /* ─── Logout ─── */
   function doLogout() {
     if (window._doLogout) { window._doLogout(); return; }
     sessionStorage.clear();
@@ -961,7 +1273,9 @@
   }
 </script>
 
-<!-- ── SCRIPT 2: Firebase Module ── -->
+<!-- ══════════════════════════════════════════
+     SCRIPT 2: Firebase Module
+══════════════════════════════════════════ -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
@@ -983,7 +1297,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/* ── AUTH GUARD ── */
+/* ─── Auth Guard ─── */
 const role = sessionStorage.getItem('userRole');
 if (!role || role !== 'staff') {
   window.location.href = '../auth/login.html';
@@ -991,23 +1305,23 @@ if (!role || role !== 'staff') {
 document.getElementById('staffEmailDisplay').textContent =
   sessionStorage.getItem('userEmail') || sessionStorage.getItem('staffName') || 'Staff';
 
-/* ── LOGOUT ── */
+/* ─── Logout ─── */
 window._doLogout = async function() {
   try { await signOut(auth); } catch(e) {}
   sessionStorage.clear();
   window.location.href = '../auth/login.html';
 };
 
-/* ── HELPERS ── */
+/* ─── Helpers ─── */
 const SCHOOL_NAMES = {
-  peniel:'Peniel Lily Montessori', southgold:'South Gold Montessori',
-  sapphire:'Sapphire Explorer Montessori', easystars:'Easy Stars Early Years Academy',
-  christycaleb:'Christy Caleb International', royalbreed:'Royal Breed Academy'
+  peniel: 'Peniel Lily Montessori', southgold: 'South Gold Montessori',
+  sapphire: 'Sapphire Explorer Montessori', easystars: 'Easy Stars Early Years Academy',
+  christycaleb: 'Christy Caleb International', royalbreed: 'Royal Breed Academy'
 };
 
 function fmt(ts) {
   if (!ts) return '—';
-  try { return ts.toDate().toLocaleDateString(); } catch(e){ return '—'; }
+  try { return ts.toDate().toLocaleDateString(); } catch(e) { return '—'; }
 }
 
 function showMsg(id) {
@@ -1029,11 +1343,11 @@ function makeCard(innerHTML) {
   return card;
 }
 
-/* ── TAB: RESOURCES ── */
+/* ─── RESOURCES ─── */
 document.getElementById('resourceForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   try {
-    await addDoc(collection(db,'resources'), {
+    await addDoc(collection(db, 'resources'), {
       title: document.getElementById('resTitle').value.trim(),
       category: document.getElementById('resCategory').value,
       fileUrl: document.getElementById('resUrl').value.trim(),
@@ -1049,8 +1363,8 @@ async function loadResources() {
   const grid = document.getElementById('resourcesGrid');
   grid.innerHTML = '<div class="empty-state">Loading…</div>';
   try {
-    const snap = await getDocs(query(collection(db,'resources'), orderBy('timestamp','desc')));
-    if (snap.empty) { emptyGrid('resourcesGrid','No resources posted yet.'); return; }
+    const snap = await getDocs(query(collection(db, 'resources'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { emptyGrid('resourcesGrid', 'No resources posted yet.'); return; }
     grid.innerHTML = '';
     snap.forEach(d => {
       const data = d.data();
@@ -1058,26 +1372,26 @@ async function loadResources() {
         <span class="pill pill-crimson">${data.category || 'general'}</span>
         <h4>${data.title}</h4>
         <p>${data.description}</p>
-        <a href="${data.fileUrl}" target="_blank">🔗 View Resource</a>
+        <a href="${data.fileUrl}" target="_blank" rel="noopener">🔗 View Resource</a>
         <div class="card-meta">${fmt(data.timestamp)}</div>
         <div class="card-actions">
           <button class="btn btn-danger btn-sm" onclick="window._delResource('${d.id}')">DELETE</button>
         </div>`));
     });
-  } catch(e) { emptyGrid('resourcesGrid','Error loading resources.'); }
+  } catch(e) { emptyGrid('resourcesGrid', 'Error loading resources.'); }
 }
 
 window._delResource = async function(id) {
   if (!confirm('Delete this resource?')) return;
-  try { await deleteDoc(doc(db,'resources',id)); loadResources(); }
+  try { await deleteDoc(doc(db, 'resources', id)); loadResources(); }
   catch(e) { alert('Error: ' + e.message); }
 };
 
-/* ── TAB: LINKS ── */
+/* ─── LINKS ─── */
 document.getElementById('linkForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   try {
-    await addDoc(collection(db,'links'), {
+    await addDoc(collection(db, 'links'), {
       title: document.getElementById('linkTitle').value.trim(),
       category: document.getElementById('linkCategory').value,
       url: document.getElementById('linkUrl').value.trim(),
@@ -1093,8 +1407,8 @@ async function loadLinks() {
   const grid = document.getElementById('linksGrid');
   grid.innerHTML = '<div class="empty-state">Loading…</div>';
   try {
-    const snap = await getDocs(query(collection(db,'links'), orderBy('timestamp','desc')));
-    if (snap.empty) { emptyGrid('linksGrid','No links posted yet.'); return; }
+    const snap = await getDocs(query(collection(db, 'links'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { emptyGrid('linksGrid', 'No links posted yet.'); return; }
     grid.innerHTML = '';
     snap.forEach(d => {
       const data = d.data();
@@ -1102,26 +1416,26 @@ async function loadLinks() {
         <span class="pill pill-crimson">${data.category || 'other'}</span>
         <h4>${data.title}</h4>
         <p>${data.description}</p>
-        <a href="${data.url}" target="_blank">🔗 Open Link</a>
+        <a href="${data.url}" target="_blank" rel="noopener">🔗 Open Link</a>
         <div class="card-meta">${fmt(data.timestamp)}</div>
         <div class="card-actions">
           <button class="btn btn-danger btn-sm" onclick="window._delLink('${d.id}')">DELETE</button>
         </div>`));
     });
-  } catch(e) { emptyGrid('linksGrid','Error loading links.'); }
+  } catch(e) { emptyGrid('linksGrid', 'Error loading links.'); }
 }
 
 window._delLink = async function(id) {
   if (!confirm('Delete this link?')) return;
-  try { await deleteDoc(doc(db,'links',id)); loadLinks(); }
+  try { await deleteDoc(doc(db, 'links', id)); loadLinks(); }
   catch(e) { alert('Error: ' + e.message); }
 };
 
-/* ── TAB: EXAMS ── */
+/* ─── EXAMS ─── */
 document.getElementById('examForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   try {
-    await addDoc(collection(db,'exams'), {
+    await addDoc(collection(db, 'exams'), {
       title: document.getElementById('examTitle').value.trim(),
       subject: document.getElementById('examSubject').value,
       url: document.getElementById('examUrl').value.trim(),
@@ -1137,8 +1451,8 @@ async function loadExams() {
   const grid = document.getElementById('examsGrid');
   grid.innerHTML = '<div class="empty-state">Loading…</div>';
   try {
-    const snap = await getDocs(query(collection(db,'exams'), orderBy('timestamp','desc')));
-    if (snap.empty) { emptyGrid('examsGrid','No exams posted yet.'); return; }
+    const snap = await getDocs(query(collection(db, 'exams'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { emptyGrid('examsGrid', 'No exams posted yet.'); return; }
     grid.innerHTML = '';
     snap.forEach(d => {
       const data = d.data();
@@ -1146,26 +1460,26 @@ async function loadExams() {
         <span class="pill pill-crimson">${data.subject || 'general'}</span>
         <h4>${data.title}</h4>
         <p>${data.description}</p>
-        <a href="${data.url}" target="_blank">📝 Open Exam</a>
+        <a href="${data.url}" target="_blank" rel="noopener">📝 Open Exam</a>
         <div class="card-meta">${fmt(data.timestamp)}</div>
         <div class="card-actions">
           <button class="btn btn-danger btn-sm" onclick="window._delExam('${d.id}')">DELETE</button>
         </div>`));
     });
-  } catch(e) { emptyGrid('examsGrid','Error loading exams.'); }
+  } catch(e) { emptyGrid('examsGrid', 'Error loading exams.'); }
 }
 
 window._delExam = async function(id) {
   if (!confirm('Delete this exam?')) return;
-  try { await deleteDoc(doc(db,'exams',id)); loadExams(); }
+  try { await deleteDoc(doc(db, 'exams', id)); loadExams(); }
   catch(e) { alert('Error: ' + e.message); }
 };
 
-/* ── TAB: SCHOOL EXAMS ── */
+/* ─── SCHOOL EXAMS ─── */
 document.getElementById('schoolExamForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   try {
-    await addDoc(collection(db,'schoolExams'), {
+    await addDoc(collection(db, 'schoolExams'), {
       title: document.getElementById('schoolExamTitle').value.trim(),
       schoolId: document.getElementById('schoolExamSchool').value,
       url: document.getElementById('schoolExamUrl').value.trim(),
@@ -1180,31 +1494,31 @@ async function loadSchoolExams() {
   const grid = document.getElementById('schoolExamsGrid');
   grid.innerHTML = '<div class="empty-state">Loading…</div>';
   try {
-    const snap = await getDocs(query(collection(db,'schoolExams'), orderBy('timestamp','desc')));
-    if (snap.empty) { emptyGrid('schoolExamsGrid','No school exams posted yet.'); return; }
+    const snap = await getDocs(query(collection(db, 'schoolExams'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { emptyGrid('schoolExamsGrid', 'No school exams posted yet.'); return; }
     grid.innerHTML = '';
     snap.forEach(d => {
       const data = d.data();
       grid.appendChild(makeCard(`
-        <span class="pill pill-gold">🏫 ${SCHOOL_NAMES[data.schoolId]||data.schoolId}</span>
+        <span class="pill pill-gold">🏫 ${SCHOOL_NAMES[data.schoolId] || data.schoolId}</span>
         <h4>${data.title}</h4>
         <p>${data.description}</p>
-        <a href="${data.url}" target="_blank">📝 Open Exam</a>
+        <a href="${data.url}" target="_blank" rel="noopener">📝 Open Exam</a>
         <div class="card-meta">${fmt(data.timestamp)}</div>
         <div class="card-actions">
           <button class="btn btn-danger btn-sm" onclick="window._delSchoolExam('${d.id}')">DELETE</button>
         </div>`));
     });
-  } catch(e) { emptyGrid('schoolExamsGrid','Error loading school exams.'); }
+  } catch(e) { emptyGrid('schoolExamsGrid', 'Error loading school exams.'); }
 }
 
 window._delSchoolExam = async function(id) {
   if (!confirm('Delete this school exam?')) return;
-  try { await deleteDoc(doc(db,'schoolExams',id)); loadSchoolExams(); }
+  try { await deleteDoc(doc(db, 'schoolExams', id)); loadSchoolExams(); }
   catch(e) { alert('Error: ' + e.message); }
 };
 
-/* ── TAB: SCHOOL RESOURCES ── */
+/* ─── SCHOOL RESOURCES ─── */
 document.getElementById('schoolResourceForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const resType = document.getElementById('schoolResType').value;
@@ -1227,53 +1541,53 @@ async function loadSchoolResources() {
   grid.innerHTML = '<div class="empty-state">Loading…</div>';
   try {
     const [rSnap, lSnap] = await Promise.all([
-      getDocs(query(collection(db,'schoolResources'), orderBy('timestamp','desc'))),
-      getDocs(query(collection(db,'schoolLinks'), orderBy('timestamp','desc')))
+      getDocs(query(collection(db, 'schoolResources'), orderBy('timestamp', 'desc'))),
+      getDocs(query(collection(db, 'schoolLinks'), orderBy('timestamp', 'desc')))
     ]);
     const all = [];
-    rSnap.forEach(d => all.push({ id:d.id, coll:'schoolResources', type:'resource', ...d.data() }));
-    lSnap.forEach(d => all.push({ id:d.id, coll:'schoolLinks', type:'link', ...d.data() }));
-    all.sort((a,b)=>(b.timestamp?.toDate()||new Date(0))-(a.timestamp?.toDate()||new Date(0)));
-    if (!all.length) { emptyGrid('schoolResGrid','No school resources posted yet.'); return; }
+    rSnap.forEach(d => all.push({ id: d.id, coll: 'schoolResources', type: 'resource', ...d.data() }));
+    lSnap.forEach(d => all.push({ id: d.id, coll: 'schoolLinks', type: 'link', ...d.data() }));
+    all.sort((a, b) => (b.timestamp?.toDate() || new Date(0)) - (a.timestamp?.toDate() || new Date(0)));
+    if (!all.length) { emptyGrid('schoolResGrid', 'No school resources posted yet.'); return; }
     grid.innerHTML = '';
     all.forEach(item => {
-      const url = item.type==='link' ? item.url : item.fileUrl;
+      const url = item.type === 'link' ? item.url : item.fileUrl;
       grid.appendChild(makeCard(`
-        <span class="pill pill-gold">🏫 ${SCHOOL_NAMES[item.schoolId]||item.schoolId}</span>
-        <span class="pill pill-dim" style="margin-left:4px;">${item.type==='link'?'🔗 Link':'📄 File'}</span>
+        <span class="pill pill-gold">🏫 ${SCHOOL_NAMES[item.schoolId] || item.schoolId}</span>
+        <span class="pill pill-dim" style="margin-left:4px;">${item.type === 'link' ? '🔗 Link' : '📄 File'}</span>
         <h4>${item.title}</h4>
         <p>${item.description}</p>
-        <a href="${url}" target="_blank">Open</a>
+        <a href="${url}" target="_blank" rel="noopener">Open</a>
         <div class="card-meta">${fmt(item.timestamp)}</div>
         <div class="card-actions">
           <button class="btn btn-danger btn-sm" onclick="window._delSchoolRes('${item.id}','${item.coll}')">DELETE</button>
         </div>`));
     });
-  } catch(e) { emptyGrid('schoolResGrid','Error loading resources.'); }
+  } catch(e) { emptyGrid('schoolResGrid', 'Error loading resources.'); }
 }
 
 window._delSchoolRes = async function(id, coll) {
   if (!confirm('Delete this resource?')) return;
-  try { await deleteDoc(doc(db,coll,id)); loadSchoolResources(); }
+  try { await deleteDoc(doc(db, coll, id)); loadSchoolResources(); }
   catch(e) { alert('Error: ' + e.message); }
 };
 
-/* ── TAB: MANAGE SCHOOLS (read-only) ── */
+/* ─── MANAGE SCHOOLS (read-only) ─── */
 async function loadSchoolCodes() {
   const container = document.getElementById('schoolCodesDisplay');
   container.innerHTML = '';
   const schools = [
-    { id:'peniel',      label:'🎓 Peniel Lily Montessori School' },
-    { id:'southgold',   label:'🏆 South Gold Montessori School' },
-    { id:'sapphire',    label:'💎 Sapphire Explorer Montessori School' },
-    { id:'easystars',   label:'⭐ Easy Stars Early Years Academy' },
-    { id:'christycaleb',label:'📚 Christy Caleb International School' },
-    { id:'royalbreed',  label:'👑 Royal Breed Academy' }
+    { id: 'peniel',       label: '🎓 Peniel Lily Montessori School' },
+    { id: 'southgold',    label: '🏆 South Gold Montessori School' },
+    { id: 'sapphire',     label: '💎 Sapphire Explorer Montessori School' },
+    { id: 'easystars',    label: '⭐ Easy Stars Early Years Academy' },
+    { id: 'christycaleb', label: '📚 Christy Caleb International School' },
+    { id: 'royalbreed',   label: '👑 Royal Breed Academy' }
   ];
   for (const s of schools) {
     let code = '—';
     try {
-      const schoolDoc = await getDoc(doc(db,'schools',s.id));
+      const schoolDoc = await getDoc(doc(db, 'schools', s.id));
       if (schoolDoc.exists()) code = schoolDoc.data().accessCode || '(not set)';
     } catch(e) { code = '(error)'; }
     const card = document.createElement('div');
@@ -1288,7 +1602,7 @@ async function loadSchoolCodes() {
   }
 }
 
-/* ── TAB: MANAGE STUDENTS ── */
+/* ─── MANAGE STUDENTS ─── */
 document.getElementById('addStudentForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const fullName   = document.getElementById('newStudentName').value.trim();
@@ -1296,9 +1610,9 @@ document.getElementById('addStudentForm').addEventListener('submit', async funct
   const email      = document.getElementById('newStudentEmail').value.trim();
   const accessCode = document.getElementById('newStudentCode').value.trim();
   try {
-    const dupSnap = await getDocs(query(collection(db,'individualStudents'), where('username','==',username)));
+    const dupSnap = await getDocs(query(collection(db, 'individualStudents'), where('username', '==', username)));
     if (!dupSnap.empty) { alert('Username already exists! Choose another.'); return; }
-    await addDoc(collection(db,'individualStudents'), {
+    await addDoc(collection(db, 'individualStudents'), {
       fullName, username, email, accessCode,
       staffId: sessionStorage.getItem('userId') || '',
       registeredAt: serverTimestamp()
@@ -1312,8 +1626,8 @@ async function loadStudents() {
   const grid = document.getElementById('studentsGrid');
   grid.innerHTML = '<div class="empty-state">Loading…</div>';
   try {
-    const snap = await getDocs(collection(db,'individualStudents'));
-    if (snap.empty) { emptyGrid('studentsGrid','No students registered yet.'); return; }
+    const snap = await getDocs(collection(db, 'individualStudents'));
+    if (snap.empty) { emptyGrid('studentsGrid', 'No students registered yet.'); return; }
     grid.innerHTML = '';
     snap.forEach(d => {
       const data = d.data();
@@ -1323,26 +1637,24 @@ async function loadStudents() {
         <div class="person-card-head">
           <div class="person-card-info">
             <h4>👤 ${data.fullName || data.username}</h4>
-            <p>@${data.username}${data.email?'<br/>'+data.email:''}<br/>Code: ${data.accessCode}<br/>Registered: ${fmt(data.registeredAt)}</p>
+            <p>@${data.username}${data.email ? '<br/>' + data.email : ''}<br/>Code: ${data.accessCode}<br/>Registered: ${fmt(data.registeredAt)}</p>
           </div>
           <button class="btn btn-danger btn-sm" onclick="window._delStudent('${d.id}')">DELETE</button>
         </div>
-        <div style="display:flex;gap:.6rem;align-items:center;">
-          <input id="code_${d.id}" type="text" value="${data.accessCode}" placeholder="New access code"
-            style="background:var(--field-bg);border:1px solid var(--field-border);color:var(--text);
-            padding:.5rem .8rem;flex:1;font-family:var(--sans);font-size:.82rem;border-radius:6px;outline:none;"/>
+        <div class="person-card-update">
+          <input id="code_${d.id}" type="text" value="${data.accessCode}" placeholder="New access code" />
           <button class="btn btn-gold btn-sm" onclick="window._updateCode('${d.id}')">UPDATE</button>
         </div>`;
       grid.appendChild(card);
     });
-  } catch(e) { emptyGrid('studentsGrid','Error loading students.'); }
+  } catch(e) { emptyGrid('studentsGrid', 'Error loading students.'); }
 }
 
 window._updateCode = async function(id) {
-  const newCode = document.getElementById('code_'+id)?.value.trim();
+  const newCode = document.getElementById('code_' + id)?.value.trim();
   if (!newCode) { alert('Enter a code first.'); return; }
   try {
-    await setDoc(doc(db,'individualStudents',id), { accessCode:newCode }, { merge:true });
+    await setDoc(doc(db, 'individualStudents', id), { accessCode: newCode }, { merge: true });
     alert('Access code updated!');
   } catch(e) { alert('Error: ' + e.message); }
 };
@@ -1350,14 +1662,14 @@ window._updateCode = async function(id) {
 window._delStudent = async function(id) {
   if (!confirm('Delete this student and all their resources?')) return;
   try {
-    await deleteDoc(doc(db,'individualStudents',id));
-    const [rSnap,lSnap] = await Promise.all([
-      getDocs(query(collection(db,'personalResources'), where('studentId','==',id))),
-      getDocs(query(collection(db,'personalLinks'), where('studentId','==',id)))
+    await deleteDoc(doc(db, 'individualStudents', id));
+    const [rSnap, lSnap] = await Promise.all([
+      getDocs(query(collection(db, 'personalResources'), where('studentId', '==', id))),
+      getDocs(query(collection(db, 'personalLinks'), where('studentId', '==', id)))
     ]);
     const dels = [];
-    rSnap.forEach(d=>dels.push(deleteDoc(d.ref)));
-    lSnap.forEach(d=>dels.push(deleteDoc(d.ref)));
+    rSnap.forEach(d => dels.push(deleteDoc(d.ref)));
+    lSnap.forEach(d => dels.push(deleteDoc(d.ref)));
     await Promise.all(dels);
     loadStudents(); loadStudentsDropdown();
   } catch(e) { alert('Error: ' + e.message); }
@@ -1367,25 +1679,25 @@ async function loadStudentsDropdown() {
   const sel = document.getElementById('targetStudent');
   sel.innerHTML = '<option value="">Choose Student</option>';
   try {
-    const snap = await getDocs(collection(db,'individualStudents'));
+    const snap = await getDocs(collection(db, 'individualStudents'));
     snap.forEach(d => {
       const data = d.data();
       const opt = document.createElement('option');
       opt.value = d.id;
-      opt.textContent = `${data.fullName||data.username} (@${data.username})`;
+      opt.textContent = `${data.fullName || data.username} (@${data.username})`;
       sel.appendChild(opt);
     });
   } catch(e) { console.error(e); }
 }
 
-/* ── TAB: SEND TO INDIVIDUAL STUDENT ── */
+/* ─── SEND TO INDIVIDUAL STUDENT ─── */
 document.getElementById('personalResForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const studentId = document.getElementById('targetStudent').value;
   const resType   = document.getElementById('personalResType').value;
   const urlField  = resType === 'link' ? 'url' : 'fileUrl';
   try {
-    await addDoc(collection(db, resType==='link'?'personalLinks':'personalResources'), {
+    await addDoc(collection(db, resType === 'link' ? 'personalLinks' : 'personalResources'), {
       studentId,
       title: document.getElementById('personalResTitle').value.trim(),
       [urlField]: document.getElementById('personalResUrl').value.trim(),
@@ -1402,17 +1714,17 @@ async function loadPersonalResources() {
   grid.innerHTML = '<div class="empty-state">Loading…</div>';
   try {
     const all = [];
-    for (const c of ['personalResources','personalLinks']) {
-      const snap = await getDocs(query(collection(db,c), orderBy('timestamp','desc')));
-      snap.forEach(d => all.push({ id:d.id, coll:c, ...d.data() }));
+    for (const c of ['personalResources', 'personalLinks']) {
+      const snap = await getDocs(query(collection(db, c), orderBy('timestamp', 'desc')));
+      snap.forEach(d => all.push({ id: d.id, coll: c, ...d.data() }));
     }
-    all.sort((a,b)=>(b.timestamp?.toDate()||new Date(0))-(a.timestamp?.toDate()||new Date(0)));
-    if (!all.length) { emptyGrid('personalResGrid','No resources sent yet.'); return; }
+    all.sort((a, b) => (b.timestamp?.toDate() || new Date(0)) - (a.timestamp?.toDate() || new Date(0)));
+    if (!all.length) { emptyGrid('personalResGrid', 'No resources sent yet.'); return; }
     grid.innerHTML = '';
-    for (const item of all.slice(0,12)) {
+    for (const item of all.slice(0, 12)) {
       let studentName = 'Unknown';
       try {
-        const sDoc = await getDoc(doc(db,'individualStudents',item.studentId));
+        const sDoc = await getDoc(doc(db, 'individualStudents', item.studentId));
         if (sDoc.exists()) studentName = sDoc.data().fullName || sDoc.data().username;
       } catch(e) {}
       const url = item.url || item.fileUrl || '#';
@@ -1420,22 +1732,22 @@ async function loadPersonalResources() {
         <span class="pill pill-dim">👤 ${studentName}</span>
         <h4>${item.title}</h4>
         <p>${item.description}</p>
-        <a href="${url}" target="_blank">🔗 View</a>
+        <a href="${url}" target="_blank" rel="noopener">🔗 View</a>
         <div class="card-meta">${fmt(item.timestamp)}</div>
         <div class="card-actions">
           <button class="btn btn-danger btn-sm" onclick="window._delPersonalRes('${item.id}','${item.coll}')">DELETE</button>
         </div>`));
     }
-  } catch(e) { emptyGrid('personalResGrid','Error loading resources.'); }
+  } catch(e) { emptyGrid('personalResGrid', 'Error loading resources.'); }
 }
 
 window._delPersonalRes = async function(id, coll) {
   if (!confirm('Delete this resource?')) return;
-  try { await deleteDoc(doc(db,coll,id)); loadPersonalResources(); }
+  try { await deleteDoc(doc(db, coll, id)); loadPersonalResources(); }
   catch(e) { alert('Error: ' + e.message); }
 };
 
-/* ── NOTIFICATIONS ── */
+/* ─── NOTIFICATIONS ─── */
 let _lastNotifCount = 0;
 
 async function loadNotifications() {
@@ -1444,16 +1756,16 @@ async function loadNotifications() {
   const staffId = sessionStorage.getItem('userId');
   try {
     const [allSnap, staffSnap, personalSnap] = await Promise.all([
-      getDocs(query(collection(db,'notifications'), where('recipientId','==','all'))),
-      getDocs(query(collection(db,'notifications'), where('recipientId','==','all_staff'))),
-      getDocs(query(collection(db,'notifications'), where('recipientId','==',staffId)))
+      getDocs(query(collection(db, 'notifications'), where('recipientId', '==', 'all'))),
+      getDocs(query(collection(db, 'notifications'), where('recipientId', '==', 'all_staff'))),
+      getDocs(query(collection(db, 'notifications'), where('recipientId', '==', staffId)))
     ]);
     const map = new Map();
     [allSnap, staffSnap, personalSnap].forEach(s =>
-      s.forEach(d => map.set(d.id, { id:d.id, ...d.data() }))
+      s.forEach(d => map.set(d.id, { id: d.id, ...d.data() }))
     );
-    const notifs = [...map.values()].sort((a,b)=>{
-      return (b.timestamp?.toDate()||new Date(0)) - (a.timestamp?.toDate()||new Date(0));
+    const notifs = [...map.values()].sort((a, b) => {
+      return (b.timestamp?.toDate() || new Date(0)) - (a.timestamp?.toDate() || new Date(0));
     });
     if (!notifs.length) {
       list.innerHTML = '<div class="empty-state">No notifications yet.</div>';
@@ -1485,7 +1797,7 @@ async function loadNotifications() {
 window._loadNotif = loadNotifications;
 
 window._markRead = async function(id) {
-  try { await updateDoc(doc(db,'notifications',id), { read:true }); loadNotifications(); }
+  try { await updateDoc(doc(db, 'notifications', id), { read: true }); loadNotifications(); }
   catch(e) { console.error(e); }
 };
 
@@ -1496,7 +1808,7 @@ window.markAllRead = async function() {
     const btn = el.querySelector('button[onclick]');
     if (btn) {
       const m = btn.getAttribute('onclick').match(/'([^']+)'/);
-      if (m) promises.push(updateDoc(doc(db,'notifications',m[1]), { read:true }));
+      if (m) promises.push(updateDoc(doc(db, 'notifications', m[1]), { read: true }));
     }
   });
   try { await Promise.all(promises); loadNotifications(); } catch(e) {}
@@ -1511,9 +1823,9 @@ function updateBadge(count) {
 function timeAgo(ts) {
   if (!ts) return 'just now';
   const diff = Date.now() - ts.toDate().getTime();
-  const m = Math.floor(diff/60000);
-  const h = Math.floor(diff/3600000);
-  const d = Math.floor(diff/86400000);
+  const m = Math.floor(diff / 60000);
+  const h = Math.floor(diff / 3600000);
+  const d = Math.floor(diff / 86400000);
   if (m < 1) return 'just now';
   if (m < 60) return `${m}m ago`;
   if (h < 24) return `${h}h ago`;
@@ -1522,18 +1834,18 @@ function timeAgo(ts) {
 
 function pingSound() {
   try {
-    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const osc = ctx.createOscillator();
     const g = ctx.createGain();
     osc.connect(g); g.connect(ctx.destination);
     osc.frequency.value = 800; osc.type = 'sine';
     g.gain.setValueAtTime(0.25, ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime+0.5);
-    osc.start(ctx.currentTime); osc.stop(ctx.currentTime+0.5);
+    g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.5);
   } catch(e) {}
 }
 
-/* ── INIT ── */
+/* ─── INIT ─── */
 loadResources();
 loadLinks();
 loadExams();
@@ -1556,5 +1868,6 @@ setTimeout(async () => {
   }
 }, 2500);
 </script>
+
 </body>
 </html>

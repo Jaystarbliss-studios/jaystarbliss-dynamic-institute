@@ -7,8 +7,7 @@
   <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon.png">
   <link rel="apple-touch-icon" href="../../assets/img/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
   <style>
   /* ══════════════════════════════════════════
@@ -22,7 +21,7 @@
     --gold:#FFD700; --gold-dim:#b89d00;
     --green:#22c55e; --blue:#38bdf8;
     --field-bg:rgba(5,5,5,0.8); --field-border:rgba(230,25,5,0.2);
-    --mono:'Space Mono',monospace; --sans:'Public Sans',sans-serif;
+--sans:'Poppins',sans-serif;
     --sidebar-w:270px; --topbar-h:56px;
     --glass-bg:rgba(15,15,17,0.75); --glass-blur:blur(14px);
     --radius:10px; --radius-sm:6px;
@@ -43,7 +42,7 @@
      RESET & BASE
   ══════════════════════════════════════════ */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { font-size: 14px; -webkit-text-size-adjust: 100%; }
+html { font-size: clamp(14px, 1.8vw, 16px); -webkit-text-size-adjust: 100%; }
   body {
     font-family: var(--sans);
     background: var(--obsidian);
@@ -672,7 +671,7 @@
 
   /* ─── Small mobile (≤ 420px) ─── */
   @media (max-width: 420px) {
-    html { font-size: 13px; }
+    html { font-size: 15px; -webkit-text-size-adjust: 100%; }
 
     .topbar { padding: 0 .65rem; }
     .brand-text { display: none; } /* Only icon on very small screens */
@@ -710,7 +709,7 @@
       </button>
       <img src="../../assets/img/favicon.png" alt="JDH" class="brand-logo" onerror="this.style.display='none'">
       <div class="brand-text">
-        <div class="topbar-title">JDH Staff</div>
+        <div class="topbar-title">Staff Workspace</div>
         <div class="topbar-sub">Operations Terminal</div>
       </div>
     </div>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="../../assets/img/favicon.ico">
+  <title>Parent Portal — Jaystarbliss Dynamic Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --crimson:#D93B22; --crimson-dark:#D93B22; --crimson-glow:rgba(217,59,34,0.4);
+    --obsidian:#050505; --surface:rgba(15,15,17,0.92); --surface-2:rgba(20,20,22,0.95);
+    --border:rgba(230,25,5,0.18); --border-bright:rgba(230,25,5,0.5);
+    --text:#f1f5f9; --text-muted:#94a3b8; --text-dim:rgba(230,25,5,0.4);
+    --gold:#FFD700; --gold-dim:#b89d00;
+    --green:#22c55e; --blue:#38bdf8;
+    --field-bg:rgba(5,5,5,0.8); --field-border:rgba(230,25,5,0.2);
+    --sans:'Poppins',sans-serif;
+    --topbar-h:56px;
+    --glass-bg:rgba(15,15,17,0.75); --glass-blur:blur(14px);
+    --radius:10px; --radius-sm:6px;
+  }
+  [data-theme="light"] {
+    --crimson:#C41203; --crimson-dark:#8f0d02; --crimson-glow:rgba(196,18,3,0.25);
+    --obsidian:#f0f0f2; --surface:rgba(255,255,255,0.95); --surface-2:rgba(240,240,242,0.97);
+    --border:rgba(196,18,3,0.15); --border-bright:rgba(196,18,3,0.4);
+    --text:#0f0f10; --text-muted:#3d3d45; --text-dim:rgba(196,18,3,0.45);
+    --gold:#b8860b; --gold-dim:#8a6508;
+    --green:#16a34a; --blue:#0369a1;
+    --field-bg:rgba(255,255,255,0.92); --field-border:rgba(196,18,3,0.18);
+    --glass-bg:rgba(255,255,255,0.82); --glass-blur:blur(14px);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html{font-size:clamp(14px, 1.8vw, 16px); -webkit-text-size-adjust:100%;}
+  body {
+    font-family: var(--sans);
+    background: var(--obsidian);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .container {
+    text-align: center;
+    max-width: 600px;
+    background: var(--surface);
+    padding: 3rem 2rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .logo { font-size: 4rem; margin-bottom: 1.5rem; }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  .status-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(217,59,34,0.1);
+    border: 1px solid var(--border-bright);
+    color: var(--crimson);
+    border-radius: var(--radius-sm);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    margin-bottom: 2rem;
+  }
+  a {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    background: linear-gradient(135deg, var(--crimson), #D93B22);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+  a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(217,59,34,0.4);
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">👨‍👩‍👧‍👦</div>
+    <h1>Parent Portal</h1>
+    <p>Monitor your child's learning progress, manage enrollments, track performance metrics, and communicate with instructors.</p>
+    <div class="status-badge">🚧 Coming Soon</div>
+    <p style="font-size: 0.9rem;">This portal is currently under development and will be available soon.</p>
+    <a href="../../index.html">Back to Home</a>
+  </div>
+</body>
+</html>

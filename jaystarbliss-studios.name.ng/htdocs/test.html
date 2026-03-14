@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jaystarbliss Dynamic Hub | A Smarter Way to Learn and Teach</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ab1a0d",
+                        "gold": "#FFD700",
+                        "obsidian": "#0A0A0B",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221210",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(34, 18, 16, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<!-- Navigation -->
+<nav class="nav-sticky border-b border-white/10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">hub</span>
+<span class="text-xl font-bold tracking-tight">Jaystarbliss Dynamic Hub</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Programs</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Teach</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">About</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-5 py-2 text-sm font-bold border border-white/20 rounded-xl hover:bg-white/5 transition-all">Login</button>
+<button class="px-5 py-2 text-sm font-bold bg-gold text-obsidian rounded-xl hover:shadow-lg hover:shadow-gold/20 transition-all">Start Learning</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative py-20 overflow-hidden">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12">
+<div class="flex-1 space-y-8">
+<h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+                    A Smarter Way to <span class="text-primary">Learn</span> and <span class="text-gold">Teach</span>
+</h1>
+<p class="text-lg text-slate-400 max-w-xl">
+                    Connecting students, parents, and tutors on one dynamic platform for a personalized educational experience that adapts to your unique journey.
+                </p>
+<div class="flex flex-wrap gap-4">
+<button class="px-8 py-4 bg-gold text-obsidian font-bold rounded-xl text-lg hover:scale-105 transition-transform">Start Learning</button>
+<button class="px-8 py-4 bg-white/10 font-bold rounded-xl text-lg hover:bg-white/20 transition-all">Become a Tutor</button>
+</div>
+</div>
+<div class="flex-1 w-full">
+<div class="relative rounded-xl overflow-hidden shadow-2xl">
+<img alt="Collaboration" class="w-full h-[500px] object-cover rounded-xl" data-alt="Modern collaborative learning environment with students" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzkHcWhtYRlX8T2jX--KIYKT7AvozKE0jjRJiuqeuTM7YgM-qWR2s59laXFTbzcBkEZqqVYpPHkiMB5OxgHlKXtxDX0nhQhDh1RBltIepKquf8IY8NpEx2emqUBCPepfduh9lWwGQ0valB971uJtsNzE_o7l7E9QVYO81KreQVXrt8jri_JOpjru9TwUrWOAGJz-29-YjwDDHsF50uyf3_qnfPOrpdY3HqLqFkLwoV-s7aYfoBuNgZz0RhCDBFNnGyEq-pSLT1yaQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Introduction Features -->
+<section class="py-20 bg-primary/5">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4">One Platform for Learning and Teaching</h2>
+<p class="text-slate-400">Everything you need to excel in your educational goals.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="glass-card p-8 rounded-xl hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">school</span>
+<h3 class="text-xl font-bold mb-2">Expert Tutors</h3>
+<p class="text-slate-400">Access verified professionals across all academic levels and professional disciplines.</p>
+</div>
+<div class="glass-card p-8 rounded-xl hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-gold text-4xl mb-4">video_chat</span>
+<h3 class="text-xl font-bold mb-2">Online/Offline Classes</h3>
+<p class="text-slate-400">Flexibility to choose between interactive virtual classrooms or in-person guidance.</p>
+</div>
+<div class="glass-card p-8 rounded-xl hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">trending_up</span>
+<h3 class="text-xl font-bold mb-2">Track Progress</h3>
+<p class="text-slate-400">Real-time dashboards to monitor grades, attendance, and skill mastery milestones.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Categories -->
+<section class="py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="relative group rounded-xl overflow-hidden h-96">
+<img alt="Academic" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Academic study materials and textbook" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJS0-73R4xLDLmcr7XAd9eimrltxMNxiT1HwmCoBivt60H50_0CATMWdgniYrg-kOT9p9CxCzKD5HyVLq5mmBNEcCouLlNx-FwkxzsBZ5X-cJxEveOdKLoR3QNERaLyc-GtCk0ouERUelLpwwdVZC9wcKh2bQb6E07or24UfydRyFXU9Xkf5-I-XAQcHfR0sFZuC_KhYVh8lrUEBEKX_ypMlmk7ODd_yp0gb3V3GlMcOJpc14ub1UvyW9cp8OzNnaSsROR-fUpBTg"/>
+<div class="absolute inset-0 bg-black/60 p-10 flex flex-col justify-end">
+<h3 class="text-3xl font-bold mb-4">Academic Subjects</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-white/20 rounded-full text-xs">Mathematics</span>
+<span class="px-3 py-1 bg-white/20 rounded-full text-xs">English Language</span>
+<span class="px-3 py-1 bg-white/20 rounded-full text-xs">Physics</span>
+<span class="px-3 py-1 bg-white/20 rounded-full text-xs">Chemistry</span>
+<span class="px-3 py-1 bg-white/20 rounded-full text-xs">+12 more</span>
+</div>
+</div>
+</div>
+<div class="relative group rounded-xl overflow-hidden h-96">
+<img alt="Digital" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Modern computer code and technology background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_it4QrqGpufgvItKQqu07itLyErAtaBlz6_kfqubbN53dmqKnGCHIcwgyo6gqCF_46djB3R1jn2IWgQySmZ596BkRzlT2jrM5_WXBHDWu8ofKQoh-QGVeJVg70pw72XG9lBmlxLwdzm6yQk3zbKD-6nP2vKwapBEThWo1LGVMFdhiOgwzkZ5qIB-r-_Bvsor6F2UsVOCAMj3y9zH8WaRIMyG4YuxVbmkQOOnANIXFwllsjUJNTtoGdGm45DMZZEr-3QQoH0wxXjU"/>
+<div class="absolute inset-0 bg-black/60 p-10 flex flex-col justify-end">
+<h3 class="text-3xl font-bold mb-4">Digital &amp; Tech Skills</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-primary/40 rounded-full text-xs">Programming</span>
+<span class="px-3 py-1 bg-primary/40 rounded-full text-xs">AI Tools</span>
+<span class="px-3 py-1 bg-primary/40 rounded-full text-xs">Graphic Design</span>
+<span class="px-3 py-1 bg-primary/40 rounded-full text-xs">Cybersecurity</span>
+<span class="px-3 py-1 bg-primary/40 rounded-full text-xs">+8 more</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works -->
+<section class="py-20 bg-obsidian">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold">Your Journey to Success</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="text-center group">
+<div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">person_add</span>
+</div>
+<h4 class="font-bold mb-2 text-gold">1. Create Account</h4>
+<p class="text-sm text-slate-400">Join our community as a student, parent, or educator.</p>
+</div>
+<div class="text-center group">
+<div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">auto_stories</span>
+</div>
+<h4 class="font-bold mb-2 text-gold">2. Choose Subjects</h4>
+<p class="text-sm text-slate-400">Select from our wide range of academic and tech courses.</p>
+</div>
+<div class="text-center group">
+<div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">handshake</span>
+</div>
+<h4 class="font-bold mb-2 text-gold">3. Get Matched</h4>
+<p class="text-sm text-slate-400">Connect with the perfect tutor tailored to your learning style.</p>
+</div>
+<div class="text-center group">
+<div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">rocket_launch</span>
+</div>
+<h4 class="font-bold mb-2 text-gold">4. Track Progress</h4>
+<p class="text-sm text-slate-400">Achieve your goals and monitor your growth in real-time.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Programs Grid -->
+<section class="py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="text-3xl font-bold mb-2">Featured Programs</h2>
+<p class="text-slate-400">Join our most popular learning tracks today.</p>
+</div>
+<button class="text-primary font-bold hover:underline">View All Programs</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<img alt="Math" class="h-40 w-full object-cover" data-alt="Mathematics formulas on chalkboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMqjVOKqIq-LxFe9RvSoKgoN2dJEZzGuuDoSIgpjnST7YwQ0VlzHd-2qLfp0SjKHhl-wg3fRuqCJueD8SbUhJbcWGJRZ_fLgYwh87GQ012EdrrPVJe8aTEAoS1dck8XTv2NabIccmrdaYIjpHcXLao3p4wL536J9XBjOIIH5SrlwxkKYUck1vkOttjNyewVTh-b2U-kJjj9b1yZI0YqLV0D5BOi9rfGC7Rd_5t6zAffSMe03V9TLI4e16hKb8RFXRb3gQuGBld0GE"/>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="font-bold text-lg mb-2">Mathematics</h4>
+<p class="text-sm text-slate-400 mb-4 flex-1">From Algebra to Calculus, master the language of the universe.</p>
+<button class="w-full py-2 bg-primary/20 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Learn More</button>
+</div>
+</div>
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<img alt="Coding" class="h-40 w-full object-cover" data-alt="Laptop screen showing programming code" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6YR0d6rm0HFJIwdJBlyd1GOliUdb31Z0gu2wdXMu-OQQqeWcZv4YO9OU6AkfywDa8pJnQgbbcgppjdUtLOC2jaXJCo_vsyTazhxFvtz5qZcbrsEAjEqeHGBD_83jeu5jrnbp-gwTE0SndFqCXGGqjUJdLSBUrn4r4mD1EG-Eg1koxIJcZTsUq_nWWq-d6WSrINA95fJlzhkK5HyDA8o5QquKTq1W2upO8Azr2TALo8FUXlCHN_xYvr4A5NvfztjgaLWP-JubzdEE"/>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="font-bold text-lg mb-2">Web Development</h4>
+<p class="text-sm text-slate-400 mb-4 flex-1">Learn to build modern web applications using the latest tech stacks.</p>
+<button class="w-full py-2 bg-primary/20 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Learn More</button>
+</div>
+</div>
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<img alt="Physics" class="h-40 w-full object-cover" data-alt="Scientific abstract energy visualization" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-BNdKxgyNAQEiZ0LRBHMR4ODZWRVW9hs87PYwufFez8kK_LNuKjBbd_0dxg5clDlikmoWEP-3o3TNSYAdQb9qJh4c4iMLlg1ZClP050KwF5xgFjZIO9MZwztU1YI2nnLTGiQ6BwPllnc3uilMsYQopM3EQHhErJdW2SU1ryIe5hLeVDVQijFf8nqmle_Lk3RT3z8fUVpJCSLBC0xL_QFZ0XJpEMW5sfDQgmW4e7_SswRAAJWTveOJeaJSll5mxGZYxyuAu3I0GM"/>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="font-bold text-lg mb-2">Applied Physics</h4>
+<p class="text-sm text-slate-400 mb-4 flex-1">Explore the laws of nature with hands-on virtual experiments.</p>
+<button class="w-full py-2 bg-primary/20 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Learn More</button>
+</div>
+</div>
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<img alt="English" class="h-40 w-full object-cover" data-alt="Stack of vintage books" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr0MQRQMKga1qzRrHrJ5MsNyj3AMY8pAM533TnS503ehh2vxfsaAjPEks3OVRKZcqGf8XdaS8Cg6m8usHBA-VC69Z46O5IGkk96J_fT59WwUU7hd2wJ2_x7DMiqRAFHvXafPjXaxlbNF-flPRUYoH61upj-Re9ynN4HQk3oVS-yJPAmJh4HmYGCoaSX8yhtoCp_44XGJ9KHyqGon2J9trjUie1DGGroo_Rj8QxQ6INAI_CW1R7YqPCtKt9WNCl9hmbBu_rqFspGaI"/>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="font-bold text-lg mb-2">English Literature</h4>
+<p class="text-sm text-slate-400 mb-4 flex-1">Enhance communication and critical thinking through classic works.</p>
+<button class="w-full py-2 bg-primary/20 text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Learn More</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tutor Invitation -->
+<section class="py-24 bg-obsidian border-y border-white/5">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col lg:flex-row items-center gap-16">
+<div class="flex-1">
+<h2 class="text-4xl font-bold mb-6">Share Your Knowledge. <br/><span class="text-primary">Inspire Students.</span></h2>
+<p class="text-lg text-slate-400 mb-8">Join our elite network of educators and help shape the future of learning while growing your career.</p>
+<ul class="space-y-4 mb-8">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gold">check_circle</span>
+<span>Flexible schedule &amp; remote work options</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gold">check_circle</span>
+<span>Competitive compensation rates</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gold">check_circle</span>
+<span>Professional development resources</span>
+</li>
+</ul>
+<button class="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/80 transition-all">Apply as Tutor</button>
+</div>
+<div class="flex-1 relative">
+<div class="aspect-square rounded-full border-4 border-primary/20 p-8">
+<img alt="Tutor" class="w-full h-full object-cover rounded-full" data-alt="Professional tutor smiling in educational setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmRI15VyGi6ZjjZl-rG6qqkAVllrMG4bkl9Q1kLaXL5aFGbLXm_UW7vjgevxUlP-9ebWjOyBu4xBII1D28_ugbV0dnyavzgOpblja3uaWW1ud-08LN_vfwRin4iRw8q45HzWKdaYP6PH6BteoceUA5v4yi6-rbaJZn-k1WT1KUnH3iWrY7HL9Y44lnIBtyxu4ln8rqfs4GEpXkgScP4YERpQkGFLdfXfahK-uXjHiuA1zVsaHqQ1YwQdUIIDCBlLWcZ30pEWpJnho"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-20 bg-background-light dark:bg-background-dark">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold mb-4">What Parents and Students Say</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="glass-card p-8 rounded-xl italic">
+<div class="flex gap-1 text-gold mb-4">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-slate-300 mb-6">"The progress my daughter has made in her coding classes is phenomenal. The platform is so easy to use."</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary/20 rounded-full"></div>
+<div>
+<p class="font-bold text-sm not-italic">Sarah Johnson</p>
+<p class="text-xs text-slate-500 not-italic">Parent</p>
+</div>
+</div>
+</div>
+<div class="glass-card p-8 rounded-xl italic border-primary/30">
+<div class="flex gap-1 text-gold mb-4">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-slate-300 mb-6">"Jaystarbliss matched me with a physics tutor who actually understood my learning style. Highly recommend!"</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary/20 rounded-full"></div>
+<div>
+<p class="font-bold text-sm not-italic">Michael Chen</p>
+<p class="text-xs text-slate-500 not-italic">Grade 11 Student</p>
+</div>
+</div>
+</div>
+<div class="glass-card p-8 rounded-xl italic">
+<div class="flex gap-1 text-gold mb-4">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-slate-300 mb-6">"Finally, a platform that values both quality teaching and intuitive UI. My tutoring business has doubled."</p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary/20 rounded-full"></div>
+<div>
+<p class="font-bold text-sm not-italic">Dr. Robert Smith</p>
+<p class="text-xs text-slate-500 not-italic">Mathematics Tutor</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-24 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary opacity-10"></div>
+<div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+<h2 class="text-4xl md:text-5xl font-bold mb-8">Start Your Learning Journey Today</h2>
+<p class="text-lg text-slate-400 mb-10">Join thousands of students and tutors transforming education through our dynamic platform.</p>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="px-10 py-4 bg-primary text-white font-bold rounded-xl text-lg hover:shadow-xl hover:shadow-primary/20">Get Started Free</button>
+<button class="px-10 py-4 border border-white/20 font-bold rounded-xl text-lg hover:bg-white/5">Speak to an Advisor</button>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-obsidian pt-20 pb-10 border-t border-white/5">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+<div class="space-y-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">hub</span>
+<span class="text-xl font-bold tracking-tight">Jaystarbliss</span>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">
+                        A premium educational hub dedicated to excellence in teaching and learning through innovative technology and expert guidance.
+                    </p>
+<div class="flex gap-4">
+<a class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">public</span>
+</a>
+<a class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">alternate_email</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="font-bold mb-6">Platform</h4>
+<ul class="space-y-4 text-sm text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Find a Tutor</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Join as Educator</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Corporate Training</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Academic Tracks</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Support</h4>
+<ul class="space-y-4 text-sm text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Safety Center</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Scholarships</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6">Legal</h4>
+<ul class="space-y-4 text-sm text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cookie Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+<p>© 2024 Jaystarbliss Dynamic Hub. All rights reserved.</p>
+<div class="flex gap-8">
+<span>Designed for Excellence</span>
+<span>Empowered by Knowledge</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

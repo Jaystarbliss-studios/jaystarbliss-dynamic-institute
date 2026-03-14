@@ -347,7 +347,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('themeToggleBtn').addEventListener('click', window.toggleTheme);
         document.getElementById('backBtn').addEventListener('click', function() {
-            window.location.href = '../dashboard/student-portal.html';
+            window.location.href = '../dashboard/school-portal.html';
         });
         document.querySelectorAll('.tab-btn').forEach(function(b) {
             b.addEventListener('click', function() { window.switchTab(b.dataset.target); });
@@ -378,7 +378,7 @@
 
     if (!schoolId) {
         alert('No school selected. Redirecting...');
-        window.location.href = '../dashboard/student-portal.html';
+        window.location.href = '../dashboard/school-portal.html';
     }
 
     const schoolNames = {

@@ -1,1589 +1,1761 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
-    <link rel="apple-touch-icon" href="assets/img/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jaystarbliss Dynamic Hub - Tech Education for Complete beginners</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jaystarbliss Dynamic Hub | A Smarter Way to Learn and Teach</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
 
-    <meta name="msvalidate.01" content="1615D671BF36C75CE953315AE3C2DCAB" />
-    <meta property="og:title" content="Jaystarbliss Dynamic Hub" />
-    <meta property="og:description" content="Tech Education for Complete Beginners" />
-    <meta property="og:image" content="https://i.ibb.co/pB2P9qJq/favicon.png"/>
-    <meta property="og:url" content="https://jaystarbliss-studios.name.ng" />
-    <meta property="og:type" content="website" />
-    <meta name="title" content="Jaystarbliss Dynamic Hub - Tech Education & Coding Classes for Kids in Lagos, Nigeria">
-    <meta name="description" content="Learn Scratch programming, AI coding with Claude, web development & more. Professional tech education for children ages 6-17 in Lagos.">
-    <meta name="keywords" content="coding classes for kids Lagos,jaystar, jaystarbliss, jaystarbliss studios, programming education Nigeria, Scratch programming, kids tech education">
-    <meta name="author" content="John Rufai">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="geo.region" content="NG-LA">
-    <meta name="geo.placename" content="Lagos">
-    <meta name="theme-color" content="#A91B0D">
-    <link rel="canonical" href="https://jaystarbliss-studios.name.ng">
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.css"></noscript>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  if (localStorage.getItem('jdh-theme') === 'light') {
+    document.documentElement.classList.remove('dark');
+  }
+</script>
 
-    <style>
-        /* ── TOKENS ─────────────────────────────────────────── */
-        :root {
-            --madder:    #A91B0D;
-            --madder-g:  #d62a1a;
-            --gold:      #FFD700;
-            --gold-d:    #b89d00;
-            --obsidian:  #0A0A0B;
-            --surface:   #111113;
-            --surface2:  #18181b;
-            --glass:     rgba(255,255,255,0.03);
-            --border:    rgba(255,255,255,0.08);
-            --border-r:  rgba(169,27,13,0.35);
-            --text:      #FFFAFA;
-            --muted:     #9ca3af;
-            --dim:       #4b5563;
-            --green:     #2ecc71;
-            --mono:      'Space Mono', monospace;
-            --sans:      'Poppins', sans-serif;
-        }
+<style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES & RESET
+═══════════════════════════════════════════ */
+:root {
+  --primary:        #ab1a0d;
+  --primary-hover:  #8a1509;
+  --gold:           #FFD700;
+  --gold-dark:      #9a6700;
+  --obsidian:       #0A0A0B;
+  --bg-dark:        #221210;
+  --bg-light:       #f4f0ef;
+  --font:           'Space Grotesk', sans-serif;
 
-        /* Light theme overrides */
-        [data-theme="light"] {
-            --obsidian:  #f5ece8;
-            --surface:   #FFFAFA;
-            --surface2:  #f0e8e4;
-            --glass:     rgba(169,27,13,0.03);
-            --border:    rgba(169,27,13,0.12);
-            --border-r:  rgba(169,27,13,0.35);
-            --text:      #1a0e0a;
-            --muted:     #5a4a42;
-            --dim:       #9a8a8a;
-        }
+  /* semantic tokens — dark mode defaults */
+  --bg:             #221210;
+  --surface:        rgba(255,255,255,0.03);
+  --surface-solid:  #1a0c0b;
+  --border:         rgba(255,255,255,0.1);
+  --border-subtle:  rgba(255,255,255,0.07);
+  --text:           #f1f5f9;
+  --text-muted:     #94a3b8;
+  --text-faint:     #64748b;
+  --nav-bg:         rgba(34,18,16,0.85);
+  --nav-text:       #f1f5f9;
+  --nav-link:       rgba(255,255,255,0.7);
+  --input-border:   rgba(255,255,255,0.2);
+  --gold-display:   #FFD700;
+}
+html:not(.dark) {
+  --bg:             #f4f0ef;
+  --surface:        rgba(255,255,255,0.92);
+  --surface-solid:  #ffffff;
+  --border:         rgba(0,0,0,0.1);
+  --border-subtle:  rgba(0,0,0,0.07);
+  --text:           #1a0a08;
+  --text-muted:     #4b5563;
+  --text-faint:     #374151;
+  --nav-bg:         rgba(255,255,255,0.96);
+  --nav-text:       #1a0a08;
+  --nav-link:       rgba(0,0,0,0.6);
+  --input-border:   rgba(0,0,0,0.15);
+  --gold-display:   #9a6700;
+}
 
-        /* ── RESET ───────────────────────────────────────────── */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+img { max-width: 100%; display: block; }
+button, a { font-family: var(--font); }
+a { text-decoration: none; color: inherit; }
 
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
+/* ═══════════════════════════════════════════
+   LAYOUT UTILITIES
+═══════════════════════════════════════════ */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+@media (min-width: 640px)  { .container { padding: 0 1.5rem; } }
+@media (min-width: 1024px) { .container { padding: 0 2rem; } }
 
-        body {
-            font-family: var(--sans);
-            background: var(--obsidian);
-            color: var(--text);
-            line-height: 1.6;
-            transition: background 0.3s ease, color 0.3s ease;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
+.flex         { display: flex; }
+.flex-col     { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center  { justify-content: center; }
+.gap-2  { gap: 0.5rem; }
+.gap-3  { gap: 0.75rem; }
+.gap-4  { gap: 1rem; }
+.gap-6  { gap: 1.5rem; }
+.gap-8  { gap: 2rem; }
+.gap-10 { gap: 2.5rem; }
+.gap-12 { gap: 3rem; }
+.gap-16 { gap: 4rem; }
+.flex-1 { flex: 1; }
+.shrink-0 { flex-shrink: 0; }
+.flex-wrap { flex-wrap: wrap; }
+.hidden { display: none !important; }
 
-        /* Grid background */
-        body::before {
-            content: '';
-            position: fixed; inset: 0; pointer-events: none; z-index: 0;
-            background-image:
-                linear-gradient(rgba(169,27,13,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(169,27,13,0.04) 1px, transparent 1px);
-            background-size: 50px 50px;
-        }
-        [data-theme="light"] body::before {
-            background-image:
-                linear-gradient(rgba(169,27,13,0.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(169,27,13,0.06) 1px, transparent 1px);
-        }
+.grid { display: grid; }
+.grid-1 { grid-template-columns: 1fr; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
 
-        /* Scanlines overlay */
-        body::after {
-            content: '';
-            position: fixed; inset: 0; pointer-events: none; z-index: 0;
-            background: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.15) 50%);
-            background-size: 100% 3px;
-            opacity: 0.15;
-        }
-        [data-theme="light"] body::after { opacity: 0.04; }
+@media (min-width: 640px)  {
+  .sm-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .sm-flex-row { flex-direction: row; }
+}
+@media (min-width: 768px)  {
+  .md-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .md-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .md-flex { display: flex; }
+}
+@media (min-width: 1024px) {
+  .lg-flex-row    { flex-direction: row; }
+  .lg-grid-2      { grid-template-columns: repeat(2, 1fr); }
+  .lg-grid-4      { grid-template-columns: repeat(4, 1fr); }
+  .lg-text-left   { text-align: left; }
+  .lg-justify-start { justify-content: flex-start; }
+}
 
-        /* ── GLASS UTIL ──────────────────────────────────────── */
-        .glass-panel {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
-        }
-        [data-theme="light"] .glass-panel {
-            background: rgba(255,255,255,0.7);
-            border-color: var(--border);
-        }
+.text-center { text-align: center; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.overflow-hidden { overflow: hidden; }
+.w-full { width: 100%; }
 
-        /* ── SNOWFLAKES ──────────────────────────────────────── */
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            z-index: 1;
-            user-select: none;
-            cursor: default;
-            animation: snowfall 4s linear infinite;
-            font-size: 1.8em;
-            opacity: 0.15;
-            pointer-events: none;
-        }
-        @keyframes snowfall {
-            0%   { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(100vh) rotate(360deg); }
-        }
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════════ */
+.text-primary { color: var(--primary); }
+.text-gold    { color: var(--gold-display); }
+.text-muted   { color: var(--text-muted); }
+.text-faint   { color: var(--text-faint); }
+.text-white   { color: #ffffff; }
 
-        /* ── THEME TOGGLE ────────────────────────────────────── */
-        .theme-toggle {
-            position: fixed;
-            bottom: 20px; right: 20px;
-            width: 50px; height: 50px;
-            background: linear-gradient(135deg, var(--madder), var(--madder-g));
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(169,27,13,0.4);
-            z-index: 998;
-            transition: all 0.3s ease;
-            border: none;
-        }
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(15deg);
-            box-shadow: 0 6px 20px rgba(169,27,13,0.6);
-        }
-        .theme-toggle svg { width: 24px; height: 24px; color: white; }
-        [data-theme="light"] .theme-toggle {
-            background: linear-gradient(135deg, var(--gold), #ffa500);
-            box-shadow: 0 4px 15px rgba(255,215,0,0.4);
-        }
+.font-bold   { font-weight: 700; }
+.font-medium { font-weight: 500; }
 
-        /* ── NAV ─────────────────────────────────────────────── */
-        nav {
-            position: fixed;
-            width: 100%; top: 0;
-            z-index: 1000;
-            background: rgba(10,10,11,0.9);
-            backdrop-filter: blur(12px);
-            padding: 1rem 5%;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-        }
-        [data-theme="light"] nav {
-            background: rgba(255,250,250,0.92);
-            border-bottom-color: var(--border);
-        }
-        nav.scrolled {
-            padding: 0.6rem 5%;
-            box-shadow: 0 4px 20px rgba(169,27,13,0.15);
-            border-bottom-color: var(--border-r);
-        }
+h1 { font-size: clamp(2rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.1; }
+h2 { font-size: clamp(1.4rem, 3.5vw, 2.25rem); font-weight: 700; }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 700; }
+h4 { font-size: 1rem; font-weight: 700; }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+.text-xs   { font-size: 0.75rem; }
+.text-sm   { font-size: 0.875rem; }
+.text-base { font-size: 1rem; }
+.text-lg   { font-size: 1.125rem; }
+.text-xl   { font-size: 1.25rem; }
+.text-2xl  { font-size: 1.5rem; }
+.text-3xl  { font-size: 1.875rem; }
 
-        .logo-container {
-            display: flex; align-items: center; gap: 0.6rem;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-            z-index: 1001;
-        }
-        .logo-container:hover { transform: translateY(-2px); }
+/* ═══════════════════════════════════════════
+   SPACING
+═══════════════════════════════════════════ */
+.mb-1  { margin-bottom: 0.25rem; }
+.mb-2  { margin-bottom: 0.5rem; }
+.mb-3  { margin-bottom: 0.75rem; }
+.mb-4  { margin-bottom: 1rem; }
+.mb-5  { margin-bottom: 1.25rem; }
+.mb-6  { margin-bottom: 1.5rem; }
+.mb-8  { margin-bottom: 2rem; }
+.mb-10 { margin-bottom: 2.5rem; }
+.mb-12 { margin-bottom: 3rem; }
+.mt-0  { margin-top: 0; }
+.mt-1  { margin-top: 0.25rem; }
+.mt-2  { margin-top: 0.5rem; }
+.mt-10 { margin-top: 2.5rem; }
+.mx-auto { margin: 0 auto; }
+.p-6  { padding: 1.5rem; }
+.p-8  { padding: 2rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.px-7 { padding-left: 1.75rem; padding-right: 1.75rem; }
+.px-8 { padding-left: 2rem; padding-right: 2rem; }
+.px-10{ padding-left: 2.5rem; padding-right: 2.5rem; }
+.py-2  { padding-top: 0.5rem;   padding-bottom: 0.5rem; }
+.py-3  { padding-top: 0.75rem;  padding-bottom: 0.75rem; }
+.py-4  { padding-top: 1rem;     padding-bottom: 1rem; }
+.py-6  { padding-top: 1.5rem;   padding-bottom: 1.5rem; }
+.py-8  { padding-top: 2rem;     padding-bottom: 2rem; }
+.py-10 { padding-top: 2.5rem;   padding-bottom: 2.5rem; }
+.py-12 { padding-top: 3rem;     padding-bottom: 3rem; }
+.py-14 { padding-top: 3.5rem;   padding-bottom: 3.5rem; }
+.py-16 { padding-top: 4rem;     padding-bottom: 4rem; }
+.py-20 { padding-top: 5rem;     padding-bottom: 5rem; }
+.py-24 { padding-top: 6rem;     padding-bottom: 6rem; }
+.pt-4  { padding-top: 1rem; }
+.pt-6  { padding-top: 1.5rem; }
+.pt-8  { padding-top: 2rem; }
+.pt-14 { padding-top: 3.5rem; }
+.pt-20 { padding-top: 5rem; }
+.pb-8  { padding-bottom: 2rem; }
+.pb-10 { padding-bottom: 2.5rem; }
 
-        .logo-image {
-            width: 40px; height: 40px;
-            background: linear-gradient(135deg, var(--madder), var(--madder-g));
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(169,27,13,0.4);
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-        .logo-image > img { height: 45px; width: auto; }
-        .logo-container:hover .logo-image {
-            transform: rotate(-360deg) scale(1.05);
-            box-shadow: 0 0 20px rgba(169,27,13,0.5);
-        }
+/* ═══════════════════════════════════════════
+   GLASS CARD
+═══════════════════════════════════════════ */
+.glass-card {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
 
-        .logo-text {
-            font-family: var(--mono);
-            font-size: 0.65rem;
-            font-weight: 700;
-            color: var(--text);
-            letter-spacing: 0.06em;
-            white-space: nowrap;
-            text-transform: uppercase;
-        }
+/* ═══════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 0.5rem; cursor: pointer; border: none; font-weight: 700;
+  border-radius: 0.75rem; transition: all 0.2s; white-space: nowrap;
+  font-family: var(--font);
+}
+.btn-primary {
+  background: var(--primary); color: #fff;
+  padding: 0.75rem 2rem; font-size: 0.875rem;
+}
+.btn-primary:hover { background: var(--primary-hover); }
 
-        .nav-links {
-            display: flex; gap: 2rem;
-            list-style: none; align-items: center;
-        }
-        .nav-links a {
-            color: var(--muted);
-            text-decoration: none;
-            font-family: var(--mono);
-            font-size: 0.62rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.4rem 0;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 0; height: 2px;
-            background: var(--gold);
-            transition: width 0.3s ease;
-        }
-        .nav-links a:hover, .nav-links a.active { color: var(--madder); }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.btn-gold {
+  background: var(--gold); color: var(--obsidian);
+  padding: 0.75rem 2rem; font-size: 0.875rem;
+}
+.btn-gold:hover { opacity: 0.9; }
 
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px; z-index: 1001;
-        }
-        .menu-toggle span {
-            width: 25px; height: 3px;
-            background: var(--madder);
-            border-radius: 3px; transition: 0.3s;
-        }
+.btn-ghost {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--text); padding: 0.75rem 2rem; font-size: 0.875rem;
+}
+html:not(.dark) .btn-ghost {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.15);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.14); }
+html:not(.dark) .btn-ghost:hover { background: rgba(0,0,0,0.1); }
 
-        /* ── HERO ────────────────────────────────────────────── */
-        .hero {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 6rem 5% 3rem;
-        }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--input-border);
+  color: var(--text); padding: 0.5rem 1rem; font-size: 0.875rem;
+}
+.btn-outline:hover { background: rgba(255,255,255,0.06); }
 
-        /* Hero background — image + dark overlay */
-        .hero-bg {
-            position: absolute; inset: 0; z-index: 0;
-            background:
-                linear-gradient(160deg, rgba(169,27,13,0.55) 0%, rgba(0,0,0,0.55) 60%, rgba(10,10,11,0.65) 100%),
-                url('assets/img/children learning.png') center/cover no-repeat;
-        }
-        /* Red grid over hero */
-        .hero-bg::after {
-            content: '';
-            position: absolute; inset: 0;
-            background-image:
-                linear-gradient(rgba(169,27,13,0.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(169,27,13,0.06) 1px, transparent 1px);
-            background-size: 50px 50px;
-        }
+.btn-lg { padding: 1rem 2.5rem; font-size: 1.125rem; }
+.btn-sm { padding: 0.4rem 0.9rem; font-size: 0.8rem; }
+.btn-full { width: 100%; }
+.btn-round { border-radius: 9999px; }
 
-        /* Holographic rings */
-        .hero-rings {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 1; pointer-events: none; opacity: 0.18;
-        }
-        .hero-ring {
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid var(--madder);
-        }
-        .hero-ring:nth-child(1) { width: 900px; height: 900px; animation: ringPulse 4s ease-in-out infinite; }
-        .hero-ring:nth-child(2) { width: 650px; height: 650px; border-color: var(--gold); animation: ringPulse 4s ease-in-out infinite 1.5s; }
-        @keyframes ringPulse {
-            0%,100% { opacity: 0.18; transform: scale(1); }
-            50%      { opacity: 0.35; transform: scale(1.02); }
-        }
+/* ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+.nav-sticky {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+@media (min-width: 1024px) { .nav-inner { height: 80px; } }
 
-        /* Hero decorative data-stream log */
-        .hero-log {
-            position: absolute;
-            bottom: 2.5rem; left: 2.5rem;
-            font-family: var(--mono);
-            font-size: 0.6rem;
-            color: rgba(169,27,13,0.5);
-            line-height: 1.8;
-            z-index: 2;
-            display: none;
-        }
-        @media(min-width:1024px){ .hero-log { display: block; } }
+.nav-logo {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.nav-logo img  { width: 36px; height: 36px; object-fit: contain; }
+.nav-logo span { font-size: 1rem; font-weight: 700; color: var(--nav-text); }
+@media (min-width: 640px) {
+  .nav-logo img  { width: 40px; height: 40px; }
+  .nav-logo span { font-size: 1.2rem; }
+}
 
-        /* Sun / sunflower decorative emoji */
-        .hero::before {
-            content: '☀';
-            position: absolute;
-            font-size: 130px; opacity: 0.7;
-            top: 10%; right: -2%;
-            color: var(--gold);
-            animation: floatEl 8s ease-in-out infinite;
-            z-index: 2; pointer-events: none;
-        }
-        .hero::after {
-            content: '🌻';
-            position: absolute;
-            font-size: 100px; opacity: 0.5;
-            bottom: 4%; left: 8%;
-            animation: floatEl 10s ease-in-out infinite reverse;
-            z-index: 2; pointer-events: none;
-        }
-        @keyframes floatEl {
-            0%,100% { transform: translate(0,0) rotate(0deg); opacity: 0.7; }
-            33%     { transform: translate(25px,-25px) rotate(12deg); opacity: 0.3; }
-            66%     { transform: translate(-15px,15px) rotate(-12deg); opacity: 0.1; }
-        }
+.nav-links {
+  display: none; align-items: center; gap: 2rem; list-style: none;
+}
+@media (min-width: 768px) { .nav-links { display: flex; } }
+.nav-links a, .nav-links button {
+  font-size: 0.875rem; font-weight: 500; color: var(--nav-link);
+  background: none; border: none; cursor: pointer;
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links button:hover { color: var(--primary); }
 
-        .hero-content {
-            text-align: center;
-            position: relative; z-index: 3;
-            max-width: 900px;
-            animation: fadeInUp 1s ease;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+.nav-actions { display: flex; align-items: center; gap: 0.5rem; }
+@media (min-width: 640px) { .nav-actions { gap: 0.75rem; } }
 
-        .hero-eyebrow {
-            font-family: var(--mono);
-            font-size: 0.72rem;
-            color: var(--gold);
-            letter-spacing: 0.35em;
-            text-transform: uppercase;
-            margin-bottom: 1.2rem;
-            display: block;
-        }
+/* Theme toggle */
+#themeToggle {
+  width: 36px; height: 36px; border-radius: 9999px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--input-border); background: transparent;
+  cursor: pointer; color: var(--text); transition: all 0.2s;
+}
+#themeToggle:hover { background: rgba(255,255,255,0.1); }
+html:not(.dark) #themeToggle:hover { background: rgba(0,0,0,0.06); }
 
-        .hero h1 {
-            font-family: var(--sans);
-            font-size: clamp(2rem, 5.5vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            color: #FFFAFA;
-            text-shadow: 2px 0 rgb(243, 242, 238), -2px 0 rgba(169,27,13,0.3);
-        }
-        .hero h1 span {
-            color: transparent;
-            background: linear-gradient(135deg, #fff 0%, #830404 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
+/* Hamburger */
+.hamburger {
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 5px; width: 36px; height: 36px; padding: 6px;
+  background: none; border: 1px solid var(--input-border);
+  border-radius: 8px; cursor: pointer;
+}
+.hamburger span {
+  display: block; height: 2px; background: var(--text);
+  border-radius: 2px; transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (min-width: 768px) { .hamburger { display: none; } }
 
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            color: rgba(255,250,250,0.75);
-            margin-bottom: 2.5rem;
-            max-width: 680px;
-            margin-left: auto; margin-right: auto;
-        }
+/* Mobile drawer */
+.mobile-nav {
+  display: none; position: fixed; top: 64px; left: 0; right: 0;
+  background: var(--nav-bg); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem 1.5rem; z-index: 49;
+  flex-direction: column; gap: 0.25rem;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a, .mobile-nav button {
+  display: block; padding: 0.75rem 0.5rem;
+  font-size: 1rem; font-weight: 500;
+  color: var(--nav-link); background: none; border: none;
+  cursor: pointer; text-align: left; width: 100%;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: color 0.2s;
+}
+.mobile-nav a:last-child, .mobile-nav button:last-child { border-bottom: none; }
+.mobile-nav a:hover, .mobile-nav button:hover { color: var(--primary); }
+.mobile-nav-cta {
+  margin-top: 0.75rem;
+  display: flex; gap: 0.75rem;
+}
 
-        .cta-buttons {
-            display: flex; gap: 1rem;
-            justify-content: center; flex-wrap: wrap;
-        }
-        .cta-button {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.9rem 2.2rem;
-            background: var(--madder);
-            color: #fff;
-            text-decoration: none;
-            font-family: var(--mono);
-            font-weight: 700;
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 25px rgba(169,27,13,0.35);
-        }
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 30px rgba(169,27,13,0.6);
-            background: var(--madder-g);
-        }
-        .cta-button.secondary {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,250,250,0.25);
-            color: #FFFAFA;
-        }
-        .cta-button.secondary:hover {
-            border-color: var(--gold);
-            background: rgba(255,215,0,0.08);
-            box-shadow: none;
-        }
+/* ═══════════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════════ */
+.hero {
+  padding: 2.5rem 0 3rem;
+}
+@media (min-width: 1024px) { .hero { padding: 3rem 0 4rem; } }
 
-        /* ── SECTIONS ────────────────────────────────────────── */
-        section {
-            padding: 5rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative; z-index: 1;
-        }
-        section.full-bg {
-            max-width: 100%;
-            background: var(--surface);
-        }
+.hero-layout {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2rem;
+}
+@media (min-width: 1024px) {
+  .hero-layout { flex-direction: row; gap: 2.5rem; }
+}
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .section-eyebrow {
-            display: inline-block;
-            font-family: var(--mono);
-            font-size: 0.62rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: var(--madder);
-            margin-bottom: 0.75rem;
-        }
-        .section-eyebrow::before { content: '// '; color: var(--gold); }
+.hero-copy {
+  flex: 1; text-align: center;
+  display: flex; flex-direction: column; gap: 1.25rem;
+}
+@media (min-width: 1024px) { .hero-copy { text-align: left; } }
 
-        .section-title {
-            font-family: var(--sans);
-            font-size: clamp(1.7rem, 4vw, 2.8rem);
-            font-weight: 800;
-            color: var(--text);
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-        .section-subtitle {
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
-            color: var(--muted);
-            max-width: 680px;
-            margin: 0 auto;
-        }
+.hero-copy p {
+  color: var(--text-muted); font-size: clamp(0.95rem, 1.8vw, 1.125rem);
+  max-width: 36rem; margin: 0 auto;
+}
+@media (min-width: 1024px) { .hero-copy p { margin: 0; } }
 
-        /* Divider accent */
-        .section-divider {
-            width: 60px; height: 3px;
-            background: linear-gradient(90deg, var(--madder), var(--gold));
-            margin: 1rem auto 0;
-        }
+.hero-btns {
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  justify-content: center;
+}
+@media (min-width: 1024px) { .hero-btns { justify-content: flex-start; } }
 
-        /* ── ABOUT ───────────────────────────────────────────── */
-        .about-container {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        @media(max-width:900px){ .about-container { grid-template-columns: 1fr; } }
+.hero-galaxy { width: 100%; }
+@media (min-width: 1024px) { .hero-galaxy { flex: 1; } }
 
-        .about-visual {
-            position: relative;
-        }
-        .about-image {
-            width: 100%;
-            height: 360px;
-            background: linear-gradient(135deg, var(--madder) 0%, #5a0d05 100%);
-            border: 1px solid var(--border-r);
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-        .about-image::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.08) 50%, transparent 70%);
-            animation: shimmer 3s infinite;
-        }
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        /* Corner accents */
-        .about-corner-tr {
-            position: absolute; top: -8px; right: -8px;
-            width: 40px; height: 40px;
-            border-top: 2px solid var(--madder);
-            border-right: 2px solid var(--madder);
-        }
-        .about-corner-bl {
-            position: absolute; bottom: -8px; left: -8px;
-            width: 40px; height: 40px;
-            border-bottom: 2px solid var(--gold);
-            border-left: 2px solid var(--gold);
-        }
+/* ═══════════════════════════════════════════
+   GALAXY
+═══════════════════════════════════════════ */
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 20px rgba(171,26,13,0.4); transform: scale(1); }
+  50%      { box-shadow: 0 0 45px rgba(171,26,13,0.8); transform: scale(1.08); }
+}
 
-        .about-text h3 {
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--madder);
-            margin-bottom: 0.5rem;
-        }
-        .about-text h3::before { content: '> '; color: var(--gold); }
-        .about-text p {
-            color: var(--muted);
-            line-height: 1.8;
-            margin-bottom: 1.8rem;
-            font-size: clamp(0.9rem,2vw,1rem);
-        }
+.galaxy-container {
+  height: clamp(280px, 52vw, 580px);
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at center, #2a1614 0%, #0A0A0B 100%);
+  border-radius: 1.5rem; position: relative; overflow: hidden;
+}
+html:not(.dark) .galaxy-container {
+  background: radial-gradient(circle at center, #f0ece8 0%, #e8e2df 100%);
+}
 
-        .about-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.2rem;
-            margin-top: 2rem;
-        }
-        @media(max-width:480px){ .about-stats { grid-template-columns: 1fr; } }
+.orbit-path {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.07);
+  pointer-events: none; z-index: 2;
+  top: 50%; left: 50%; transform-origin: center center;
+}
+html:not(.dark) .orbit-path { border-color: rgba(0,0,0,0.1); }
+.path-inner-1 { width:400px; height:180px; margin-top:-90px;  margin-left:-200px; }
+.path-inner-2 { width:400px; height:180px; margin-top:-90px;  margin-left:-200px; }
+.path-outer   { width:520px; height:240px; margin-top:-120px; margin-left:-260px; }
 
-        .stat-card {
-            text-align: center;
-            padding: 1.5rem 1rem;
-            background: var(--glass);
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-        .stat-card:hover {
-            border-color: var(--border-r);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(169,27,13,0.15);
-        }
-        .stat-number {
-            font-family: var(--mono);
-            font-size: clamp(1.8rem, 4vw, 2.4rem);
-            font-weight: 700;
-            color: var(--madder);
-        }
-        .stat-label {
-            font-family: var(--mono);
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--dim);
-            margin-top: 0.3rem;
-        }
+#trailCanvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 5;
+}
 
-        /* ── SERVICES ────────────────────────────────────────── */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        .service-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 3px;
-            background: linear-gradient(90deg, var(--madder), var(--gold));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-        .service-card:hover {
-            border-color: var(--border-r);
-            transform: translateY(-8px);
-            box-shadow: 0 0 25px rgba(169,27,13,0.2);
-        }
-        .service-card:hover::before { transform: scaleX(1); }
+.central-hub {
+  width: clamp(54px,9vw,88px); height: clamp(54px,9vw,88px);
+  background: var(--primary); border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  overflow: hidden; color: #fff; font-weight: 800;
+  font-size: clamp(7px,1vw,9px); z-index: 100; cursor: pointer; flex-shrink: 0;
+  animation: pulse-glow 3s infinite;
+}
 
-        .service-icon {
-            width: 52px; height: 52px;
-            background: rgba(169,27,13,0.1);
-            border: 1px solid rgba(169,27,13,0.3);
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            color: var(--madder);
-        }
-        .service-card:hover .service-icon {
-            background: var(--madder);
-            color: #fff;
-            border-color: var(--madder);
-        }
-        .service-card h3 {
-            font-family: var(--mono);
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text);
-            margin-bottom: 0.9rem;
-        }
-        .service-card p {
-            color: var(--muted);
-            line-height: 1.7;
-            font-size: clamp(0.88rem,2vw,0.95rem);
-        }
+.planet-node {
+  position: absolute;
+  width: clamp(22px,3.6vw,34px); height: clamp(22px,3.6vw,34px);
+  background: #0A0A0B; border: 2px solid currentColor; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transform: translate(-50%,-50%); z-index: 20;
+  will-change: left,top; transition: box-shadow 0.25s;
+}
+html:not(.dark) .planet-node { background: #ffffff; }
+.planet-node i, .planet-node svg {
+  width: clamp(10px,1.8vw,15px); height: clamp(10px,1.8vw,15px);
+}
+.planet-node:hover { transform: translate(-50%,-50%) scale(1.22); z-index: 60; }
 
-        /* ── TIMELINE ────────────────────────────────────────── */
-        .timeline {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding-left: 40px;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 20px; top: 0;
-            width: 2px; height: 100%;
-            background: linear-gradient(to bottom, var(--madder), var(--gold), var(--madder));
-        }
-        .timeline-item {
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        .timeline-dot {
-            position: absolute;
-            left: 20px;
-            transform: translateX(-50%);
-            width: 18px; height: 18px;
-            background: var(--gold);
-            border: 4px solid var(--obsidian);
-            border-radius: 50%;
-            box-shadow: 0 0 0 4px rgba(169,27,13,0.25);
-            z-index: 10;
-            animation: nodePulse 2s infinite;
-        }
-        @keyframes nodePulse {
-            0%   { box-shadow: 0 0 0 0 rgba(169,27,13,0.7); }
-            70%  { box-shadow: 0 0 0 10px rgba(169,27,13,0); }
-            100% { box-shadow: 0 0 0 0 rgba(169,27,13,0); }
-        }
-        .timeline-content {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        .timeline-content:hover {
-            border-color: var(--border-r);
-            box-shadow: 0 0 20px rgba(169,27,13,0.12);
-        }
-        .timeline-content span {
-            display: inline-block;
-            font-family: var(--mono);
-            font-size: 0.62rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--gold);
-            background: rgba(255,215,0,0.08);
-            border: 1px solid rgba(255,215,0,0.2);
-            padding: 0.2rem 0.7rem;
-            margin-bottom: 0.8rem;
-        }
-        .timeline-content h4 {
-            font-family: var(--mono);
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--madder);
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-        .timeline-content p {
-            color: var(--muted);
-            line-height: 1.7;
-            font-size: clamp(0.88rem,2vw,0.95rem);
-        }
+.subject-detail {
+  position: absolute; bottom: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%); width: 175px;
+  background: #1a0c0b; border: 1px solid currentColor;
+  padding: 10px 12px; border-radius: 10px;
+  font-size: 10px; color: #fff;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.7);
+  pointer-events: none; text-align: left; white-space: normal; z-index: 300;
+}
+html:not(.dark) .subject-detail { background: #fff; color: #1a0a08; }
+.planet-node:hover .subject-detail {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(-4px);
+}
+.subject-detail h5 { font-weight: 700; margin-bottom: 3px; font-size: 11px; }
+.subject-detail p  { opacity: 0.7; line-height: 1.4; }
+.subject-detail::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent; border-top-color: currentColor;
+}
 
-        /* ── TESTIMONIALS ────────────────────────────────────── */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        .testimonial-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            position: relative;
-            transition: all 0.3s ease;
-            border-left: 3px solid var(--madder);
-        }
-        .testimonial-card:nth-child(even) { border-left-color: var(--gold); }
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 1rem; left: 1.2rem;
-            font-size: 4rem;
-            color: rgba(169,27,13,0.12);
-            font-family: Georgia, serif;
-            line-height: 1;
-        }
-        .testimonial-card:hover {
-            border-color: var(--border-r);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(169,27,13,0.12);
-        }
-        .testimonial-text {
-            color: var(--muted);
-            font-size: clamp(0.9rem,2vw,1rem);
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-            position: relative; z-index: 1;
-        }
-        .testimonial-author { display: flex; align-items: center; gap: 1rem; }
-        .author-avatar {
-            width: 44px; height: 44px;
-            background: linear-gradient(135deg, var(--madder), var(--gold));
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-family: var(--mono);
-            font-weight: 700; font-size: 1rem;
-            flex-shrink: 0;
-        }
-        .author-info h5 {
-            font-weight: 600;
-            color: var(--text);
-            font-size: 0.95rem;
-        }
-        .author-info p {
-            font-family: var(--mono);
-            font-size: 0.62rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--madder);
-        }
+.stakeholder-group {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.stakeholder-node {
+  position: absolute; width: 50px; height: 50px;
+  background: #221210; border: 1.5px solid rgba(255,255,255,0.3); border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  opacity: 0; scale: 0;
+  transition: all 0.6s cubic-bezier(0.34,1.56,0.64,1);
+  pointer-events: none; z-index: 90; cursor: pointer;
+}
+html:not(.dark) .stakeholder-node { background: #ede8e6; border-color: rgba(0,0,0,0.2); }
+.stakeholder-node span { font-size: 8px; margin-top: 2px; }
+.stakeholder-active .stakeholder-node:nth-child(1) { opacity:1; scale:1; transform:translate(120px,0);  pointer-events:auto; }
+.stakeholder-active .stakeholder-node:nth-child(2) { opacity:1; scale:1; transform:translate(-120px,0); pointer-events:auto; }
+.stakeholder-active .stakeholder-node:nth-child(3) { opacity:1; scale:1; transform:translate(0,120px);  pointer-events:auto; }
+.stakeholder-active .stakeholder-node:nth-child(4) { opacity:1; scale:1; transform:translate(0,-120px); pointer-events:auto; }
 
-        /* ── CONTACT ─────────────────────────────────────────── */
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1.3fr;
-            gap: 3rem;
-            align-items: start;
-        }
-        @media(max-width:900px){ .contact-container { grid-template-columns: 1fr; } }
+/* ═══════════════════════════════════════════
+   SECTION WRAPPERS
+═══════════════════════════════════════════ */
+.section          { padding: 4rem 0; }
+.section-lg       { padding: 5rem 0; }
+.section-hero-bg  { background: rgba(171,26,13,0.05); }
+.section-dark     { background: var(--obsidian); }
+.section-cta      { position: relative; overflow: hidden; }
+.section-cta-overlay {
+  position: absolute; inset: 0;
+  background: var(--primary); opacity: 0.1; pointer-events: none;
+}
 
-        .contact-info-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 2rem;
-        }
-        .contact-info-card h3 {
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--madder);
-            margin-bottom: 1.5rem;
-        }
-        .contact-info-card h3::before { content: '// '; color: var(--gold); }
+/* ═══════════════════════════════════════════
+   FEATURE CARDS
+═══════════════════════════════════════════ */
+.feature-card {
+  padding: 2rem; border-radius: 0.75rem;
+  transition: border-color 0.2s;
+}
+.feature-card:hover { border-color: rgba(171,26,13,0.5); }
+.feature-card .icon {
+  font-size: 2.5rem; margin-bottom: 1rem; display: block;
+}
 
-        .contact-item {
-            display: flex; align-items: flex-start; gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding: 1.2rem;
-            background: rgba(169,27,13,0.04);
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-        .contact-item:hover {
-            transform: translateX(5px);
-            border-color: var(--border-r);
-        }
-        .contact-icon {
-            width: 40px; height: 40px;
-            background: linear-gradient(135deg, var(--madder), var(--madder-g));
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-        .contact-item h4 {
-            font-family: var(--mono);
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text);
-            margin-bottom: 0.3rem;
-        }
-        .contact-item p {
-            color: var(--muted);
-            font-size: 0.9rem;
-            word-break: break-word;
-        }
-        .contact-btn {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.55rem 1.1rem;
-            font-family: var(--mono);
-            font-size: 0.62rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none; cursor: pointer;
-            margin-top: 0.8rem;
-        }
-        .whatsapp-btn { background: linear-gradient(135deg,#25D366,#128C7E); color:white; }
-        .whatsapp-btn:hover { transform:translateY(-2px); box-shadow:0 6px 15px rgba(37,211,102,0.4); }
-        .email-btn { background: linear-gradient(135deg,#EA4335,#C5221F); color:white; }
-        .email-btn:hover { transform:translateY(-2px); box-shadow:0 6px 15px rgba(234,67,53,0.4); }
-        .location-btn { background: linear-gradient(135deg,#4285F4,#357AE8); color:white; }
-        .location-btn:hover { transform:translateY(-2px); box-shadow:0 6px 15px rgba(66,133,244,0.4); }
 
-        .contact-form-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            position: relative; overflow: hidden;
-        }
-        .contact-form-card::before {
-            content: '';
-            position: absolute; top: -60px; right: -60px;
-            width: 180px; height: 180px;
-            background: rgba(169,27,13,0.08);
-            border-radius: 50%; filter: blur(40px);
-            pointer-events: none;
-        }
-        .form-card-header {
-            display: flex; align-items: center; gap: 0.75rem;
-            margin-bottom: 1.8rem;
-        }
-        .form-card-dot {
-            width: 10px; height: 10px;
-            background: var(--madder);
-            border-radius: 50%;
-            animation: nodePulse 2s infinite;
-        }
-        .form-card-title {
-            font-family: var(--mono);
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--text);
-        }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-        }
-        @media(max-width:600px){ .form-row { grid-template-columns: 1fr; } }
+/* ═══════════════════════════════════════════
+   HOW IT WORKS STEPS
+═══════════════════════════════════════════ */
+.steps-grid { display: grid; gap: 2rem; }
+@media (min-width: 640px)  { .steps-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .steps-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label {
-            display: block;
-            font-family: var(--mono);
-            font-size: 0.58rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--dim);
-            margin-bottom: 0.4rem;
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-family: var(--sans);
-            font-size: 0.9rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        [data-theme="light"] .form-group input,
-        [data-theme="light"] .form-group textarea {
-            background: rgba(169,27,13,0.03);
-        }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--madder);
-            box-shadow: 0 0 0 3px rgba(169,27,13,0.1);
-        }
-        .form-group input::placeholder,
-        .form-group textarea::placeholder { color: var(--dim); }
-        .form-group textarea { resize: vertical; min-height: 110px; }
+.step { text-align: center; }
+.step-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(171,26,13,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem; transition: background 0.2s;
+}
+.step:hover .step-icon { background: var(--primary); }
+.step:hover .step-icon span { color: #fff; }
+.step-icon span { color: var(--primary); font-size: 1.5rem; }
+.step h4 { color: var(--gold-display); margin-bottom: 0.5rem; font-size: 0.9rem; }
+.step p  { color: var(--text-muted); font-size: 0.875rem; }
 
-        .submit-btn {
-            width: 100%; padding: 0.9rem;
-            background: var(--madder);
-            color: white; border: none;
-            font-family: var(--mono);
-            font-size: 0.72rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.15em;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(169,27,13,0.35);
-            transition: all 0.3s ease;
-        }
-        .submit-btn:hover:not(:disabled) {
-            background: var(--madder-g);
-            box-shadow: 0 0 30px rgba(169,27,13,0.55);
-        }
-        .submit-btn:active { transform: translateY(1px); }
-        .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+/* ═══════════════════════════════════════════
+   PROGRAM CARDS (immersive Stitch style)
+═══════════════════════════════════════════ */
+.prog-grid {
+  display: grid; gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px)  { .prog-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .prog-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        /* ── FOOTER ──────────────────────────────────────────── */
-        footer {
-            background: linear-gradient(160deg, #1a0200 0%, #0a0000 100%);
-            color: #FFFAFA;
-            padding: 4rem 5% 2rem;
-            border-top: 1px solid var(--border-r);
-            position: relative; z-index: 1;
-        }
-        [data-theme="light"] footer {
-            background: linear-gradient(160deg, var(--madder) 0%, #6a1005 100%);
-        }
+.prog-card {
+  position: relative; border-radius: 1rem; overflow: hidden;
+  height: 320px; transition: opacity 0.3s;
+}
+@media (min-width: 640px) { .prog-card { height: 360px; } }
+.prog-card.hidden-card { display: none; }
 
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .footer-logo {
-            font-family: var(--mono);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 0.8rem;
-            color: #fff;
-        }
-        .footer-text {
-            font-size: 0.9rem; color: rgba(255,250,250,0.6);
-            margin-bottom: 2rem;
-        }
-        .social-links {
-            display: flex; justify-content: center;
-            gap: 1rem; margin-bottom: 2rem;
-        }
-        .social-links a {
-            width: 44px; height: 44px;
-            background: rgba(255,250,250,0.06);
-            border: 1px solid rgba(255,250,250,0.15);
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-        .social-links a:hover {
-            background: var(--gold);
-            color: var(--obsidian);
-            border-color: var(--gold);
-            transform: translateY(-3px);
-        }
-        .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,250,250,0.1);
-            font-family: var(--mono);
-            font-size: 0.62rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: rgba(255,250,250,0.35);
-        }
+.prog-card-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform 0.55s;
+}
+.prog-card:hover .prog-card-img { transform: scale(1.07); }
 
-        /* ── FADE-IN UTIL ────────────────────────────────────── */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
-        }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+.prog-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, #0A0A0B 0%, rgba(10,10,11,0.42) 55%, transparent 100%);
+  display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem;
+}
+.prog-card-panel {
+  background: rgba(255,255,255,0.04); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 0.875rem; padding: 1rem;
+}
+html:not(.dark) .prog-card-panel {
+  background: rgba(255,255,255,0.92); border-color: rgba(0,0,0,0.12);
+}
+html:not(.dark) .prog-card-panel h4 { color: #1a0a08 !important; }
+html:not(.dark) .prog-card-panel p  { color: #4a3a38 !important; }
 
-        /* ── RESPONSIVE ──────────────────────────────────────── */
-        @media(max-width:968px){
-            .menu-toggle { display: flex; }
-            .nav-links {
-                position: fixed;
-                top: 70px; left: -100%;
-                flex-direction: column;
-                background: rgba(10,10,11,0.98);
-                width: 100%; max-width: 300px;
-                padding: 1.5rem;
-                transition: left 0.3s ease;
-                box-shadow: 5px 0 20px rgba(0,0,0,0.5);
-                align-items: flex-start;
-                height: calc(100vh - 70px);
-                overflow-y: auto;
-                border-right: 1px solid var(--border-r);
-            }
-            [data-theme="light"] .nav-links {
-                background: rgba(255,250,250,0.98);
-                box-shadow: 5px 0 20px rgba(0,0,0,0.15);
-            }
-            .nav-links.active { left: 0; }
-            .theme-toggle { bottom: 80px; right: 15px; width: 45px; height: 45px; }
-            body.menu-open { overflow: hidden; }
-        }
-        @media(max-width:480px){
-            .theme-toggle { bottom: 70px; right: 10px; width: 40px; height: 40px; }
-            .theme-toggle svg { width: 20px; height: 20px; }
-            .cta-button { padding: 0.75rem 1.5rem; }
-        }
-    </style>
+.prog-card-panel h4 { font-size: 1rem; margin-bottom: 0.25rem; color: #fff; }
+@media (min-width: 640px) { .prog-card-panel h4 { font-size: 1.1rem; } }
+.prog-card-panel p  { font-size: 0.75rem; color: #cbd5e1; margin-bottom: 0.75rem;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.cat-badge {
+  display: inline-block; padding: 2px 9px; border-radius: 9999px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.04em;
+  text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.badge-science  { background: rgba(127,29,29,0.6); color: #fca5a5; }
+.badge-academic { background: rgba(30,58,138,0.6); color: #93c5fd; }
+.badge-digital  { background: rgba(127,29,29,0.6); color: #fca5a5; }
+.badge-commercial { background: rgba(113,63,18,0.6); color: #fde68a; }
+.badge-creative { background: rgba(88,28,135,0.6); color: #d8b4fe; }
+.badge-exam     { background: rgba(6,78,59,0.6);   color: #6ee7b7; }
+
+.prog-extra        { display: none; }
+.prog-extra.expanded { display: block; animation: cardReveal 0.35s ease both; }
+
+@keyframes cardReveal {
+  from { opacity:0; transform: translateY(14px) scale(0.97); }
+  to   { opacity:1; transform: none; }
+}
+
+/* ═══════════════════════════════════════════
+   SEE MORE BUTTON
+═══════════════════════════════════════════ */
+#seeMoreBtn {
+  display: flex; align-items: center; gap: 8px;
+  margin: 2.5rem auto 0; padding: 13px 30px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 9999px;
+  font-weight: 700; font-size: 13px; color: var(--text); cursor: pointer;
+  transition: all 0.2s;
+}
+#seeMoreBtn:hover { background: rgba(255,255,255,0.09); }
+html:not(.dark) #seeMoreBtn { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.15); }
+html:not(.dark) #seeMoreBtn:hover { background: rgba(0,0,0,0.08); }
+.btn-icon { transition: transform 0.3s; display: inline-block; }
+#seeMoreBtn.expanded .btn-icon { transform: rotate(180deg); }
+
+/* ═══════════════════════════════════════════
+   TUTOR SECTION
+═══════════════════════════════════════════ */
+.tutor-layout {
+  display: flex; flex-direction: column; align-items: center; gap: 2.5rem;
+}
+@media (min-width: 1024px) { .tutor-layout { flex-direction: row; gap: 4rem; } }
+
+.tutor-photo {
+  width: 100%; max-width: 380px; margin: 0 auto;
+}
+@media (min-width: 1024px) { .tutor-photo { flex: 1; max-width: none; } }
+
+.tutor-circle {
+  aspect-ratio: 1; border-radius: 50%;
+  border: 4px solid rgba(171,26,13,0.2); padding: 2rem;
+}
+.tutor-circle img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+.checklist li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; }
+.checklist .icon { color: var(--gold-display); }
+
+/* ═══════════════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════════════ */
+.testimonials-grid {
+  display: grid; gap: 1.5rem; grid-template-columns: 1fr;
+}
+@media (min-width: 768px) { .testimonials-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.testimonial-card {
+  padding: 2rem; border-radius: 0.75rem; font-style: italic;
+}
+.testimonial-stars { display: flex; gap: 0.25rem; color: var(--gold-display); margin-bottom: 1rem; }
+.testimonial-stars span { font-size: 1.2rem; }
+.testimonial-card p { color: #d1d5db; margin-bottom: 1.5rem; font-size: 0.875rem; }
+html:not(.dark) .testimonial-card p { color: #374151 !important; }
+.testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+.testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(171,26,13,0.2); flex-shrink: 0; }
+.testimonial-name { font-weight: 700; font-size: 0.875rem; font-style: normal; }
+.testimonial-role { font-size: 0.75rem; color: var(--text-faint); font-style: normal; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+.footer { background: var(--obsidian); border-top: 1px solid rgba(255,255,255,0.05); }
+.footer-grid {
+  display: grid; gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 3.5rem;
+}
+@media (min-width: 1024px) {
+  .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 5rem; }
+}
+.footer-brand { grid-column: 1 / -1; }
+@media (min-width: 1024px) { .footer-brand { grid-column: auto; } }
+
+.footer-logo { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+.footer-logo img { width: 28px; height: 28px; object-fit: contain; }
+.footer-logo span { font-size: 1rem; font-weight: 700; color: #fff; }
+.footer-desc { font-size: 0.8rem; color: #94a3b8; line-height: 1.6; }
+.footer-social { display: flex; gap: 0.75rem; margin-top: 1rem; }
+.footer-social a {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; transition: background 0.2s;
+}
+.footer-social a:hover { background: var(--primary); }
+
+.footer-col h4 { font-weight: 700; margin-bottom: 1rem; font-size: 0.875rem; color: #fff; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-col ul a, .footer-col ul button {
+  font-size: 0.8rem; color: #94a3b8;
+  background: none; border: none; cursor: pointer; padding: 0;
+  font-family: var(--font); text-align: left;
+  transition: color 0.2s;
+}
+.footer-col ul a:hover, .footer-col ul button:hover { color: var(--primary); }
+
+.footer-bottom {
+  padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+  font-size: 0.75rem; color: #64748b;
+}
+@media (min-width: 640px) {
+  .footer-bottom { flex-direction: row; justify-content: space-between; }
+}
+.footer-taglines { display: flex; gap: 1.5rem; }
+
+/* ═══════════════════════════════════════════
+   PROGRAMS PAGE (SPA)
+═══════════════════════════════════════════ */
+#programsPage { display: none; }
+
+.pg-breadcrumb {
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+}
+html:not(.dark) .pg-breadcrumb { background: rgba(255,255,255,0.8); }
+.pg-breadcrumb .inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 0;
+}
+.pg-breadcrumb-trail {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.875rem; color: var(--text-muted);
+}
+.pg-breadcrumb-trail button {
+  background: none; border: none; cursor: pointer; color: var(--text-muted);
+  display: flex; align-items: center; gap: 0.25rem; font-family: var(--font);
+  font-size: 0.875rem; transition: color 0.2s;
+}
+.pg-breadcrumb-trail button:hover { color: var(--primary); }
+.pg-breadcrumb-trail .current { color: var(--text); font-weight: 600; }
+.pg-back-btn {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.875rem; font-weight: 700; color: var(--text-muted);
+  background: none; border: none; cursor: pointer; font-family: var(--font);
+  transition: color 0.2s;
+}
+.pg-back-btn:hover { color: var(--text); }
+
+/* Filter bar */
+.filter-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.filter-scroll::-webkit-scrollbar { display: none; }
+.filter-bar { display: flex; gap: 0.5rem; padding-bottom: 0.25rem; min-width: max-content; }
+
+.filter-btn {
+  padding: 7px 16px; border-radius: 9999px; font-size: 12px; font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.15); background: transparent;
+  color: rgba(255,255,255,0.65); cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.filter-btn:hover { border-color: rgba(255,215,0,0.5); color: var(--gold); }
+.filter-btn.active {
+  background: var(--primary); border-color: var(--primary); color: #fff !important;
+  box-shadow: 0 0 14px rgba(171,26,13,0.5);
+}
+html:not(.dark) .filter-btn { border-color: rgba(0,0,0,0.18); color: rgba(0,0,0,0.65); background: rgba(0,0,0,0.03); }
+html:not(.dark) .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+html:not(.dark) .filter-btn.active { background: var(--primary); color: #fff !important; }
+
+/* Programs grid page cards */
+.pg-card {
+  position: relative; border-radius: 1rem; overflow: hidden;
+  height: 300px;
+}
+@media (min-width: 640px) { .pg-card { height: 340px; } }
+.pg-card.hidden-card { display: none; }
+
+.programs-page-enter { animation: fadeSlideUp 0.3s ease both; }
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Detail tabs */
+.detail-tab {
+  padding: 8px 18px; border-radius: 9999px; font-size: 12px; font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.12); background: transparent;
+  color: rgba(255,255,255,0.55); cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.detail-tab:hover { color: var(--gold); border-color: rgba(255,215,0,0.4); }
+.detail-tab.active { background: var(--primary); border-color: var(--primary); color: #fff !important; }
+html:not(.dark) .detail-tab { border-color: rgba(0,0,0,0.15); color: rgba(0,0,0,0.6); background: rgba(0,0,0,0.03); }
+html:not(.dark) .detail-tab:hover { color: var(--primary); border-color: rgba(171,26,13,0.4); }
+html:not(.dark) .detail-tab.active { background: var(--primary); color: #fff !important; }
+
+.detail-panel { display: none; }
+.detail-panel.active { display: block; animation: fadeSlideUp 0.25s ease; }
+
+/* Detail blocks */
+.detail-block {
+  border-radius: 0.75rem; padding: 1.5rem 2rem; margin-bottom: 1.5rem;
+}
+.detail-block-inner {
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+@media (min-width: 1024px) { .detail-block-inner { flex-direction: row; } }
+
+.detail-info { flex: 1; }
+.detail-info .block-title {
+  display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;
+}
+.detail-info .block-title i { flex-shrink: 0; }
+.filter-bar .filter-btn i { vertical-align: middle; }
+.detail-info .block-title h3 { font-size: clamp(1.2rem, 3vw, 1.75rem); }
+.detail-info p { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem; }
+.detail-info h4.skills-label { font-weight: 700; color: var(--gold-display); font-size: 0.875rem; margin-bottom: 0.5rem; }
+
+.skills-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 0.75rem; margin-bottom: 1rem;
+}
+.skill-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: #d1d5db; }
+html:not(.dark) .skill-item { color: #374151; }
+.skill-item .check { color: var(--primary); }
+
+.detail-pricing { flex-shrink: 0; width: 100%; }
+@media (min-width: 1024px) { .detail-pricing { width: 240px; } }
+.detail-pricing h4 { font-weight: 700; color: var(--gold-display); font-size: 0.875rem; margin-bottom: 0.75rem; }
+
+.price-pill {
+  background: rgba(255,215,0,0.07); border: 1px solid rgba(255,215,0,0.28);
+  border-radius: 12px; padding: 14px 18px; margin-bottom: 0.75rem;
+}
+html:not(.dark) .price-pill {
+  background: rgba(171,26,13,0.05); border-color: rgba(171,26,13,0.2);
+}
+.price-pill .plan-name { font-weight: 700; font-size: 0.875rem; color: var(--text); }
+.price-pill .plan-sessions { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
+.price-pill .plan-price {
+  font-weight: 700; color: var(--gold-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem); margin-top: 0.5rem;
+}
+.price-pill .plan-price span { font-size: 0.75rem; font-weight: 400; color: var(--text-muted); }
+
+/* no results */
+#pgNoResults { display: none; text-align: center; color: var(--text-muted); padding: 3rem 0; font-size: 0.875rem; }
+
+/* ═══════════════════════════════════════════
+   OBSIDIAN SECTION OVERRIDES
+   (always-dark sections — keep gold/white readable)
+═══════════════════════════════════════════ */
+.section-dark .text-gold,
+.section-dark h4.text-gold { color: #FFD700 !important; }
+.section-dark p  { color: #94a3b8; }
+.section-dark h2 { color: #fff; }
+.footer .text-gold { color: #FFD700 !important; }
+
+/* ═══════════════════════════════════════════
+   DIVIDERS & MISC
+═══════════════════════════════════════════ */
+.border-top    { border-top: 1px solid var(--border); }
+.border-bottom { border-bottom: 1px solid var(--border); }
+.rounded-xl  { border-radius: 0.75rem; }
+.rounded-2xl { border-radius: 1rem; }
+.rounded-full { border-radius: 9999px; }
+.max-w-xl { max-width: 36rem; }
+.max-w-2xl { max-width: 42rem; }
+
+.material-symbols-outlined { font-size: 1.5rem; vertical-align: middle; font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24; }
+</style>
 </head>
+
 <body>
 
-    <!-- Snowflakes (reduced, subtle) -->
-    <div class="snowflake" style="left:10%;animation-delay:0s;">🌸</div>
-    <div class="snowflake" style="left:25%;animation-delay:1.2s;">🌺</div>
-    <div class="snowflake" style="left:45%;animation-delay:0.6s;">🌸</div>
-    <div class="snowflake" style="left:65%;animation-delay:2.1s;">🌺</div>
-    <div class="snowflake" style="left:80%;animation-delay:0.9s;">🌸</div>
-    <div class="snowflake" style="left:92%;animation-delay:1.7s;">🌺</div>
+<!-- ══════════════════════════════════
+     NAV
+══════════════════════════════════ -->
+<nav class="nav-sticky">
+  <div class="container">
+    <div class="nav-inner">
 
-    <!-- ── NAV ────────────────────────────────────────────────── -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <a href="#home" class="logo-container">
-                <div class="logo-image">
-                    <img src="assets/img/favicon.png" alt="LOGO">
-                </div>
-                <span class="logo-text">Jaystarbliss Dynamic Hub</span>
-            </a>
-            <div class="menu-toggle" id="mobile-menu">
-                <span></span><span></span><span></span>
-            </div>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#programs">Programs</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="pages/auth/login.html">Login/signup</a></li>
-                <li><a href="pages/features/digital-literacy-packages.html">Pricing?</a></li>
-                <li><a href="pages/features/news-corner.html">News Corner</a></li>
-                <li><a href="pages/features/Games-section.html">Play scratch games!</a></li>
-            </ul>
+      <button class="nav-logo" onclick="showPage('home')">
+        <img src="assets/img/favicon.png" alt="Logo"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"/>
+        <span class="material-symbols-outlined text-primary" style="display:none;font-size:1.75rem">hub</span>
+        <span>Jaystarbliss Dynamic Hub</span>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><button onclick="showPage('home')">Home</button></li>
+        <li><button onclick="showPage('programs')">Programs</button></li>
+        <li><a href="#">Teach</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
+          <i data-lucide="moon" id="themeIcon" style="width:16px;height:16px;"></i>
+        </button>
+        <button class="btn btn-outline btn-sm" style="border-radius:0.75rem">Login</button>
+        <button class="btn btn-gold btn-sm" style="display:none;border-radius:0.75rem" id="navStartLearning">Start Learning</button>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="mobile-nav" id="mobileNav">
+  <button onclick="showPage('home');closeMobileNav()">Home</button>
+  <button onclick="showPage('programs');closeMobileNav()">Programs</button>
+  <a href="#" onclick="closeMobileNav()">Teach</a>
+  <a href="#" onclick="closeMobileNav()">About</a>
+  <a href="#" onclick="closeMobileNav()">Contact</a>
+  <div class="mobile-nav-cta">
+    <button class="btn btn-outline btn-sm" style="flex:1;border-radius:0.75rem">Login</button>
+    <button class="btn btn-gold btn-sm" style="flex:1;border-radius:0.75rem">Start Learning</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════ -->
+<div id="mainContent">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-layout">
+      <div class="hero-copy">
+        <h1>Join the Hub! <span class="text-primary">Learn</span> and <span class="text-gold">Grow</span></h1>
+        <p>Connecting students, parents, and tutors on one dynamic platform for a personalized educational experience that adapts to your unique journey.</p>
+        <div class="hero-btns">
+          <button class="btn btn-gold btn-lg">Start Learning</button>
+          <button class="btn btn-ghost btn-lg">Become a Tutor</button>
         </div>
-    </nav>
+      </div>
 
-    <!-- ── HERO ───────────────────────────────────────────────── -->
-    <section id="home" class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-rings">
-            <div class="hero-ring"></div>
-            <div class="hero-ring"></div>
+      <div class="hero-galaxy">
+        <div class="galaxy-container" id="galaxyContainer">
+          <canvas id="trailCanvas"></canvas>
+          <div class="orbit-path path-inner-1"></div>
+          <div class="orbit-path path-inner-2"></div>
+          <div class="orbit-path path-outer"></div>
+
+          <div class="stakeholder-group" id="stakeholder-group">
+            <div class="stakeholder-node" onclick="window.location='/auth/login.html'">
+              <i data-lucide="users"   class="text-gold" style="width:16px;height:16px;"></i>
+              <span>Parents</span>
+            </div>
+            <div class="stakeholder-node" onclick="window.location='/auth/login.html'">
+              <i data-lucide="user"    class="text-gold" style="width:16px;height:16px;"></i>
+              <span>Students</span>
+            </div>
+            <div class="stakeholder-node" onclick="window.location='/auth/login.html'">
+              <i data-lucide="users-2" class="text-gold" style="width:16px;height:16px;"></i>
+              <span>Staff</span>
+            </div>
+            <div class="stakeholder-node" onclick="window.location='/auth/login.html'">
+              <i data-lucide="school"  class="text-gold" style="width:16px;height:16px;"></i>
+              <span>Schools</span>
+            </div>
+          </div>
+
+          <div class="central-hub" onclick="document.getElementById('stakeholder-group').classList.toggle('stakeholder-active')">
+            <img id="hubImg" src="assets/img/favicon.png" alt="JDH"
+                 style="width:100%;height:100%;object-fit:cover;border-radius:50%;"
+                 onerror="this.style.display='none';document.getElementById('hubFallback').style.display='flex'"/>
+            <div id="hubFallback" style="display:none;flex-direction:column;align-items:center;justify-content:center;">
+              <div style="font-size:12px;font-weight:900;letter-spacing:1px;">JDH</div>
+              <div style="font-size:7px;opacity:0.6;margin-top:2px;">CORE</div>
+            </div>
+          </div>
+
+          <div class="planet-node text-primary" id="planet-math"     onclick="showPage('programs','mathematics')" style="cursor:pointer;">
+            <i data-lucide="hash"></i>
+            <div class="subject-detail"><h5>Mathematics</h5><p>Core academic excellence. From arithmetic to calculus.</p></div>
+          </div>
+          <div class="planet-node text-primary" id="planet-science"  onclick="showPage('programs','physics')" style="cursor:pointer;">
+            <i data-lucide="beaker"></i>
+            <div class="subject-detail"><h5>Science</h5><p>Hands-on virtual labs. Physics, Chemistry, Biology.</p></div>
+          </div>
+          <div class="planet-node text-primary" id="planet-lang"     onclick="showPage('programs','english')" style="cursor:pointer;">
+            <i data-lucide="languages"></i>
+            <div class="subject-detail"><h5>Languages</h5><p>Expert tutors for native linguistics.</p></div>
+          </div>
+          <div class="planet-node text-gold"    id="planet-code"     onclick="showPage('programs','programming')" style="cursor:pointer;">
+            <i data-lucide="code-2"></i>
+            <div class="subject-detail"><h5>Programming</h5><p>Full-stack development and AI tracks.</p></div>
+          </div>
+          <div class="planet-node text-gold"    id="planet-tech"     onclick="showPage('programs','techliteracy')" style="cursor:pointer;">
+            <i data-lucide="cpu"></i>
+            <div class="subject-detail"><h5>Tech Literacy</h5><p>Modern tools &amp; digital transformation.</p></div>
+          </div>
+          <div class="planet-node text-gold"    id="planet-creative" onclick="showPage('programs','graphicdesign')" style="cursor:pointer;">
+            <i data-lucide="palette"></i>
+            <div class="subject-detail"><h5>Creative Arts</h5><p>Design, illustration &amp; multimedia.</p></div>
+          </div>
         </div>
-       <!--<div class="hero-log">
-            [LOG] CPU_LOAD: 24%<br>
-            [LOG] MEMORY: OPTIMAL<br>
-            [LOG] UPLINK: ESTABLISHED<br>
-            [LOG] SESSION: SUMMER_ACTIVE
-        </div>-->
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="hero-content">
-            <span class="hero-eyebrow">Status: Online</span>
-            <h1>Welcome to the<br><span>Summer Session!</span></h1>
-            <p>From Logic to Syntax, We Make Programming Fun, Interactive, and Accessible for Every Child</p>
-            <div class="cta-buttons">
-                <a href="#contact" class="cta-button">
-                    <span>Start Learning</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-                <a href="#programs" class="cta-button secondary">
-                    <span>Explore Programs</span>
-                </a>
-            </div>
+<!-- FEATURES -->
+<section class="section section-hero-bg">
+  <div class="container">
+    <div class="text-center mb-12">
+      <h2 class="mb-3">One Platform for Learning and Teaching</h2>
+      <p class="text-muted">Everything you need to excel in your educational goals.</p>
+    </div>
+    <div class="grid md-grid-3 gap-6">
+      <div class="glass-card feature-card rounded-xl">
+        <span class="material-symbols-outlined text-primary icon">school</span>
+        <h3 style="font-size:1.15rem;margin-bottom:.5rem">Expert Tutors</h3>
+        <p class="text-muted text-sm">Access verified professionals across all academic levels and disciplines.</p>
+      </div>
+      <div class="glass-card feature-card rounded-xl">
+        <span class="material-symbols-outlined text-gold icon">video_chat</span>
+        <h3 style="font-size:1.15rem;margin-bottom:.5rem">Online/Offline Classes</h3>
+        <p class="text-muted text-sm">Choose between interactive virtual classrooms or in-person guidance.</p>
+      </div>
+      <div class="glass-card feature-card rounded-xl">
+        <span class="material-symbols-outlined text-primary icon">trending_up</span>
+        <h3 style="font-size:1.15rem;margin-bottom:.5rem">Track Progress</h3>
+        <p class="text-muted text-sm">Real-time dashboards to monitor grades, attendance, and skill milestones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section section-dark">
+  <div class="container">
+    <div class="text-center mb-12">
+      <h2>Your Journey to Success</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-icon"><span class="material-symbols-outlined">person_add</span></div>
+        <h4 class="text-gold">1. Create Account</h4>
+        <p>Join our community as a student, parent, or educator.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon"><span class="material-symbols-outlined">auto_stories</span></div>
+        <h4 class="text-gold">2. Choose Subjects</h4>
+        <p>Select from our wide range of academic and tech courses.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon"><span class="material-symbols-outlined">handshake</span></div>
+        <h4 class="text-gold">3. Get Matched</h4>
+        <p>Connect with the perfect tutor for your learning style.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon"><span class="material-symbols-outlined">rocket_launch</span></div>
+        <h4 class="text-gold">4. Track Progress</h4>
+        <p>Achieve your goals and monitor your growth in real-time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROGRAMS -->
+<section class="section">
+  <div class="container">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1rem;margin-bottom:2rem;">
+      <div>
+        <h2 class="mb-1">Featured Programs</h2>
+        <p class="text-muted">A taste of what's waiting for you.</p>
+      </div>
+      <button onclick="showPage('programs')" class="btn btn-primary btn-sm">View All Programs →</button>
+    </div>
+    <div class="prog-grid">
+      <div class="prog-card glass-card">
+        <img class="prog-card-img" alt="Mathematics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMqjVOKqIq-LxFe9RvSoKgoN2dJEZzGuuDoSIgpjnST7YwQ0VlzHd-2qLfp0SjKHhl-wg3fRuqCJueD8SbUhJbcWGJRZ_fLgYwh87GQ012EdrrPVJe8aTEAoS1dck8XTv2NabIccmrdaYIjpHcXLao3p4wL536J9XBjOIIH5SrlwxkKYUck1vkOttjNyewVTh-b2U-kJjj9b1yZI0YqLV0D5BOi9rfGC7Rd_5t6zAffSMe03V9TLI4e16hKb8RFXRb3gQuGBld0GE"/>
+        <div class="prog-card-overlay"><div class="prog-card-panel">
+          <span class="cat-badge badge-science">Science</span>
+          <h4>Mathematics</h4>
+          <p>Master the logic and language of the universe from foundational to advanced levels.</p>
+          <button onclick="showPage('programs','mathematics')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button>
+        </div></div>
+      </div>
+      <div class="prog-card glass-card">
+        <img class="prog-card-img" alt="English Literature" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr0MQRQMKga1qzRrHrJ5MsNyj3AMY8pAM533TnS503ehh2vxfsaAjPEks3OVRKZcqGf8XdaS8Cg6m8usHBA-VC69Z46O5IGkk96J_fT59WwUU7hd2wJ2_x7DMiqRAFHvXafPjXaxlbNF-flPRUYoH61upj-Re9ynN4HQk3oVS-yJPAmJh4HmYGCoaSX8yhtoCp_44XGJ9KHyqGon2J9trjUie1DGGroo_Rj8QxQ6INAI_CW1R7YqPCtKt9WNCl9hmbBu_rqFspGaI"/>
+        <div class="prog-card-overlay"><div class="prog-card-panel">
+          <span class="cat-badge badge-academic">Academics</span>
+          <h4>English Literature</h4>
+          <p>Develop critical thinking and narrative mastery through global literary masterpieces.</p>
+          <button onclick="showPage('programs','literature')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button>
+        </div></div>
+      </div>
+      <div class="prog-card glass-card">
+        <img class="prog-card-img" alt="Programming" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6YR0d6rm0HFJIwdJBlyd1GOliUdb31Z0gu2wdXMu-OQQqeWcZv4YO9OU6AkfywDa8pJnQgbbcgppjdUtLOC2jaXJCo_vsyTazhxFvtz5qZcbrsEAjEqeHGBD_83jeu5jrnbp-gwTE0SndFqCXGGqjUJdLSBUrn4r4mD1EG-Eg1koxIJcZTsUq_nWWq-d6WSrINA95fJlzhkK5HyDA8o5QquKTq1W2upO8Azr2TALo8FUXlCHN_xYvr4A5NvfztjgaLWP-JubzdEE"/>
+        <div class="prog-card-overlay"><div class="prog-card-panel">
+          <span class="cat-badge badge-digital">Digital Skills</span>
+          <h4 class="text-gold">Programming</h4>
+          <p>Build the future with full-stack development, AI engineering, and data science.</p>
+          <button onclick="showPage('programs','programming')" class="btn btn-gold btn-full btn-sm" style="border-radius:.5rem">Explore Course</button>
+        </div></div>
+      </div>
+      <div class="prog-card glass-card">
+        <img class="prog-card-img" alt="Graphic Design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-BNdKxgyNAQEiZ0LRBHMR4ODZWRVW9hs87PYwufFez8kK_LNuKjBbd_0dxg5clDlikmoWEP-3o3TNSYAdQb9qJh4c4iMLlg1ZClP050KwF5xgFjZIO9MZwztU1YI2nnLTGiQ6BwPllnc3uilMsYQopM3EQHhErJdW2SU1ryIe5hLeVDVQijFf8nqmle_Lk3RT3z8fUVpJCSLBC0xL_QFZ0XJpEMW5sfDQgmW4e7_SswRAAJWTveOJeaJSll5mxGZYxyuAu3I0GM"/>
+        <div class="prog-card-overlay"><div class="prog-card-panel">
+          <span class="cat-badge badge-digital">Digital Skills</span>
+          <h4 class="text-gold">Graphic Design</h4>
+          <p>Unleash your creativity with UI/UX, branding, and digital illustration tracks.</p>
+          <button onclick="showPage('programs','graphicdesign')" class="btn btn-gold btn-full btn-sm" style="border-radius:.5rem">Explore Course</button>
+        </div></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <button onclick="showPage('programs')" class="btn btn-ghost btn-round" style="padding:.85rem 2rem;font-size:.875rem">
+        See More Programs
+        <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- TUTOR -->
+<section class="section-lg section-dark" style="border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05)">
+  <div class="container">
+    <div class="tutor-layout">
+      <div style="flex:1">
+        <h2 class="mb-4" style="color:#fff">Share Your Knowledge.<br/><span class="text-primary">Inspire Students.</span></h2>
+        <p style="font-size:1.05rem;color:#94a3b8;margin-bottom:2rem">Join our elite network of educators and help shape the future of learning.</p>
+        <ul class="checklist mb-6">
+          <li><span class="material-symbols-outlined icon">check_circle</span>Flexible schedule &amp; remote work options</li>
+          <li><span class="material-symbols-outlined icon">check_circle</span>Competitive compensation rates</li>
+          <li><span class="material-symbols-outlined icon">check_circle</span>Professional development resources</li>
+        </ul>
+        <button class="btn btn-primary" style="padding:.875rem 2rem">Apply as Tutor</button>
+      </div>
+      <div class="tutor-photo">
+        <div class="tutor-circle">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmRI15VyGi6ZjjZl-rG6qqkAVllrMG4bkl9Q1kLaXL5aFGbLXm_UW7vjgevxUlP-9ebWjOyBu4xBII1D28_ugbV0dnyavzgOpblja3uaWW1ud-08LN_vfwRin4iRw8q45HzWKdaYP6PH6BteoceUA5v4yi6-rbaJZn-k1WT1KUnH3iWrY7HL9Y44lnIBtyxu4ln8rqfs4GEpXkgScP4YERpQkGFLdfXfahK-uXjHiuA1zVsaHqQ1YwQdUIIDCBlLWcZ30pEWpJnho" alt="Tutor"/>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- ── ABOUT ──────────────────────────────────────────────── -->
-    <section id="about">
-        <div class="section-header fade-in">
-            <span class="section-eyebrow">About Us</span>
-            <h2 class="section-title">Transforming Tech Education for Kids</h2>
-            <p class="section-subtitle">We're on a mission to make programming accessible, fun, and engaging for the next generation of innovators</p>
-            <div class="section-divider"></div>
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-10">
+      <h2>What Parents and Students Say</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="glass-card testimonial-card rounded-xl">
+        <div class="testimonial-stars"><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span></div>
+        <p>"The progress my daughter has made in her coding classes is phenomenal. The platform is so easy to use."</p>
+        <div class="testimonial-author"><div class="testimonial-avatar"></div><div><div class="testimonial-name">Sarah Johnson</div><div class="testimonial-role">Parent</div></div></div>
+      </div>
+      <div class="glass-card testimonial-card rounded-xl" style="border-color:rgba(171,26,13,0.3)">
+        <div class="testimonial-stars"><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span></div>
+        <p>"Jaystarbliss matched me with a physics tutor who actually understood my learning style. Highly recommend!"</p>
+        <div class="testimonial-author"><div class="testimonial-avatar"></div><div><div class="testimonial-name">Michael Chen</div><div class="testimonial-role">Grade 11 Student</div></div></div>
+      </div>
+      <div class="glass-card testimonial-card rounded-xl">
+        <div class="testimonial-stars"><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span></div>
+        <p>"Finally, a platform that values both quality teaching and intuitive UI. My tutoring business has doubled."</p>
+        <div class="testimonial-author"><div class="testimonial-avatar"></div><div><div class="testimonial-name">Dr. Robert Smith</div><div class="testimonial-role">Mathematics Tutor</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-lg section-cta">
+  <div class="section-cta-overlay"></div>
+  <div class="container" style="position:relative;z-index:1;text-align:center">
+    <h2 class="mb-6" style="font-size:clamp(1.8rem,5vw,3rem)">Start Your Learning Journey Today</h2>
+    <p class="text-muted mb-8" style="max-width:40rem;margin-left:auto;margin-right:auto">Join thousands of students and tutors transforming education through our dynamic platform.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center">
+      <button class="btn btn-primary btn-lg">Get Started Free</button>
+      <button class="btn btn-ghost btn-lg">Speak to an Advisor</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer pt-14 pb-8">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="assets/img/favicon.png" alt="Logo" onerror="this.style.display='none'"/>
+          <span>Jaystarbliss Dynamic Hub</span>
         </div>
-        <div class="about-container">
-            <div class="about-visual fade-in">
-                <div class="about-image">
-                    <svg width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(255,215,0,0.6);">
-                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                        <line x1="8" y1="21" x2="16" y2="21"></line>
-                        <line x1="12" y1="17" x2="12" y2="21"></line>
-                        <polyline points="7 8 12 13 17 8"></polyline>
-                    </svg>
-                </div>
-                <div class="about-corner-tr"></div>
-                <div class="about-corner-bl"></div>
-            </div>
-            <div class="about-text fade-in">
-                <h3>Our Mission</h3>
-                <p>At Jaystarbliss Dynamic Hub, we believe that every child deserves the opportunity to learn programming and technology in a fun, engaging, and accessible way. We break down complex coding concepts into digestible, interactive lessons that spark creativity and innovation.</p>
-                <h3>Our Vision</h3>
-                <p>From Scratch visual programming to Strudel live coding and cutting-edge AI vibe coding with Claude AI, we provide world-class educational experiences that prepare children for the digital future. We don't just teach code — we nurture problem-solvers, creators, and future tech leaders.</p>
-                <div class="about-stats">
-                    <div class="stat-card">
-                        <div class="stat-number">940+</div>
-                        <div class="stat-label">Students Taught</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">150+</div>
-                        <div class="stat-label">Projects Built</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">98%</div>
-                        <div class="stat-label">Success Rate</div>
-                    </div>
-                </div>
-            </div>
+        <p class="footer-desc">A premium educational hub dedicated to excellence in teaching and learning through innovative technology.</p>
+        <div class="footer-social">
+          <a href="#"><span class="material-symbols-outlined" style="font-size:1rem">public</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:1rem">alternate_email</span></a>
         </div>
-    </section>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#">Find a Tutor</a></li>
+          <li><a href="#">Join as Educator</a></li>
+          <li><a href="#">Corporate Training</a></li>
+          <li><button onclick="showPage('programs')">All Programs</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Safety Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Scholarships</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Jaystarbliss Dynamic Hub. All rights reserved.</p>
+      <div class="footer-taglines">
+        <span>Designed for Excellence</span>
+        <span>Empowered by Knowledge</span>
+      </div>
+    </div>
+  </div>
+</footer>
 
-    <!-- ── SERVICES ───────────────────────────────────────────── -->
-    <section id="services" class="full-bg" style="padding:5rem 5%;">
-        <div style="max-width:1400px;margin:0 auto;">
-        <div class="section-header fade-in">
-            <span class="section-eyebrow">Our Services</span>
-            <h2 class="section-title">Comprehensive Tech Education</h2>
-            <p class="section-subtitle">Discover our range of innovative programs designed to inspire and educate young minds</p>
-            <div class="section-divider"></div>
+</div><!-- /mainContent -->
+
+
+<!-- ══════════════════════════════════
+     PROGRAMS PAGE (SPA)
+══════════════════════════════════ -->
+<div id="programsPage">
+
+  <div class="pg-breadcrumb">
+    <div class="container">
+      <div class="pg-breadcrumb .inner" style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 0">
+        <div class="pg-breadcrumb-trail">
+          <button onclick="showPage('home')">
+            <i data-lucide="home" style="width:14px;height:14px;"></i> Home
+          </button>
+          <i data-lucide="chevron-right" style="width:14px;height:14px;"></i>
+          <span class="current" id="pgBreadcrumb">Programs</span>
         </div>
-        <div class="services-grid">
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                </div>
-                <h3>Scratch Programming</h3>
-                <p>Visual block-based coding that makes programming intuitive and fun. Kids create games, animations, and interactive stories while learning fundamental coding concepts.</p>
-            </div>
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-                </div>
-                <h3>Strudel Live Coding</h3>
-                <p>Create music through code! Our live coding sessions teach algorithmic thinking while students compose and perform electronic music in real-time.</p>
-            </div>
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                </div>
-                <h3>AI Vibe Coding with Claude</h3>
-                <p>Explore the future of programming with AI-assisted coding. Students learn to collaborate with Claude AI to build projects and understand artificial intelligence.</p>
-            </div>
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                </div>
-                <h3>Creative Web Design</h3>
-                <p>Learn HTML, CSS, and JavaScript to build stunning websites. From personal portfolios to interactive web apps, we make web development exciting.</p>
-            </div>
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
-                </div>
-                <h3>Coding Competitions</h3>
-                <p>Participate in exciting coding challenges and hackathons. Build teamwork skills, compete for prizes, and showcase projects to the community.</p>
-            </div>
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                </div>
-                <h3>Mentorship Programs</h3>
-                <p>One-on-one guidance from experienced instructors. Personalized learning paths tailored to each student's interests, pace, and goals.</p>
-            </div>
+        <button class="pg-back-btn" onclick="showPage('home')">
+          <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Back to Home
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID VIEW -->
+  <div id="pgGridView" class="programs-page-enter">
+    <div class="container py-10">
+      <div class="mb-8">
+        <h2 class="mb-1">Our Programs</h2>
+        <p class="text-muted">Browse all learning tracks. Click any course to see full details.</p>
+      </div>
+
+      <div class="filter-scroll mb-6">
+        <div class="filter-bar" id="pgFilterBar">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="science"><i data-lucide="flask-conical" style="width:13px;height:13px;vertical-align:middle;margin-right:4px;"></i>Science</button>
+          <button class="filter-btn" data-filter="academics"><i data-lucide="book-open"     style="width:13px;height:13px;vertical-align:middle;margin-right:4px;"></i>Academics</button>
+          <button class="filter-btn" data-filter="commercial"><i data-lucide="briefcase"     style="width:13px;height:13px;vertical-align:middle;margin-right:4px;"></i>Commercial</button>
+          <button class="filter-btn" data-filter="digital"><i data-lucide="monitor"    style="width:13px;height:13px;vertical-align:middle;margin-right:4px;"></i>Digital Skills</button>
+          <button class="filter-btn" data-filter="creative"><i data-lucide="palette"       style="width:13px;height:13px;vertical-align:middle;margin-right:4px;"></i>Creative</button>
+          <button class="filter-btn" data-filter="exam"><i data-lucide="clipboard-list" style="width:13px;height:13px;vertical-align:middle;margin-right:4px;"></i>Exam Prep</button>
         </div>
+      </div>
+
+      <div class="prog-grid" id="pgGrid">
+        <!-- SCIENCE -->
+        <div class="pg-card glass-card" data-category="science"><img class="prog-card-img" alt="Mathematics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMqjVOKqIq-LxFe9RvSoKgoN2dJEZzGuuDoSIgpjnST7YwQ0VlzHd-2qLfp0SjKHhl-wg3fRuqCJueD8SbUhJbcWGJRZ_fLgYwh87GQ012EdrrPVJe8aTEAoS1dck8XTv2NabIccmrdaYIjpHcXLao3p4wL536J9XBjOIIH5SrlwxkKYUck1vkOttjNyewVTh-b2U-kJjj9b1yZI0YqLV0D5BOi9rfGC7Rd_5t6zAffSMe03V9TLI4e16hKb8RFXRb3gQuGBld0GE"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-science">Science</span><h4>Mathematics</h4><p>Master logic and language of the universe from foundational to advanced levels.</p><button onclick="openPgDetail('mathematics')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="science"><img class="prog-card-img" alt="Physics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-BNdKxgyNAQEiZ0LRBHMR4ODZWRVW9hs87PYwufFez8kK_LNuKjBbd_0dxg5clDlikmoWEP-3o3TNSYAdQb9qJh4c4iMLlg1ZClP050KwF5xgFjZIO9MZwztU1YI2nnLTGiQ6BwPllnc3uilMsYQopM3EQHhErJdW2SU1ryIe5hLeVDVQijFf8nqmle_Lk3RT3z8fUVpJCSLBC0xL_QFZ0XJpEMW5sfDQgmW4e7_SswRAAJWTveOJeaJSll5mxGZYxyuAu3I0GM"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-science">Science</span><h4>Physics</h4><p>Explore laws of nature with hands-on virtual experiments and problem solving.</p><button onclick="openPgDetail('physics')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="science"><img class="prog-card-img" alt="Chemistry" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJS0-73R4xLDLmcr7XAd9eimrltxMNxiT1HwmCoBivt60H50_0CATMWdgniYrg-kOT9p9CxCzKD5HyVLq5mmBNEcCouLlNx-FwkxzsBZ5X-cJxEveOdKLoR3QNERaLyc-GtCk0ouERUelLpwwdVZC9wcKh2bQb6E07or24UfydRyFXU9Xkf5-I-XAQcHfR0sFZuC_KhYVh8lrUEBEKX_ypMlmk7ODd_yp0gb3V3GlMcOJpc14ub1UvyW9cp8OzNnaSsROR-fUpBTg"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-science">Science</span><h4>Chemistry</h4><p>Understand matter, reactions, and chemical principles from the ground up.</p><button onclick="openPgDetail('chemistry')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="science"><img class="prog-card-img" alt="Biology" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-BNdKxgyNAQEiZ0LRBHMR4ODZWRVW9hs87PYwufFez8kK_LNuKjBbd_0dxg5clDlikmoWEP-3o3TNSYAdQb9qJh4c4iMLlg1ZClP050KwF5xgFjZIO9MZwztU1YI2nnLTGiQ6BwPllnc3uilMsYQopM3EQHhErJdW2SU1ryIe5hLeVDVQijFf8nqmle_Lk3RT3z8fUVpJCSLBC0xL_QFZ0XJpEMW5sfDQgmW4e7_SswRAAJWTveOJeaJSll5mxGZYxyuAu3I0GM"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-science">Science</span><h4>Biology</h4><p>Discover the science of life — from cells and genetics to full ecosystems.</p><button onclick="openPgDetail('biology')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <!-- ACADEMICS -->
+        <div class="pg-card glass-card" data-category="academics"><img class="prog-card-img" alt="English" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr0MQRQMKga1qzRrHrJ5MsNyj3AMY8pAM533TnS503ehh2vxfsaAjPEks3OVRKZcqGf8XdaS8Cg6m8usHBA-VC69Z46O5IGkk96J_fT59WwUU7hd2wJ2_x7DMiqRAFHvXafPjXaxlbNF-flPRUYoH61upj-Re9ynN4HQk3oVS-yJPAmJh4HmYGCoaSX8yhtoCp_44XGJ9KHyqGon2J9trjUie1DGGroo_Rj8QxQ6INAI_CW1R7YqPCtKt9WNCl9hmbBu_rqFspGaI"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-academic">Academics</span><h4>English Language</h4><p>Build communication skills, grammar mastery, and confident essay writing.</p><button onclick="openPgDetail('english')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="academics"><img class="prog-card-img" alt="Literature" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr0MQRQMKga1qzRrHrJ5MsNyj3AMY8pAM533TnS503ehh2vxfsaAjPEks3OVRKZcqGf8XdaS8Cg6m8usHBA-VC69Z46O5IGkk96J_fT59WwUU7hd2wJ2_x7DMiqRAFHvXafPjXaxlbNF-flPRUYoH61upj-Re9ynN4HQk3oVS-yJPAmJh4HmYGCoaSX8yhtoCp_44XGJ9KHyqGon2J9trjUie1DGGroo_Rj8QxQ6INAI_CW1R7YqPCtKt9WNCl9hmbBu_rqFspGaI"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-academic">Academics</span><h4>Literature in English</h4><p>Analyse prose, poetry, and drama with deep critical insight and flair.</p><button onclick="openPgDetail('literature')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="academics"><img class="prog-card-img" alt="Government" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJS0-73R4xLDLmcr7XAd9eimrltxMNxiT1HwmCoBivt60H50_0CATMWdgniYrg-kOT9p9CxCzKD5HyVLq5mmBNEcCouLlNx-FwkxzsBZ5X-cJxEveOdKLoR3QNERaLyc-GtCk0ouERUelLpwwdVZC9wcKh2bQb6E07or24UfydRyFXU9Xkf5-I-XAQcHfR0sFZuC_KhYVh8lrUEBEKX_ypMlmk7ODd_yp0gb3V3GlMcOJpc14ub1UvyW9cp8OzNnaSsROR-fUpBTg"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-academic">Academics</span><h4>Government</h4><p>Understand political systems, democracy, and Nigerian governance.</p><button onclick="openPgDetail('government')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="academics"><img class="prog-card-img" alt="CRS" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr0MQRQMKga1qzRrHrJ5MsNyj3AMY8pAM533TnS503ehh2vxfsaAjPEks3OVRKZcqGf8XdaS8Cg6m8usHBA-VC69Z46O5IGkk96J_fT59WwUU7hd2wJ2_x7DMiqRAFHvXafPjXaxlbNF-flPRUYoH61upj-Re9ynN4HQk3oVS-yJPAmJh4HmYGCoaSX8yhtoCp_44XGJ9KHyqGon2J9trjUie1DGGroo_Rj8QxQ6INAI_CW1R7YqPCtKt9WNCl9hmbBu_rqFspGaI"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-academic">Academics</span><h4>CRS</h4><p>Christian Religious Studies — scripture, ethics, and church history.</p><button onclick="openPgDetail('crs')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <!-- COMMERCIAL -->
+        <div class="pg-card glass-card" data-category="commercial"><img class="prog-card-img" alt="Accounting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMqjVOKqIq-LxFe9RvSoKgoN2dJEZzGuuDoSIgpjnST7YwQ0VlzHd-2qLfp0SjKHhl-wg3fRuqCJueD8SbUhJbcWGJRZ_fLgYwh87GQ012EdrrPVJe8aTEAoS1dck8XTv2NabIccmrdaYIjpHcXLao3p4wL536J9XBjOIIH5SrlwxkKYUck1vkOttjNyewVTh-b2U-kJjj9b1yZI0YqLV0D5BOi9rfGC7Rd_5t6zAffSMe03V9TLI4e16hKb8RFXRb3gQuGBld0GE"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-commercial">Commercial</span><h4 class="text-gold">Accounting</h4><p>Master bookkeeping, financial statements, and balance sheets.</p><button onclick="openPgDetail('accounting')" class="btn btn-gold btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="commercial"><img class="prog-card-img" alt="Commerce" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJS0-73R4xLDLmcr7XAd9eimrltxMNxiT1HwmCoBivt60H50_0CATMWdgniYrg-kOT9p9CxCzKD5HyVLq5mmBNEcCouLlNx-FwkxzsBZ5X-cJxEveOdKLoR3QNERaLyc-GtCk0ouERUelLpwwdVZC9wcKh2bQb6E07or24UfydRyFXU9Xkf5-I-XAQcHfR0sFZuC_KhYVh8lrUEBEKX_ypMlmk7ODd_yp0gb3V3GlMcOJpc14ub1UvyW9cp8OzNnaSsROR-fUpBTg"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-commercial">Commercial</span><h4 class="text-gold">Commerce</h4><p>Trade, business structures, and economics of buying and selling.</p><button onclick="openPgDetail('commerce')" class="btn btn-gold btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="commercial"><img class="prog-card-img" alt="Marketing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-BNdKxgyNAQEiZ0LRBHMR4ODZWRVW9hs87PYwufFez8kK_LNuKjBbd_0dxg5clDlikmoWEP-3o3TNSYAdQb9qJh4c4iMLlg1ZClP050KwF5xgFjZIO9MZwztU1YI2nnLTGiQ6BwPllnc3uilMsYQopM3EQHhErJdW2SU1ryIe5hLeVDVQijFf8nqmle_Lk3RT3z8fUVpJCSLBC0xL_QFZ0XJpEMW5sfDQgmW4e7_SswRAAJWTveOJeaJSll5mxGZYxyuAu3I0GM"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-commercial">Commercial</span><h4 class="text-gold">Marketing</h4><p>Branding, advertising, consumer behaviour, and market research.</p><button onclick="openPgDetail('marketing')" class="btn btn-gold btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <!-- DIGITAL -->
+        <div class="pg-card glass-card" data-category="digital"><img class="prog-card-img" alt="Programming" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6YR0d6rm0HFJIwdJBlyd1GOliUdb31Z0gu2wdXMu-OQQqeWcZv4YO9OU6AkfywDa8pJnQgbbcgppjdUtLOC2jaXJCo_vsyTazhxFvtz5qZcbrsEAjEqeHGBD_83jeu5jrnbp-gwTE0SndFqCXGGqjUJdLSBUrn4r4mD1EG-Eg1koxIJcZTsUq_nWWq-d6WSrINA95fJlzhkK5HyDA8o5QquKTq1W2upO8Azr2TALo8FUXlCHN_xYvr4A5NvfztjgaLWP-JubzdEE"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-digital">Digital</span><h4 class="text-gold">Programming</h4><p>Python, JavaScript, logic building, and real project creation from scratch.</p><button onclick="openPgDetail('programming')" class="btn btn-gold btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="digital"><img class="prog-card-img" alt="Web Dev" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6YR0d6rm0HFJIwdJBlyd1GOliUdb31Z0gu2wdXMu-OQQqeWcZv4YO9OU6AkfywDa8pJnQgbbcgppjdUtLOC2jaXJCo_vsyTazhxFvtz5qZcbrsEAjEqeHGBD_83jeu5jrnbp-gwTE0SndFqCXGGqjUJdLSBUrn4r4mD1EG-Eg1koxIJcZTsUq_nWWq-d6WSrINA95fJlzhkK5HyDA8o5QquKTq1W2upO8Azr2TALo8FUXlCHN_xYvr4A5NvfztjgaLWP-JubzdEE"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-digital">Digital</span><h4 class="text-gold">Web Development</h4><p>Build modern websites using HTML, CSS, JavaScript, and popular frameworks.</p><button onclick="openPgDetail('webdev')" class="btn btn-gold btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="digital"><img class="prog-card-img" alt="AI Tools" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_it4QrqGpufgvItKQqu07itLyErAtaBlz6_kfqubbN53dmqKnGCHIcwgyo6gqCF_46djB3R1jn2IWgQySmZ596BkRzlT2jrM5_WXBHDWu8ofKQoh-QGVeJVg70pw72XG9lBmlxLwdzm6yQk3zbKD-6nP2vKwapBEThWo1LGVMFdhiOgwzkZ5qIB-r-_Bvsor6F2UsVOCAMj3y9zH8WaRIMyG4YuxVbmkQOOnANIXFwllsjUJNTtoGdGm45DMZZEr-3QQoH0wxXjU"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-digital">Digital</span><h4 class="text-gold">AI Tools</h4><p>Leverage ChatGPT, Gemini, and modern AI for productivity and content creation.</p><button onclick="openPgDetail('aitools')" class="btn btn-gold btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="digital"><img class="prog-card-img" alt="Tech Literacy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_it4QrqGpufgvItKQqu07itLyErAtaBlz6_kfqubbN53dmqKnGCHIcwgyo6gqCF_46djB3R1jn2IWgQySmZ596BkRzlT2jrM5_WXBHDWu8ofKQoh-QGVeJVg70pw72XG9lBmlxLwdzm6yQk3zbKD-6nP2vKwapBEThWo1LGVMFdhiOgwzkZ5qIB-r-_Bvsor6F2UsVOCAMj3y9zH8WaRIMyG4YuxVbmkQOOnANIXFwllsjUJNTtoGdGm45DMZZEr-3QQoH0wxXjU"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-digital">Digital</span><h4 class="text-gold">Tech Literacy</h4><p>Office tools, internet safety, file management, and digital confidence.</p><button onclick="openPgDetail('techliteracy')" class="btn btn-gold btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="digital"><img class="prog-card-img" alt="Graphic Design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-BNdKxgyNAQEiZ0LRBHMR4ODZWRVW9hs87PYwufFez8kK_LNuKjBbd_0dxg5clDlikmoWEP-3o3TNSYAdQb9qJh4c4iMLlg1ZClP050KwF5xgFjZIO9MZwztU1YI2nnLTGiQ6BwPllnc3uilMsYQopM3EQHhErJdW2SU1ryIe5hLeVDVQijFf8nqmle_Lk3RT3z8fUVpJCSLBC0xL_QFZ0XJpEMW5sfDQgmW4e7_SswRAAJWTveOJeaJSll5mxGZYxyuAu3I0GM"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-digital">Digital</span><h4 class="text-gold">Graphic Design</h4><p>Canva, Photoshop, brand identity, typography, and visual communication.</p><button onclick="openPgDetail('graphicdesign')" class="btn btn-gold btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <!-- CREATIVE -->
+        <div class="pg-card glass-card" data-category="creative"><img class="prog-card-img" alt="Music" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-BNdKxgyNAQEiZ0LRBHMR4ODZWRVW9hs87PYwufFez8kK_LNuKjBbd_0dxg5clDlikmoWEP-3o3TNSYAdQb9qJh4c4iMLlg1ZClP050KwF5xgFjZIO9MZwztU1YI2nnLTGiQ6BwPllnc3uilMsYQopM3EQHhErJdW2SU1ryIe5hLeVDVQijFf8nqmle_Lk3RT3z8fUVpJCSLBC0xL_QFZ0XJpEMW5sfDQgmW4e7_SswRAAJWTveOJeaJSll5mxGZYxyuAu3I0GM"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-creative">Creative</span><h4>Music</h4><p>Theory, instrument basics, vocals, and music production fundamentals.</p><button onclick="openPgDetail('music')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="creative"><img class="prog-card-img" alt="Creative Arts" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-BNdKxgyNAQEiZ0LRBHMR4ODZWRVW9hs87PYwufFez8kK_LNuKjBbd_0dxg5clDlikmoWEP-3o3TNSYAdQb9qJh4c4iMLlg1ZClP050KwF5xgFjZIO9MZwztU1YI2nnLTGiQ6BwPllnc3uilMsYQopM3EQHhErJdW2SU1ryIe5hLeVDVQijFf8nqmle_Lk3RT3z8fUVpJCSLBC0xL_QFZ0XJpEMW5sfDQgmW4e7_SswRAAJWTveOJeaJSll5mxGZYxyuAu3I0GM"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-creative">Creative</span><h4>Creative Arts</h4><p>Drawing, painting, crafts, and visual storytelling for all skill levels.</p><button onclick="openPgDetail('creativearts')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="creative"><img class="prog-card-img" alt="Digital Art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-BNdKxgyNAQEiZ0LRBHMR4ODZWRVW9hs87PYwufFez8kK_LNuKjBbd_0dxg5clDlikmoWEP-3o3TNSYAdQb9qJh4c4iMLlg1ZClP050KwF5xgFjZIO9MZwztU1YI2nnLTGiQ6BwPllnc3uilMsYQopM3EQHhErJdW2SU1ryIe5hLeVDVQijFf8nqmle_Lk3RT3z8fUVpJCSLBC0xL_QFZ0XJpEMW5sfDQgmW4e7_SswRAAJWTveOJeaJSll5mxGZYxyuAu3I0GM"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-creative">Creative</span><h4>Digital Art</h4><p>Professional illustrations, animations, and digital paintings.</p><button onclick="openPgDetail('digitalart')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <!-- EXAM PREP -->
+        <div class="pg-card glass-card" data-category="exam"><img class="prog-card-img" alt="WAEC" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr0MQRQMKga1qzRrHrJ5MsNyj3AMY8pAM533TnS503ehh2vxfsaAjPEks3OVRKZcqGf8XdaS8Cg6m8usHBA-VC69Z46O5IGkk96J_fT59WwUU7hd2wJ2_x7DMiqRAFHvXafPjXaxlbNF-flPRUYoH61upj-Re9ynN4HQk3oVS-yJPAmJh4HmYGCoaSX8yhtoCp_44XGJ9KHyqGon2J9trjUie1DGGroo_Rj8QxQ6INAI_CW1R7YqPCtKt9WNCl9hmbBu_rqFspGaI"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-exam">Exam Prep</span><h4>WAEC Preparation</h4><p>Targeted past-question drills and full subject coverage for WAEC success.</p><button onclick="openPgDetail('waec')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="exam"><img class="prog-card-img" alt="NECO" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJS0-73R4xLDLmcr7XAd9eimrltxMNxiT1HwmCoBivt60H50_0CATMWdgniYrg-kOT9p9CxCzKD5HyVLq5mmBNEcCouLlNx-FwkxzsBZ5X-cJxEveOdKLoR3QNERaLyc-GtCk0ouERUelLpwwdVZC9wcKh2bQb6E07or24UfydRyFXU9Xkf5-I-XAQcHfR0sFZuC_KhYVh8lrUEBEKX_ypMlmk7ODd_yp0gb3V3GlMcOJpc14ub1UvyW9cp8OzNnaSsROR-fUpBTg"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-exam">Exam Prep</span><h4>NECO Preparation</h4><p>Comprehensive revision for all NECO subjects with full mock exams.</p><button onclick="openPgDetail('neco')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="exam"><img class="prog-card-img" alt="JAMB" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr0MQRQMKga1qzRrHrJ5MsNyj3AMY8pAM533TnS503ehh2vxfsaAjPEks3OVRKZcqGf8XdaS8Cg6m8usHBA-VC69Z46O5IGkk96J_fT59WwUU7hd2wJ2_x7DMiqRAFHvXafPjXaxlbNF-flPRUYoH61upj-Re9ynN4HQk3oVS-yJPAmJh4HmYGCoaSX8yhtoCp_44XGJ9KHyqGon2J9trjUie1DGGroo_Rj8QxQ6INAI_CW1R7YqPCtKt9WNCl9hmbBu_rqFspGaI"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-exam">Exam Prep</span><h4>JAMB / UTME</h4><p>Score 280+ in JAMB with intensive CBT practice and 4-subject coaching.</p><button onclick="openPgDetail('jamb')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+        <div class="pg-card glass-card" data-category="exam"><img class="prog-card-img" alt="School Exam" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJS0-73R4xLDLmcr7XAd9eimrltxMNxiT1HwmCoBivt60H50_0CATMWdgniYrg-kOT9p9CxCzKD5HyVLq5mmBNEcCouLlNx-FwkxzsBZ5X-cJxEveOdKLoR3QNERaLyc-GtCk0ouERUelLpwwdVZC9wcKh2bQb6E07or24UfydRyFXU9Xkf5-I-XAQcHfR0sFZuC_KhYVh8lrUEBEKX_ypMlmk7ODd_yp0gb3V3GlMcOJpc14ub1UvyW9cp8OzNnaSsROR-fUpBTg"/><div class="prog-card-overlay"><div class="prog-card-panel"><span class="cat-badge badge-exam">Exam Prep</span><h4>School Exam Support</h4><p>Tailored support for terminal school exams, tests, and assessments.</p><button onclick="openPgDetail('schoolexam')" class="btn btn-primary btn-full btn-sm" style="border-radius:.5rem">Explore Course</button></div></div></div>
+      </div>
+
+      <p id="pgNoResults">No programs in this category yet. More coming soon!</p>
+    </div>
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div id="pgDetailView" style="display:none;" class="programs-page-enter">
+    <div class="container py-10">
+
+      <button onclick="backToPgGrid()" class="pg-back-btn mb-8" style="margin-bottom:2rem">
+        <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Back to All Programs
+      </button>
+
+      <div class="filter-scroll mb-8">
+        <div class="filter-bar" id="detailTabBar">
+          <button class="detail-tab active" data-tab="science-detail">Science</button>
+          <button class="detail-tab" data-tab="academics-detail">Academics</button>
+          <button class="detail-tab" data-tab="commercial-detail">Commercial</button>
+          <button class="detail-tab" data-tab="digital-detail">Digital Skills</button>
+          <button class="detail-tab" data-tab="creative-detail">Creative</button>
+          <button class="detail-tab" data-tab="exam-detail">Exam Prep</button>
         </div>
-    </section>
+      </div>
 
-    <!-- ── PROGRAMS / TIMELINE ─────────────────────────────────── -->
-    <section id="programs">
-        <div class="section-header fade-in">
-            <span class="section-eyebrow">Learning Journey</span>
-            <h2 class="section-title">Our Program Path</h2>
-            <p class="section-subtitle">A structured approach to mastering technology from Entry Level to Pro Developer</p>
-            <div class="section-divider"></div>
+      <!-- SCIENCE PANEL -->
+      <div class="detail-panel active" id="science-detail">
+        <!-- Mathematics -->
+        <div class="glass-card detail-block rounded-xl" id="mathematics-block">
+          <div class="detail-block-inner">
+            <div class="detail-info">
+              <div class="block-title"><i data-lucide="divide" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Mathematics</h3></div>
+              <p>A structured track from foundational arithmetic through to advanced calculus.</p>
+              <h4 class="skills-label">Skills Students Learn</h4>
+              <div class="skills-grid">
+                <div class="skill-item"><span class="check">✓</span>Number &amp; Algebra</div>
+                <div class="skill-item"><span class="check">✓</span>Geometry &amp; Trigonometry</div>
+                <div class="skill-item"><span class="check">✓</span>Statistics &amp; Probability</div>
+                <div class="skill-item"><span class="check">✓</span>Calculus &amp; Further Maths</div>
+                <div class="skill-item"><span class="check">✓</span>Past-question drills</div>
+                <div class="skill-item"><span class="check">✓</span>Speed &amp; accuracy techniques</div>
+              </div>
+              <h4 class="skills-label">Session Structure</h4>
+              <p class="text-muted text-sm">1-on-1 or small group (max 5). 90-minute sessions. Weekly assignments + monthly progress report.</p>
+            </div>
+            <div class="detail-pricing">
+              <h4>Pricing Options</h4>
+              <div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-sessions">8 sessions / month</div><div class="plan-price">₦25,000<span>/mo</span></div></div>
+              <div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-sessions">12 sessions / month</div><div class="plan-price">₦35,000<span>/mo</span></div></div>
+              <button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button>
+            </div>
+          </div>
         </div>
-        <div class="timeline">
-            <div class="timeline-item fade-in">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span>First Level</span>
-                    <h4>Entry Level</h4>
-                    <p>A perfect introduction to computers and digital basics.<br><br><strong>Features:</strong><br>• Basic Computer Operations<br>• Typing Skills & Digital Confidence<br>• Creative Digital Activities<br>• Introductory Logic Games</p>
-                </div>
+        <!-- Physics -->
+        <div class="glass-card detail-block rounded-xl" id="physics-block">
+          <div class="detail-block-inner">
+            <div class="detail-info">
+              <div class="block-title"><i data-lucide="atom" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Physics</h3></div>
+              <p>From Newtonian mechanics to modern physics. Theory and calculations for WAEC, NECO, and JAMB.</p>
+              <h4 class="skills-label">Skills Students Learn</h4>
+              <div class="skills-grid">
+                <div class="skill-item"><span class="check">✓</span>Mechanics &amp; motion</div>
+                <div class="skill-item"><span class="check">✓</span>Electricity &amp; magnetism</div>
+                <div class="skill-item"><span class="check">✓</span>Waves &amp; optics</div>
+                <div class="skill-item"><span class="check">✓</span>Thermodynamics</div>
+                <div class="skill-item"><span class="check">✓</span>Nuclear &amp; modern physics</div>
+                <div class="skill-item"><span class="check">✓</span>Lab-style calculations</div>
+              </div>
             </div>
-            <div class="timeline-item fade-in">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span>Second Level</span>
-                    <h4>Beginners Program</h4>
-                    <p>A gentle and fun start into tech creativity.<br><br><strong>Features:</strong><br>• Mini Graphics Designing<br>• Whispers of Artificial Intelligence<br>• Creative Thinking Sessions<br>• Prompt Engineering and Building</p>
-                </div>
+            <div class="detail-pricing">
+              <h4>Pricing Options</h4>
+              <div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦25,000<span>/mo</span></div></div>
+              <div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦35,000<span>/mo</span></div></div>
+              <button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button>
             </div>
-            <div class="timeline-item fade-in">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span>Third Level</span>
-                    <h4>Pre-Developers</h4>
-                    <p>Builds problem-solving and basic coding foundations.<br><br><strong>Features:</strong><br>• Core Problem-Solving Drills<br>• Foundational Coding Concepts<br>• Mini Games & Logic Activities<br>• Vibe Coding with Claude Introduction</p>
-                </div>
-            </div>
-            <div class="timeline-item fade-in">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span>Fourth Level</span>
-                    <h4>Developers Program</h4>
-                    <p>Fun coding experiences that build real skills.<br><br><strong>Features:</strong><br>• Intermediate Coding Concepts<br>• Introduction to HTML & CSS<br>• Game-Based Programming<br>• Portfolio-Building Projects 1<br>• Full-Website Vibe Coding (Landing Pages)<br>• Interactive Practical Projects</p>
-                </div>
-            </div>
-            <div class="timeline-item fade-in">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span>Fifth Level</span>
-                    <h4>UI Developers</h4>
-                    <p>Learn digital design & user interface concepts.<br><br><strong>Features:</strong><br>• UI/UX Design Introduction<br>• User Interface Layout Creation<br>• Introduction to JavaScript Essentials<br>• Web-Portals Creation<br>• Backend Facilitation with Firebase<br>• Simple Visual Design Projects<br>• Portfolio-Building Projects 2</p>
-                </div>
-            </div>
-            <div class="timeline-item fade-in">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span>Sixth Level</span>
-                    <h4>Pro Developers</h4>
-                    <p>Advanced coding for real clients and real projects.<br><br><strong>Features:</strong><br>• Industry-Level Coding Training<br>• Real-Time User & Client Project Simulation<br>• Advanced Tools & Frameworks<br>• Portfolio-Building Projects 3</p>
-                </div>
-            </div>
+          </div>
         </div>
-        <div class="cta-buttons" style="margin-top:3rem;">
-            <a href="pages/features/digital-literacy-packages.html" class="cta-button">
-                <span>Explore Pricing</span>
-            </a>
+        <!-- Chemistry -->
+        <div class="glass-card detail-block rounded-xl" id="chemistry-block">
+          <div class="detail-block-inner">
+            <div class="detail-info">
+              <div class="block-title"><i data-lucide="test-tube" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Chemistry</h3></div>
+              <p>Physical, Organic, and Inorganic chemistry. Balance equations, understand reactions, interpret chemical data.</p>
+              <div class="skills-grid">
+                <div class="skill-item"><span class="check">✓</span>Atomic structure &amp; bonding</div>
+                <div class="skill-item"><span class="check">✓</span>Stoichiometry &amp; equations</div>
+                <div class="skill-item"><span class="check">✓</span>Organic chemistry basics</div>
+                <div class="skill-item"><span class="check">✓</span>Acids, bases &amp; salts</div>
+              </div>
+            </div>
+            <div class="detail-pricing">
+              <div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦25,000<span>/mo</span></div></div>
+              <div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦35,000<span>/mo</span></div></div>
+              <button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button>
+            </div>
+          </div>
         </div>
-    </section>
-
-    <!-- ── TESTIMONIALS ────────────────────────────────────────── -->
-    <section id="testimonials" class="full-bg" style="padding:5rem 5%;">
-        <div style="max-width:1400px;margin:0 auto;">
-        <div class="section-header fade-in">
-            <span class="section-eyebrow">Success Stories</span>
-            <h2 class="section-title">What Parents & Students Say</h2>
-            <p class="section-subtitle">Real experiences from our amazing community of learners</p>
-            <div class="section-divider"></div>
+        <!-- Biology -->
+        <div class="glass-card detail-block rounded-xl" id="biology-block">
+          <div class="detail-block-inner">
+            <div class="detail-info">
+              <div class="block-title"><i data-lucide="leaf" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Biology</h3></div>
+              <p>Cell biology to complex ecosystems. Ideal for students aiming for medicine, nursing, or science degrees.</p>
+              <div class="skills-grid">
+                <div class="skill-item"><span class="check">✓</span>Cell biology &amp; reproduction</div>
+                <div class="skill-item"><span class="check">✓</span>Human anatomy &amp; physiology</div>
+                <div class="skill-item"><span class="check">✓</span>Genetics &amp; heredity</div>
+                <div class="skill-item"><span class="check">✓</span>Ecology &amp; environment</div>
+              </div>
+            </div>
+            <div class="detail-pricing">
+              <div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦25,000<span>/mo</span></div></div>
+              <div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦35,000<span>/mo</span></div></div>
+              <button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button>
+            </div>
+          </div>
         </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card fade-in">
-                <p class="testimonial-text">My daughter went from zero coding knowledge to building her own games in just 3 months! The instructors are patient, knowledgeable, and truly care about the kids' progress.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">A</div>
-                    <div class="author-info"><h5>Adebayo Johnson</h5><p>Parent — Lagos</p></div>
-                </div>
-            </div>
-            <div class="testimonial-card fade-in">
-                <p class="testimonial-text">I love learning to code here! The classes are so fun and I made my first website. Now I want to become a software developer when I grow up!</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">C</div>
-                    <div class="author-info"><h5>Chioma Okafor</h5><p>Student — Age 12</p></div>
-                </div>
-            </div>
-            <div class="testimonial-card fade-in">
-                <p class="testimonial-text">Every step of the way has been fun and great to learn. I hated coding but then, CMJ made me love it later on. Thank you CMJ! 💖</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">B</div>
-                    <div class="author-info"><h5>Bisola Davidson</h5><p>Student — Age 15</p></div>
-                </div>
-            </div>
-            <div class="testimonial-card fade-in">
-                <p class="testimonial-text">Best investment in my son's education. He's now confident, creative, and always excited about his next coding project. CMJ is exceptional!</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">O</div>
-                    <div class="author-info"><h5>Oluwaseun Balogun</h5><p>Parent — Abuja</p></div>
-                </div>
-            </div>
+      </div>
+
+      <!-- ACADEMICS PANEL -->
+      <div class="detail-panel" id="academics-detail">
+        <div class="glass-card detail-block rounded-xl" id="english-block">
+          <div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="book-open" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>English Language</h3></div><p>Grammar, comprehension, essay writing, oral English, and vocabulary for SS and WAEC/NECO levels.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Grammar &amp; structure</div><div class="skill-item"><span class="check">✓</span>Essay &amp; letter writing</div><div class="skill-item"><span class="check">✓</span>Oral English &amp; phonetics</div><div class="skill-item"><span class="check">✓</span>Lexis &amp; exam technique</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦22,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦30,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div>
         </div>
+        <div class="glass-card detail-block rounded-xl" id="literature-block">
+          <div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="scroll" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Literature in English</h3></div><p>Prose, drama, and poetry — developing analytical writing and critical interpretation.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Prose analysis</div><div class="skill-item"><span class="check">✓</span>Poetry appreciation</div><div class="skill-item"><span class="check">✓</span>Drama &amp; character study</div><div class="skill-item"><span class="check">✓</span>Critical essay writing</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦20,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div>
         </div>
-    </section>
-
-    <!-- ── CONTACT ─────────────────────────────────────────────── -->
-    <section id="contact">
-        <div class="section-header fade-in">
-            <span class="section-eyebrow">Get In Touch</span>
-            <h2 class="section-title">Start Your Child's Coding Journey</h2>
-            <p class="section-subtitle">Ready to transform your child's future? Contact us today!</p>
-            <div class="section-divider"></div>
+        <div class="glass-card detail-block rounded-xl" id="government-block">
+          <div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="landmark" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Government</h3></div><p>Nigerian government, constitutionalism, and comparative politics.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Constitutions &amp; federalism</div><div class="skill-item"><span class="check">✓</span>Nigerian political history</div><div class="skill-item"><span class="check">✓</span>Electoral systems</div><div class="skill-item"><span class="check">✓</span>International organisations</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦20,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div>
         </div>
-        <div class="contact-container">
-            <div class="contact-info-card fade-in">
-                <h3>Contact Information</h3>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    </div>
-                    <div style="flex:1;">
-                        <h4>Phone</h4>
-                        <p style="margin-bottom:.8rem;">+234 9136518194</p>
-                        <a href="https://wa.me/2349136518194" target="_blank" class="contact-btn whatsapp-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                            Message Us
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    </div>
-                    <div style="flex:1;">
-                        <h4>Email</h4>
-                        <p style="margin-bottom:.8rem;">johnrufai242@gmail.com</p>
-                        <a href="mailto:johnrufai242@gmail.com?subject=Inquiry%20from%20Website&body=Hello%20JAYSTARBLISS%20STUDIOS,%0D%0A%0D%0AI%20would%20like%20to%20inquire%20about..." class="contact-btn email-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                            Email Us
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                    </div>
-                    <div style="flex:1;">
-                        <h4>Location</h4>
-                        <p style="margin-bottom:.8rem;">No 3 Komolafe Street, Lagos, Nigeria</p>
-                        <a href="https://maps.app.goo.gl/iiqvdu7zv3IiQtJoB" target="_blank" class="contact-btn location-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                            View on Map
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-form-card fade-in">
-                <div class="form-card-header">
-                    <div class="form-card-dot"></div>
-                    <span class="form-card-title">Secure Transmission</span>
-                </div>
-                <form id="contactForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" required placeholder="Enter your name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" name="email" required placeholder="Enter your email here...">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required placeholder="Enter title of your message">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required placeholder="Begin transmission..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn" id="submitBtn">Send Transmission</button>
-                </form>
-            </div>
+        <div class="glass-card detail-block rounded-xl" id="crs-block">
+          <div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="cross" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>CRS</h3></div><p>Old and New Testament studies, Christian ethics, church history, and values aligned with WAEC/NECO.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Old &amp; New Testament</div><div class="skill-item"><span class="check">✓</span>Biblical geography</div><div class="skill-item"><span class="check">✓</span>Christian ethics</div><div class="skill-item"><span class="check">✓</span>Essay exam technique</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦18,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦25,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div>
         </div>
-    </section>
+      </div>
 
-    <!-- ── FOOTER ──────────────────────────────────────────────── -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">Jaystarbliss Dynamic Hub</div>
-            <p class="footer-text">Empowering Young Minds Through Technology</p>
-            <div class="social-links">
-                <a href="#" aria-label="Facebook">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </a>
-                <a href="#" aria-label="Twitter/X">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
-                </a>
-                <a href="#" aria-label="Instagram">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
-                </a>
-                <a href="#" aria-label="LinkedIn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </a>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 JAYSTARBLISS STUDIOS. All Systems Secured.</p>
-            </div>
-        </div>
-    </footer>
+      <!-- COMMERCIAL PANEL -->
+      <div class="detail-panel" id="commercial-detail">
+        <div class="glass-card detail-block rounded-xl" id="accounting-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="receipt" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>Accounting</h3></div><p>Bookkeeping to financial statements. Prepare accounts, analyse transactions, and pass commercial exams.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Double-entry bookkeeping</div><div class="skill-item"><span class="check">✓</span>Trial balance &amp; ledgers</div><div class="skill-item"><span class="check">✓</span>Income statements</div><div class="skill-item"><span class="check">✓</span>WAEC accounting format</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦25,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦35,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="commerce-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="store" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>Commerce</h3></div><p>Trade, business organisation, and commerce in the Nigerian and global economy.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Home &amp; foreign trade</div><div class="skill-item"><span class="check">✓</span>Business ownership types</div><div class="skill-item"><span class="check">✓</span>Banking &amp; insurance</div><div class="skill-item"><span class="check">✓</span>Transport &amp; warehousing</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦20,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="marketing-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="megaphone" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>Marketing</h3></div><p>Branding, advertising, consumer behaviour, and market research for commercial students.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Marketing mix (4Ps)</div><div class="skill-item"><span class="check">✓</span>Market research</div><div class="skill-item"><span class="check">✓</span>Advertising &amp; promotion</div><div class="skill-item"><span class="check">✓</span>Consumer behaviour</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦20,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+      </div>
 
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
-        <i class="sun-icon" data-lucide="sun" style="width:24px;height:24px;"></i>
-        <i class="moon-icon" style="display:none;" data-lucide="moon" style="width:24px;height:24px;"></i>
-    </button>
+      <!-- DIGITAL PANEL -->
+      <div class="detail-panel" id="digital-detail">
+        <div class="glass-card detail-block rounded-xl" id="programming-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="code-2" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>Programming</h3></div><p>Python and JavaScript for beginners to intermediate. Real projects every month.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Python fundamentals</div><div class="skill-item"><span class="check">✓</span>JavaScript &amp; DOM</div><div class="skill-item"><span class="check">✓</span>Loops, functions &amp; logic</div><div class="skill-item"><span class="check">✓</span>Mini-project building</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦30,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦42,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="webdev-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="globe" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>Web Development</h3></div><p>Full front-end to full-stack. Students launch a live personal website before the course ends.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>HTML5 &amp; CSS3</div><div class="skill-item"><span class="check">✓</span>Responsive design</div><div class="skill-item"><span class="check">✓</span>Tailwind / Bootstrap</div><div class="skill-item"><span class="check">✓</span>Hosting &amp; deployment</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦32,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦45,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="aitools-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="bot" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>AI Tools</h3></div><p>ChatGPT, Gemini, and modern AI for productivity and business. No coding required.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>ChatGPT &amp; Gemini mastery</div><div class="skill-item"><span class="check">✓</span>Prompt engineering</div><div class="skill-item"><span class="check">✓</span>AI image generation</div><div class="skill-item"><span class="check">✓</span>AI for business &amp; writing</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦38,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="techliteracy-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="monitor" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>Tech Literacy</h3></div><p>For beginners wanting confidence with computers, smartphones, and the internet.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>MS Office suite</div><div class="skill-item"><span class="check">✓</span>Internet safety &amp; email</div><div class="skill-item"><span class="check">✓</span>Google Workspace</div><div class="skill-item"><span class="check">✓</span>File &amp; cloud management</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦20,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="graphicdesign-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="palette" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>Graphic Design</h3></div><p>Professional visual design using industry tools. Start a design career or build brand identity skills.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Canva &amp; Adobe basics</div><div class="skill-item"><span class="check">✓</span>Typography &amp; colour theory</div><div class="skill-item"><span class="check">✓</span>Logo &amp; brand design</div><div class="skill-item"><span class="check">✓</span>Social media graphics</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦38,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+      </div>
 
-    <!-- ── ALL ORIGINAL SCRIPTS PRESERVED ─────────────────────── -->
-    <script>
-        // Theme
-        const themeToggle = document.getElementById('themeToggle');
-        const sunIcon = document.querySelector('.sun-icon');
-        const moonIcon = document.querySelector('.moon-icon');
-        const html = document.documentElement;
+      <!-- CREATIVE PANEL -->
+      <div class="detail-panel" id="creative-detail">
+        <div class="glass-card detail-block rounded-xl" id="music-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="music" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Music</h3></div><p>Theory, instrument basics, vocal training, and intro to music production.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Music theory &amp; notation</div><div class="skill-item"><span class="check">✓</span>Keyboard / guitar basics</div><div class="skill-item"><span class="check">✓</span>Vocal technique</div><div class="skill-item"><span class="check">✓</span>Music production intro</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦25,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦35,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="creativearts-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="image" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Creative Arts</h3></div><p>Drawing, painting, sculpting, and mixed-media for all ages. Projects exhibited every quarter.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Sketching &amp; perspective</div><div class="skill-item"><span class="check">✓</span>Painting techniques</div><div class="skill-item"><span class="check">✓</span>Mixed media &amp; crafts</div><div class="skill-item"><span class="check">✓</span>Visual storytelling</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦22,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦30,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="digitalart-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="pen-tool" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Digital Art</h3></div><p>Professional illustrations, animations, and digital paintings. Tablet recommended.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Digital illustration</div><div class="skill-item"><span class="check">✓</span>Colour &amp; lighting</div><div class="skill-item"><span class="check">✓</span>Character &amp; asset design</div><div class="skill-item"><span class="check">✓</span>Animation basics</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦38,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+      </div>
 
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        html.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
+      <!-- EXAM PANEL -->
+      <div class="detail-panel" id="exam-detail">
+        <div class="glass-card detail-block rounded-xl" id="waec-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="clipboard-list" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>WAEC Preparation</h3></div><p>Intensive WAEC prep. Fortnightly mock exams and personalised feedback reports.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Full WAEC syllabus</div><div class="skill-item"><span class="check">✓</span>Past questions (10 yrs)</div><div class="skill-item"><span class="check">✓</span>Fortnightly mock exams</div><div class="skill-item"><span class="check">✓</span>Up to 5 subjects per plan</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">Standard (3 subjects)</div><div class="plan-price">₦40,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">Full Blast (5 subjects)</div><div class="plan-price">₦60,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="neco-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="clipboard" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>NECO Preparation</h3></div><p>Targeted NECO revision with weekly tests and full mock examinations.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>NECO syllabus deep-dive</div><div class="skill-item"><span class="check">✓</span>Past questions bank</div><div class="skill-item"><span class="check">✓</span>Weekly assessments</div><div class="skill-item"><span class="check">✓</span>Full mock paper sets</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">Standard (3 subjects)</div><div class="plan-price">₦38,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">Full Blast (5 subjects)</div><div class="plan-price">₦55,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="jamb-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="graduation-cap" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>JAMB / UTME Prep</h3></div><p>Score 280+ in JAMB. Daily CBT practice, speed drills, and 4-subject intensive coaching.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>4-subject intensive coaching</div><div class="skill-item"><span class="check">✓</span>Daily CBT timed practice</div><div class="skill-item"><span class="check">✓</span>10-year past question bank</div><div class="skill-item"><span class="check">✓</span>Use of English mastery</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">Standard</div><div class="plan-price">₦35,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">Intensive (daily)</div><div class="plan-price">₦55,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="schoolexam-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="school" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>School Exam Support</h3></div><p>Flexible support for end-of-term, mock, or promotional exams. Custom to your school's syllabus.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Syllabus-aligned revision</div><div class="skill-item"><span class="check">✓</span>Flexible scheduling</div><div class="skill-item"><span class="check">✓</span>School-specific past papers</div><div class="skill-item"><span class="check">✓</span>Exam anxiety coaching</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">Per Subject</div><div class="plan-price">₦18,000<span>/cycle</span></div></div><div class="price-pill"><div class="plan-name">Full Bundle (4 subjects)</div><div class="plan-price">₦60,000<span>/cycle</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+      </div>
 
-        themeToggle.addEventListener('click', () => {
-            const cur = html.getAttribute('data-theme');
-            const next = cur === 'light' ? 'dark' : 'light';
-            html.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
-            updateThemeIcon(next);
-        });
+      <div style="text-align:center;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)">
+        <button onclick="backToPgGrid()" class="btn btn-ghost" style="padding:.75rem 1.75rem">
+          <i data-lucide="arrow-left" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:.25rem"></i>
+          Back to All Programs
+        </button>
+      </div>
+    </div>
+  </div>
 
-        function updateThemeIcon(theme) {
-            if (theme === 'dark') {
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-            } else {
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
-            }
-        }
+</div><!-- /programsPage -->
 
-        // Mobile menu
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.getElementById('nav-links');
-        const body = document.body;
 
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            body.classList.toggle('menu-open');
-            const spans = mobileMenu.querySelectorAll('span');
-            if (navLinks.classList.contains('active')) {
-                spans[0].style.transform = 'rotate(45deg) translateY(8px)';
-                spans[1].style.opacity = '0';
-                spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
-            } else {
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-            }
-        });
+<!-- ══════════════════════════════════
+     GALAXY ENGINE
+══════════════════════════════════ -->
+<script>
+(function () {
+  const container = document.getElementById('galaxyContainer');
+  if (!container) return;
+  const canvas = document.getElementById('trailCanvas');
+  const ctx    = canvas.getContext('2d');
 
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                body.classList.remove('menu-open');
-                const spans = mobileMenu.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-            });
-        });
+  const BASE = {
+    inner1: { a:200, b:90,  tilt:  Math.PI/3 },
+    inner2: { a:200, b:90,  tilt: -Math.PI/3 },
+    outer:  { a:260, b:120, tilt:  0          },
+  };
+  const PLANETS = [
+    { id:'planet-math',     orbit:'inner1', phase:0,             speed: 0.65, r:220,g:55,b:20,  trailLen:160, headW:8  },
+    { id:'planet-science',  orbit:'inner1', phase:Math.PI,       speed: 0.65, r:220,g:55,b:20,  trailLen:160, headW:8  },
+    { id:'planet-lang',     orbit:'inner2', phase:Math.PI*0.5,   speed:-0.50, r:220,g:55,b:20,  trailLen:140, headW:8  },
+    { id:'planet-code',     orbit:'outer',  phase:0,             speed: 0.32, r:255,g:215,b:0,  trailLen:180, headW:9  },
+    { id:'planet-tech',     orbit:'outer',  phase:Math.PI,       speed: 0.32, r:255,g:215,b:0,  trailLen:180, headW:9  },
+    { id:'planet-creative', orbit:'outer',  phase:Math.PI*(2/3), speed: 0.32, r:255,g:215,b:0,  trailLen:180, headW:9  },
+  ];
+  const trails = PLANETS.map(() => []);
+  const angles  = PLANETS.map(p => p.phase);
+  const DESIGN_H = 600;
+  let gs = 1;
 
-        // Active nav on scroll
-        const sections = document.querySelectorAll('section');
-        const navLinksItems = document.querySelectorAll('.nav-links a');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-            navLinksItems.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') && link.getAttribute('href').slice(1) === current) {
-                    link.classList.add('active');
-                }
-            });
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+  const r1 = document.querySelector('.path-inner-1');
+  const r2 = document.querySelector('.path-inner-2');
+  const ro = document.querySelector('.path-outer');
 
-        // Fade-in on scroll
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, observerOptions);
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  function syncRings() {
+    r1.style.transform = `rotate(60deg)  scale(${gs})`;
+    r2.style.transform = `rotate(-60deg) scale(${gs})`;
+    ro.style.transform = `rotate(0deg)   scale(${gs})`;
+  }
+  function syncCanvas() {
+    canvas.width  = container.offsetWidth;
+    canvas.height = container.offsetHeight;
+    gs = Math.min(container.offsetHeight/DESIGN_H, container.offsetWidth/560);
+    gs = Math.max(0.35, Math.min(gs, 1));
+    syncRings();
+    trails.forEach(t => t.length = 0);
+  }
+  syncCanvas();
+  new ResizeObserver(syncCanvas).observe(container);
 
-        // Contact form
-        const contactForm = document.getElementById('contactForm');
-        const submitBtn = document.getElementById('submitBtn');
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Transmitting...';
-            const formData = new FormData(contactForm);
-            const data = {
-                name:    formData.get('name'),
-                email:   formData.get('email'),
-                subject: formData.get('subject'),
-                message: formData.get('message')
-            };
-            try {
-                const response = await fetch('https://formsubmit.co/ajax/johnrufai242@gmail.com', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({ ...data, _subject: `New Contact: ${data.subject}`, _template: 'table' })
-                });
-                if (response.ok) {
-                    showNotification('success', 'Transmission sent! We\'ll get back to you soon.');
-                    contactForm.reset();
-                } else { throw new Error('Failed to send'); }
-            } catch (error) {
-                showNotification('error', 'Transmission failed. Please email us directly at johnrufai242@gmail.com');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Transmission';
-            }
-        });
+  function orbitXY(key, angle) {
+    const {a,b,tilt} = BASE[key];
+    const ct=Math.cos(tilt),st=Math.sin(tilt),ca=Math.cos(angle),sa=Math.sin(angle);
+    return { x:(a*ca*ct-b*sa*st)*gs, y:(a*ca*st+b*sa*ct)*gs };
+  }
 
-        function showNotification(type, message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `position:fixed;top:100px;right:20px;background:${type==='success'?'linear-gradient(135deg,#10b981,#059669)':'linear-gradient(135deg,#ef4444,#dc2626)'};color:white;padding:1.5rem 2rem;border-radius:0;box-shadow:0 10px 40px rgba(0,0,0,0.4);z-index:10000;animation:slideInRight 0.4s ease;max-width:400px;font-weight:500;font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.05em;border-left:3px solid rgba(255,255,255,0.4);`;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.4s ease';
-                setTimeout(() => notification.remove(), 400);
-            }, 4000);
-        }
+  function drawComet(pts, r, g, b, baseHeadW) {
+    const n = pts.length; if (n<3) return;
+    const headW = baseHeadW*gs;
+    const perp = [];
+    for (let i=0;i<n-1;i++) {
+      const dx=pts[i+1].x-pts[i].x, dy=pts[i+1].y-pts[i].y;
+      const len=Math.sqrt(dx*dx+dy*dy)||1;
+      perp.push({x:-dy/len,y:dx/len});
+    }
+    perp.push(perp[perp.length-1]);
+    const lx=[],ly=[],rx=[],ry=[];
+    for (let i=0;i<n;i++) {
+      const t=i/(n-1), w=headW*t*t;
+      lx.push(pts[i].x+perp[i].x*w); ly.push(pts[i].y+perp[i].y*w);
+      rx.push(pts[i].x-perp[i].x*w); ry.push(pts[i].y-perp[i].y*w);
+    }
+    const tail=pts[0], head=pts[n-1];
+    const grad=ctx.createLinearGradient(tail.x,tail.y,head.x,head.y);
+    grad.addColorStop(0,`rgba(${r},${g},${b},0)`);
+    grad.addColorStop(0.5,`rgba(${r},${g},${b},0.35)`);
+    grad.addColorStop(1,`rgba(${r},${g},${b},0.90)`);
+    ctx.beginPath(); ctx.moveTo(lx[0],ly[0]);
+    for(let i=1;i<n;i++) ctx.lineTo(lx[i],ly[i]);
+    for(let i=n-1;i>=0;i--) ctx.lineTo(rx[i],ry[i]);
+    ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
+    const hx=head.x, hy=head.y, nubR=headW*2.2;
+    const nub=ctx.createRadialGradient(hx,hy,0,hx,hy,nubR);
+    nub.addColorStop(0,'rgba(255,255,255,0.95)');
+    nub.addColorStop(0.3,`rgba(${r},${g},${b},0.75)`);
+    nub.addColorStop(1,`rgba(${r},${g},${b},0)`);
+    ctx.beginPath(); ctx.arc(hx,hy,nubR,0,Math.PI*2);
+    ctx.fillStyle=nub; ctx.fill();
+  }
 
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight { from{transform:translateX(400px);opacity:0} to{transform:translateX(0);opacity:1} }
-            @keyframes slideOutRight { from{transform:translateX(0);opacity:1} to{transform:translateX(400px);opacity:0} }
-        `;
-        document.head.appendChild(style);
+  let lastTs=null;
+  function tick(ts) {
+    if(!lastTs) lastTs=ts;
+    const dt=Math.min((ts-lastTs)/1000,0.05); lastTs=ts;
+    const W=canvas.width, H=canvas.height, cx=W/2, cy=H/2;
+    ctx.clearRect(0,0,W,H);
+    PLANETS.forEach((p,i) => {
+      angles[i]+=p.speed*dt;
+      const {x,y}=orbitXY(p.orbit,angles[i]);
+      const ax=cx+x, ay=cy+y;
+      trails[i].push({x:ax,y:ay});
+      if(trails[i].length>p.trailLen) trails[i].shift();
+      drawComet(trails[i],p.r,p.g,p.b,p.headW);
+      const el=document.getElementById(p.id);
+      if(el){ el.style.left=ax+'px'; el.style.top=ay+'px'; }
+    });
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-    </script>
 
-    <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"EducationalOrganization","name":"JAYSTARBLISS DYNAMIC HUB","alternateName":"JAYSTARBLISS STUDIOS","url":"https://jaystarbliss-studios.name.ng","logo":"https://i.ibb.co/pB2P9qJq/favicon.png","description":"Tech education and coding classes for children, offering Scratch programming, AI coding, web development, and STEM education in Lagos, Nigeria","address":{"@type":"PostalAddress","streetAddress":"No 3 Komolafe Street","addressLocality":"Lagos","addressCountry":"NG"},"contactPoint":{"@type":"ContactPoint","telephone":"+234-913-651-8194","contactType":"Customer Service","email":"johnrufai242@gmail.com","availableLanguage":"English"},"sameAs":["https://wa.me/2349136518194"],"priceRange":"$$","areaServed":{"@type":"City","name":"Lagos"},"audience":{"@type":"EducationalAudience","educationalRole":"student","audienceType":"Children ages 6-17"}}
-    </script>
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1cb8aad0f3974f5c9b4ddcb0ec52e7a2"}'></script>
-    <script>lucide.createIcons();</script>
+<!-- ══════════════════════════════════
+     INTERACTION ENGINE
+══════════════════════════════════ -->
+<script>
+/* ── Hamburger ─────────────────────────────── */
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileNav    = document.getElementById('mobileNav');
+
+hamburgerBtn.addEventListener('click', () => {
+  hamburgerBtn.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+});
+
+function closeMobileNav() {
+  hamburgerBtn.classList.remove('open');
+  mobileNav.classList.remove('open');
+}
+
+/* ── Theme toggle ───────────────────────────── */
+function toggleTheme() {
+  const html = document.documentElement;
+  const icon = document.getElementById('themeIcon');
+  const isDark = html.classList.contains('dark');
+  if (isDark) {
+    html.classList.remove('dark');
+    localStorage.setItem('jdh-theme','light');
+    if (icon) { icon.setAttribute('data-lucide','sun'); lucide.createIcons(); }
+  } else {
+    html.classList.add('dark');
+    localStorage.setItem('jdh-theme','dark');
+    if (icon) { icon.setAttribute('data-lucide','moon'); lucide.createIcons(); }
+  }
+}
+
+/* ── SPA navigation ─────────────────────────── */
+function showPage(page, target) {
+  const main = document.getElementById('mainContent');
+  const pg   = document.getElementById('programsPage');
+  const grid = document.getElementById('pgGridView');
+  const det  = document.getElementById('pgDetailView');
+
+  if (page === 'home') {
+    main.style.display = '';
+    pg.style.display   = 'none';
+    window.scrollTo({top:0, behavior:'smooth'});
+  } else {
+    main.style.display = 'none';
+    pg.style.display   = 'block';
+    document.querySelectorAll('#pgFilterBar .filter-btn').forEach(b => b.classList.remove('active'));
+    const allBtn = document.querySelector('#pgFilterBar .filter-btn[data-filter="all"]');
+    if (allBtn) allBtn.classList.add('active');
+    document.querySelectorAll('.pg-card').forEach(c => c.classList.remove('hidden-card'));
+
+    if (target) {
+      grid.style.display = 'none';
+      det.style.display  = 'block';
+      det.classList.add('programs-page-enter');
+      openDetailTab(target);
+      window.scrollTo({top:0, behavior:'instant'});
+      setTimeout(() => {
+        const block = document.getElementById(target+'-block');
+        if (block) block.scrollIntoView({behavior:'smooth', block:'center'});
+      }, 300);
+    } else {
+      grid.style.display = 'block';
+      det.style.display  = 'none';
+      window.scrollTo({top:0, behavior:'instant'});
+    }
+  }
+}
+
+/* ── Filter bar ─────────────────────────────── */
+document.querySelectorAll('#pgFilterBar .filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#pgFilterBar .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    let visible = 0;
+    document.querySelectorAll('.pg-card').forEach(card => {
+      const match = filter === 'all' || card.dataset.category === filter;
+      card.classList.toggle('hidden-card', !match);
+      if (match) visible++;
+    });
+    const noResults = document.getElementById('pgNoResults');
+    if (noResults) noResults.style.display = visible > 0 ? 'none' : 'block';
+  });
+});
+
+/* ── Block-to-tab map ───────────────────────── */
+const BLOCK_TO_TAB = {
+  mathematics:'science-detail',physics:'science-detail',chemistry:'science-detail',biology:'science-detail',
+  english:'academics-detail',literature:'academics-detail',government:'academics-detail',crs:'academics-detail',
+  accounting:'commercial-detail',commerce:'commercial-detail',marketing:'commercial-detail',
+  programming:'digital-detail',webdev:'digital-detail',aitools:'digital-detail',techliteracy:'digital-detail',graphicdesign:'digital-detail',
+  music:'creative-detail',creativearts:'creative-detail',digitalart:'creative-detail',
+  waec:'exam-detail',neco:'exam-detail',jamb:'exam-detail',schoolexam:'exam-detail',
+};
+const BLOCK_NAMES = {
+  mathematics:'Mathematics',physics:'Physics',chemistry:'Chemistry',biology:'Biology',
+  english:'English',literature:'Literature',government:'Government',crs:'CRS',
+  accounting:'Accounting',commerce:'Commerce',marketing:'Marketing',
+  programming:'Programming',webdev:'Web Dev',aitools:'AI Tools',techliteracy:'Tech Literacy',graphicdesign:'Graphic Design',
+  music:'Music',creativearts:'Creative Arts',digitalart:'Digital Art',
+  waec:'WAEC',neco:'NECO',jamb:'JAMB',schoolexam:'School Exams',
+};
+
+function openDetailTab(target) {
+  const tabId = BLOCK_TO_TAB[target] || 'science-detail';
+  document.querySelectorAll('#detailTabBar .detail-tab').forEach(t => t.classList.toggle('active', t.dataset.tab===tabId));
+  document.querySelectorAll('.detail-panel').forEach(p => p.classList.toggle('active', p.id===tabId));
+  document.getElementById('pgBreadcrumb').textContent = BLOCK_NAMES[target] || 'Program Details';
+}
+
+function openPgDetail(target) {
+  const grid = document.getElementById('pgGridView');
+  const det  = document.getElementById('pgDetailView');
+  grid.style.display = 'none';
+  det.style.display  = 'block';
+  det.classList.remove('programs-page-enter');
+  void det.offsetWidth;
+  det.classList.add('programs-page-enter');
+  openDetailTab(target);
+  window.scrollTo({top:0, behavior:'instant'});
+  setTimeout(() => {
+    const block = document.getElementById(target+'-block');
+    if (block) block.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 250);
+}
+
+function backToPgGrid() {
+  document.getElementById('pgGridView').style.display  = 'block';
+  document.getElementById('pgDetailView').style.display = 'none';
+  document.getElementById('pgBreadcrumb').textContent   = 'Programs';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ── Detail tab clicks ──────────────────────── */
+document.querySelectorAll('#detailTabBar .detail-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const tabId = tab.dataset.tab;
+    document.querySelectorAll('#detailTabBar .detail-tab').forEach(t => t.classList.toggle('active', t.dataset.tab===tabId));
+    document.querySelectorAll('.detail-panel').forEach(p => p.classList.toggle('active', p.id===tabId));
+  });
+});
+
+/* ── Lucide init ────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+  else window.addEventListener('load', () => lucide.createIcons());
+  if (!document.documentElement.classList.contains('dark')) {
+    const icon = document.getElementById('themeIcon');
+    if (icon) { icon.setAttribute('data-lucide','sun'); lucide.createIcons(); }
+  }
+});
+</script>
+
 </body>
 </html>

@@ -896,8 +896,6 @@ body::before {
     html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
     localStorage.setItem('jdh-theme', html.dataset.theme);
   };
-  var saved = localStorage.getItem('jdh-theme');
-  if (saved) document.documentElement.dataset.theme = saved;
 
   function togglePw(id) {
     var inp = document.getElementById(id);
@@ -971,8 +969,9 @@ body::before {
 
   const REDIRECTS = {
     admin:  '../dashboard/admin-dashboard.html',
-    school: '../dashboard/student-portal.html?type=school',
+    school: '../dashboard/school-portal.html?type=school',
     staff:  '../dashboard/staff-portal.html',
+    parent: '../dashboard/parent-portal.html',
   };
 
   function showMsg(id, text, type) {
@@ -1015,7 +1014,7 @@ body::before {
       sessionStorage.setItem('userEmail', email);
       sessionStorage.setItem('userId',    cred.user.uid);
       if (userData.name) sessionStorage.setItem('staffName', userData.name);
-      window.location.href = REDIRECTS[role] || '../dashboard/student-portal.html';
+      window.location.href = REDIRECTS[role] || '../dashboard/school-portal.html';
     } catch(e) {
       var msg = 'Invalid credentials. Please try again.';
       if (e.message && (e.message.includes('role') || e.message.includes('code'))) msg = e.message;
@@ -1061,7 +1060,7 @@ body::before {
       sessionStorage.setItem('studentId',       sdoc.id);
       sessionStorage.setItem('studentName',     sdata.fullName || sdata.username);
       sessionStorage.setItem('studentUsername', sdata.username);
-      window.location.href = '../dashboard/student-personal-portal.html';
+      window.location.href = '../dashboard/student-portal.html';
     } catch(e) {
       showMsg('err-student', e.message || 'Login failed.', 'error');
       setBtnLoading('btn-student', false);

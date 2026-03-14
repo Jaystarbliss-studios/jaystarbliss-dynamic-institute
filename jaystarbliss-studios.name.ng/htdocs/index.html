@@ -409,6 +409,11 @@ html:not(.dark) #themeToggle:hover { background: rgba(0,0,0,0.06); }
   50%      { box-shadow: 0 0 45px rgba(171,26,13,0.8); transform: scale(1.08); }
 }
 
+/* ── NEW: banner animation keyframes ───────── */
+@keyframes pglow  { 0%,100%{opacity:.45;filter:blur(100px)} 50%{opacity:.8;filter:blur(130px)} }
+@keyframes pfloat { 0%,100%{transform:translateY(0)}        50%{transform:translateY(-12px)} }
+@keyframes pping  { 0%{transform:scale(1);opacity:1} 70%,100%{transform:scale(2.2);opacity:0} }
+
 .galaxy-container {
   height: clamp(280px, 52vw, 580px);
   display: flex; align-items: center; justify-content: center;
@@ -440,8 +445,9 @@ html:not(.dark) .orbit-path { border-color: rgba(0,0,0,0.1); }
   background: var(--primary); border-radius: 50%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   overflow: hidden; color: #fff; font-weight: 800;
-  font-size: clamp(7px,1vw,9px); z-index: 100; cursor: pointer; flex-shrink: 0;
+  font-size: clamp(7px,1vw,9px); cursor: pointer; flex-shrink: 0;
   animation: pulse-glow 3s infinite;
+  z-index: 10;
 }
 
 .planet-node {
@@ -525,8 +531,6 @@ html:not(.dark) .stakeholder-node { background: #ede8e6; border-color: rgba(0,0,
   font-size: 2.5rem; margin-bottom: 1rem; display: block;
 }
 
-
-
 /* ═══════════════════════════════════════════
    HOW IT WORKS STEPS
 ═══════════════════════════════════════════ */
@@ -588,7 +592,7 @@ html:not(.dark) .prog-card-panel p  { color: #4a3a38 !important; }
 .prog-card-panel h4 { font-size: 1rem; margin-bottom: 0.25rem; color: #fff; }
 @media (min-width: 640px) { .prog-card-panel h4 { font-size: 1.1rem; } }
 .prog-card-panel p  { font-size: 0.75rem; color: #cbd5e1; margin-bottom: 0.75rem;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-clamp: 2; }
 
 .cat-badge {
   display: inline-block; padding: 2px 9px; border-radius: 9999px;
@@ -850,7 +854,6 @@ html:not(.dark) .price-pill {
 
 /* ═══════════════════════════════════════════
    OBSIDIAN SECTION OVERRIDES
-   (always-dark sections — keep gold/white readable)
 ═══════════════════════════════════════════ */
 .section-dark .text-gold,
 .section-dark h4.text-gold { color: #FFD700 !important; }
@@ -901,7 +904,7 @@ html:not(.dark) .price-pill {
         <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme">
           <i data-lucide="moon" id="themeIcon" style="width:16px;height:16px;"></i>
         </button>
-        <button class="btn btn-outline btn-sm" style="border-radius:0.75rem">Login</button>
+        <a href="pages/auth/login.html" class="btn btn-outline btn-sm" style="border-radius:0.75rem">Login</a>
         <button class="btn btn-gold btn-sm" style="display:none;border-radius:0.75rem" id="navStartLearning">Start Learning</button>
         <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
           <span></span><span></span><span></span>
@@ -919,7 +922,7 @@ html:not(.dark) .price-pill {
   <a href="#" onclick="closeMobileNav()">About</a>
   <a href="#" onclick="closeMobileNav()">Contact</a>
   <div class="mobile-nav-cta">
-    <button class="btn btn-outline btn-sm" style="flex:1;border-radius:0.75rem">Login</button>
+    <a href="pages/auth/login.html" class="btn btn-outline btn-sm" style="flex:1;border-radius:0.75rem">Login</a>
     <button class="btn btn-gold btn-sm" style="flex:1;border-radius:0.75rem">Start Learning</button>
   </div>
 </div>
@@ -950,19 +953,19 @@ html:not(.dark) .price-pill {
           <div class="orbit-path path-outer"></div>
 
           <div class="stakeholder-group" id="stakeholder-group">
-            <div class="stakeholder-node" onclick="window.location='/auth/login.html'">
+            <div class="stakeholder-node" onclick="window.location='pages/auth/login.html'">
               <i data-lucide="users"   class="text-gold" style="width:16px;height:16px;"></i>
               <span>Parents</span>
             </div>
-            <div class="stakeholder-node" onclick="window.location='/auth/login.html'">
+            <div class="stakeholder-node" onclick="window.location='pages/auth/login.html'">
               <i data-lucide="user"    class="text-gold" style="width:16px;height:16px;"></i>
               <span>Students</span>
             </div>
-            <div class="stakeholder-node" onclick="window.location='/auth/login.html'">
+            <div class="stakeholder-node" onclick="window.location='pages/auth/login.html'">
               <i data-lucide="users-2" class="text-gold" style="width:16px;height:16px;"></i>
               <span>Staff</span>
             </div>
-            <div class="stakeholder-node" onclick="window.location='/auth/login.html'">
+            <div class="stakeholder-node" onclick="window.location='pages/auth/login.html'">
               <i data-lucide="school"  class="text-gold" style="width:16px;height:16px;"></i>
               <span>Schools</span>
             </div>
@@ -1119,6 +1122,77 @@ html:not(.dark) .price-pill {
         See More Programs
         <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span>
       </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     PROGRAMMING HUB BANNER
+     (between Featured Programs & Tutor)
+══════════════════════════════════ -->
+<section style="padding:0 0 4rem;">
+  <div class="container">
+    <div id="progHubBanner" style="position:relative;border-radius:2rem;overflow:hidden;min-height:480px;display:flex;align-items:center;border:1px solid rgba(255,255,255,0.08);box-shadow:0 30px 80px rgba(0,0,0,0.6);">
+
+      <!-- Background image -->
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8gb8fUzoo94uJ3Udwoke43v8r5wNSNY6d6n2Q9fZ7CQQ7m2fPI_L13Cl853z114gcsATY27wNDfgNccI_gpa3BrXolNZV8Cw7d2MkQW-h0sG_BqYVGugLDrer6KJZnt6R2W9ZHo8UjV2Fpq45hzYF84T123Z3wnrfIk9yJEgsv1JVu89HRCCTE6e83D0IJXfels_S8nYzTjpyWl5sr_n_2RHUK-KC4PwdSXuItunAvw9GIYbat3jHEnhXB9w1L6BVBtb-g3p7lrY"
+           alt="" id="bannerBgImg"
+           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;transition:transform 1.2s ease;pointer-events:none;"/>
+      <!-- Gradient overlay -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,#0A0A0B 0%,rgba(10,10,11,0.88) 50%,rgba(10,10,11,0.3) 100%);pointer-events:none;"></div>
+
+      <!-- Red glow blob -->
+      <div style="position:absolute;top:-6rem;left:-6rem;width:28rem;height:28rem;background:rgba(171,26,13,0.22);border-radius:50%;filter:blur(100px);animation:pglow 4s ease-in-out infinite;pointer-events:none;"></div>
+      <!-- Gold glow blob -->
+      <div style="position:absolute;bottom:-5rem;right:5rem;width:18rem;height:18rem;background:rgba(255,215,0,0.07);border-radius:50%;filter:blur(80px);pointer-events:none;"></div>
+
+      <!-- Content -->
+      <div style="position:relative;z-index:10;padding:3rem 2.5rem;width:100%;display:flex;align-items:center;justify-content:space-between;gap:3rem;flex-wrap:wrap;">
+
+        <!-- Left copy -->
+        <div style="flex:1;min-width:280px;max-width:580px;">
+
+          <!-- Ping badge -->
+          <div style="display:inline-flex;align-items:center;gap:.6rem;padding:.45rem 1.1rem;border-radius:9999px;background:rgba(171,26,13,0.12);border:1px solid rgba(171,26,13,0.35);margin-bottom:1.5rem;">
+            <span style="position:relative;display:inline-flex;width:10px;height:10px;">
+              <span style="position:absolute;inset:0;border-radius:50%;background:var(--primary);animation:pping 1.4s cubic-bezier(0,0,.2,1) infinite;"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:var(--primary);display:inline-block;"></span>
+            </span>
+            <span style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);">Dedicated Programming Platform</span>
+          </div>
+
+          <h2 style="font-size:clamp(1.9rem,4.5vw,3.5rem);font-weight:900;line-height:1.1;color:#fff;margin-bottom:1.25rem;">
+            Code, Build &amp; Ship at the<br/>
+            <span style="color:var(--gold-display);">Jaystarbliss<br/>Programming Hub</span>
+          </h2>
+
+          <p style="color:#d1d5db;font-size:clamp(.9rem,1.7vw,1.1rem);line-height:1.75;margin-bottom:2rem;max-width:38rem;">
+            Our dedicated programming website goes deeper — full courses in Python, JavaScript, Web Dev, and AI with live project environments and hands-on challenges.
+          </p>
+
+          <a href="programming.html"
+             style="display:inline-flex;align-items:center;gap:.6rem;padding:1rem 2.25rem;background:linear-gradient(135deg,var(--primary) 0%,#b83500 100%);color:#fff;font-weight:700;font-size:1rem;border-radius:1rem;text-decoration:none;box-shadow:0 10px 40px rgba(171,26,13,0.35);transition:transform .2s,box-shadow .2s;"
+             onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 14px 50px rgba(171,26,13,0.5)'"
+             onmouseout="this.style.transform='';this.style.boxShadow='0 10px 40px rgba(171,26,13,0.35)'">
+            Visit Programming Hub
+            <i data-lucide="arrow-right" style="width:18px;height:18px;flex-shrink:0;"></i>
+          </a>
+        </div>
+
+        <!-- Right icon composition (shown on wide screens via JS) -->
+        <div style="flex-shrink:0;position:relative;display:none;" id="bannerIconComp">
+          <div style="padding:3.5rem;background:rgba(45,30,27,0.65);backdrop-filter:blur(16px);border:1px solid rgba(255,215,0,0.18);border-radius:3rem;animation:pfloat 3s ease-in-out infinite;">
+            <i data-lucide="code-2" style="width:9rem;height:9rem;color:var(--gold-display);filter:drop-shadow(0 0 32px rgba(255,215,0,0.55));display:block;"></i>
+          </div>
+          <div style="position:absolute;top:0;right:-1.5rem;transform:translate(50%,-50%);padding:.85rem;background:rgba(34,18,16,0.85);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:1rem;">
+            <i data-lucide="cpu" style="width:2rem;height:2rem;color:var(--primary);display:block;"></i>
+          </div>
+          <div style="position:absolute;bottom:2.5rem;left:-1.5rem;transform:translateX(-50%);padding:.85rem;background:rgba(34,18,16,0.85);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:1rem;">
+            <i data-lucide="database" style="width:2rem;height:2rem;color:#e2e8f0;display:block;"></i>
+          </div>
+        </div>
+
+      </div><!-- /content -->
     </div>
   </div>
 </section>
@@ -1339,7 +1413,6 @@ html:not(.dark) .price-pill {
 
       <!-- SCIENCE PANEL -->
       <div class="detail-panel active" id="science-detail">
-        <!-- Mathematics -->
         <div class="glass-card detail-block rounded-xl" id="mathematics-block">
           <div class="detail-block-inner">
             <div class="detail-info">
@@ -1365,7 +1438,6 @@ html:not(.dark) .price-pill {
             </div>
           </div>
         </div>
-        <!-- Physics -->
         <div class="glass-card detail-block rounded-xl" id="physics-block">
           <div class="detail-block-inner">
             <div class="detail-info">
@@ -1389,7 +1461,6 @@ html:not(.dark) .price-pill {
             </div>
           </div>
         </div>
-        <!-- Chemistry -->
         <div class="glass-card detail-block rounded-xl" id="chemistry-block">
           <div class="detail-block-inner">
             <div class="detail-info">
@@ -1409,7 +1480,6 @@ html:not(.dark) .price-pill {
             </div>
           </div>
         </div>
-        <!-- Biology -->
         <div class="glass-card detail-block rounded-xl" id="biology-block">
           <div class="detail-block-inner">
             <div class="detail-info">
@@ -1433,18 +1503,10 @@ html:not(.dark) .price-pill {
 
       <!-- ACADEMICS PANEL -->
       <div class="detail-panel" id="academics-detail">
-        <div class="glass-card detail-block rounded-xl" id="english-block">
-          <div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="book-open" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>English Language</h3></div><p>Grammar, comprehension, essay writing, oral English, and vocabulary for SS and WAEC/NECO levels.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Grammar &amp; structure</div><div class="skill-item"><span class="check">✓</span>Essay &amp; letter writing</div><div class="skill-item"><span class="check">✓</span>Oral English &amp; phonetics</div><div class="skill-item"><span class="check">✓</span>Lexis &amp; exam technique</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦22,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦30,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div>
-        </div>
-        <div class="glass-card detail-block rounded-xl" id="literature-block">
-          <div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="scroll" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Literature in English</h3></div><p>Prose, drama, and poetry — developing analytical writing and critical interpretation.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Prose analysis</div><div class="skill-item"><span class="check">✓</span>Poetry appreciation</div><div class="skill-item"><span class="check">✓</span>Drama &amp; character study</div><div class="skill-item"><span class="check">✓</span>Critical essay writing</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦20,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div>
-        </div>
-        <div class="glass-card detail-block rounded-xl" id="government-block">
-          <div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="landmark" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Government</h3></div><p>Nigerian government, constitutionalism, and comparative politics.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Constitutions &amp; federalism</div><div class="skill-item"><span class="check">✓</span>Nigerian political history</div><div class="skill-item"><span class="check">✓</span>Electoral systems</div><div class="skill-item"><span class="check">✓</span>International organisations</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦20,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div>
-        </div>
-        <div class="glass-card detail-block rounded-xl" id="crs-block">
-          <div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="cross" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>CRS</h3></div><p>Old and New Testament studies, Christian ethics, church history, and values aligned with WAEC/NECO.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Old &amp; New Testament</div><div class="skill-item"><span class="check">✓</span>Biblical geography</div><div class="skill-item"><span class="check">✓</span>Christian ethics</div><div class="skill-item"><span class="check">✓</span>Essay exam technique</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦18,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦25,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div>
-        </div>
+        <div class="glass-card detail-block rounded-xl" id="english-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="book-open" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>English Language</h3></div><p>Grammar, comprehension, essay writing, oral English, and vocabulary for SS and WAEC/NECO levels.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Grammar &amp; structure</div><div class="skill-item"><span class="check">✓</span>Essay &amp; letter writing</div><div class="skill-item"><span class="check">✓</span>Oral English &amp; phonetics</div><div class="skill-item"><span class="check">✓</span>Lexis &amp; exam technique</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦22,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦30,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="literature-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="scroll" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Literature in English</h3></div><p>Prose, drama, and poetry — developing analytical writing and critical interpretation.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Prose analysis</div><div class="skill-item"><span class="check">✓</span>Poetry appreciation</div><div class="skill-item"><span class="check">✓</span>Drama &amp; character study</div><div class="skill-item"><span class="check">✓</span>Critical essay writing</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦20,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="government-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="landmark" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>Government</h3></div><p>Nigerian government, constitutionalism, and comparative politics.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Constitutions &amp; federalism</div><div class="skill-item"><span class="check">✓</span>Nigerian political history</div><div class="skill-item"><span class="check">✓</span>Electoral systems</div><div class="skill-item"><span class="check">✓</span>International organisations</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦20,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
+        <div class="glass-card detail-block rounded-xl" id="crs-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="cross" style="width:28px;height:28px;color:var(--primary);flex-shrink:0;"></i><h3>CRS</h3></div><p>Old and New Testament studies, Christian ethics, church history, and values aligned with WAEC/NECO.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Old &amp; New Testament</div><div class="skill-item"><span class="check">✓</span>Biblical geography</div><div class="skill-item"><span class="check">✓</span>Christian ethics</div><div class="skill-item"><span class="check">✓</span>Essay exam technique</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦18,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦25,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
       </div>
 
       <!-- COMMERCIAL PANEL -->
@@ -1456,6 +1518,27 @@ html:not(.dark) .price-pill {
 
       <!-- DIGITAL PANEL -->
       <div class="detail-panel" id="digital-detail">
+
+        <!-- ══ PROGRAMMING SITE PROMO STRIP ══ -->
+        <div style="margin-bottom:2rem;position:relative;border-radius:1.25rem;overflow:hidden;padding:1.5rem 1.75rem;display:flex;flex-wrap:wrap;align-items:center;gap:1.25rem;background:linear-gradient(135deg,var(--primary) 0%,#c44a00 50%,#b8900a 100%);box-shadow:0 8px 32px rgba(171,26,13,0.35);">
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,0.12);pointer-events:none;"></div>
+          <div style="position:relative;z-index:1;flex-shrink:0;padding:.75rem;background:rgba(255,255,255,0.12);border-radius:.875rem;">
+            <i data-lucide="terminal" style="width:2rem;height:2rem;color:#fff;display:block;"></i>
+          </div>
+          <div style="position:relative;z-index:1;flex:1;min-width:180px;">
+            <p style="font-weight:700;font-size:1rem;color:#fff;margin-bottom:.25rem;">Want the full programming experience?</p>
+            <p style="font-size:.825rem;color:rgba(255,255,255,0.88);margin:0;line-height:1.5;">Our dedicated platform has deeper courses, live projects, and coding challenges for all levels.</p>
+          </div>
+          <a href="programming.html"
+             style="position:relative;z-index:1;flex-shrink:0;display:inline-flex;align-items:center;gap:.45rem;padding:.75rem 1.5rem;background:#fff;color:#1a0a08;font-weight:700;font-size:.875rem;border-radius:.875rem;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,0.25);transition:transform .2s;"
+             onmouseover="this.style.transform='scale(1.05)'"
+             onmouseout="this.style.transform=''">
+            <i data-lucide="external-link" style="width:14px;height:14px;flex-shrink:0;"></i>
+            Go to Programming Site
+          </a>
+        </div>
+        <!-- ══ END PROMO STRIP ══ -->
+
         <div class="glass-card detail-block rounded-xl" id="programming-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="code-2" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>Programming</h3></div><p>Python and JavaScript for beginners to intermediate. Real projects every month.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>Python fundamentals</div><div class="skill-item"><span class="check">✓</span>JavaScript &amp; DOM</div><div class="skill-item"><span class="check">✓</span>Loops, functions &amp; logic</div><div class="skill-item"><span class="check">✓</span>Mini-project building</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦30,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦42,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
         <div class="glass-card detail-block rounded-xl" id="webdev-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="globe" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>Web Development</h3></div><p>Full front-end to full-stack. Students launch a live personal website before the course ends.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>HTML5 &amp; CSS3</div><div class="skill-item"><span class="check">✓</span>Responsive design</div><div class="skill-item"><span class="check">✓</span>Tailwind / Bootstrap</div><div class="skill-item"><span class="check">✓</span>Hosting &amp; deployment</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦32,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦45,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
         <div class="glass-card detail-block rounded-xl" id="aitools-block"><div class="detail-block-inner"><div class="detail-info"><div class="block-title"><i data-lucide="bot" style="width:28px;height:28px;color:var(--gold-display);flex-shrink:0;"></i><h3>AI Tools</h3></div><p>ChatGPT, Gemini, and modern AI for productivity and business. No coding required.</p><div class="skills-grid"><div class="skill-item"><span class="check">✓</span>ChatGPT &amp; Gemini mastery</div><div class="skill-item"><span class="check">✓</span>Prompt engineering</div><div class="skill-item"><span class="check">✓</span>AI image generation</div><div class="skill-item"><span class="check">✓</span>AI for business &amp; writing</div></div></div><div class="detail-pricing"><div class="price-pill"><div class="plan-name">2× per week</div><div class="plan-price">₦28,000<span>/mo</span></div></div><div class="price-pill"><div class="plan-name">3× per week</div><div class="plan-price">₦38,000<span>/mo</span></div></div><button class="btn btn-primary btn-full" style="margin-top:.5rem">Enroll Now</button></div></div></div>
@@ -1755,6 +1838,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (icon) { icon.setAttribute('data-lucide','sun'); lucide.createIcons(); }
   }
 });
+
+/* ── Banner: icon composition on wide screens, zoom on hover ── */
+(function(){
+  var comp = document.getElementById('bannerIconComp');
+  var bg   = document.getElementById('bannerBgImg');
+  function checkWidth(){ if(comp) comp.style.display = window.innerWidth >= 960 ? 'block' : 'none'; }
+  checkWidth();
+  window.addEventListener('resize', checkWidth);
+  if(bg){
+    var wrap = document.getElementById('progHubBanner');
+    wrap.addEventListener('mouseenter', function(){ bg.style.transform='scale(1.06)'; });
+    wrap.addEventListener('mouseleave', function(){ bg.style.transform=''; });
+  }
+})();
 </script>
 
 </body>

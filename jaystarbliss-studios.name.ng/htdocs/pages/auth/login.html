@@ -439,11 +439,15 @@ body::before {
 }
 .back-link {
   font-family:var(--mono);font-size:0.58rem;
-  color:var(--dim);text-decoration:none;
+  color:var(--text);text-decoration:none;
   display:flex;align-items:center;gap:0.35rem;
   transition:color 0.15s;
 }
-.back-link:hover { color:var(--gold); }
+.back-link:hover { color:var(--gold);
+                   background-color: #8b0909b6;
+                   padding: 6px;
+                   border-radius: 10px;
+                    }
 .theme-btn {
   width:28px;height:28px;
   background:var(--surface);border:1px solid var(--border);
@@ -872,10 +876,16 @@ body::before {
     </div><!-- /form-body -->
 
     <!-- CARD FOOTER — FIX 1: sticky bottom, always visible -->
+  
     <div class="form-foot">
       <a href="../../index.html" class="back-link">
         <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>
         Main Site
+      </a>
+
+      <a href="../../programming.html" class="back-link">
+        <i data-lucide="arrow-up" style="width:14px;height:14px;"></i>
+        Programming Site
       </a>
       <div style="display:flex;align-items:center;gap:0.5rem;">
         <span style="font-family:var(--mono);font-size:0.55rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.05em;">Build v4.2.0-α</span>
@@ -884,6 +894,8 @@ body::before {
         </button>
       </div>
     </div>
+
+    
 
   </div><!-- /form-panel -->
 </div><!-- /card -->

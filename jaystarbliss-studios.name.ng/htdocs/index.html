@@ -854,12 +854,53 @@ html:not(.dark) .price-pill {
 
 /* ═══════════════════════════════════════════
    OBSIDIAN SECTION OVERRIDES
+   Always-dark sections must force light text
+   regardless of the page's light/dark theme
 ═══════════════════════════════════════════ */
+.section-dark                  { color: #f1f5f9; }  /* base — catches li, span, etc. */
+.section-dark h1,.section-dark h2,.section-dark h3 { color: #ffffff; }
+.section-dark h4:not(.text-gold) { color: #ffffff; }
+.section-dark p                { color: #94a3b8; }
+.section-dark li               { color: #e2e8f0; }
 .section-dark .text-gold,
-.section-dark h4.text-gold { color: #FFD700 !important; }
-.section-dark p  { color: #94a3b8; }
-.section-dark h2 { color: #fff; }
-.footer .text-gold { color: #FFD700 !important; }
+.section-dark h4.text-gold     { color: #FFD700 !important; }
+.section-dark .step-icon span  { color: var(--primary); } /* keep step icons crimson */
+.section-dark .checklist .icon { color: #FFD700; }        /* keep gold tick marks */
+.footer .text-gold             { color: #FFD700 !important; }
+
+/* ═══════════════════════════════════════════
+   PROGRAMMING HUB BANNER – RESPONSIVE
+═══════════════════════════════════════════ */
+.prog-hub-banner {
+  position: relative; border-radius: 1.25rem; overflow: hidden;
+  min-height: 320px; display: flex; align-items: center;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+}
+@media (min-width: 640px)  { .prog-hub-banner { border-radius: 1.75rem; min-height: 380px; } }
+@media (min-width: 1024px) { .prog-hub-banner { border-radius: 2rem;    min-height: 480px; } }
+
+.prog-hub-content {
+  position: relative; z-index: 10; width: 100%;
+  padding: 1.75rem 1.25rem;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+}
+@media (min-width: 640px)  { .prog-hub-content { padding: 2.25rem 2rem; } }
+@media (min-width: 1024px) { .prog-hub-content { padding: 3rem 2.5rem; } }
+
+.prog-hub-heading {
+  font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 1.25rem;
+  font-size: clamp(1.45rem, 5vw, 3.5rem);
+}
+
+/* ═══════════════════════════════════════════
+   DETAIL BLOCK – MOBILE PADDING FIX
+═══════════════════════════════════════════ */
+@media (max-width: 639px) {
+  .detail-block { padding: 1rem 0.875rem; }
+  .skills-grid  { grid-template-columns: 1fr; }
+}
 
 /* ═══════════════════════════════════════════
    DIVIDERS & MISC
@@ -905,7 +946,7 @@ html:not(.dark) .price-pill {
           <i data-lucide="moon" id="themeIcon" style="width:16px;height:16px;"></i>
         </button>
         <a href="pages/auth/login.html" class="btn btn-outline btn-sm" style="border-radius:0.75rem">Login</a>
-        <button class="btn btn-gold btn-sm" style="display:none;border-radius:0.75rem" id="navStartLearning">Start Learning</button>
+        <button class="btn btn-gold btn-sm" style="display:none;border-radius:0.75rem" id="navStartLearning">Register</button>
         <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
           <span></span><span></span><span></span>
         </button>
@@ -940,7 +981,7 @@ html:not(.dark) .price-pill {
         <h1>Join the Hub! <span class="text-primary">Learn</span> and <span class="text-gold">Grow</span></h1>
         <p>Connecting students, parents, and tutors on one dynamic platform for a personalized educational experience that adapts to your unique journey.</p>
         <div class="hero-btns">
-          <button class="btn btn-gold btn-lg">Start Learning</button>
+          <button class="btn btn-gold btn-lg">Register</button>
           <button class="btn btn-ghost btn-lg">Become a Tutor</button>
         </div>
       </div>
@@ -1132,7 +1173,7 @@ html:not(.dark) .price-pill {
 ══════════════════════════════════ -->
 <section style="padding:0 0 4rem;">
   <div class="container">
-    <div id="progHubBanner" style="position:relative;border-radius:2rem;overflow:hidden;min-height:480px;display:flex;align-items:center;border:1px solid rgba(255,255,255,0.08);box-shadow:0 30px 80px rgba(0,0,0,0.6);">
+    <div id="progHubBanner" class="prog-hub-banner">
 
       <!-- Background image -->
       <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8gb8fUzoo94uJ3Udwoke43v8r5wNSNY6d6n2Q9fZ7CQQ7m2fPI_L13Cl853z114gcsATY27wNDfgNccI_gpa3BrXolNZV8Cw7d2MkQW-h0sG_BqYVGugLDrer6KJZnt6R2W9ZHo8UjV2Fpq45hzYF84T123Z3wnrfIk9yJEgsv1JVu89HRCCTE6e83D0IJXfels_S8nYzTjpyWl5sr_n_2RHUK-KC4PwdSXuItunAvw9GIYbat3jHEnhXB9w1L6BVBtb-g3p7lrY"
@@ -1140,42 +1181,41 @@ html:not(.dark) .price-pill {
            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;transition:transform 1.2s ease;pointer-events:none;"/>
       <!-- Gradient overlay -->
       <div style="position:absolute;inset:0;background:linear-gradient(to right,#0A0A0B 0%,rgba(10,10,11,0.88) 50%,rgba(10,10,11,0.3) 100%);pointer-events:none;"></div>
-
       <!-- Red glow blob -->
       <div style="position:absolute;top:-6rem;left:-6rem;width:28rem;height:28rem;background:rgba(171,26,13,0.22);border-radius:50%;filter:blur(100px);animation:pglow 4s ease-in-out infinite;pointer-events:none;"></div>
       <!-- Gold glow blob -->
       <div style="position:absolute;bottom:-5rem;right:5rem;width:18rem;height:18rem;background:rgba(255,215,0,0.07);border-radius:50%;filter:blur(80px);pointer-events:none;"></div>
 
       <!-- Content -->
-      <div style="position:relative;z-index:10;padding:3rem 2.5rem;width:100%;display:flex;align-items:center;justify-content:space-between;gap:3rem;flex-wrap:wrap;">
+      <div class="prog-hub-content">
 
         <!-- Left copy -->
-        <div style="flex:1;min-width:280px;max-width:580px;">
+        <div style="flex:1;min-width:240px;max-width:580px;">
 
           <!-- Ping badge -->
-          <div style="display:inline-flex;align-items:center;gap:.6rem;padding:.45rem 1.1rem;border-radius:9999px;background:rgba(171,26,13,0.12);border:1px solid rgba(171,26,13,0.35);margin-bottom:1.5rem;">
-            <span style="position:relative;display:inline-flex;width:10px;height:10px;">
+          <div style="display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:9999px;background:rgba(171,26,13,0.12);border:1px solid rgba(171,26,13,0.35);margin-bottom:1.25rem;">
+            <span style="position:relative;display:inline-flex;width:9px;height:9px;">
               <span style="position:absolute;inset:0;border-radius:50%;background:var(--primary);animation:pping 1.4s cubic-bezier(0,0,.2,1) infinite;"></span>
-              <span style="width:10px;height:10px;border-radius:50%;background:var(--primary);display:inline-block;"></span>
+              <span style="width:9px;height:9px;border-radius:50%;background:var(--primary);display:inline-block;"></span>
             </span>
-            <span style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);">Dedicated Programming Platform</span>
+            <span style="font-size:.65rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--primary);">Dedicated Programming Platform</span>
           </div>
 
-          <h2 style="font-size:clamp(1.9rem,4.5vw,3.5rem);font-weight:900;line-height:1.1;color:#fff;margin-bottom:1.25rem;">
-            Code, Build &amp; Ship at the<br/>
-            <span style="color:var(--gold-display);">Jaystarbliss<br/>Programming Hub</span>
+          <h2 class="prog-hub-heading">
+            Learn to Code,<br/>
+            <span style="color:var(--gold-display);">Build &amp; Ship at the<br/>Programming Hub</span>
           </h2>
 
-          <p style="color:#d1d5db;font-size:clamp(.9rem,1.7vw,1.1rem);line-height:1.75;margin-bottom:2rem;max-width:38rem;">
+          <p style="color:#d1d5db;font-size:clamp(.85rem,1.6vw,1.05rem);line-height:1.75;margin-bottom:1.75rem;max-width:38rem;">
             Our dedicated programming website goes deeper — full courses in Python, JavaScript, Web Dev, and AI with live project environments and hands-on challenges.
           </p>
 
           <a href="programming.html"
-             style="display:inline-flex;align-items:center;gap:.6rem;padding:1rem 2.25rem;background:linear-gradient(135deg,var(--primary) 0%,#b83500 100%);color:#fff;font-weight:700;font-size:1rem;border-radius:1rem;text-decoration:none;box-shadow:0 10px 40px rgba(171,26,13,0.35);transition:transform .2s,box-shadow .2s;"
+             style="display:inline-flex;align-items:center;gap:.55rem;padding:.875rem 2rem;background:linear-gradient(135deg,var(--primary) 0%,#b83500 100%);color:#fff;font-weight:700;font-size:.95rem;border-radius:1rem;text-decoration:none;box-shadow:0 10px 40px rgba(171,26,13,0.35);transition:transform .2s,box-shadow .2s;"
              onmouseover="this.style.transform='scale(1.04)';this.style.boxShadow='0 14px 50px rgba(171,26,13,0.5)'"
              onmouseout="this.style.transform='';this.style.boxShadow='0 10px 40px rgba(171,26,13,0.35)'">
             Visit Programming Hub
-            <i data-lucide="arrow-right" style="width:18px;height:18px;flex-shrink:0;"></i>
+            <i data-lucide="arrow-right" style="width:17px;height:17px;flex-shrink:0;"></i>
           </a>
         </div>
 

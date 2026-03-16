@@ -1,0 +1,235 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ════════════════════════════════════════════════════
+    // HELPER FUNCTIONS
+    // FIX: consolidate to a single getUserRole() call so
+    // isAdmin() and isStaff() don't each fire separate
+    // exists() + get() reads, which stacked up under rapid
+    // consecutive writes and triggered permission denials.
+    // ════════════════════════════════════════════════════
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserRole() {
+      // Single exists() + get() shared by all role checks
+      return isAuthenticated() &&
+             exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role
+        : null;
+    }
+
+    function isAdmin() {
+      return getUserRole() == 'admin';
+    }
+
+    function isStaff() {
+      return getUserRole() == 'staff';
+    }
+
+    function isAdminOrStaff() {
+      // Uses one getUserRole() call rather than calling isAdmin() + isStaff() separately
+      let role = getUserRole();
+      return role == 'admin' || role == 'staff';
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // USERS
+    // ════════════════════════════════════════════════════
+    match /users/{userId} {
+      // Any authenticated user can read (needed for role verification)
+      allow read: if isAuthenticated();
+
+      // Only admin can create staff accounts
+      allow create: if isAuthenticated() &&
+                       exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+                       get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' &&
+                       request.resource.data.role == 'staff';
+
+      // Users can update their own data; admins can update any user
+      allow update: if isAuthenticated() &&
+                       (request.auth.uid == userId || isAdmin());
+
+      // Only admin can delete
+      allow delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // PENDING STAFF (staff creation workflow)
+    // ════════════════════════════════════════════════════
+    match /pendingStaff/{staffId} {
+      allow read, write, delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // SCHOOL ACCESS CODES
+    // ════════════════════════════════════════════════════
+    match /schools/{schoolId} {
+      allow read: if isAdminOrStaff();
+      allow write: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // SCHOOL EXAMS
+    // ════════════════════════════════════════════════════
+    match /schoolExams/{examId} {
+      allow read:         if true;
+      allow write, delete: if isAdminOrStaff();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // SCHOOL RESOURCES
+    // ════════════════════════════════════════════════════
+    match /schoolResources/{resourceId} {
+      allow read:         if true;
+      allow write, delete: if isAdminOrStaff();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // SCHOOL LINKS
+    // ════════════════════════════════════════════════════
+    match /schoolLinks/{linkId} {
+      allow read:         if true;
+      allow write, delete: if isAdminOrStaff();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // INDIVIDUAL STUDENTS
+    // ════════════════════════════════════════════════════
+    match /individualStudents/{studentId} {
+      allow read:         if isAdminOrStaff();
+      allow write, delete: if isAdminOrStaff();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // STAFF REGISTRATION
+    // ════════════════════════════════════════════════════
+    match /staffRegistration/{docId} {
+      allow read, write: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // PERSONAL RESOURCES (student-specific)
+    // ════════════════════════════════════════════════════
+    match /personalResources/{docId} {
+      allow read:         if true;
+      allow write, delete: if isAdminOrStaff();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // PERSONAL LINKS (student-specific)
+    // ════════════════════════════════════════════════════
+    match /personalLinks/{docId} {
+      allow read:         if true;
+      allow write, delete: if isAdminOrStaff();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // GENERAL RESOURCES
+    // ════════════════════════════════════════════════════
+    match /resources/{resourceId} {
+      allow read:         if true;
+      allow write, delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // GENERAL LINKS
+    // ════════════════════════════════════════════════════
+    match /links/{linkId} {
+      allow read:         if true;
+      allow write, delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // GENERAL EXAMS
+    // ════════════════════════════════════════════════════
+    match /exams/{examId} {
+      allow read:         if true;
+      allow write, delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // STAFF GENERAL RESOURCES
+    // ════════════════════════════════════════════════════
+    match /staffGeneralResources/{resourceId} {
+      allow read:         if isAdminOrStaff();
+      allow write, delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // STAFF SCHOOL ACCESS
+    // ════════════════════════════════════════════════════
+    match /staffSchoolAccess/{docId} {
+      allow read:  if isAdminOrStaff();
+      allow write: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // NOTIFICATIONS
+    // ════════════════════════════════════════════════════
+    match /notifications/{notificationId} {
+      allow read:         if true;
+      allow write, delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // NEWS CORNER (PUBLIC)
+    // FIX: admin update rule listed FIRST so it takes
+    // precedence; public view-increment rule is the fallback.
+    // ════════════════════════════════════════════════════
+    match /newsCorner/{newsId} {
+      // Anyone can read
+      allow read: if true;
+
+      // Admin can create and delete
+      allow create: if isAdmin();
+      allow delete: if isAdmin();
+
+      // Admin can update ANY fields (evaluated first)
+      allow update: if isAdmin();
+
+      // Public can ONLY increment the views counter (no other fields)
+      allow update: if !isAuthenticated() &&
+                       request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views']) &&
+                       request.resource.data.views == resource.data.views + 1;
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // ACTIVITY LOGS
+    // ════════════════════════════════════════════════════
+    match /activityLogs/{logId} {
+      allow read:  if isAdmin();
+      allow write: if isAuthenticated();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // DEFAULT DENY
+    // ════════════════════════════════════════════════════
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+  }
+}

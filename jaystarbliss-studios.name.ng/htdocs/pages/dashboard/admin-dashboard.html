@@ -3,40 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADMIN CONTROL</title>
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon.png">
-    <link rel="apple-touch-icon" href="../../assets/img/favicon.ico">
+<title>ADMIN CONTROL — JDH</title>
+<link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon.png">
+<link rel="apple-touch-icon" href="../../assets/img/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-<style>~
-/* ── CSS VARIABLES ── */
+<style>
+/* ══ CSS VARIABLES ══ */
 :root {
-  --crimson:#D93B22; --crimson-dark:#D93B22; --crimson-glow:rgba(217,59,34,0.4);
-  --obsidian:#050505; --surface:rgba(15,15,17,0.85); --surface-2:rgba(20,20,22,0.9);
+  --crimson:#D93B22; --crimson-dark:#b52e18; --crimson-glow:rgba(217,59,34,0.4);
+  --obsidian:#050505; --surface:rgba(15,15,17,0.9); --surface-2:rgba(20,20,22,0.92);
   --border:rgba(230,25,5,0.18); --border-bright:rgba(230,25,5,0.5);
   --text:#f1f5f9; --text-muted:#94a3b8; --text-dim:rgba(230,25,5,0.4);
   --gold:#FFD700; --gold-dim:#b89d00;
   --green:#22c55e; --blue:#38bdf8;
   --field-bg:rgba(5,5,5,0.8); --field-border:rgba(230,25,5,0.2);
---sans:'Poppins',sans-serif;
+  --sans:'Poppins',sans-serif;
   --sidebar-w:272px; --topbar-h:58px;
   --glass-bg:rgba(15,15,17,0.7); --glass-blur:blur(12px);
 }
 [data-theme="light"] {
   --crimson:#C41203; --crimson-dark:#8f0d02; --crimson-glow:rgba(196,18,3,0.25);
-  --obsidian:#f5f5f5; --surface:rgba(255,255,255,0.92); --surface-2:rgba(240,240,242,0.95);
+  --obsidian:#f5f5f5; --surface:rgba(255,255,255,0.95); --surface-2:rgba(240,240,242,0.97);
   --border:rgba(196,18,3,0.15); --border-bright:rgba(196,18,3,0.4);
   --text:#0f0f10; --text-muted:#3d3d45; --text-dim:rgba(196,18,3,0.45);
   --gold:#b8860b; --gold-dim:#8a6508;
   --green:#16a34a; --blue:#0369a1;
   --field-bg:rgba(255,255,255,0.9); --field-border:rgba(196,18,3,0.18);
-  --glass-bg:rgba(255,255,255,0.75); --glass-blur:blur(12px);
+  --glass-bg:rgba(255,255,255,0.78); --glass-blur:blur(12px);
 }
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
   font-family:var(--sans);
   background:var(--obsidian);
   color:var(--text);
@@ -55,14 +55,12 @@ body{
     radial-gradient(ellipse at 90% 80%, rgba(196,18,3,0.03) 0%, transparent 50%);
 }
 
-/* ── GLASS UTILITY ── */
-.glass{background:var(--glass-bg);backdrop-filter:var(--glass-blur);border:1px solid var(--border);}
-.glow-hover:hover{box-shadow:0 0 18px var(--crimson-glow);border-color:var(--border-bright);}
+/* ══ GLASS ══ */
+.glass { background:var(--glass-bg); backdrop-filter:var(--glass-blur); border:1px solid var(--border); }
+.glow-hover:hover { box-shadow:0 0 18px var(--crimson-glow); border-color:var(--border-bright); }
 
-/* ══════════════════════════════════════════════
-   TOPBAR
-══════════════════════════════════════════════ */
-.topbar{
+/* ══ TOPBAR ══ */
+.topbar {
   grid-column:1/-1; grid-row:1;
   background:var(--surface);
   backdrop-filter:blur(16px);
@@ -72,125 +70,109 @@ body{
   box-shadow:0 2px 24px rgba(0,0,0,0.6);
   min-height:var(--topbar-h);
 }
-.topbar-left{display:flex;align-items:center;gap:.8rem;}
-.brand-mark{
-  width:36px;height:36px;
-  background:var(--crimson);
-  border-radius:8px;
-  display:grid;place-items:center;
-  box-shadow:0 0 16px rgba(230,25,5,0.5);
-  flex-shrink:0;
+.topbar-left  { display:flex; align-items:center; gap:.8rem; }
+.brand-mark {
+  width:36px; height:36px;
+  background:var(--crimson); border-radius:8px;
+  display:grid; place-items:center;
+  box-shadow:0 0 16px rgba(230,25,5,0.5); flex-shrink:0;
 }
-.brand-mark .material-symbols-outlined{color:#fff;font-size:1.2rem;}
-.brand-text{display:flex;flex-direction:column;gap:1px;}
-.topbar-title{font-family:var(--mono);font-size:.75rem;font-weight:700;color:var(--crimson);letter-spacing:-.02em;}
-.topbar-sub{font-family:var(--mono);font-size:.48rem;color:rgba(230,25,5,0.5);text-transform:uppercase;letter-spacing:.18em;}
-.topbar-right{display:flex;align-items:center;gap:.6rem;}
+.brand-mark .material-symbols-outlined { color:#fff; font-size:1.2rem; }
+.brand-text   { display:flex; flex-direction:column; gap:1px; }
+.topbar-title { font-family:var(--mono); font-size:.75rem; font-weight:700; color:var(--crimson); letter-spacing:-.02em; }
+.topbar-sub   { font-family:var(--mono); font-size:.48rem; color:rgba(230,25,5,0.5); text-transform:uppercase; letter-spacing:.18em; }
+.topbar-right { display:flex; align-items:center; gap:.6rem; }
 
-/* Email pill — hidden on mobile, shown on desktop */
-.admin-email-pill{
-  display:flex;align-items:center;gap:.4rem;
+.admin-email-pill {
+  display:flex; align-items:center; gap:.4rem;
   padding:.3rem .65rem;
-  border:1px solid var(--border);
-  border-radius:6px;
-  font-family:var(--mono);font-size:.58rem;
+  border:1px solid var(--border); border-radius:6px;
+  font-family:var(--mono); font-size:.58rem;
 }
-.admin-email-pill span:first-child{color:var(--text-dim);}
-.admin-email-pill span:last-child{color:var(--crimson);}
+.admin-email-pill span:first-child { color:var(--text-dim); }
+.admin-email-pill span:last-child  { color:var(--crimson); }
 
-.theme-btn{
-  width:32px;height:32px;
+.theme-btn {
+  width:32px; height:32px;
   background:transparent; border:1px solid var(--border);
   color:var(--crimson); border-radius:6px;
-  display:grid;place-items:center; cursor:pointer;
+  display:grid; place-items:center; cursor:pointer;
   transition:all .15s; flex-shrink:0;
 }
-.theme-btn:hover{background:rgba(230,25,5,0.1);}
-.theme-btn .material-symbols-outlined{font-size:1rem;}
+.theme-btn:hover { background:rgba(230,25,5,0.1); }
+.theme-btn .material-symbols-outlined { font-size:1rem; }
 
-/* Logout — text+icon on desktop, icon-only on mobile */
-.logout-btn{
-  display:flex;align-items:center;gap:.4rem;
+.logout-btn {
+  display:flex; align-items:center; gap:.4rem;
   padding:.38rem .8rem;
   background:rgba(230,25,5,0.1); border:1px solid rgba(230,25,5,0.3);
   color:var(--crimson); font-family:var(--mono); font-size:.6rem; font-weight:700;
   text-transform:uppercase; letter-spacing:.05em; cursor:pointer;
   border-radius:6px; transition:all .15s; white-space:nowrap;
 }
-.logout-btn:hover{background:var(--crimson);color:#fff;}
-.logout-btn .material-symbols-outlined{font-size:.9rem;}
-.logout-text{display:inline;}/* hidden on mobile */
+.logout-btn:hover { background:var(--crimson); color:#fff; }
+.logout-btn .material-symbols-outlined { font-size:.9rem; }
+.logout-text { display:inline; }
 
-/* ══════════════════════════════════════════════
-   SIDEBAR
-══════════════════════════════════════════════ */
-.sidebar{
+/* ══ SIDEBAR ══ */
+.sidebar {
   grid-column:1; grid-row:2;
   background:var(--surface-2);
   border-right:1px solid var(--border);
   overflow-y:auto; overflow-x:hidden;
-  display:flex;flex-direction:column;
+  display:flex; flex-direction:column;
   padding:1rem 0;
-  /* Custom scrollbar */
   scrollbar-width:thin;
   scrollbar-color:rgba(230,25,5,0.25) transparent;
 }
-.sidebar::-webkit-scrollbar{width:4px;}
-.sidebar::-webkit-scrollbar-track{background:transparent;}
-.sidebar::-webkit-scrollbar-thumb{background:rgba(230,25,5,0.25);border-radius:2px;}
+.sidebar::-webkit-scrollbar { width:4px; }
+.sidebar::-webkit-scrollbar-track { background:transparent; }
+.sidebar::-webkit-scrollbar-thumb { background:rgba(230,25,5,0.25); border-radius:2px; }
 
-.sidebar-section{padding:.3rem 0 .15rem;}
-.sidebar-label{
-  font-family:var(--mono);font-size:.5rem;font-weight:700;
-  color:rgba(230,25,5,0.35);text-transform:uppercase;letter-spacing:.2em;
+.sidebar-section  { padding:.3rem 0 .15rem; }
+.sidebar-label {
+  font-family:var(--mono); font-size:.5rem; font-weight:700;
+  color:rgba(230,25,5,0.35); text-transform:uppercase; letter-spacing:.2em;
   padding:.45rem 1.2rem .25rem;
 }
-.nav-item{
-  display:flex;align-items:center;gap:.65rem;
+.nav-item {
+  display:flex; align-items:center; gap:.65rem;
   padding:.6rem 1.2rem;
-  font-family:var(--mono);font-size:.63rem;font-weight:700;text-transform:uppercase;
+  font-family:var(--mono); font-size:.63rem; font-weight:700; text-transform:uppercase;
   color:var(--text-muted); background:none; border:none;
   cursor:pointer; width:100%; text-align:left;
-  border-radius:0; transition:all .12s;
-  letter-spacing:.03em;
+  transition:all .12s; letter-spacing:.03em;
 }
-.nav-item .material-symbols-outlined{font-size:1rem;flex-shrink:0;transition:transform .15s;}
-.nav-item:hover{color:var(--crimson);background:rgba(230,25,5,0.05);}
-.nav-item:hover .material-symbols-outlined{transform:scale(1.1);}
-.nav-item.active{color:var(--crimson);background:rgba(230,25,5,0.1);border-right:2px solid var(--crimson);}
-.sidebar-divider{height:1px;background:var(--border);margin:.35rem .9rem;}
+.nav-item .material-symbols-outlined { font-size:1rem; flex-shrink:0; transition:transform .15s; }
+.nav-item:hover { color:var(--crimson); background:rgba(230,25,5,0.05); }
+.nav-item:hover .material-symbols-outlined { transform:scale(1.1); }
+.nav-item.active { color:var(--crimson); background:rgba(230,25,5,0.1); border-right:2px solid var(--crimson); }
+.sidebar-divider { height:1px; background:var(--border); margin:.35rem .9rem; }
 
-/* Status widget */
-.status-widget{
-  margin:.8rem .8rem .8rem;
-  background:var(--glass-bg);
-  backdrop-filter:var(--glass-blur);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:.9rem;
-  display:flex;flex-direction:column;gap:.55rem;
-  flex-shrink:0;
+.status-widget {
+  margin:.8rem;
+  background:var(--glass-bg); backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border); border-radius:10px;
+  padding:.9rem; display:flex; flex-direction:column; gap:.55rem; flex-shrink:0;
 }
-.status-widget-header{display:flex;justify-content:space-between;align-items:center;}
-.status-label{font-family:var(--mono);font-size:.52rem;color:var(--crimson);text-transform:uppercase;letter-spacing:.1em;}
-.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(34,197,94,0.6);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
-.status-bar{width:100%;height:3px;background:rgba(230,25,5,0.1);border-radius:2px;overflow:hidden;}
-.status-bar-fill{height:100%;width:94%;background:var(--crimson);border-radius:2px;}
-.status-text{font-family:var(--mono);font-size:.52rem;color:var(--text-muted);}
-.status-btn{
-  width:100%;padding:.45rem;
-  background:var(--crimson);color:#fff;
-  font-family:var(--mono);font-size:.58rem;font-weight:700;text-transform:uppercase;
-  border:none;border-radius:6px;cursor:pointer;
-  box-shadow:0 4px 12px rgba(230,25,5,0.2);transition:all .15s;
+.status-widget-header { display:flex; justify-content:space-between; align-items:center; }
+.status-label { font-family:var(--mono); font-size:.52rem; color:var(--crimson); text-transform:uppercase; letter-spacing:.1em; }
+.status-dot { width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 8px rgba(34,197,94,0.6); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.5;} }
+.status-bar { width:100%; height:3px; background:rgba(230,25,5,0.1); border-radius:2px; overflow:hidden; }
+.status-bar-fill { height:100%; width:94%; background:var(--crimson); border-radius:2px; }
+.status-text { font-family:var(--mono); font-size:.52rem; color:var(--text-muted); }
+.status-btn {
+  width:100%; padding:.45rem;
+  background:var(--crimson); color:#fff;
+  font-family:var(--mono); font-size:.58rem; font-weight:700; text-transform:uppercase;
+  border:none; border-radius:6px; cursor:pointer;
+  box-shadow:0 4px 12px rgba(230,25,5,0.2); transition:all .15s;
 }
-.status-btn:hover{background:var(--crimson-dark);}
+.status-btn:hover { background:var(--crimson-dark); }
 
-/* ══════════════════════════════════════════════
-   MAIN CONTENT
-══════════════════════════════════════════════ */
-.main{
+/* ══ MAIN ══ */
+.main {
   grid-column:2; grid-row:2;
   overflow-y:auto; overflow-x:hidden;
   background:var(--obsidian);
@@ -198,254 +180,242 @@ body{
 }
 
 /* ── STATS BAR ── */
-.stats-bar{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;
+.stats-bar {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:.9rem;
   padding:1.2rem 1.2rem .5rem;
 }
-.stat-card{
-  background:var(--glass-bg);backdrop-filter:var(--glass-blur);
-  border:1px solid var(--border);border-left:3px solid var(--crimson);
-  border-radius:10px;padding:1rem;
-  display:flex;flex-direction:column;gap:.4rem;transition:all .2s;
+.stat-card {
+  background:var(--glass-bg); backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border); border-left:3px solid var(--crimson);
+  border-radius:10px; padding:1rem;
+  display:flex; flex-direction:column; gap:.4rem; transition:all .2s;
 }
-.stat-card:hover{box-shadow:0 0 18px var(--crimson-glow);border-color:var(--border-bright);}
-.stat-card-header{display:flex;justify-content:space-between;align-items:start;}
-.stat-card-label{font-family:var(--mono);font-size:.52rem;color:var(--crimson);text-transform:uppercase;letter-spacing:.1em;}
-.stat-card-icon{font-size:1rem;color:rgba(230,25,5,0.3);}
-.stat-card-value{font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--text);}
-.stat-card-delta{font-family:var(--mono);font-size:.55rem;display:flex;align-items:center;gap:.2rem;}
-.stat-card-delta.up{color:var(--green);}
-.stat-card-delta.neutral{color:rgba(230,25,5,0.4);}
-.stat-card-delta .material-symbols-outlined{font-size:.72rem;}
+.stat-card:hover { box-shadow:0 0 18px var(--crimson-glow); border-color:var(--border-bright); }
+.stat-card-header { display:flex; justify-content:space-between; align-items:start; }
+.stat-card-label { font-family:var(--mono); font-size:.52rem; color:var(--crimson); text-transform:uppercase; letter-spacing:.1em; }
+.stat-card-icon  { font-size:1rem; color:rgba(230,25,5,0.3); }
+.stat-card-value { font-family:var(--mono); font-size:1.5rem; font-weight:700; color:var(--text); }
+.stat-card-delta { font-family:var(--mono); font-size:.55rem; display:flex; align-items:center; gap:.2rem; }
+.stat-card-delta.up      { color:var(--green); }
+.stat-card-delta.neutral { color:rgba(230,25,5,0.4); }
+.stat-card-delta .material-symbols-outlined { font-size:.72rem; }
 
 /* ── TAB NAV ── */
-.main-tabs-wrap{padding:.5rem 1.2rem 0;}
-.main-tabs{
-  display:flex;gap:2px;padding:3px;
+.main-tabs-wrap { padding:.5rem 1.2rem 0; }
+.main-tabs {
+  display:flex; gap:2px; padding:3px;
   background:rgba(5,5,5,0.8);
-  border:1px solid var(--border);
-  border-radius:10px;width:fit-content;
-  overflow-x:auto;max-width:100%;
+  border:1px solid var(--border); border-radius:10px;
+  width:fit-content; overflow-x:auto; max-width:100%;
   scrollbar-width:none;
-  -ms-overflow-style:none;
 }
-.main-tabs::-webkit-scrollbar{display:none;}
-.main-tab{
+.main-tabs::-webkit-scrollbar { display:none; }
+.main-tab {
   padding:.5rem 1rem;
   background:none; border:none; cursor:pointer;
-  font-family:var(--mono);font-size:.6rem;font-weight:700;text-transform:uppercase;
+  font-family:var(--mono); font-size:.6rem; font-weight:700; text-transform:uppercase;
   color:rgba(230,25,5,0.45); border-radius:7px;
-  letter-spacing:.04em; transition:all .15s;
-  white-space:nowrap; flex-shrink:0;
+  letter-spacing:.04em; transition:all .15s; white-space:nowrap; flex-shrink:0;
 }
-.main-tab:hover{background:rgba(230,25,5,0.08);color:var(--crimson);}
-.main-tab.active{background:var(--crimson);color:#fff;box-shadow:0 2px 12px rgba(230,25,5,0.25);}
+.main-tab:hover  { background:rgba(230,25,5,0.08); color:var(--crimson); }
+.main-tab.active { background:var(--crimson); color:#fff; box-shadow:0 2px 12px rgba(230,25,5,0.25); }
 
 /* ── CONTENT AREA ── */
-.content-area{padding:1rem 1.2rem 2rem;}
+.content-area { padding:1rem 1.2rem 2rem; }
 
 /* ── TAB CONTENT ── */
-.tab-content{display:none;}
-.tab-content.active{display:block;animation:fadeIn .2s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.tab-content        { display:none; }
+.tab-content.active { display:block; animation:fadeIn .2s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
 
 /* ── PANEL ── */
-.panel{
-  background:var(--glass-bg);backdrop-filter:var(--glass-blur);
-  border:1px solid var(--border);border-radius:12px;
-  margin-bottom:1.2rem;overflow:hidden;
+.panel {
+  background:var(--glass-bg); backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border); border-radius:12px;
+  margin-bottom:1.2rem; overflow:hidden;
 }
-.panel-head{
-  padding:.8rem 1.1rem;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
+.panel-head {
+  padding:.8rem 1.1rem; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
 }
-.panel-title{
-  font-family:var(--mono);font-size:.65rem;font-weight:700;
-  color:var(--text);text-transform:uppercase;letter-spacing:.04em;
-  display:flex;align-items:center;gap:.5rem;
+.panel-title {
+  font-family:var(--mono); font-size:.65rem; font-weight:700;
+  color:var(--text); text-transform:uppercase; letter-spacing:.04em;
+  display:flex; align-items:center; gap:.5rem;
 }
-.panel-title .material-symbols-outlined{color:var(--crimson);font-size:.95rem;}
-.panel-body{padding:1.1rem;}
+.panel-title .material-symbols-outlined { color:var(--crimson); font-size:.95rem; }
+.panel-body { padding:1.1rem; }
 
 /* ── SECTION HEADING ── */
-.section-head{
-  font-family:var(--mono);font-size:.6rem;font-weight:700;
-  color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;
+.section-head {
+  font-family:var(--mono); font-size:.6rem; font-weight:700;
+  color:var(--text-muted); text-transform:uppercase; letter-spacing:.1em;
   margin:1.2rem 0 .7rem;
-  display:flex;align-items:center;gap:.6rem;
+  display:flex; align-items:center; gap:.6rem;
 }
-.section-head::after{content:'';flex:1;height:1px;background:var(--border);}
+.section-head::after { content:''; flex:1; height:1px; background:var(--border); }
 
 /* ── FORM ── */
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
-.form-group{margin-bottom:.9rem;}
-.form-group label{
-  display:block;margin-bottom:.3rem;
-  font-family:var(--mono);font-size:.57rem;font-weight:700;
-  color:rgba(230,25,5,0.55);text-transform:uppercase;letter-spacing:.1em;
+.form-row   { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+.form-group { margin-bottom:.9rem; }
+.form-group label {
+  display:block; margin-bottom:.3rem;
+  font-family:var(--mono); font-size:.57rem; font-weight:700;
+  color:rgba(230,25,5,0.55); text-transform:uppercase; letter-spacing:.1em;
 }
-.form-group input,.form-group textarea,.form-group select{
+.form-group input,
+.form-group textarea,
+.form-group select {
   width:100%; padding:.58rem .85rem;
   background:var(--field-bg); border:1px solid var(--field-border);
   color:var(--text); font-family:var(--sans); font-size:.8rem;
   outline:none; border-radius:6px; transition:all .15s;
 }
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{
-  border-color:var(--crimson);box-shadow:0 0 0 2px rgba(230,25,5,0.12);
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color:var(--crimson); box-shadow:0 0 0 2px rgba(230,25,5,0.12);
 }
-.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(230,25,5,0.15);}
-.form-group select option{background:var(--obsidian);color:var(--text);}
-.form-group textarea{min-height:85px;resize:vertical;}
-.form-group small{font-size:.6rem;color:var(--text-dim);display:block;margin-top:.22rem;}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color:rgba(230,25,5,0.15); }
+.form-group select option { background:var(--obsidian); color:var(--text); }
+.form-group textarea { min-height:85px; resize:vertical; }
+.form-group small    { font-size:.6rem; color:var(--text-dim); display:block; margin-top:.22rem; }
 
 /* ── BUTTONS ── */
-.btn{
+.btn {
   padding:.52rem 1rem; border:none; cursor:pointer;
-  font-family:var(--mono);font-size:.6rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.05em;
+  font-family:var(--mono); font-size:.6rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.05em;
   border-radius:6px; transition:all .15s;
 }
-.btn-primary{background:rgba(230,25,5,0.15);border:1px solid rgba(230,25,5,0.4);color:var(--crimson);}
-.btn-primary:hover{background:var(--crimson);color:#fff;box-shadow:0 4px 12px rgba(230,25,5,0.3);}
-.btn-primary:disabled{opacity:.4;cursor:not-allowed;}
-.btn-gold{background:rgba(255,215,0,0.12);border:1px solid rgba(255,215,0,0.3);color:var(--gold);}
-.btn-gold:hover{background:var(--gold);color:#000;}
-.btn-danger{background:rgba(230,25,5,0.1);color:var(--crimson);border:1px solid rgba(230,25,5,0.25);}
-.btn-danger:hover{background:var(--crimson);color:#fff;}
-.btn-blue{background:rgba(56,189,248,0.1);color:var(--blue);border:1px solid rgba(56,189,248,0.2);}
-.btn-blue:hover{background:var(--blue);color:#000;}
-.btn-sm{padding:.28rem .6rem;font-size:.56rem;}
+.btn-primary { background:rgba(230,25,5,0.15); border:1px solid rgba(230,25,5,0.4); color:var(--crimson); }
+.btn-primary:hover { background:var(--crimson); color:#fff; box-shadow:0 4px 12px rgba(230,25,5,0.3); }
+.btn-primary:disabled { opacity:.4; cursor:not-allowed; }
+.btn-gold   { background:rgba(255,215,0,0.12); border:1px solid rgba(255,215,0,0.3); color:var(--gold); }
+.btn-gold:hover { background:var(--gold); color:#000; }
+.btn-danger { background:rgba(230,25,5,0.1); color:var(--crimson); border:1px solid rgba(230,25,5,0.25); }
+.btn-danger:hover { background:var(--crimson); color:#fff; }
+.btn-blue   { background:rgba(56,189,248,0.1); color:var(--blue); border:1px solid rgba(56,189,248,0.2); }
+.btn-blue:hover { background:var(--blue); color:#000; }
+.btn-sm     { padding:.28rem .6rem; font-size:.56rem; }
 
 /* ── MESSAGES ── */
-.msg,.success-message{
-  padding:.5rem .85rem;font-family:var(--mono);font-size:.65rem;
-  margin-bottom:.8rem;display:none;
-  border-left:2px solid;border-radius:0 6px 6px 0;
+.msg, .success-message {
+  padding:.5rem .85rem; font-family:var(--mono); font-size:.65rem;
+  margin-bottom:.8rem; display:none;
+  border-left:2px solid; border-radius:0 6px 6px 0;
   letter-spacing:.03em;
 }
-.msg.show,.success-message.show{display:block;animation:msgIn .25s ease;}
-@keyframes msgIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:translateX(0);}}
-.msg-success,.success-message{background:rgba(34,197,94,0.08);color:var(--green);border-color:var(--green);}
-.msg-error{background:rgba(230,25,5,0.08);color:var(--crimson);border-color:var(--crimson);}
+.msg.show, .success-message.show { display:block; animation:msgIn .25s ease; }
+@keyframes msgIn { from{opacity:0;transform:translateX(-8px);} to{opacity:1;transform:translateX(0);} }
+.msg-success, .success-message { background:rgba(34,197,94,0.08); color:var(--green); border-color:var(--green); }
+.msg-error                     { background:rgba(230,25,5,0.08);  color:var(--crimson); border-color:var(--crimson); }
 
 /* ── INFO BOXES ── */
-.info-box{
+.info-box {
   padding:.65rem .85rem;
-  background:rgba(255,215,0,0.05);border-left:2px solid rgba(255,215,0,0.35);
-  font-size:.7rem;color:var(--text-muted);margin-bottom:.9rem;line-height:1.6;
+  background:rgba(255,215,0,0.05); border-left:2px solid rgba(255,215,0,0.35);
+  font-size:.7rem; color:var(--text-muted); margin-bottom:.9rem; line-height:1.6;
   border-radius:0 6px 6px 0;
 }
-.info-box strong{color:var(--gold);}
-.info-box-blue{
+.info-box strong { color:var(--gold); }
+.info-box-blue {
   padding:.65rem .85rem;
-  background:rgba(56,189,248,0.05);border-left:2px solid rgba(56,189,248,0.35);
-  font-size:.7rem;color:var(--text-muted);margin-bottom:.9rem;line-height:1.6;
+  background:rgba(56,189,248,0.05); border-left:2px solid rgba(56,189,248,0.35);
+  font-size:.7rem; color:var(--text-muted); margin-bottom:.9rem; line-height:1.6;
   border-radius:0 6px 6px 0;
 }
-.info-box-blue strong{color:var(--blue);}
+.info-box-blue strong { color:var(--blue); }
 
 /* ── POSTS GRID ── */
-.posts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9rem;margin-top:.9rem;}
-.post-card{
-  background:var(--glass-bg);backdrop-filter:var(--glass-blur);
-  border:1px solid var(--border);border-radius:10px;
-  padding:1.1rem;position:relative;overflow:hidden;transition:all .2s;
+.posts-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:.9rem; margin-top:.9rem; }
+.post-card {
+  background:var(--glass-bg); backdrop-filter:var(--glass-blur);
+  border:1px solid var(--border); border-radius:10px;
+  padding:1.1rem; position:relative; overflow:hidden; transition:all .2s;
 }
-.post-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+.post-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
   background:linear-gradient(90deg,var(--crimson),rgba(230,25,5,0.1));
 }
-.post-card:hover{border-color:var(--border-bright);box-shadow:0 0 16px var(--crimson-glow);}
-.post-card h3{color:var(--text);font-family:var(--mono);font-size:.72rem;margin-bottom:.35rem;line-height:1.3;text-transform:uppercase;}
-.post-card p{color:var(--text-muted);font-size:.73rem;margin-bottom:.45rem;line-height:1.5;}
-.post-card a{color:var(--crimson);font-size:.7rem;}
-.post-card a:hover{color:rgba(230,25,5,0.7);}
-.post-meta{
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.3rem;
-  font-size:.6rem;color:var(--text-dim);margin-bottom:.5rem;font-family:var(--mono);
+.post-card:hover { border-color:var(--border-bright); box-shadow:0 0 16px var(--crimson-glow); }
+.post-card h3   { color:var(--text); font-family:var(--mono); font-size:.72rem; margin-bottom:.35rem; line-height:1.3; text-transform:uppercase; }
+.post-card p    { color:var(--text-muted); font-size:.73rem; margin-bottom:.45rem; line-height:1.5; }
+.post-card a    { color:var(--crimson); font-size:.7rem; }
+.post-card a:hover { color:rgba(230,25,5,0.7); }
+.post-meta {
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.3rem;
+  font-size:.6rem; color:var(--text-dim); margin-bottom:.5rem; font-family:var(--mono);
 }
-.post-actions{display:flex;gap:.35rem;margin-top:.55rem;flex-wrap:wrap;}
+.post-actions { display:flex; gap:.35rem; margin-top:.55rem; flex-wrap:wrap; }
 
 /* ── SCHOOL CARD ── */
-.school-card{
-  background:var(--surface-2);border:1px solid var(--border);
-  padding:1.1rem;border-radius:8px;margin-bottom:.7rem;
+.school-card {
+  background:var(--surface-2); border:1px solid var(--border);
+  padding:1.1rem; border-radius:8px; margin-bottom:.7rem;
 }
-.school-card h3{font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--crimson);margin-bottom:.7rem;text-transform:uppercase;}
+.school-card h3 { font-family:var(--mono); font-size:.68rem; font-weight:700; color:var(--crimson); margin-bottom:.7rem; text-transform:uppercase; }
 
 /* ── PERSON CARD ── */
-.person-card{
-  background:var(--surface-2);border:1px solid var(--border);
-  padding:1.1rem;margin-bottom:.7rem;border-radius:8px;
+.person-card {
+  background:var(--surface-2); border:1px solid var(--border);
+  padding:1.1rem; margin-bottom:.7rem; border-radius:8px;
   border-left:2px solid var(--crimson);
 }
-.person-card h3{font-size:.8rem;font-family:var(--mono);color:var(--text);margin-bottom:.3rem;}
-.person-card p{font-size:.7rem;color:var(--text-muted);line-height:1.7;}
+.person-card h3 { font-size:.8rem; font-family:var(--mono); color:var(--text); margin-bottom:.3rem; }
+.person-card p  { font-size:.7rem; color:var(--text-muted); line-height:1.7; }
 
 /* ── LOG ITEM ── */
-.log-item{
-  background:var(--glass-bg);backdrop-filter:var(--glass-blur);
+.log-item {
+  background:var(--glass-bg); backdrop-filter:var(--glass-blur);
   border:1px solid var(--border);
-  padding:.8rem .9rem;margin-bottom:.45rem;
+  padding:.8rem .9rem; margin-bottom:.45rem;
   border-left:2px solid var(--crimson);
   border-radius:0 8px 8px 0;
-  display:flex;align-items:start;gap:.65rem;
+  display:flex; align-items:start; gap:.65rem;
 }
-.log-icon{font-size:.95rem;flex-shrink:0;}
-.log-text{font-size:.73rem;color:var(--text-muted);line-height:1.4;}
-.log-time{font-family:var(--mono);font-size:.58rem;color:var(--text-dim);margin-top:.18rem;}
+.log-icon { font-size:.95rem; flex-shrink:0; }
+.log-text { font-size:.73rem; color:var(--text-muted); line-height:1.4; }
+.log-time { font-family:var(--mono); font-size:.58rem; color:var(--text-dim); margin-top:.18rem; }
 
 /* ── PREVIEW FRAME ── */
-.preview-frame{
-  width:100%;height:200px;border:1px solid var(--border);
-  background:var(--surface-2);margin-top:.7rem;border-radius:6px;
+.preview-frame {
+  width:100%; height:200px; border:1px solid var(--border);
+  background:var(--surface-2); margin-top:.7rem; border-radius:6px;
 }
 
 /* ── FILTER ROW ── */
-.filter-row{
-  display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;
-  margin-bottom:.9rem;padding:.55rem .85rem;
-  background:var(--surface-2);border:1px solid var(--border);border-radius:6px;
+.filter-row {
+  display:flex; align-items:center; gap:.7rem; flex-wrap:wrap;
+  margin-bottom:.9rem; padding:.55rem .85rem;
+  background:var(--surface-2); border:1px solid var(--border); border-radius:6px;
 }
-.filter-row label{font-family:var(--mono);font-size:.63rem;color:var(--text-muted);display:flex;align-items:center;gap:.3rem;cursor:pointer;}
-.filter-row input[type=checkbox]{accent-color:var(--crimson);}
+.filter-row label { font-family:var(--mono); font-size:.63rem; color:var(--text-muted); display:flex; align-items:center; gap:.3rem; cursor:pointer; }
+.filter-row input[type=checkbox] { accent-color:var(--crimson); }
 
 /* ── HAMBURGER ── */
-.hamburger{
+.hamburger {
   display:none;
-  width:32px;height:32px;
-  background:rgba(230,25,5,0.08);border:1px solid var(--border);
-  color:var(--crimson);
-  place-items:center;cursor:pointer;border-radius:6px;
+  width:32px; height:32px;
+  background:rgba(230,25,5,0.08); border:1px solid var(--border);
+  color:var(--crimson); place-items:center; cursor:pointer; border-radius:6px;
   flex-shrink:0;
 }
-.hamburger .material-symbols-outlined{font-size:1.1rem;}
+.hamburger .material-symbols-outlined { font-size:1.1rem; }
 
 /* ── OVERLAY ── */
-.overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);
-  z-index:150;backdrop-filter:blur(3px);
-}
-.overlay.show{display:block;}
+.overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:150; backdrop-filter:blur(3px); }
+.overlay.show { display:block; }
 
 /* ── FOOTER ── */
-.main-footer{
-  padding:1.2rem;text-align:center;
-  border-top:1px solid var(--border);margin-top:.8rem;
-}
-.main-footer p{font-family:var(--mono);font-size:.55rem;text-transform:uppercase;letter-spacing:.4em;color:rgba(230,25,5,0.2);}
+.main-footer { padding:1.2rem; text-align:center; border-top:1px solid var(--border); margin-top:.8rem; }
+.main-footer p { font-family:var(--mono); font-size:.55rem; text-transform:uppercase; letter-spacing:.4em; color:rgba(230,25,5,0.2); }
 
-/* ══════════════════════════════════════════════════════════════
-   RESPONSIVE BREAKPOINTS
-══════════════════════════════════════════════════════════════ */
-
-/* ── TABLET (≤1024px): Sidebar becomes a drawer ── */
-@media(max-width:1024px){
-  body{
-    grid-template-columns:1fr;
-    /* sidebar removed from flow */
-  }
-  .sidebar{
+/* ══ RESPONSIVE ══ */
+@media(max-width:1024px) {
+  body { grid-template-columns:1fr; }
+  .sidebar {
     position:fixed;
     left:-280px;
     top:var(--topbar-h);
@@ -455,88 +425,48 @@ body{
     transition:left .25s cubic-bezier(0.4,0,0.2,1);
     box-shadow:none;
   }
-  .sidebar.open{
-    left:0;
-    box-shadow:4px 0 32px rgba(0,0,0,0.5);
-  }
-  .hamburger{display:grid!important;}
-  .main{grid-column:1/-1;}
-  .stats-bar{grid-template-columns:repeat(2,1fr);}
+  .sidebar.open { left:0; box-shadow:4px 0 32px rgba(0,0,0,0.5); }
+  .hamburger { display:grid !important; }
+  .main { grid-column:1/-1; }
+  .stats-bar { grid-template-columns:repeat(2,1fr); }
 }
 
-/* ── MOBILE (≤600px): Full compact treatment ── */
-@media(max-width:600px){
-
-  /* Topbar compaction */
-  .topbar{padding:0 .9rem;}
-  .topbar-title{font-size:.68rem;}
-  .topbar-sub{display:none;}/* hide sub on small screens */
-  .admin-email-pill{display:none;}/* hide email pill */
-  .logout-text{display:none;}/* icon-only logout */
-  .logout-btn{padding:.38rem .45rem;}
-
-  /* Stats: single column */
-  .stats-bar{
-    grid-template-columns:repeat(2,1fr);
-    gap:.6rem;
-    padding:.9rem .9rem .4rem;
-  }
-  .stat-card{padding:.85rem .8rem;}
-  .stat-card-value{font-size:1.3rem;}
-  .stat-card-label{font-size:.48rem;}
-
-  /* Tab bar: scrollable strip, full width */
-  .main-tabs-wrap{padding:.5rem .9rem 0;}
-  .main-tabs{
-    width:100%;
-    border-radius:8px;
-  }
-  .main-tab{padding:.45rem .75rem;font-size:.56rem;}
-
-  /* Content area: tighter padding */
-  .content-area{padding:.8rem .9rem 1.5rem;}
-
-  /* Panel: tighter */
-  .panel-head{padding:.7rem .9rem;}
-  .panel-title{font-size:.6rem;}
-  .panel-body{padding:.9rem;}
-
-  /* Forms: always single column */
-  .form-row{grid-template-columns:1fr;}
-  .form-group{margin-bottom:.8rem;}
-  .form-group input,.form-group textarea,.form-group select{font-size:.78rem;padding:.55rem .75rem;}
-
-  /* Button rows: wrap nicely */
-  div[style*="display:flex"][style*="gap:.5rem"]{flex-wrap:wrap;}
-
-  /* Posts grid: single column */
-  .posts-grid{grid-template-columns:1fr;}
-  .post-card{padding:.9rem;}
-
-  /* Section head */
-  .section-head{font-size:.56rem;}
-
-  /* School / person cards */
-  .school-card{padding:.9rem;}
-  .person-card{padding:.9rem;}
-
-  /* Person card flex: stack on tiny screens */
-  .person-card>div[style*="display:flex"]{flex-wrap:wrap;gap:.5rem;}
-
-  /* Log items */
-  .log-item{padding:.7rem .75rem;}
-
-  /* Status widget in sidebar: compact */
-  .status-widget{margin:.6rem .6rem .6rem;}
+@media(max-width:600px) {
+  .topbar { padding:0 .9rem; }
+  .topbar-title { font-size:.68rem; }
+  .topbar-sub { display:none; }
+  .admin-email-pill { display:none; }
+  .logout-text { display:none; }
+  .logout-btn { padding:.38rem .45rem; }
+  .stats-bar { grid-template-columns:repeat(2,1fr); gap:.6rem; padding:.9rem .9rem .4rem; }
+  .stat-card { padding:.85rem .8rem; }
+  .stat-card-value { font-size:1.3rem; }
+  .stat-card-label { font-size:.48rem; }
+  .main-tabs-wrap { padding:.5rem .9rem 0; }
+  .main-tabs { width:100%; border-radius:8px; }
+  .main-tab { padding:.45rem .75rem; font-size:.56rem; }
+  .content-area { padding:.8rem .9rem 1.5rem; }
+  .panel-head { padding:.7rem .9rem; }
+  .panel-title { font-size:.6rem; }
+  .panel-body { padding:.9rem; }
+  .form-row { grid-template-columns:1fr; }
+  .form-group { margin-bottom:.8rem; }
+  .form-group input, .form-group textarea, .form-group select { font-size:.78rem; padding:.55rem .75rem; }
+  .posts-grid { grid-template-columns:1fr; }
+  .post-card { padding:.9rem; }
+  .section-head { font-size:.56rem; }
+  .school-card { padding:.9rem; }
+  .person-card { padding:.9rem; }
+  .log-item { padding:.7rem .75rem; }
+  .status-widget { margin:.6rem; }
 }
 
-/* ── VERY SMALL (≤380px) ── */
-@media(max-width:380px){
-  .stats-bar{grid-template-columns:1fr;}
-  .topbar-left{gap:.5rem;}
-  .brand-mark{width:30px;height:30px;}
-  .brand-text{display:none;}/* just the icon mark on tiny screens */
-  .main-tab{padding:.4rem .6rem;font-size:.52rem;}
+@media(max-width:380px) {
+  .stats-bar { grid-template-columns:1fr; }
+  .topbar-left { gap:.5rem; }
+  .brand-mark { width:30px; height:30px; }
+  .brand-text { display:none; }
+  .main-tab { padding:.4rem .6rem; font-size:.52rem; }
 }
 </style>
 </head>
@@ -544,7 +474,7 @@ body{
 
 <div class="overlay" id="overlay"></div>
 
-<!-- ── TOPBAR ── -->
+<!-- ══ TOPBAR ══ -->
 <div class="topbar">
   <div class="topbar-left">
     <button class="hamburger" id="hamburger"><span class="material-symbols-outlined">menu</span></button>
@@ -557,7 +487,7 @@ body{
   <div class="topbar-right">
     <div class="admin-email-pill">
       <span>USER:</span>
-      <span id="adminEmail">johnrufai242@gmail.com</span>
+      <span id="adminEmail">—</span>
     </div>
     <button class="theme-btn" id="themeToggleBtn" title="Toggle theme">
       <span class="material-symbols-outlined">contrast</span>
@@ -569,7 +499,7 @@ body{
   </div>
 </div>
 
-<!-- ── SIDEBAR ── -->
+<!-- ══ SIDEBAR ══ -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-section">
     <div class="sidebar-label">Command Modules</div>
@@ -632,7 +562,6 @@ body{
       <span class="material-symbols-outlined">monitoring</span> Activity Logs
     </button>
   </div>
-
   <div class="status-widget">
     <div class="status-widget-header">
       <span class="status-label">Status</span>
@@ -644,7 +573,7 @@ body{
   </div>
 </aside>
 
-<!-- ── MAIN ── -->
+<!-- ══ MAIN ══ -->
 <main class="main" id="main">
 
   <!-- Stats Bar -->
@@ -683,11 +612,9 @@ body{
     </div>
   </div>
 
-  <!-- Tab nav -->
+  <!-- Tab nav (decorative strip) -->
   <div class="main-tabs-wrap">
-    <div class="main-tabs" id="mainTabs">
-      <!-- populated by JS based on active section -->
-    </div>
+    <div class="main-tabs" id="mainTabs"></div>
   </div>
 
   <div class="content-area">
@@ -700,7 +627,7 @@ body{
         </div>
         <div class="panel-body">
           <div class="info-box">
-            <strong>💡 How to share files:</strong> Upload your PDF/DOCX files to Google Drive, Dropbox, or OneDrive. Make the file publicly accessible. Then paste the shareable link below.
+            <strong>💡 How to share files:</strong> Upload your PDF/DOCX to Google Drive, Dropbox, or OneDrive. Make it publicly accessible, then paste the shareable link below.
           </div>
           <div class="success-message" id="resourceSuccess">Resource posted successfully!</div>
           <form id="resourceForm">
@@ -743,7 +670,7 @@ body{
         </div>
         <div class="panel-body">
           <div class="info-box">
-            <strong>📰 News Corner Posts:</strong> These posts will appear on the public News Corner page for all visitors to see.
+            <strong>📰 News Corner Posts:</strong> These posts will appear on the public News Corner page for all visitors.
           </div>
           <div class="success-message" id="newsSuccess">News post published successfully!</div>
           <form id="newsForm">
@@ -770,7 +697,7 @@ body{
             </div>
             <div class="form-group">
               <label for="newsExcerpt">Brief Summary (for preview)</label>
-              <textarea id="newsExcerpt" required placeholder="Short description (1-2 sentences)" maxlength="200"></textarea>
+              <textarea id="newsExcerpt" required placeholder="Short description (1–2 sentences)" maxlength="200"></textarea>
             </div>
             <div class="form-group">
               <label for="newsContent">Full Content</label>
@@ -779,9 +706,10 @@ body{
             <div class="form-group">
               <label for="newsImage">Featured Image URL (optional)</label>
               <input type="url" id="newsImage" placeholder="https://example.com/image.jpg">
-              <small>Upload image to Google Drive/Imgur and paste link</small>
+              <small>Upload image to Google Drive / Imgur and paste the link</small>
             </div>
-            <button type="submit" class="btn btn-primary">PUBLISH_POST</button>
+            <!-- FIX: Single submit button whose label/style changes between Create and Edit modes -->
+            <button type="submit" class="btn btn-primary" id="newsSubmitBtn">PUBLISH_POST</button>
           </form>
         </div>
       </div>
@@ -822,7 +750,7 @@ body{
               <textarea id="linkDescription" required placeholder="Brief description of the link"></textarea>
             </div>
             <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-              <button type="button" class="btn btn-gold" onclick="previewLink()">Preview Link</button>
+              <button type="button" class="btn btn-gold" id="previewLinkBtn">Preview Link</button>
               <button type="submit" class="btn btn-primary">POST_LINK</button>
             </div>
             <div id="linkPreviewContainer"></div>
@@ -866,7 +794,7 @@ body{
               <textarea id="examDescription" required placeholder="Exam instructions and details"></textarea>
             </div>
             <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-              <button type="button" class="btn btn-gold" onclick="previewExam()">Preview Exam</button>
+              <button type="button" class="btn btn-gold" id="previewExamBtn">Preview Exam</button>
               <button type="submit" class="btn btn-primary">POST_EXAM</button>
             </div>
             <div id="examPreviewContainer"></div>
@@ -885,7 +813,7 @@ body{
         </div>
         <div class="panel-body">
           <div class="info-box">
-            <strong>🏫 School-Specific Exams:</strong> These exams will only be visible to students from the selected school.
+            <strong>🏫 School-Specific Exams:</strong> Only visible to students from the selected school.
           </div>
           <div class="success-message" id="schoolExamSuccess">School exam posted successfully!</div>
           <form id="schoolExamForm">
@@ -964,7 +892,7 @@ body{
             <div class="form-group">
               <label for="schoolResourceUrl">URL/Link</label>
               <input type="url" id="schoolResourceUrl" required placeholder="https://...">
-              <small>For files: Upload to Google Drive/Dropbox and paste the shareable link</small>
+              <small>For files: upload to Google Drive/Dropbox and paste the shareable link</small>
             </div>
             <div class="form-group">
               <label for="schoolResourceDescription">Description</label>
@@ -986,7 +914,7 @@ body{
         </div>
         <div class="panel-body">
           <div class="info-box">
-            <strong>🔐 Access Codes:</strong> Set or update access codes for each school. Students will need these codes to access their school's portal.
+            <strong>🔐 Access Codes:</strong> Set or update the access code for each school. Students need these codes to enter their school portal.
           </div>
           <div class="success-message" id="schoolManageSuccess">Access code updated successfully!</div>
           <div style="display:grid;gap:.7rem;">
@@ -1033,7 +961,7 @@ body{
         </div>
         <div class="panel-body">
           <div class="info-box">
-            <strong>👤 Create Student Accounts:</strong> Add new students and assign them access codes.
+            <strong>👤 Create Student Accounts:</strong> Add new students and assign access codes.
           </div>
           <div class="success-message" id="studentAddSuccess">Student added successfully!</div>
           <form id="addStudentForm">
@@ -1123,7 +1051,7 @@ body{
         </div>
         <div class="panel-body">
           <div class="info-box">
-            <strong>👨‍🏫 Staff Registration:</strong> Create an invitation for staff members. They will register themselves using the provided code and link.
+            <strong>👨‍🏫 Staff Registration:</strong> Create an invitation for staff members. They register using the code and link below.
           </div>
           <div class="success-message" id="staffAddSuccess">Staff invitation created successfully!</div>
           <form id="addStaffForm">
@@ -1157,7 +1085,7 @@ body{
         </div>
         <div class="panel-body">
           <div class="info-box">
-            <strong>📚 General Staff Resources:</strong> These resources will be visible to all staff members.
+            <strong>📚 General Staff Resources:</strong> Visible to all staff members.
           </div>
           <div class="success-message" id="staffResourceSuccess">Resource added successfully!</div>
           <form id="staffResourceForm">
@@ -1189,14 +1117,14 @@ body{
         </div>
         <div class="panel-body">
           <div class="info-box">
-            <strong>🔑 Access Control:</strong> Generate an access code that staff members need to send resources to schools.
+            <strong>🔑 Access Control:</strong> Generate an access code that staff need to send resources to schools.
           </div>
           <div class="success-message" id="accessCodeSuccess">Access code updated successfully!</div>
           <div class="form-group">
             <label for="schoolAccessCodeInput">Access Code</label>
             <input type="text" id="schoolAccessCodeInput" placeholder="Enter access code for staff">
           </div>
-          <button class="btn btn-primary" onclick="updateStaffSchoolAccess()">UPDATE_ACCESS_CODE</button>
+          <button class="btn btn-primary" id="updateAccessCodeBtn">UPDATE_ACCESS_CODE</button>
           <div style="margin-top:1rem;padding:.75rem .85rem;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;font-size:.72rem;">
             <span style="color:var(--text);font-family:var(--mono);">CURRENT_CODE: </span>
             <span id="currentAccessCode" style="font-family:var(--mono);color:var(--crimson);">Loading...</span>
@@ -1258,7 +1186,7 @@ body{
           <div class="filter-row">
             <label><input type="checkbox" id="filterLogins" checked> Show Logins</label>
             <label><input type="checkbox" id="filterResources" checked> Show Resource Activities</label>
-            <button class="btn btn-primary btn-sm" onclick="loadActivityLogs()">Refresh</button>
+            <button class="btn btn-primary btn-sm" id="refreshLogsBtn">Refresh</button>
           </div>
         </div>
       </div>
@@ -1273,99 +1201,119 @@ body{
 
 </main>
 
-<!-- ── UI SCRIPT ── -->
+<!-- ══ UI SCRIPT ══ -->
 <script>
-window.toggleTheme = function() {
-  var html = document.documentElement;
-  html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
-  localStorage.setItem('jdh-theme', html.dataset.theme);
-};
-var _savedTheme = localStorage.getItem('jdh-theme');
-if (_savedTheme) document.documentElement.dataset.theme = _savedTheme;
+  // Theme
+  (function() {
+    var saved = localStorage.getItem('jdh-theme');
+    if (saved) document.documentElement.dataset.theme = saved;
+  })();
 
-function switchTab(tabName) {
-  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
-  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
-  var tabEl = document.getElementById(tabName);
-  if (tabEl) tabEl.classList.add('active');
-  var navEl = document.querySelector('[data-tab="'+tabName+'"]');
-  if (navEl) navEl.classList.add('active');
-}
-window.switchTab = switchTab;
+  function toggleTheme() {
+    var html = document.documentElement;
+    html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('jdh-theme', html.dataset.theme);
+  }
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('themeToggleBtn').addEventListener('click', window.toggleTheme);
+  function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+    var tabEl = document.getElementById(tabName);
+    if (tabEl) tabEl.classList.add('active');
+    var navEl = document.querySelector('[data-tab="' + tabName + '"]');
+    if (navEl) navEl.classList.add('active');
+  }
 
-  document.querySelectorAll('.nav-item[data-tab]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      switchTab(this.dataset.tab);
-      // Close sidebar on mobile after selecting
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('overlay').classList.remove('show');
-      // Scroll main to top
-      document.getElementById('main').scrollTo(0,0);
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
+
+    document.querySelectorAll('.nav-item[data-tab]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        switchTab(this.dataset.tab);
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('overlay').classList.remove('show');
+        document.getElementById('main').scrollTo(0, 0);
+        var icon = document.getElementById('hamburger').querySelector('.material-symbols-outlined');
+        if (icon) icon.textContent = 'menu';
+      });
     });
-  });
 
-  var hamburger = document.getElementById('hamburger');
-  var sidebar   = document.getElementById('sidebar');
-  var overlay   = document.getElementById('overlay');
+    var hamburger = document.getElementById('hamburger');
+    var sidebar   = document.getElementById('sidebar');
+    var overlay   = document.getElementById('overlay');
 
-  if (hamburger) {
     hamburger.addEventListener('click', function() {
       sidebar.classList.toggle('open');
       overlay.classList.toggle('show');
-      // Animate hamburger icon
       var icon = hamburger.querySelector('.material-symbols-outlined');
       icon.textContent = sidebar.classList.contains('open') ? 'close' : 'menu';
     });
-  }
-  if (overlay) {
+
     overlay.addEventListener('click', function() {
       sidebar.classList.remove('open');
       overlay.classList.remove('show');
-      var icon = hamburger.querySelector('.material-symbols-outlined');
-      if (icon) icon.textContent = 'menu';
+      hamburger.querySelector('.material-symbols-outlined').textContent = 'menu';
     });
-  }
 
-  document.getElementById('logoutBtn').addEventListener('click', function() {
-    if (window._doLogout) window._doLogout();
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+      if (window._doLogout) window._doLogout();
+    });
   });
-});
 </script>
 
-<!-- ── FIREBASE MODULE ── -->
+<!-- ══ FIREBASE MODULE ══ -->
 <script type="module">
-import { initializeApp }   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getAuth, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, where, serverTimestamp, setDoc, getDoc }
-  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { initializeApp }      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, signOut, onAuthStateChanged }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import {
+  getFirestore, collection, addDoc, getDocs, deleteDoc,
+  doc, query, orderBy, where, serverTimestamp, setDoc, getDoc
+} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
+// ── Firebase init ──
 const firebaseConfig = {
-  apiKey: "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
-  authDomain: "jaystarbliss-studios.firebaseapp.com",
-  projectId: "jaystarbliss-studios",
-  storageBucket: "jaystarbliss-studios.firebasestorage.app",
+  apiKey:            "AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ",
+  authDomain:        "jaystarbliss-studios.firebaseapp.com",
+  projectId:         "jaystarbliss-studios",
+  storageBucket:     "jaystarbliss-studios.firebasestorage.app",
   messagingSenderId: "885364100276",
-  appId: "1:885364100276:web:081a2963cce28a0d0e1be1"
+  appId:             "1:885364100276:web:081a2963cce28a0d0e1be1"
 };
 
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'admin') {
-  window.location.href = '../auth/login.html';
-}
-document.getElementById('adminEmail').textContent = sessionStorage.getItem('userEmail') || 'ADMIN@JDH.IO';
+// ── FIX 1: Monitor real Firebase Auth state, not just sessionStorage ──
+onAuthStateChanged(auth, function(user) {
+  if (!user) {
+    sessionStorage.clear();
+    window.location.href = '../auth/login.html';
+    return;
+  }
+  // Double-check role from sessionStorage (set on login)
+  if (sessionStorage.getItem('userRole') !== 'admin') {
+    window.location.href = '../auth/login.html';
+  }
+});
 
+// Populate email display
+document.getElementById('adminEmail').textContent =
+  sessionStorage.getItem('userEmail') || 'ADMIN@JDH.IO';
+
+// Set registration link
+document.getElementById('regLink').textContent =
+  window.location.origin + '/staff-register.html';
+
+// ── Logout ──
 window._doLogout = async function() {
   await signOut(auth);
   sessionStorage.clear();
   window.location.href = '../auth/login.html';
 };
 
+// ── Utility: show success banner ──
 function showSuccess(id) {
   var el = document.getElementById(id);
   if (!el) return;
@@ -1373,204 +1321,282 @@ function showSuccess(id) {
   setTimeout(function() { el.classList.remove('show'); }, 3000);
 }
 
-// Load live stats
+// ── Utility: date format ──
+function fmtDate(ts) {
+  if (!ts) return '';
+  try { return new Date(ts.toDate()).toLocaleDateString(); } catch(e) { return ''; }
+}
+
+// ── Load live stats ──
 async function loadStats() {
   try {
     var [studSnap, staffSnap] = await Promise.all([
-      getDocs(collection(db,'individualStudents')),
-      getDocs(query(collection(db,'users'), where('role','==','staff')))
+      getDocs(collection(db, 'individualStudents')),
+      getDocs(query(collection(db, 'users'), where('role', '==', 'staff')))
     ]);
     document.getElementById('statStudents').textContent = studSnap.size;
-    document.getElementById('statStaff').textContent = staffSnap.size;
-  } catch(e) { console.error(e); }
+    document.getElementById('statStaff').textContent    = staffSnap.size;
+  } catch(e) { console.error('loadStats:', e); }
 }
 loadStats();
 
-// ── RESOURCES ────────────────────────────────────────────────
+// ════════════════════════════════════════════════════
+// GENERAL RESOURCES
+// ════════════════════════════════════════════════════
 document.getElementById('resourceForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const title       = document.getElementById('resourceTitle').value;
-  const category    = document.getElementById('resourceCategory').value;
-  const description = document.getElementById('resourceDescription').value;
-  const fileUrl     = document.getElementById('resourceUrl').value;
   try {
-    await addDoc(collection(db,'resources'), { title, category, description, fileUrl, timestamp: serverTimestamp() });
-    showSuccess('resourceSuccess'); this.reset(); loadResources();
-  } catch(e) { console.error(e); alert('Error posting resource: '+e.message); }
+    await addDoc(collection(db, 'resources'), {
+      title:       document.getElementById('resourceTitle').value.trim(),
+      category:    document.getElementById('resourceCategory').value,
+      description: document.getElementById('resourceDescription').value.trim(),
+      fileUrl:     document.getElementById('resourceUrl').value.trim(),
+      timestamp:   serverTimestamp()
+    });
+    showSuccess('resourceSuccess');
+    this.reset();
+    loadResources();
+  } catch(e) { alert('Error posting resource: ' + e.message); }
 });
-
-document.getElementById('linkForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const title = document.getElementById('linkTitle').value;
-  const category = document.getElementById('linkCategory').value;
-  const url = document.getElementById('linkUrl').value;
-  const description = document.getElementById('linkDescription').value;
-  try {
-    await addDoc(collection(db,'links'), { title, category, url, description, timestamp: serverTimestamp() });
-    showSuccess('linkSuccess'); this.reset();
-    document.getElementById('linkPreviewContainer').innerHTML = ''; loadLinks();
-  } catch(e) { console.error(e); alert('Error posting link.'); }
-});
-
-document.getElementById('examForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const title = document.getElementById('examTitle').value;
-  const category = document.getElementById('examCategory').value;
-  const url = document.getElementById('examUrl').value;
-  const description = document.getElementById('examDescription').value;
-  try {
-    await addDoc(collection(db,'exams'), { title, category, url, description, timestamp: serverTimestamp() });
-    showSuccess('examSuccess'); this.reset();
-    document.getElementById('examPreviewContainer').innerHTML = ''; loadExams();
-  } catch(e) { console.error(e); alert('Error posting exam.'); }
-});
-
-window.previewLink = function() {
-  var url = document.getElementById('linkUrl').value;
-  if (url) document.getElementById('linkPreviewContainer').innerHTML = '<iframe src="'+url+'" class="preview-frame"></iframe>';
-};
-window.previewExam = function() {
-  var url = document.getElementById('examUrl').value;
-  if (url) document.getElementById('examPreviewContainer').innerHTML = '<iframe src="'+url+'" class="preview-frame"></iframe>';
-};
 
 async function loadResources() {
-  const grid = document.getElementById('resourcesGrid'); grid.innerHTML = '';
-  const snap = await getDocs(query(collection(db,'resources'), orderBy('timestamp','desc')));
-  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No resources posted yet</div>'; return; }
-  snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'resource')); });
-}
-async function loadLinks() {
-  const grid = document.getElementById('linksGrid'); grid.innerHTML = '';
-  const snap = await getDocs(query(collection(db,'links'), orderBy('timestamp','desc')));
-  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No links posted yet</div>'; return; }
-  snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'link')); });
-}
-async function loadExams() {
-  const grid = document.getElementById('examsGrid'); grid.innerHTML = '';
-  const snap = await getDocs(query(collection(db,'exams'), orderBy('timestamp','desc')));
-  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No exams posted yet</div>'; return; }
-  snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'exam')); });
-}
-
-function createPostCard(data, id, type) {
-  var card = document.createElement('div'); card.className = 'post-card';
-  var cat = data.category === 'both' ? 'All Students' : data.category === 'school' ? 'School' : 'Private';
-  card.innerHTML = '<h3>'+data.title+'</h3>'
-    +'<div class="post-meta"><span>📚 '+cat+'</span><span>'+(data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString() : '')+'</span></div>'
-    +'<p>'+data.description+'</p>'
-    +(data.fileUrl ? '<p><strong>📎 Link:</strong> <a href="'+data.fileUrl+'" target="_blank">Open File</a></p>' : '')
-    +(data.url ? '<p><strong>🔗 URL:</strong> <a href="'+data.url+'" target="_blank">View</a></p>' : '')
-    +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deletePost(\''+id+'\',\''+type+'\')">DELETE</button></div>';
-  return card;
-}
-window.deletePost = async function(id, type) {
-  if (!confirm('Delete this post?')) return;
-  var col = type==='resource'?'resources':type==='link'?'links':'exams';
+  var grid = document.getElementById('resourcesGrid');
+  grid.innerHTML = '';
   try {
-    await deleteDoc(doc(db,col,id));
-    if (type==='resource') loadResources(); else if (type==='link') loadLinks(); else loadExams();
-  } catch(e) { alert('Error deleting: '+e.message); }
-};
+    var snap = await getDocs(query(collection(db, 'resources'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { grid.innerHTML = emptyMsg('No resources posted yet'); return; }
+    snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'resource')); });
+  } catch(e) { grid.innerHTML = emptyMsg('Error loading resources'); }
+}
+loadResources();
 
-loadResources(); loadLinks(); loadExams();
-
-// ── SCHOOL EXAMS ─────────────────────────────────────────────
-document.getElementById('schoolExamForm').addEventListener('submit', async function(e) {
+// ════════════════════════════════════════════════════
+// LINKS
+// ════════════════════════════════════════════════════
+document.getElementById('linkForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const title = document.getElementById('schoolExamTitle').value;
-  const schoolId = document.getElementById('schoolSelect').value;
-  const url = document.getElementById('schoolExamUrl').value;
-  const description = document.getElementById('schoolExamDescription').value;
   try {
-    await addDoc(collection(db,'schoolExams'), { title, schoolId, url, description, timestamp: serverTimestamp() });
-    showSuccess('schoolExamSuccess'); this.reset(); loadSchoolExams();
-  } catch(e) { alert('Error: '+e.message); }
+    await addDoc(collection(db, 'links'), {
+      title:       document.getElementById('linkTitle').value.trim(),
+      category:    document.getElementById('linkCategory').value,
+      url:         document.getElementById('linkUrl').value.trim(),
+      description: document.getElementById('linkDescription').value.trim(),
+      timestamp:   serverTimestamp()
+    });
+    showSuccess('linkSuccess');
+    this.reset();
+    document.getElementById('linkPreviewContainer').innerHTML = '';
+    loadLinks();
+  } catch(e) { alert('Error posting link: ' + e.message); }
 });
 
+document.getElementById('previewLinkBtn').addEventListener('click', function() {
+  var url = document.getElementById('linkUrl').value.trim();
+  if (url) document.getElementById('linkPreviewContainer').innerHTML =
+    '<iframe src="' + url + '" class="preview-frame"></iframe>';
+});
+
+async function loadLinks() {
+  var grid = document.getElementById('linksGrid');
+  grid.innerHTML = '';
+  try {
+    var snap = await getDocs(query(collection(db, 'links'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { grid.innerHTML = emptyMsg('No links posted yet'); return; }
+    snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'link')); });
+  } catch(e) { grid.innerHTML = emptyMsg('Error loading links'); }
+}
+loadLinks();
+
+// ════════════════════════════════════════════════════
+// EXAMS
+// ════════════════════════════════════════════════════
+document.getElementById('examForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  try {
+    await addDoc(collection(db, 'exams'), {
+      title:       document.getElementById('examTitle').value.trim(),
+      category:    document.getElementById('examCategory').value,
+      url:         document.getElementById('examUrl').value.trim(),
+      description: document.getElementById('examDescription').value.trim(),
+      timestamp:   serverTimestamp()
+    });
+    showSuccess('examSuccess');
+    this.reset();
+    document.getElementById('examPreviewContainer').innerHTML = '';
+    loadExams();
+  } catch(e) { alert('Error posting exam: ' + e.message); }
+});
+
+document.getElementById('previewExamBtn').addEventListener('click', function() {
+  var url = document.getElementById('examUrl').value.trim();
+  if (url) document.getElementById('examPreviewContainer').innerHTML =
+    '<iframe src="' + url + '" class="preview-frame"></iframe>';
+});
+
+async function loadExams() {
+  var grid = document.getElementById('examsGrid');
+  grid.innerHTML = '';
+  try {
+    var snap = await getDocs(query(collection(db, 'exams'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { grid.innerHTML = emptyMsg('No exams posted yet'); return; }
+    snap.forEach(function(d) { grid.appendChild(createPostCard(d.data(), d.id, 'exam')); });
+  } catch(e) { grid.innerHTML = emptyMsg('Error loading exams'); }
+}
+loadExams();
+
+// ── Shared post-card factory ──
+function createPostCard(data, id, type) {
+  var card = document.createElement('div');
+  card.className = 'post-card';
+  var cat = data.category === 'both' ? 'All Students' : data.category === 'school' ? 'School' : 'Private';
+  card.innerHTML =
+    '<h3>' + data.title + '</h3>'
+    + '<div class="post-meta"><span>📚 ' + cat + '</span><span>' + fmtDate(data.timestamp) + '</span></div>'
+    + '<p>' + data.description + '</p>'
+    + (data.fileUrl ? '<p><strong>📎 Link:</strong> <a href="' + data.fileUrl + '" target="_blank">Open File</a></p>' : '')
+    + (data.url     ? '<p><strong>🔗 URL:</strong> <a href="' + data.url     + '" target="_blank">View</a></p>'      : '')
+    + '<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deletePost(\'' + id + '\',\'' + type + '\')">DELETE</button></div>';
+  return card;
+}
+
+window.deletePost = async function(id, type) {
+  if (!confirm('Delete this post?')) return;
+  var colName = type === 'resource' ? 'resources' : type === 'link' ? 'links' : 'exams';
+  try {
+    await deleteDoc(doc(db, colName, id));
+    if      (type === 'resource') loadResources();
+    else if (type === 'link')     loadLinks();
+    else                          loadExams();
+  } catch(e) { alert('Error deleting: ' + e.message); }
+};
+
+// ════════════════════════════════════════════════════
+// SCHOOL EXAMS
+// ════════════════════════════════════════════════════
 const SCHOOL_NAMES = {
   peniel:'Peniel Lily Montessori', southgold:'South Gold Montessori',
-  sapphire:'Sapphire Explorer', easystars:'Easy Stars Academy',
+  sapphire:'Sapphire Explorer',    easystars:'Easy Stars Academy',
   christycaleb:'Christy Caleb International', royalbreed:'Royal Breed Academy'
 };
 
+document.getElementById('schoolExamForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  try {
+    await addDoc(collection(db, 'schoolExams'), {
+      title:       document.getElementById('schoolExamTitle').value.trim(),
+      schoolId:    document.getElementById('schoolSelect').value,
+      url:         document.getElementById('schoolExamUrl').value.trim(),
+      description: document.getElementById('schoolExamDescription').value.trim(),
+      timestamp:   serverTimestamp()
+    });
+    showSuccess('schoolExamSuccess');
+    this.reset();
+    loadSchoolExams();
+  } catch(e) { alert('Error: ' + e.message); }
+});
+
 async function loadSchoolExams() {
-  var grid = document.getElementById('schoolExamsGrid'); grid.innerHTML = '';
-  var snap = await getDocs(query(collection(db,'schoolExams'), orderBy('timestamp','desc')));
-  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No school exams posted yet</div>'; return; }
-  snap.forEach(function(docSnap) {
-    var data = docSnap.data();
-    var card = document.createElement('div'); card.className = 'post-card';
-    card.innerHTML = '<h3>'+data.title+'</h3>'
-      +'<div class="post-meta"><span>🏫 '+(SCHOOL_NAMES[data.schoolId]||data.schoolId)+'</span><span>'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
-      +'<p>'+data.description+'</p>'
-      +'<p><strong>🔗 URL:</strong> <a href="'+data.url+'" target="_blank">View</a></p>'
-      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteSchoolExam(\''+docSnap.id+'\')">DELETE</button></div>';
-    grid.appendChild(card);
-  });
+  var grid = document.getElementById('schoolExamsGrid');
+  grid.innerHTML = '';
+  try {
+    var snap = await getDocs(query(collection(db, 'schoolExams'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { grid.innerHTML = emptyMsg('No school exams posted yet'); return; }
+    snap.forEach(function(docSnap) {
+      var data = docSnap.data();
+      var card = document.createElement('div'); card.className = 'post-card';
+      card.innerHTML =
+        '<h3>' + data.title + '</h3>'
+        + '<div class="post-meta"><span>🏫 ' + (SCHOOL_NAMES[data.schoolId] || data.schoolId) + '</span><span>' + fmtDate(data.timestamp) + '</span></div>'
+        + '<p>' + data.description + '</p>'
+        + '<p><strong>🔗 URL:</strong> <a href="' + data.url + '" target="_blank">View</a></p>'
+        + '<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteSchoolExam(\'' + docSnap.id + '\')">DELETE</button></div>';
+      grid.appendChild(card);
+    });
+  } catch(e) { grid.innerHTML = emptyMsg('Error loading school exams'); }
 }
-window.deleteSchoolExam = async function(id) {
-  if (!confirm('Delete this school exam?')) return;
-  await deleteDoc(doc(db,'schoolExams',id)); loadSchoolExams();
-};
 loadSchoolExams();
 
-// ── SCHOOL RESOURCES ─────────────────────────────────────────
+window.deleteSchoolExam = async function(id) {
+  if (!confirm('Delete this school exam?')) return;
+  await deleteDoc(doc(db, 'schoolExams', id));
+  loadSchoolExams();
+};
+
+// ════════════════════════════════════════════════════
+// SCHOOL RESOURCES
+// ════════════════════════════════════════════════════
 document.getElementById('schoolResourceForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const resourceType = document.getElementById('schoolResourceType').value;
-  const schoolId = document.getElementById('schoolResourceSchool').value;
-  const title = document.getElementById('schoolResourceTitle').value;
-  const url = document.getElementById('schoolResourceUrl').value;
-  const description = document.getElementById('schoolResourceDescription').value;
-  const colName = resourceType === 'link' ? 'schoolLinks' : 'schoolResources';
-  const urlField = resourceType === 'link' ? 'url' : 'fileUrl';
+  var resourceType = document.getElementById('schoolResourceType').value;
+  var colName  = resourceType === 'link' ? 'schoolLinks' : 'schoolResources';
+  var urlField = resourceType === 'link' ? 'url' : 'fileUrl';
   try {
-    await addDoc(collection(db,colName), { schoolId, title, [urlField]: url, description, timestamp: serverTimestamp() });
-    showSuccess('schoolResourceSuccess'); this.reset(); loadSchoolResources();
-  } catch(e) { alert('Error: '+e.message); }
+    await addDoc(collection(db, colName), {
+      schoolId:    document.getElementById('schoolResourceSchool').value,
+      title:       document.getElementById('schoolResourceTitle').value.trim(),
+      [urlField]:  document.getElementById('schoolResourceUrl').value.trim(),
+      description: document.getElementById('schoolResourceDescription').value.trim(),
+      timestamp:   serverTimestamp()
+    });
+    showSuccess('schoolResourceSuccess');
+    this.reset();
+    loadSchoolResources();
+  } catch(e) { alert('Error: ' + e.message); }
 });
 
 async function loadSchoolResources() {
-  var grid = document.getElementById('schoolResourcesGrid'); grid.innerHTML = '';
-  var [rSnap, lSnap] = await Promise.all([
-    getDocs(query(collection(db,'schoolResources'), orderBy('timestamp','desc'))),
-    getDocs(query(collection(db,'schoolLinks'), orderBy('timestamp','desc')))
-  ]);
-  var all = [];
-  rSnap.forEach(function(d){ all.push({id:d.id,data:d.data(),type:'resource',col:'schoolResources'}); });
-  lSnap.forEach(function(d){ all.push({id:d.id,data:d.data(),type:'link',col:'schoolLinks'}); });
-  all.sort(function(a,b){ return (b.data.timestamp?.toDate()||new Date(0))-(a.data.timestamp?.toDate()||new Date(0)); });
-  if (!all.length) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No school resources posted yet</div>'; return; }
-  all.forEach(function(item) {
-    var data = item.data;
-    var url = item.type==='link' ? data.url : data.fileUrl;
-    var card = document.createElement('div'); card.className='post-card';
-    card.innerHTML = '<h3>'+(item.type==='link'?'🔗':'📄')+' '+data.title+'</h3>'
-      +'<div class="post-meta"><span>🏫 '+(SCHOOL_NAMES[data.schoolId]||data.schoolId)+'</span><span>'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
-      +'<p>'+data.description+'</p>'
-      +'<p><strong>🔗 URL:</strong> <a href="'+url+'" target="_blank">View</a></p>'
-      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteSchoolResource(\''+item.id+'\',\''+item.col+'\')">DELETE</button></div>';
-    grid.appendChild(card);
-  });
+  var grid = document.getElementById('schoolResourcesGrid');
+  grid.innerHTML = '';
+  try {
+    var [rSnap, lSnap] = await Promise.all([
+      getDocs(query(collection(db, 'schoolResources'), orderBy('timestamp', 'desc'))),
+      getDocs(query(collection(db, 'schoolLinks'),     orderBy('timestamp', 'desc')))
+    ]);
+    var all = [];
+    rSnap.forEach(function(d) { all.push({ id:d.id, data:d.data(), type:'resource', col:'schoolResources' }); });
+    lSnap.forEach(function(d) { all.push({ id:d.id, data:d.data(), type:'link',     col:'schoolLinks'     }); });
+    all.sort(function(a, b) {
+      return (b.data.timestamp?.toDate() || new Date(0)) - (a.data.timestamp?.toDate() || new Date(0));
+    });
+    if (!all.length) { grid.innerHTML = emptyMsg('No school resources posted yet'); return; }
+    all.forEach(function(item) {
+      var data = item.data;
+      var url  = item.type === 'link' ? data.url : data.fileUrl;
+      var card = document.createElement('div'); card.className = 'post-card';
+      card.innerHTML =
+        '<h3>' + (item.type === 'link' ? '🔗' : '📄') + ' ' + data.title + '</h3>'
+        + '<div class="post-meta"><span>🏫 ' + (SCHOOL_NAMES[data.schoolId] || data.schoolId) + '</span><span>' + fmtDate(data.timestamp) + '</span></div>'
+        + '<p>' + data.description + '</p>'
+        + '<p><strong>🔗 URL:</strong> <a href="' + url + '" target="_blank">View</a></p>'
+        + '<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteSchoolResource(\'' + item.id + '\',\'' + item.col + '\')">DELETE</button></div>';
+      grid.appendChild(card);
+    });
+  } catch(e) { grid.innerHTML = emptyMsg('Error loading school resources'); }
 }
-window.deleteSchoolResource = async function(id, colName) {
-  if (!confirm('Delete this school resource?')) return;
-  await deleteDoc(doc(db,colName,id)); loadSchoolResources();
-};
 loadSchoolResources();
 
-// ── MANAGE SCHOOLS ───────────────────────────────────────────
-window.updateSchoolCode = async function(schoolId) {
-  var input = document.getElementById(schoolId+'Code');
-  if (!input.value.trim()) { alert('Please enter an access code'); return; }
-  try {
-    await setDoc(doc(db,'schools',schoolId), { accessCode: input.value.trim(), updatedAt: serverTimestamp() });
-    showSuccess('schoolManageSuccess'); input.value = '';
-  } catch(e) { alert('Error: '+e.message); }
+window.deleteSchoolResource = async function(id, colName) {
+  if (!confirm('Delete this school resource?')) return;
+  await deleteDoc(doc(db, colName, id));
+  loadSchoolResources();
 };
 
-// ── MANAGE STUDENTS ───────────────────────────────────────────
+// ════════════════════════════════════════════════════
+// MANAGE SCHOOLS
+// ════════════════════════════════════════════════════
+window.updateSchoolCode = async function(schoolId) {
+  var input = document.getElementById(schoolId + 'Code');
+  if (!input.value.trim()) { alert('Please enter an access code'); return; }
+  try {
+    await setDoc(doc(db, 'schools', schoolId), { accessCode: input.value.trim(), updatedAt: serverTimestamp() });
+    showSuccess('schoolManageSuccess');
+    input.value = '';
+  } catch(e) { alert('Error: ' + e.message); }
+};
+
+// ════════════════════════════════════════════════════
+// MANAGE STUDENTS
+// ════════════════════════════════════════════════════
 document.getElementById('addStudentForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   var fullName = document.getElementById('newStudentName').value.trim();
@@ -1578,339 +1604,509 @@ document.getElementById('addStudentForm').addEventListener('submit', async funct
   var email    = document.getElementById('newStudentEmail').value.trim();
   var code     = document.getElementById('newStudentCode').value.trim();
   try {
-    var ex = await getDocs(query(collection(db,'individualStudents'), where('username','==',username)));
-    if (!ex.empty) { alert('Username already exists! Choose another.'); return; }
-    await addDoc(collection(db,'individualStudents'), { fullName, username, email, accessCode: code, registeredAt: serverTimestamp() });
-    showSuccess('studentAddSuccess'); this.reset(); loadStudentsList(); loadStudentsDropdown(); loadStats();
-  } catch(e) { alert('Error: '+e.message); }
+    var existing = await getDocs(query(collection(db, 'individualStudents'), where('username', '==', username)));
+    if (!existing.empty) { alert('Username already exists! Choose another.'); return; }
+    await addDoc(collection(db, 'individualStudents'), {
+      fullName, username, email, accessCode: code, registeredAt: serverTimestamp()
+    });
+    showSuccess('studentAddSuccess');
+    this.reset();
+    loadStudentsList();
+    loadStudentsDropdown();
+    loadStats();
+  } catch(e) { alert('Error: ' + e.message); }
 });
 
 async function loadStudentsList() {
   var container = document.getElementById('studentsListContainer');
   container.innerHTML = '';
-  var snap = await getDocs(collection(db,'individualStudents'));
-  if (snap.empty) {
-    container.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;font-family:var(--mono);">No students registered yet</div>';
-    return;
-  }
-  snap.forEach(function(docSnap) {
-    var data = docSnap.data();
-    var card = document.createElement('div'); card.className = 'person-card';
-    card.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:start;gap:.5rem;margin-bottom:.6rem;flex-wrap:wrap;">'
-      +'<div><h3>👤 '+(data.fullName||data.username)+'</h3>'
-      +'<p><strong>Username:</strong> '+data.username+'<br>'
-      +(data.email?'<strong>Email:</strong> '+data.email+'<br>':'')
-      +'<strong>Code:</strong> <span style="font-family:var(--mono);color:var(--crimson);">'+data.accessCode+'</span><br>'
-      +'<strong>Registered:</strong> '+(data.registeredAt?new Date(data.registeredAt.toDate()).toLocaleDateString():'')+'</p></div>'
-      +'<button class="btn btn-danger btn-sm" onclick="deleteStudent(\''+docSnap.id+'\')">DELETE</button>'
-      +'</div>'
-      +'<div class="form-group" style="margin-bottom:.4rem;"><label>Update Access Code</label>'
-      +'<input type="text" id="code_'+docSnap.id+'" value="'+data.accessCode+'" placeholder="New access code">'
-      +'</div>'
-      +'<button class="btn btn-primary btn-sm" onclick="updateStudentCode(\''+docSnap.id+'\')">UPDATE CODE</button>';
-    container.appendChild(card);
-  });
+  try {
+    var snap = await getDocs(collection(db, 'individualStudents'));
+    if (snap.empty) { container.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;font-family:var(--mono);">No students registered yet</div>'; return; }
+    snap.forEach(function(docSnap) {
+      var data = docSnap.data();
+      var card = document.createElement('div'); card.className = 'person-card';
+      card.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:start;gap:.5rem;margin-bottom:.6rem;flex-wrap:wrap;">'
+        + '<div><h3>👤 ' + (data.fullName || data.username) + '</h3>'
+        + '<p><strong>Username:</strong> ' + data.username + '<br>'
+        + (data.email ? '<strong>Email:</strong> ' + data.email + '<br>' : '')
+        + '<strong>Code:</strong> <span style="font-family:var(--mono);color:var(--crimson);">' + data.accessCode + '</span><br>'
+        + '<strong>Registered:</strong> ' + fmtDate(data.registeredAt) + '</p></div>'
+        + '<button class="btn btn-danger btn-sm" onclick="deleteStudent(\'' + docSnap.id + '\')">DELETE</button>'
+        + '</div>'
+        + '<div class="form-group" style="margin-bottom:.4rem;"><label>Update Access Code</label>'
+        + '<input type="text" id="code_' + docSnap.id + '" value="' + data.accessCode + '" placeholder="New access code">'
+        + '</div>'
+        + '<button class="btn btn-primary btn-sm" onclick="updateStudentCode(\'' + docSnap.id + '\')">UPDATE CODE</button>';
+      container.appendChild(card);
+    });
+  } catch(e) { container.innerHTML = emptyMsg('Error loading students'); }
 }
+loadStudentsList();
+
 window.updateStudentCode = async function(id) {
-  var val = document.getElementById('code_'+id).value.trim();
+  var val = document.getElementById('code_' + id).value.trim();
   if (!val) { alert('Enter an access code'); return; }
-  await setDoc(doc(db,'individualStudents',id), { accessCode: val }, { merge: true });
-  alert('Access code updated!');
+  try {
+    await setDoc(doc(db, 'individualStudents', id), { accessCode: val }, { merge: true });
+    alert('Access code updated!');
+  } catch(e) { alert('Error: ' + e.message); }
 };
+
 window.deleteStudent = async function(id) {
   if (!confirm('Delete this student and all their resources?')) return;
-  await deleteDoc(doc(db,'individualStudents',id));
-  var [rSnap,lSnap] = await Promise.all([
-    getDocs(query(collection(db,'personalResources'), where('studentId','==',id))),
-    getDocs(query(collection(db,'personalLinks'), where('studentId','==',id)))
-  ]);
-  var dels = [];
-  rSnap.forEach(function(d){ dels.push(deleteDoc(d.ref)); });
-  lSnap.forEach(function(d){ dels.push(deleteDoc(d.ref)); });
-  await Promise.all(dels);
-  loadStudentsList(); loadStudentsDropdown(); loadStats();
+  try {
+    await deleteDoc(doc(db, 'individualStudents', id));
+    var [rSnap, lSnap] = await Promise.all([
+      getDocs(query(collection(db, 'personalResources'), where('studentId', '==', id))),
+      getDocs(query(collection(db, 'personalLinks'),     where('studentId', '==', id)))
+    ]);
+    var dels = [];
+    rSnap.forEach(function(d) { dels.push(deleteDoc(d.ref)); });
+    lSnap.forEach(function(d) { dels.push(deleteDoc(d.ref)); });
+    await Promise.all(dels);
+    loadStudentsList();
+    loadStudentsDropdown();
+    loadStats();
+  } catch(e) { alert('Error: ' + e.message); }
 };
+
 async function loadStudentsDropdown() {
   var dd = document.getElementById('targetStudent');
   dd.innerHTML = '<option value="">Choose Student</option>';
-  var snap = await getDocs(collection(db,'individualStudents'));
-  snap.forEach(function(d) {
-    var data = d.data();
-    var opt = document.createElement('option');
-    opt.value = d.id;
-    opt.textContent = (data.fullName||data.username)+' (@'+data.username+')';
-    dd.appendChild(opt);
-  });
+  try {
+    var snap = await getDocs(collection(db, 'individualStudents'));
+    snap.forEach(function(d) {
+      var data = d.data();
+      var opt  = document.createElement('option');
+      opt.value       = d.id;
+      opt.textContent = (data.fullName || data.username) + ' (@' + data.username + ')';
+      dd.appendChild(opt);
+    });
+  } catch(e) { console.error('loadStudentsDropdown:', e); }
 }
-loadStudentsList(); loadStudentsDropdown();
+loadStudentsDropdown();
 
-// ── SEND RESOURCES TO STUDENT ─────────────────────────────────
+// ════════════════════════════════════════════════════
+// SEND RESOURCES TO STUDENT
+// ════════════════════════════════════════════════════
 document.getElementById('studentResourceForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   var studentId = document.getElementById('targetStudent').value;
-  var type = document.getElementById('resourceType').value;
-  var title = document.getElementById('studentResourceTitle').value;
-  var url = document.getElementById('studentResourceUrl').value;
-  var desc = document.getElementById('studentResourceDescription').value;
-  var col = type==='link'?'personalLinks':'personalResources';
+  var type      = document.getElementById('resourceType').value;
+  var title     = document.getElementById('studentResourceTitle').value.trim();
+  var url       = document.getElementById('studentResourceUrl').value.trim();
+  var desc      = document.getElementById('studentResourceDescription').value.trim();
+  var colName   = type === 'link' ? 'personalLinks' : 'personalResources';
+  var urlField  = type === 'link' ? 'url' : 'fileUrl';
   try {
-    await addDoc(collection(db,col), { studentId, title, [type==='link'?'url':'fileUrl']: url, description: desc, timestamp: serverTimestamp() });
-    showSuccess('studentResourceSuccess'); this.reset(); loadStudentResources();
-  } catch(e) { alert('Error: '+e.message); }
+    await addDoc(collection(db, colName), {
+      studentId, title, [urlField]: url, description: desc, timestamp: serverTimestamp()
+    });
+    showSuccess('studentResourceSuccess');
+    this.reset();
+    loadStudentResources();
+  } catch(e) { alert('Error: ' + e.message); }
 });
+
 async function loadStudentResources() {
-  var grid = document.getElementById('studentResourcesGrid'); grid.innerHTML = '';
-  var all = [];
-  for (var col of ['personalResources','personalLinks']) {
-    var snap = await getDocs(query(collection(db,col), orderBy('timestamp','desc')));
-    snap.forEach(function(d){ all.push({id:d.id,col:col,...d.data()}); });
-  }
-  all.sort(function(a,b){ return (b.timestamp?.toDate()||0)-(a.timestamp?.toDate()||0); });
-  if (!all.length) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No resources sent yet</div>'; return; }
-  for (var res of all.slice(0,10)) {
-    var sDoc = await getDoc(doc(db,'individualStudents',res.studentId));
-    var sName = sDoc.exists()?(sDoc.data().fullName||sDoc.data().username):'Unknown';
-    var card = document.createElement('div'); card.className='post-card';
-    card.innerHTML='<h3>'+res.title+'</h3>'
-      +'<div class="post-meta"><span>👤 '+sName+'</span><span>'+(res.timestamp?new Date(res.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
-      +'<p>'+res.description+'</p>'
-      +'<p><strong>🔗:</strong> <a href="'+(res.url||res.fileUrl)+'" target="_blank">View</a></p>'
-      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteStudentResource(\''+res.id+'\',\''+res.col+'\')">DELETE</button></div>';
-    grid.appendChild(card);
-  }
+  var grid = document.getElementById('studentResourcesGrid');
+  grid.innerHTML = '';
+  try {
+    var all = [];
+    for (var colName of ['personalResources', 'personalLinks']) {
+      var snap = await getDocs(query(collection(db, colName), orderBy('timestamp', 'desc')));
+      snap.forEach(function(d) { all.push({ id:d.id, col:colName, ...d.data() }); });
+    }
+    all.sort(function(a, b) { return (b.timestamp?.toDate() || 0) - (a.timestamp?.toDate() || 0); });
+    if (!all.length) { grid.innerHTML = emptyMsg('No resources sent yet'); return; }
+    for (var res of all.slice(0, 10)) {
+      var sDoc  = await getDoc(doc(db, 'individualStudents', res.studentId));
+      var sName = sDoc.exists() ? (sDoc.data().fullName || sDoc.data().username) : 'Unknown';
+      var card  = document.createElement('div'); card.className = 'post-card';
+      card.innerHTML =
+        '<h3>' + res.title + '</h3>'
+        + '<div class="post-meta"><span>👤 ' + sName + '</span><span>' + fmtDate(res.timestamp) + '</span></div>'
+        + '<p>' + res.description + '</p>'
+        + '<p><strong>🔗:</strong> <a href="' + (res.url || res.fileUrl) + '" target="_blank">View</a></p>'
+        + '<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteStudentResource(\'' + res.id + '\',\'' + res.col + '\')">DELETE</button></div>';
+      grid.appendChild(card);
+    }
+  } catch(e) { grid.innerHTML = emptyMsg('Error loading resources'); }
 }
-window.deleteStudentResource = async function(id, col) {
-  if (confirm('Delete this resource?')) { await deleteDoc(doc(db,col,id)); loadStudentResources(); }
-};
 loadStudentResources();
 
-// ── MANAGE STAFF ─────────────────────────────────────────────
+window.deleteStudentResource = async function(id, colName) {
+  if (confirm('Delete this resource?')) {
+    await deleteDoc(doc(db, colName, id));
+    loadStudentResources();
+  }
+};
+
+// ════════════════════════════════════════════════════
+// MANAGE STAFF
+// ════════════════════════════════════════════════════
 document.getElementById('addStaffForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   var name  = document.getElementById('staffName').value.trim();
   var email = document.getElementById('staffEmail').value.trim();
   try {
-    await addDoc(collection(db,'pendingStaff'), { email, name, invitedAt: serverTimestamp(), invitedBy: sessionStorage.getItem('userId') });
-    await setDoc(doc(db,'staffRegistration','code'), { code:'JAYSTAR2024', updatedAt: serverTimestamp() });
+    await addDoc(collection(db, 'pendingStaff'), {
+      email, name, invitedAt: serverTimestamp(),
+      invitedBy: sessionStorage.getItem('userId')
+    });
+    await setDoc(doc(db, 'staffRegistration', 'code'), { code:'JAYSTAR2024', updatedAt: serverTimestamp() });
     showSuccess('staffAddSuccess');
-    alert('✅ Staff invitation created!\n\nSend to '+name+':\nEmail: '+email+'\n🔑 Code: JAYSTAR2024\n🔗 Link: '+window.location.origin+'/staff-register.html');
-    this.reset(); loadStaffList();
-  } catch(e) { alert('Error: '+e.message); }
+    alert('✅ Staff invitation created!\n\nSend to ' + name + ':\nEmail: ' + email + '\n🔑 Code: JAYSTAR2024\n🔗 Link: ' + window.location.origin + '/staff-register.html');
+    this.reset();
+    loadStaffList();
+  } catch(e) { alert('Error: ' + e.message); }
 });
+
 async function loadStaffList() {
   var container = document.getElementById('staffListContainer');
   container.innerHTML = '<div style="padding:1rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">Loading...</div>';
-  var snap = await getDocs(query(collection(db,'users'), where('role','==','staff')));
-  if (snap.empty) { container.innerHTML='<div style="padding:1.5rem;color:var(--text-dim);font-size:.75rem;text-align:center;font-family:var(--mono);">No staff members yet</div>'; return; }
-  container.innerHTML = '';
-  snap.forEach(function(docSnap) {
-    var data = docSnap.data();
-    var card = document.createElement('div'); card.className='person-card';
-    card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:.5rem;">'
-      +'<div><h3>👨‍🏫 '+data.name+'</h3>'
-      +'<p><strong>Email:</strong> '+data.email+'<br>'
-      +'<strong>Added:</strong> '+(data.createdAt?new Date(data.createdAt.toDate()).toLocaleDateString():'')+'</p></div>'
-      +'<button class="btn btn-danger btn-sm" onclick="deleteStaff(\''+docSnap.id+'\')">REMOVE</button>'
-      +'</div>';
-    container.appendChild(card);
-  });
+  try {
+    var snap = await getDocs(query(collection(db, 'users'), where('role', '==', 'staff')));
+    if (snap.empty) { container.innerHTML = '<div style="padding:1.5rem;color:var(--text-dim);font-size:.75rem;text-align:center;font-family:var(--mono);">No staff members yet</div>'; return; }
+    container.innerHTML = '';
+    snap.forEach(function(docSnap) {
+      var data = docSnap.data();
+      var card = document.createElement('div'); card.className = 'person-card';
+      card.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:.5rem;">'
+        + '<div><h3>👨‍🏫 ' + data.name + '</h3>'
+        + '<p><strong>Email:</strong> ' + data.email + '<br>'
+        + '<strong>Added:</strong> ' + fmtDate(data.createdAt) + '</p></div>'
+        + '<button class="btn btn-danger btn-sm" onclick="deleteStaff(\'' + docSnap.id + '\')">REMOVE</button>'
+        + '</div>';
+      container.appendChild(card);
+    });
+  } catch(e) { container.innerHTML = emptyMsg('Error loading staff'); }
 }
+loadStaffList();
+
 window.deleteStaff = async function(id) {
   if (!confirm('Remove this staff member?')) return;
-  await deleteDoc(doc(db,'users',id)); loadStaffList(); loadStats();
+  try {
+    await deleteDoc(doc(db, 'users', id));
+    loadStaffList();
+    loadStats();
+  } catch(e) { alert('Error: ' + e.message); }
 };
-loadStaffList();
-document.getElementById('regLink').textContent = window.location.origin+'/staff-register.html';
 
-// ── STAFF RESOURCES ───────────────────────────────────────────
+// ════════════════════════════════════════════════════
+// STAFF RESOURCES
+// ════════════════════════════════════════════════════
 document.getElementById('staffResourceForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  var title = document.getElementById('staffResTitle').value;
-  var url   = document.getElementById('staffResUrl').value;
-  var desc  = document.getElementById('staffResDescription').value;
   try {
-    await addDoc(collection(db,'staffGeneralResources'), { title, url, description: desc, timestamp: serverTimestamp() });
-    showSuccess('staffResourceSuccess'); this.reset(); loadStaffResources();
-  } catch(e) { alert('Error: '+e.message); }
+    await addDoc(collection(db, 'staffGeneralResources'), {
+      title:       document.getElementById('staffResTitle').value.trim(),
+      url:         document.getElementById('staffResUrl').value.trim(),
+      description: document.getElementById('staffResDescription').value.trim(),
+      timestamp:   serverTimestamp()
+    });
+    showSuccess('staffResourceSuccess');
+    this.reset();
+    loadStaffResources();
+  } catch(e) { alert('Error: ' + e.message); }
 });
+
 async function loadStaffResources() {
-  var grid = document.getElementById('staffResourcesGrid'); grid.innerHTML = '';
-  var snap = await getDocs(query(collection(db,'staffGeneralResources'), orderBy('timestamp','desc')));
-  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No resources posted yet</div>'; return; }
-  snap.forEach(function(docSnap) {
-    var data = docSnap.data();
-    var card = document.createElement('div'); card.className='post-card';
-    card.innerHTML='<h3>'+data.title+'</h3><p>'+data.description+'</p>'
-      +'<p><strong>📎:</strong> <a href="'+data.url+'" target="_blank">Open</a></p>'
-      +'<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteStaffResource(\''+docSnap.id+'\')">DELETE</button></div>';
-    grid.appendChild(card);
-  });
+  var grid = document.getElementById('staffResourcesGrid');
+  grid.innerHTML = '';
+  try {
+    var snap = await getDocs(query(collection(db, 'staffGeneralResources'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { grid.innerHTML = emptyMsg('No resources posted yet'); return; }
+    snap.forEach(function(docSnap) {
+      var data = docSnap.data();
+      var card = document.createElement('div'); card.className = 'post-card';
+      card.innerHTML =
+        '<h3>' + data.title + '</h3>'
+        + '<p>' + data.description + '</p>'
+        + '<p><strong>📎:</strong> <a href="' + data.url + '" target="_blank">Open</a></p>'
+        + '<div class="post-actions"><button class="btn btn-danger btn-sm" onclick="deleteStaffResource(\'' + docSnap.id + '\')">DELETE</button></div>';
+      grid.appendChild(card);
+    });
+  } catch(e) { grid.innerHTML = emptyMsg('Error loading staff resources'); }
 }
-window.deleteStaffResource = async function(id) {
-  if (confirm('Delete this resource?')) { await deleteDoc(doc(db,'staffGeneralResources',id)); loadStaffResources(); }
-};
 loadStaffResources();
 
-// ── STAFF SCHOOL ACCESS ───────────────────────────────────────
-window.updateStaffSchoolAccess = async function() {
+window.deleteStaffResource = async function(id) {
+  if (confirm('Delete this resource?')) {
+    await deleteDoc(doc(db, 'staffGeneralResources', id));
+    loadStaffResources();
+  }
+};
+
+// ════════════════════════════════════════════════════
+// STAFF SCHOOL ACCESS
+// ════════════════════════════════════════════════════
+document.getElementById('updateAccessCodeBtn').addEventListener('click', async function() {
   var code = document.getElementById('schoolAccessCodeInput').value.trim();
   if (!code) { alert('Please enter a code'); return; }
-  await setDoc(doc(db,'staffSchoolAccess','accessCode'), { code, updatedAt: serverTimestamp() });
-  showSuccess('accessCodeSuccess'); loadCurrentAccessCode();
-};
+  try {
+    await setDoc(doc(db, 'staffSchoolAccess', 'accessCode'), { code, updatedAt: serverTimestamp() });
+    showSuccess('accessCodeSuccess');
+    loadCurrentAccessCode();
+  } catch(e) { alert('Error: ' + e.message); }
+});
+
 async function loadCurrentAccessCode() {
-  var snap = await getDoc(doc(db,'staffSchoolAccess','accessCode'));
-  document.getElementById('currentAccessCode').textContent = snap.exists() ? snap.data().code : 'Not set';
+  try {
+    var snap = await getDoc(doc(db, 'staffSchoolAccess', 'accessCode'));
+    document.getElementById('currentAccessCode').textContent =
+      snap.exists() ? snap.data().code : 'Not set';
+  } catch(e) { document.getElementById('currentAccessCode').textContent = 'Error loading'; }
 }
 loadCurrentAccessCode();
 
-// ── NOTIFICATIONS ─────────────────────────────────────────────
+// ════════════════════════════════════════════════════
+// NOTIFICATIONS
+// ════════════════════════════════════════════════════
 document.getElementById('notifRecipient').addEventListener('change', async function() {
-  var val = this.value;
-  var group = document.getElementById('specificRecipientGroup');
+  var val    = this.value;
+  var group  = document.getElementById('specificRecipientGroup');
   var select = document.getElementById('specificRecipient');
+
   if (val === 'specific_staff' || val === 'specific_student') {
     group.style.display = 'block';
-    select.innerHTML = '<option value="">Loading...</option>';
-    if (val === 'specific_staff') {
-      var snap = await getDocs(query(collection(db,'users'), where('role','==','staff')));
-      select.innerHTML = '<option value="">Choose staff member</option>';
-      snap.forEach(function(d){ var data=d.data(); var o=document.createElement('option'); o.value=d.id; o.textContent=data.name+' ('+data.email+')'; select.appendChild(o); });
-    } else {
-      var snap = await getDocs(collection(db,'individualStudents'));
-      select.innerHTML = '<option value="">Choose student</option>';
-      snap.forEach(function(d){ var data=d.data(); var o=document.createElement('option'); o.value=d.id; o.textContent=(data.fullName||data.username); select.appendChild(o); });
-    }
-  } else { group.style.display = 'none'; }
+    select.innerHTML    = '<option value="">Loading...</option>';
+    try {
+      if (val === 'specific_staff') {
+        var snap = await getDocs(query(collection(db, 'users'), where('role', '==', 'staff')));
+        select.innerHTML = '<option value="">Choose staff member</option>';
+        snap.forEach(function(d) {
+          var data = d.data();
+          var o = document.createElement('option');
+          o.value = d.id; o.textContent = data.name + ' (' + data.email + ')';
+          select.appendChild(o);
+        });
+      } else {
+        var snap = await getDocs(collection(db, 'individualStudents'));
+        select.innerHTML = '<option value="">Choose student</option>';
+        snap.forEach(function(d) {
+          var data = d.data();
+          var o = document.createElement('option');
+          o.value = d.id; o.textContent = data.fullName || data.username;
+          select.appendChild(o);
+        });
+      }
+    } catch(e) { select.innerHTML = '<option value="">Error loading</option>'; }
+  } else {
+    group.style.display = 'none';
+  }
 });
+
 document.getElementById('notificationForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   var recipient = document.getElementById('notifRecipient').value;
   var specific  = document.getElementById('specificRecipient').value;
-  var title     = document.getElementById('notifTitle').value;
-  var message   = document.getElementById('notifMessage').value;
-  var recipientId = recipient;
-  if ((recipient==='specific_staff'||recipient==='specific_student') && !specific) { alert('Please select a person'); return; }
-  if (recipient==='specific_staff'||recipient==='specific_student') recipientId = specific;
+  var title     = document.getElementById('notifTitle').value.trim();
+  var message   = document.getElementById('notifMessage').value.trim();
+
+  if ((recipient === 'specific_staff' || recipient === 'specific_student') && !specific) {
+    alert('Please select a person');
+    return;
+  }
+  var recipientId = (recipient === 'specific_staff' || recipient === 'specific_student') ? specific : recipient;
   try {
-    await addDoc(collection(db,'notifications'), { recipientId, title, message, read: false, timestamp: serverTimestamp() });
-    showSuccess('notificationSuccess'); this.reset();
+    await addDoc(collection(db, 'notifications'), {
+      recipientId, title, message, read: false, timestamp: serverTimestamp()
+    });
+    showSuccess('notificationSuccess');
+    this.reset();
     document.getElementById('specificRecipientGroup').style.display = 'none';
-  } catch(e) { alert('Error: '+e.message); }
+  } catch(e) { alert('Error: ' + e.message); }
 });
 
-// ── ACTIVITY LOGS ─────────────────────────────────────────────
+// ════════════════════════════════════════════════════
+// ACTIVITY LOGS
+// ════════════════════════════════════════════════════
 async function loadActivityLogs() {
-  var container = document.getElementById('activityLogsContainer');
+  var container     = document.getElementById('activityLogsContainer');
   var showLogins    = document.getElementById('filterLogins').checked;
   var showResources = document.getElementById('filterResources').checked;
   container.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;font-family:var(--mono);">Loading...</div>';
-  var snap = await getDocs(query(collection(db,'activityLogs'), orderBy('timestamp','desc')));
-  if (snap.empty) { container.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;text-align:center;font-family:var(--mono);">No activity yet</div>'; return; }
-  container.innerHTML = '';
-  snap.forEach(function(docSnap) {
-    var data = docSnap.data();
-    if (!showLogins    && (data.type==='login'||data.type==='logout')) return;
-    if (!showResources && data.type && data.type.includes('resource')) return;
-    var ICONS = { login:'🔓', logout:'🔒', staff_resource_sent:'📤', staff_school_resource_sent:'🏫', student_added:'👤' };
-    var DESCS = {
-      login: data.userType+' logged in: '+data.userEmail,
-      logout: data.userType+' logged out: '+data.userEmail,
-      staff_resource_sent: 'Staff '+data.staffEmail+' sent "'+data.resourceTitle+'" to a student',
-      staff_school_resource_sent: 'Staff '+data.staffEmail+' sent "'+data.resourceTitle+'" to a school',
-      student_added: 'Staff '+data.staffEmail+' added student: '+data.studentUsername
-    };
-    var item = document.createElement('div'); item.className='log-item';
-    item.innerHTML='<div class="log-icon">'+(ICONS[data.type]||'📊')+'</div>'
-      +'<div><div class="log-text">'+(DESCS[data.type]||data.type)+'</div>'
-      +'<div class="log-time">'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleString():'')+'</div></div>';
-    container.appendChild(item);
-  });
+  try {
+    var snap = await getDocs(query(collection(db, 'activityLogs'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { container.innerHTML = emptyMsg('No activity yet'); return; }
+    container.innerHTML = '';
+    const ICONS = { login:'🔓', logout:'🔒', staff_resource_sent:'📤', staff_school_resource_sent:'🏫', student_added:'👤' };
+    snap.forEach(function(docSnap) {
+      var data = docSnap.data();
+      if (!showLogins    && (data.type === 'login' || data.type === 'logout')) return;
+      if (!showResources && data.type && data.type.includes('resource'))       return;
+      var desc = {
+        login:                    (data.userType || '') + ' logged in: '  + (data.userEmail || ''),
+        logout:                   (data.userType || '') + ' logged out: ' + (data.userEmail || ''),
+        staff_resource_sent:      'Staff ' + data.staffEmail + ' sent "' + data.resourceTitle + '" to a student',
+        staff_school_resource_sent:'Staff ' + data.staffEmail + ' sent "' + data.resourceTitle + '" to a school',
+        student_added:            'Staff ' + data.staffEmail + ' added student: ' + data.studentUsername
+      }[data.type] || data.type;
+      var item = document.createElement('div'); item.className = 'log-item';
+      item.innerHTML =
+        '<div class="log-icon">' + (ICONS[data.type] || '📊') + '</div>'
+        + '<div><div class="log-text">' + desc + '</div>'
+        + '<div class="log-time">' + (data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : '') + '</div></div>';
+      container.appendChild(item);
+    });
+  } catch(e) { container.innerHTML = emptyMsg('Error loading logs'); }
 }
-window.loadActivityLogs = loadActivityLogs;
 loadActivityLogs();
 
-// ── NEWS CORNER ───────────────────────────────────────────────
-document.getElementById('newsForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  var title    = document.getElementById('newsTitle').value.trim();
-  var category = document.getElementById('newsCategory').value;
-  var author   = document.getElementById('newsAuthor').value.trim();
-  var excerpt  = document.getElementById('newsExcerpt').value.trim();
-  var content  = document.getElementById('newsContent').value.trim();
-  var imageUrl = document.getElementById('newsImage').value.trim();
-  try {
-    await addDoc(collection(db,'newsCorner'), { title, category, author, excerpt, content, imageUrl: imageUrl||'', timestamp: serverTimestamp(), views: 0 });
-    showSuccess('newsSuccess'); this.reset(); loadNewsCorner();
-  } catch(e) { alert('Error: '+e.message); }
-});
+document.getElementById('refreshLogsBtn').addEventListener('click', loadActivityLogs);
 
+// ════════════════════════════════════════════════════
+// NEWS CORNER — FIX: single addEventListener, flag-based edit mode
+// ════════════════════════════════════════════════════
 const CAT_ICONS  = { announcement:'📢', event:'🎉', achievement:'🏆', update:'🔔', holiday:'🎄' };
 const CAT_LABELS = { announcement:'Announcement', event:'Event', achievement:'Achievement', update:'Update', holiday:'Holiday Special' };
+
+// Tracks which document is being edited (null = create mode)
+let _editingNewsId   = null;
+let _editingNewsData = null; // cached for preserving timestamp/views on update
+
+document.getElementById('newsForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var payload = {
+    title:    document.getElementById('newsTitle').value.trim(),
+    category: document.getElementById('newsCategory').value,
+    author:   document.getElementById('newsAuthor').value.trim(),
+    excerpt:  document.getElementById('newsExcerpt').value.trim(),
+    content:  document.getElementById('newsContent').value.trim(),
+    imageUrl: document.getElementById('newsImage').value.trim() || ''
+  };
+
+  try {
+    if (_editingNewsId) {
+      // ── UPDATE mode: preserve original timestamp and views ──
+      await setDoc(doc(db, 'newsCorner', _editingNewsId), {
+        ...payload,
+        timestamp: _editingNewsData.timestamp,
+        views:     _editingNewsData.views || 0
+      });
+      _resetNewsForm();
+      alert('News post updated!');
+    } else {
+      // ── CREATE mode ──
+      await addDoc(collection(db, 'newsCorner'), {
+        ...payload,
+        timestamp: serverTimestamp(),
+        views:     0
+      });
+      showSuccess('newsSuccess');
+      this.reset();
+    }
+    loadNewsCorner();
+  } catch(e) { alert('Error: ' + e.message); }
+});
+
+function _resetNewsForm() {
+  _editingNewsId   = null;
+  _editingNewsData = null;
+  document.getElementById('newsForm').reset();
+  var btn = document.getElementById('newsSubmitBtn');
+  btn.textContent     = 'PUBLISH_POST';
+  btn.style.background   = '';
+  btn.style.borderColor  = '';
+  btn.style.color        = '';
+}
+
+// Exposed to inline onclick in post cards
+window.editNewsPost = function(docId, dataStr) {
+  var data = typeof dataStr === 'string' ? JSON.parse(dataStr) : dataStr;
+  _editingNewsId   = docId;
+  _editingNewsData = data;
+
+  document.getElementById('newsTitle').value    = data.title    || '';
+  document.getElementById('newsCategory').value = data.category || '';
+  document.getElementById('newsAuthor').value   = data.author   || '';
+  document.getElementById('newsExcerpt').value  = data.excerpt  || '';
+  document.getElementById('newsContent').value  = data.content  || '';
+  document.getElementById('newsImage').value    = data.imageUrl || '';
+
+  var btn = document.getElementById('newsSubmitBtn');
+  btn.textContent     = 'UPDATE_POST';
+  btn.style.background   = 'rgba(56,189,248,0.15)';
+  btn.style.borderColor  = 'rgba(56,189,248,0.4)';
+  btn.style.color        = 'var(--blue)';
+
+  document.getElementById('newsCorner').scrollIntoView({ behavior:'smooth' });
+};
 
 async function loadNewsCorner() {
   var grid = document.getElementById('newsGrid');
   grid.innerHTML = '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">Loading news posts...</div>';
-  var snap = await getDocs(query(collection(db,'newsCorner'), orderBy('timestamp','desc')));
-  if (snap.empty) { grid.innerHTML='<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);">No news posts yet.</div>'; return; }
-  grid.innerHTML = '';
-  snap.forEach(function(docSnap) {
-    var data = docSnap.data();
-    var card = document.createElement('div'); card.className='post-card';
-    var imgPrev = data.imageUrl ? '<img src="'+data.imageUrl+'" style="width:100%;height:120px;object-fit:cover;margin-bottom:.6rem;border-radius:6px;" alt="">' : '';
-    var dataStr = JSON.stringify(data).replace(/"/g,'&quot;');
-    card.innerHTML = imgPrev
-      +'<h3>'+data.title+'</h3>'
-      +'<div class="post-meta"><span>'+(CAT_ICONS[data.category]||'📰')+' '+(CAT_LABELS[data.category]||data.category)+'</span><span>👁️ '+(data.views||0)+' views</span></div>'
-      +'<p>'+data.excerpt+'</p>'
-      +'<div class="post-meta" style="border-top:1px solid var(--border);padding-top:.45rem;margin-top:.35rem;"><span>✍️ '+data.author+'</span><span>'+(data.timestamp?new Date(data.timestamp.toDate()).toLocaleDateString():'')+'</span></div>'
-      +'<div class="post-actions" style="margin-top:.55rem;">'
-      +'<button class="btn btn-blue btn-sm" onclick="editNewsPost(\''+docSnap.id+'\','+dataStr+')">EDIT</button>'
-      +'<button class="btn btn-danger btn-sm" onclick="deleteNewsPost(\''+docSnap.id+'\')">DELETE</button>'
-      +'</div>';
-    grid.appendChild(card);
-  });
-}
-window.editNewsPost = function(docId, data) {
-  if (typeof data==='string') data=JSON.parse(data);
-  document.getElementById('newsCorner').scrollIntoView({behavior:'smooth'});
-  document.getElementById('newsTitle').value    = data.title||'';
-  document.getElementById('newsCategory').value = data.category||'';
-  document.getElementById('newsAuthor').value   = data.author||'';
-  document.getElementById('newsExcerpt').value  = data.excerpt||'';
-  document.getElementById('newsContent').value  = data.content||'';
-  document.getElementById('newsImage').value    = data.imageUrl||'';
-  var form = document.getElementById('newsForm');
-  var btn  = form.querySelector('.btn');
-  btn.textContent = 'UPDATE_POST';
-  btn.style.background = 'rgba(56,189,248,0.15)';
-  btn.style.borderColor = 'rgba(56,189,248,0.4)';
-  btn.style.color = 'var(--blue)';
-  form.dataset.editingId = docId;
-  form.onsubmit = async function(e) {
-    e.preventDefault();
-    try {
-      await setDoc(doc(db,'newsCorner',form.dataset.editingId), {
-        title: document.getElementById('newsTitle').value.trim(),
-        category: document.getElementById('newsCategory').value,
-        author:   document.getElementById('newsAuthor').value.trim(),
-        excerpt:  document.getElementById('newsExcerpt').value.trim(),
-        content:  document.getElementById('newsContent').value.trim(),
-        imageUrl: document.getElementById('newsImage').value.trim()||'',
-        timestamp: data.timestamp, views: data.views||0
+  try {
+    var snap = await getDocs(query(collection(db, 'newsCorner'), orderBy('timestamp', 'desc')));
+    if (snap.empty) { grid.innerHTML = emptyMsg('No news posts yet'); return; }
+    grid.innerHTML = '';
+    snap.forEach(function(docSnap) {
+      var data = docSnap.data();
+      // Safely serialize data for inline onclick (avoid injection via title/etc.)
+      var safeData = JSON.stringify({
+        title:    data.title    || '',
+        category: data.category || '',
+        author:   data.author   || '',
+        excerpt:  data.excerpt  || '',
+        content:  data.content  || '',
+        imageUrl: data.imageUrl || '',
+        views:    data.views    || 0,
+        // timestamp: skipped (non-serialisable Firestore Timestamp)
       });
-      alert('News post updated!');
-      this.reset(); delete form.dataset.editingId;
-      btn.textContent='PUBLISH_POST'; btn.style.background=''; btn.style.borderColor=''; btn.style.color='';
-      form.onsubmit = null; loadNewsCorner();
-    } catch(e) { alert('Error: '+e.message); }
-  };
+      var card = document.createElement('div'); card.className = 'post-card';
+      var imgPrev = data.imageUrl
+        ? '<img src="' + data.imageUrl + '" style="width:100%;height:120px;object-fit:cover;margin-bottom:.6rem;border-radius:6px;" alt="" loading="lazy">'
+        : '';
+      card.innerHTML =
+        imgPrev
+        + '<h3>' + data.title + '</h3>'
+        + '<div class="post-meta"><span>' + (CAT_ICONS[data.category] || '📰') + ' ' + (CAT_LABELS[data.category] || data.category) + '</span><span>👁️ ' + (data.views || 0) + ' views</span></div>'
+        + '<p>' + data.excerpt + '</p>'
+        + '<div class="post-meta" style="border-top:1px solid var(--border);padding-top:.45rem;margin-top:.35rem;"><span>✍️ ' + data.author + '</span><span>' + fmtDate(data.timestamp) + '</span></div>'
+        + '<div class="post-actions" style="margin-top:.55rem;">'
+        + '<button class="btn btn-blue btn-sm" onclick=\'editNewsPost("' + docSnap.id + '",' + safeData.replace(/'/g,"&#39;") + ')\'>EDIT</button>'
+        + '<button class="btn btn-danger btn-sm" onclick="deleteNewsPost(\'' + docSnap.id + '\')">DELETE</button>'
+        + '</div>';
+      grid.appendChild(card);
+    });
+
+    // Also cache timestamps for edit use (Firestore Timestamp not JSON-serialisable)
+    window._newsTimestamps = {};
+    snap.forEach(function(d) { window._newsTimestamps[d.id] = d.data().timestamp; });
+  } catch(e) { grid.innerHTML = emptyMsg('Error loading news'); }
+}
+loadNewsCorner();
+
+// Patch editNewsPost to restore timestamp from cache
+var _origEdit = window.editNewsPost;
+window.editNewsPost = function(docId, dataStr) {
+  _origEdit(docId, dataStr);
+  // Restore the non-serialisable Firestore timestamp from cache
+  if (window._newsTimestamps && window._newsTimestamps[docId]) {
+    _editingNewsData.timestamp = window._newsTimestamps[docId];
+  }
 };
+
 window.deleteNewsPost = async function(id) {
   if (!confirm('Delete this news post?')) return;
-  await deleteDoc(doc(db,'newsCorner',id)); alert('Deleted!'); loadNewsCorner();
+  try {
+    await deleteDoc(doc(db, 'newsCorner', id));
+    // If we were editing this post, reset the form
+    if (_editingNewsId === id) _resetNewsForm();
+    loadNewsCorner();
+  } catch(e) { alert('Error: ' + e.message); }
 };
-loadNewsCorner();
+
+// ════════════════════════════════════════════════════
+// UTILITY
+// ════════════════════════════════════════════════════
+function emptyMsg(text) {
+  return '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);text-align:center;">' + text + '</div>';
+}
 
 </script>
 </body>

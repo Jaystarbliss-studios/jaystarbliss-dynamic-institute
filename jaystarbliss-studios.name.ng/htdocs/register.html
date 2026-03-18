@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — Jaystarbliss Dynamic Hub</title>
+<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<script>
+  if (localStorage.getItem('jdh-theme') === 'light') {
+    document.documentElement.classList.remove('dark');
+  }
+</script>
+<style>
+:root {
+  --primary:#ab1a0d; --primary-hover:#8a1509;
+  --gold:#FFD700; --gold-dark:#9a6700;
+  --obsidian:#0A0A0B; --font:'Space Grotesk',sans-serif;
+  --bg:#221210; --surface:rgba(255,255,255,0.04);
+  --surface-solid:#1a0c0b; --border:rgba(255,255,255,0.1);
+  --text:#f1f5f9; --text-muted:#94a3b8;
+  --input-bg:rgba(255,255,255,0.06); --input-border:rgba(255,255,255,0.15);
+  --green:#22c55e; --red:#ef4444;
+}
+html:not(.dark) {
+  --bg:#f4f0ef; --surface:rgba(255,255,255,0.92);
+  --surface-solid:#fff; --border:rgba(0,0,0,0.1);
+  --text:#1a0a08; --text-muted:#4b5563;
+  --input-bg:rgba(255,255,255,0.9); --input-border:rgba(0,0,0,0.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font); background:var(--bg); color:var(--text);
+  min-height:100vh; display:flex; flex-direction:column;
+  background-image:
+    radial-gradient(ellipse at 20% 20%,rgba(171,26,13,0.12) 0%,transparent 55%),
+    radial-gradient(ellipse at 80% 80%,rgba(171,26,13,0.07) 0%,transparent 50%);
+}
+
+/* NAV */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(34,18,16,0.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+html:not(.dark) .nav{background:rgba(255,255,255,0.96);}
+.nav-inner{
+  max-width:1280px;margin:0 auto;padding:0 1.5rem;
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:.5rem;
+  text-decoration:none;color:var(--text);
+}
+.nav-logo img{width:36px;height:36px;object-fit:contain;}
+.nav-logo span{font-size:1rem;font-weight:700;}
+.nav-actions{display:flex;align-items:center;gap:.75rem;}
+.theme-btn{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--input-border);background:transparent;
+  cursor:pointer;color:var(--text);transition:all .2s;
+}
+.theme-btn:hover{background:rgba(255,255,255,0.1);}
+.theme-btn .material-symbols-outlined{font-size:1.1rem;}
+.login-link{
+  font-size:.875rem;font-weight:500;color:var(--text-muted);
+  text-decoration:none;transition:color .2s;
+}
+.login-link:hover{color:var(--primary);}
+
+/* MAIN CONTENT */
+.page-wrap{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:2rem 1rem;
+}
+
+/* CARD */
+.reg-card{
+  background:var(--surface);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  border-radius:1.25rem;
+  padding:2rem;
+  width:100%;max-width:520px;
+  animation:fadeUp .35s ease both;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:none;}
+}
+
+.reg-header{text-align:center;margin-bottom:1.75rem;}
+.reg-logo{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--primary);display:flex;align-items:center;justify-content:center;
+  margin:0 auto .75rem;
+  box-shadow:0 0 24px rgba(171,26,13,0.5);
+}
+.reg-logo img{width:36px;height:36px;object-fit:contain;}
+.reg-header h1{font-size:1.4rem;font-weight:700;margin-bottom:.3rem;}
+.reg-header p{font-size:.875rem;color:var(--text-muted);}
+
+/* MODE TOGGLE */
+.mode-toggle{
+  display:flex;gap:.25rem;padding:.25rem;
+  background:rgba(0,0,0,0.25);border-radius:.75rem;
+  margin-bottom:1.5rem;
+}
+html:not(.dark) .mode-toggle{background:rgba(0,0,0,0.07);}
+.mode-btn{
+  flex:1;padding:.55rem .75rem;border-radius:.6rem;
+  font-family:var(--font);font-size:.8rem;font-weight:600;
+  border:none;cursor:pointer;transition:all .2s;
+  background:transparent;color:var(--text-muted);
+}
+.mode-btn.active{
+  background:var(--primary);color:#fff;
+  box-shadow:0 2px 12px rgba(171,26,13,0.35);
+}
+
+/* FORM */
+.form-group{margin-bottom:1rem;}
+.form-group label{
+  display:block;margin-bottom:.35rem;
+  font-size:.8rem;font-weight:600;color:var(--text-muted);
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;padding:.7rem 1rem;
+  background:var(--input-bg);border:1px solid var(--input-border);
+  color:var(--text);font-family:var(--font);font-size:.875rem;
+  border-radius:.75rem;outline:none;transition:border .2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(171,26,13,0.12);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder{color:rgba(255,255,255,0.25);}
+html:not(.dark) .form-group input::placeholder{color:rgba(0,0,0,0.25);}
+.form-group select option{background:#221210;color:var(--text);}
+html:not(.dark) .form-group select option{background:#fff;}
+.form-group textarea{min-height:80px;resize:vertical;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+@media(max-width:480px){.form-row{grid-template-columns:1fr;}}
+
+/* Subjects checkboxes */
+.subjects-wrap{
+  display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.35rem;
+}
+.subj-label{
+  display:inline-flex;align-items:center;gap:.3rem;
+  padding:.25rem .65rem;
+  background:rgba(171,26,13,0.06);
+  border:1px solid rgba(171,26,13,0.15);border-radius:5px;
+  font-size:.75rem;cursor:pointer;transition:all .15s;
+}
+.subj-label:hover{border-color:var(--primary);color:var(--primary);}
+.subj-label input{accent-color:var(--primary);}
+.subj-label input:checked ~ span{color:var(--primary);}
+
+/* Password strength */
+.pw-strength{
+  height:3px;border-radius:2px;margin-top:.5rem;
+  background:rgba(255,255,255,0.1);overflow:hidden;
+}
+html:not(.dark) .pw-strength{background:rgba(0,0,0,0.08);}
+.pw-strength-bar{
+  height:100%;width:0;border-radius:2px;transition:all .3s;
+}
+.pw-hint{font-size:.7rem;color:var(--text-muted);margin-top:.3rem;}
+
+/* Submit btn */
+.btn-submit{
+  width:100%;padding:.8rem;
+  background:var(--primary);color:#fff;
+  border:none;border-radius:.75rem;
+  font-family:var(--font);font-size:.9rem;font-weight:700;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  margin-top:1.25rem;
+}
+.btn-submit:hover:not(:disabled){background:var(--primary-hover);transform:translateY(-1px);}
+.btn-submit:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+.btn-submit .spinner{
+  width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);
+  border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:none;
+}
+.btn-submit.loading .spinner{display:block;}
+.btn-submit.loading .btn-text{display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Messages */
+.alert{
+  padding:.65rem 1rem;border-radius:.6rem;
+  font-size:.8rem;margin-bottom:.75rem;display:none;
+}
+.alert.show{display:flex;align-items:flex-start;gap:.5rem;}
+.alert.error{
+  background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#ef4444;
+}
+.alert.success{
+  background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--green);
+}
+.alert .material-symbols-outlined{font-size:1rem;flex-shrink:0;margin-top:.05rem;}
+
+/* Info boxes */
+.info-box{
+  padding:.65rem .85rem;
+  background:rgba(255,215,0,0.07);
+  border-left:2px solid rgba(255,215,0,0.4);
+  border-radius:0 .5rem .5rem 0;
+  font-size:.78rem;color:var(--text-muted);
+  margin-bottom:1rem;line-height:1.6;
+}
+.info-box strong{color:var(--gold);}
+html:not(.dark) .info-box{background:rgba(154,103,0,0.07);}
+html:not(.dark) .info-box strong{color:var(--gold-dark);}
+
+/* Divider */
+.divider{
+  display:flex;align-items:center;gap:.75rem;
+  margin:1.25rem 0;font-size:.75rem;color:var(--text-muted);
+}
+.divider::before,.divider::after{
+  content:'';flex:1;height:1px;background:var(--border);
+}
+
+/* Footer link */
+.reg-footer{
+  text-align:center;margin-top:1.25rem;
+  font-size:.8rem;color:var(--text-muted);
+}
+.reg-footer a{color:var(--primary);font-weight:600;text-decoration:none;}
+.reg-footer a:hover{text-decoration:underline;}
+
+/* Material icons */
+.material-symbols-outlined{
+  font-family:'Material Symbols Outlined';
+  font-weight:normal;font-style:normal;font-size:24px;line-height:1;
+  letter-spacing:normal;text-transform:none;display:inline-block;
+  white-space:nowrap;word-wrap:normal;direction:ltr;
+  -webkit-font-smoothing:antialiased;
+  font-variation-settings:"FILL" 0,"wght" 400,"GRAD" 0,"opsz" 24;
+}
+
+/* Section visibility */
+#parentSection{display:block;}
+#studentSection{display:none;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/img/favicon.png" alt="JDH" onerror="this.style.display='none'">
+      <span>Jaystarbliss Dynamic Hub</span>
+    </a>
+    <div class="nav-actions">
+      <button class="theme-btn" onclick="toggleTheme()">
+        <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+      </button>
+      <a href="pages/auth/login.html" class="login-link">Already have an account? Login →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page-wrap">
+  <div class="reg-card">
+
+    <div class="reg-header">
+      <div class="reg-logo">
+        <img src="assets/img/favicon.png" alt="JDH" onerror="this.style.display='none'">
+      </div>
+      <h1>Create Your Account</h1>
+      <p>Join the Jaystarbliss Dynamic Hub community today</p>
+    </div>
+
+    <!-- Mode Toggle -->
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="modeParent" onclick="switchMode('parent')">
+        👨‍👩‍👧 Parent / Guardian
+      </button>
+      <button class="mode-btn" id="modeStudent" onclick="switchMode('student')">
+        🎓 Student Request
+      </button>
+    </div>
+
+    <!-- ALERT -->
+    <div class="alert error" id="alertError">
+      <span class="material-symbols-outlined">error</span>
+      <span id="alertErrorMsg">An error occurred.</span>
+    </div>
+    <div class="alert success" id="alertSuccess">
+      <span class="material-symbols-outlined">check_circle</span>
+      <span id="alertSuccessMsg">Success!</span>
+    </div>
+
+    <!-- ════════════════════════
+         PARENT REGISTRATION
+    ════════════════════════ -->
+    <div id="parentSection">
+      <div class="info-box">
+        <strong>👨‍👩‍👧 Parent / Guardian Account:</strong>
+        Register to enroll your children, track their progress, and manage payments from one dashboard.
+      </div>
+      <form id="parentForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="pName" required placeholder="Your full name" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="pPhone" required placeholder="+234 xxx xxx xxxx" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="pEmail" required placeholder="you@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label>Password *</label>
+          <input type="password" id="pPassword" required placeholder="Min. 8 characters" autocomplete="new-password"
+            oninput="checkStrength(this.value)">
+          <div class="pw-strength"><div class="pw-strength-bar" id="pwBar"></div></div>
+          <div class="pw-hint" id="pwHint">Enter a password</div>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password *</label>
+          <input type="password" id="pConfirm" required placeholder="Repeat your password" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-submit" id="parentSubmit">
+          <span class="spinner"></span>
+          <span class="btn-text">
+            <span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle;">person_add</span>
+            Create Parent Account
+          </span>
+        </button>
+      </form>
+    </div>
+
+    <!-- ════════════════════════
+         STUDENT REQUEST
+    ════════════════════════ -->
+    <div id="studentSection">
+      <div class="info-box">
+        <strong>🎓 Student Request:</strong>
+        Submit your details. An admin will review and approve your account, then send you an access code to log in.
+      </div>
+      <form id="studentForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Student Full Name *</label>
+            <input type="text" id="sName" required placeholder="Full name" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="sPhone" required placeholder="+234 xxx xxx xxxx" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="sEmail" required placeholder="student@email.com" autocomplete="email">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Class / Grade</label>
+            <select id="sClass">
+              <option value="">Select class</option>
+              <option>Primary 1–3</option><option>Primary 4–6</option>
+              <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
+              <option>SS 1</option><option>SS 2</option><option>SS 3</option>
+              <option>University / Tertiary</option><option>Adult Learner</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Parent's Phone (optional)</label>
+            <input type="tel" id="sParentPhone" placeholder="+234 xxx xxx xxxx">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Subjects of Interest *</label>
+          <div class="subjects-wrap" id="subjectsWrap">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Learning Goals / Notes</label>
+          <textarea id="sNotes" placeholder="Tell us about your learning goals, any special requirements, or how you heard about us…"></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="studentSubmit">
+          <span class="spinner"></span>
+          <span class="btn-text">
+            <span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle;">send</span>
+            Submit Request
+          </span>
+        </button>
+      </form>
+    </div>
+
+    <div class="divider">or</div>
+    <div class="reg-footer">
+      Already have an account? <a href="pages/auth/login.html">Sign in here</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── SCRIPTS ── -->
+<script>
+/* Theme */
+(function(){
+  const saved = localStorage.getItem('jdh-theme');
+  const icon  = document.getElementById('themeIcon');
+  if (saved === 'light') {
+    document.documentElement.classList.remove('dark');
+    if (icon) icon.textContent = 'light_mode';
+  } else {
+    if (icon) icon.textContent = 'dark_mode';
+  }
+})();
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const icon = document.getElementById('themeIcon');
+  const isDark = html.classList.contains('dark');
+  html.classList.toggle('dark', !isDark);
+  localStorage.setItem('jdh-theme', isDark ? 'light' : 'dark');
+  icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+}
+
+/* Mode switch */
+window.switchMode = function(mode) {
+  const pBtn = document.getElementById('modeParent');
+  const sBtn = document.getElementById('modeStudent');
+  const pSec = document.getElementById('parentSection');
+  const sSec = document.getElementById('studentSection');
+  clearAlerts();
+  if (mode === 'parent') {
+    pBtn.classList.add('active'); sBtn.classList.remove('active');
+    pSec.style.display = 'block'; sSec.style.display = 'none';
+  } else {
+    sBtn.classList.add('active'); pBtn.classList.remove('active');
+    sSec.style.display = 'block'; pSec.style.display = 'none';
+  }
+};
+
+/* Password strength */
+window.checkStrength = function(pw) {
+  const bar  = document.getElementById('pwBar');
+  const hint = document.getElementById('pwHint');
+  let score = 0;
+  if (pw.length >= 8)  score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^A-Za-z0-9]/.test(pw)) score++;
+  const colours = ['#ef4444','#f97316','#eab308','#22c55e'];
+  const labels  = ['Too short','Fair — add numbers','Good — add symbols','Strong ✓'];
+  bar.style.width   = (score * 25) + '%';
+  bar.style.background = colours[score - 1] || '#ef4444';
+  hint.textContent  = pw.length === 0 ? 'Enter a password' : (labels[score - 1] || 'Too short');
+};
+
+/* Alerts */
+function showError(msg) {
+  document.getElementById('alertErrorMsg').textContent = msg;
+  document.getElementById('alertError').classList.add('show');
+  document.getElementById('alertSuccess').classList.remove('show');
+}
+function showSuccess(msg) {
+  document.getElementById('alertSuccessMsg').textContent = msg;
+  document.getElementById('alertSuccess').classList.add('show');
+  document.getElementById('alertError').classList.remove('show');
+}
+function clearAlerts() {
+  document.getElementById('alertError').classList.remove('show');
+  document.getElementById('alertSuccess').classList.remove('show');
+}
+
+/* Build subjects */
+const SUBJECTS = [
+  'Mathematics','English Language','Physics','Chemistry','Biology',
+  'Literature','Government','CRS','Accounting','Commerce','Marketing',
+  'Programming','Web Development','AI Tools','Tech Literacy','Graphic Design',
+  'Music','Creative Arts','WAEC Prep','NECO Prep','JAMB Prep'
+];
+
+(function buildSubjects() {
+  const wrap = document.getElementById('subjectsWrap');
+  if (!wrap) return;
+  SUBJECTS.forEach(s => {
+    const label = document.createElement('label');
+    label.className = 'subj-label';
+    label.innerHTML = `<input type="checkbox" name="subject" value="${s}"> <span>${s}</span>`;
+    wrap.appendChild(label);
+  });
+})();
+</script>
+
+<!-- Firebase Module -->
+<script type="module">
+import { initializeApp, getApps }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import {
+  getAuth, createUserWithEmailAndPassword, onAuthStateChanged
+} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import {
+  getFirestore, collection, addDoc, doc, setDoc, serverTimestamp, getDocs, query, where
+} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+const FIREBASE_CONFIG = {
+  apiKey:            'AIzaSyC0K83bfTV3dI_1URsYe_X1-lW-qzEsYmQ',
+  authDomain:        'jaystarbliss-studios.firebaseapp.com',
+  projectId:         'jaystarbliss-studios',
+  storageBucket:     'jaystarbliss-studios.firebasestorage.app',
+  messagingSenderId: '885364100276',
+  appId:             '1:885364100276:web:081a2963cce28a0d0e1be1'
+};
+
+const app  = getApps().length ? getApps()[0] : initializeApp(FIREBASE_CONFIG);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+// ── PARENT REGISTRATION ──────────────────────────────────
+document.getElementById('parentForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  clearAlerts();
+
+  const name     = document.getElementById('pName').value.trim();
+  const phone    = document.getElementById('pPhone').value.trim();
+  const email    = document.getElementById('pEmail').value.trim().toLowerCase();
+  const password = document.getElementById('pPassword').value;
+  const confirm  = document.getElementById('pConfirm').value;
+
+  if (!name || !phone || !email || !password) { showError('Please fill in all required fields.'); return; }
+  if (password.length < 8)                    { showError('Password must be at least 8 characters.'); return; }
+  if (password !== confirm)                   { showError('Passwords do not match.'); return; }
+
+  const btn = document.getElementById('parentSubmit');
+  btn.disabled = true; btn.classList.add('loading');
+
+  try {
+    // Create Firebase Auth user
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const uid  = cred.user.uid;
+
+    // Save to Firestore `parents` collection
+    await setDoc(doc(db, 'parents', uid), {
+      name, email, phone,
+      role:      'parent',
+      children:  [],
+      createdAt: serverTimestamp()
+    });
+
+    // Save role to `users` collection for role-routing
+    await setDoc(doc(db, 'users', uid), {
+      name, email, phone,
+      role:      'parent',
+      createdAt: serverTimestamp()
+    });
+
+    // Set session
+    sessionStorage.setItem('userId',   uid);
+    sessionStorage.setItem('userRole', 'parent');
+    sessionStorage.setItem('userEmail', email);
+    sessionStorage.setItem('userName',  name);
+
+    showSuccess('Account created! Redirecting to your dashboard…');
+    setTimeout(() => {
+      window.location.href = 'pages/parent/parent-dashboard.html';
+    }, 1500);
+
+  } catch(err) {
+    let msg = err.message;
+    if (err.code === 'auth/email-already-in-use') msg = 'This email is already registered. Try logging in instead.';
+    if (err.code === 'auth/weak-password')         msg = 'Password is too weak. Use at least 8 characters.';
+    if (err.code === 'auth/invalid-email')         msg = 'Please enter a valid email address.';
+    showError(msg);
+    btn.disabled = false; btn.classList.remove('loading');
+  }
+});
+
+// ── STUDENT REQUEST ──────────────────────────────────────
+document.getElementById('studentForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  clearAlerts();
+
+  const name        = document.getElementById('sName').value.trim();
+  const phone       = document.getElementById('sPhone').value.trim();
+  const email       = document.getElementById('sEmail').value.trim().toLowerCase();
+  const studentClass = document.getElementById('sClass').value;
+  const parentPhone = document.getElementById('sParentPhone').value.trim();
+  const notes       = document.getElementById('sNotes').value.trim();
+  const subjects    = Array.from(
+    document.querySelectorAll('input[name="subject"]:checked')
+  ).map(cb => cb.value);
+
+  if (!name || !phone || !email)   { showError('Please fill in all required fields.'); return; }
+  if (subjects.length === 0)       { showError('Please select at least one subject.'); return; }
+
+  const btn = document.getElementById('studentSubmit');
+  btn.disabled = true; btn.classList.add('loading');
+
+  try {
+    await addDoc(collection(db, 'student_requests'), {
+      name, email, phone,
+      class:       studentClass,
+      parentPhone, subjects, notes,
+      status:      'pending',
+      createdAt:   serverTimestamp()
+    });
+
+    showSuccess('Request submitted! An admin will review and send you your access code.');
+    this.reset();
+    // Uncheck subjects
+    document.querySelectorAll('input[name="subject"]').forEach(cb => cb.checked = false);
+
+  } catch(err) {
+    showError('Error submitting request: ' + err.message);
+  } finally {
+    btn.disabled = false; btn.classList.remove('loading');
+  }
+});
+
+// Redirect already-logged-in users
+onAuthStateChanged(auth, user => {
+  if (user) {
+    const role = sessionStorage.getItem('userRole');
+    const routes = {
+      admin:   'pages/admin/admin.html',
+      staff:   'pages/staff/staff-portal.html',
+      parent:  'pages/parent/parent-dashboard.html',
+      student: 'pages/student/private-student-portal.html',
+    };
+    if (role && routes[role]) window.location.href = routes[role];
+  }
+});
+</script>
+</body>
+</html>

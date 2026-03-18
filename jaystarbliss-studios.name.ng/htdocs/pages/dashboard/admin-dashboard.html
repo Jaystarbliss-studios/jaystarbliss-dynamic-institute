@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -147,6 +147,21 @@ body {
 .nav-item:hover { color:var(--crimson); background:rgba(230,25,5,0.05); }
 .nav-item:hover .material-symbols-outlined { transform:scale(1.1); }
 .nav-item.active { color:var(--crimson); background:rgba(230,25,5,0.1); border-right:2px solid var(--crimson); }
+.nav-badge {
+  margin-left:auto;
+  min-width:1.1rem;
+  height:1.1rem;
+  padding:0 .3rem;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  background:var(--crimson);
+  color:#fff;
+  font-family:'Space Mono', monospace;
+  font-size:.55rem;
+  line-height:1;
+}
 .sidebar-divider { height:1px; background:var(--border); margin:.35rem .9rem; }
 
 .status-widget {
@@ -468,6 +483,116 @@ body {
   .brand-text { display:none; }
   .main-tab { padding:.4rem .6rem; font-size:.52rem; }
 }
+
+
+</style>
+<style id="jdh-new-tabs-styles">
+/* ── Request & Status Badges ── */
+.req-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px; padding: 0 5px;
+  background: var(--crimson); color: #fff;
+  font-family: var(--sans); font-size: .52rem; font-weight: 700;
+  border-radius: 9px; margin-left: auto;
+}
+.status-tag {
+  display: inline-flex; align-items: center; gap: .3rem;
+  padding: .2rem .6rem; border-radius: 4px;
+  font-family: var(--mono); font-size: .55rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; flex-shrink: 0;
+}
+.status-tag.pending  { background: rgba(255,215,0,0.12);  color: var(--gold);   border: 1px solid rgba(255,215,0,0.3); }
+.status-tag.approved { background: rgba(34,197,94,0.12);  color: var(--green);  border: 1px solid rgba(34,197,94,0.3); }
+.status-tag.rejected { background: rgba(230,25,5,0.12);   color: var(--crimson);border: 1px solid rgba(230,25,5,0.3);  }
+.status-tag.paid     { background: rgba(34,197,94,0.12);  color: var(--green);  border: 1px solid rgba(34,197,94,0.3); }
+ 
+/* ── Request Card ── */
+.req-card {
+  background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border); border-left: 3px solid var(--crimson);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.1rem; margin-bottom: .75rem;
+  display: flex; flex-direction: column; gap: .55rem;
+  animation: fadeIn .25s ease;
+}
+.req-card-head {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: .75rem; flex-wrap: wrap;
+}
+.req-card-name {
+  font-family: var(--mono); font-size: .75rem; font-weight: 700; color: var(--text);
+}
+.req-card-meta {
+  font-family: var(--mono); font-size: .6rem; color: var(--text-muted);
+  line-height: 1.8;
+}
+.req-card-actions { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .2rem; }
+ 
+/* ── Code reveal box ── */
+.code-reveal {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .45rem .85rem;
+  background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 6px; margin-top: .4rem;
+}
+.code-reveal span:first-child {
+  font-family: var(--mono); font-size: .58rem; color: var(--text-muted); text-transform: uppercase;
+}
+.code-reveal strong {
+  font-family: var(--mono); font-size: .88rem; color: var(--green); letter-spacing: .12em;
+}
+ 
+/* ── Payment row ── */
+.payment-table {
+  width: 100%; border-collapse: collapse; font-size: .72rem;
+}
+.payment-table th {
+  font-family: var(--mono); font-size: .55rem; color: var(--crimson);
+  text-transform: uppercase; letter-spacing: .1em;
+  padding: .5rem .75rem; border-bottom: 1px solid var(--border); text-align: left;
+}
+.payment-table td {
+  padding: .65rem .75rem; border-bottom: 1px solid rgba(230,25,5,0.06);
+  color: var(--text-muted); vertical-align: middle;
+}
+.payment-table tr:hover td { background: rgba(230,25,5,0.03); }
+ 
+/* ── Filter tabs ── */
+.filter-tabs { display: flex; gap: .35rem; margin-bottom: .9rem; flex-wrap: wrap; }
+.filter-tab {
+  padding: .35rem .8rem;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-muted); font-family: var(--mono); font-size: .58rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em;
+  border-radius: 5px; cursor: pointer; transition: all .15s;
+}
+.filter-tab:hover { border-color: var(--crimson); color: var(--crimson); }
+.filter-tab.active { background: var(--crimson); border-color: var(--crimson); color: #fff; }
+ 
+/* ── Loading / Empty ── */
+.req-empty {
+  text-align: center; padding: 2.5rem;
+  font-family: var(--mono); font-size: .65rem;
+  color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em;
+}
+ 
+/* ── Live badge on nav item ── */
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.7);
+  display: inline-block; margin-left: 4px; flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+ 
+/* ── Reason input ── */
+.reject-reason {
+  width: 100%; padding: .45rem .7rem;
+  background: var(--field-bg); border: 1px solid var(--field-border);
+  color: var(--text); font-family: var(--sans); font-size: .75rem;
+  border-radius: 5px; outline: none; resize: none;
+  transition: border .15s;
+}
+.reject-reason:focus { border-color: var(--crimson); }
 </style>
 </head>
 <body>
@@ -480,7 +605,7 @@ body {
     <button class="hamburger" id="hamburger"><span class="material-symbols-outlined">menu</span></button>
     <div class="brand-mark"><span class="material-symbols-outlined">rocket_launch</span></div>
     <div class="brand-text">
-      <div class="topbar-title">JAYSTARBLISS</div>
+      <div class="topbar-title">JDH</div>
       <div class="topbar-sub">Admin Panel</div>
     </div>
   </div>
@@ -552,6 +677,27 @@ body {
       <span class="material-symbols-outlined">key</span> Staff School Access
     </button>
   </div>
+  <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Requests</div>
+      <button class="nav-item" data-tab="studentRequests">
+        <span class="material-symbols-outlined">person_add</span>
+        Student Requests
+        <span class="nav-badge" id="reqBadge"></span>
+      </button>
+      <button class="nav-item" data-tab="tutorApplications">
+        <span class="material-symbols-outlined">school</span>
+        Tutor Applications
+      </button>
+      <button class="nav-item" data-tab="enrollmentRequests">
+        <span class="material-symbols-outlined">assignment</span>
+        Enrollments
+      </button>
+      <button class="nav-item" data-tab="payments">
+        <span class="material-symbols-outlined">payments</span>
+        Payments
+      </button>
+    </div>
   <div class="sidebar-divider"></div>
   <div class="sidebar-section">
     <div class="sidebar-label">System</div>
@@ -1042,6 +1188,217 @@ body {
       <div class="section-head">Recently Sent Resources</div>
       <div class="posts-grid" id="studentResourcesGrid"></div>
     </div>
+
+    <!-- ══ STUDENT REQUESTS ══ -->
+<div id="studentRequests" class="tab-content">
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">
+        <span class="material-symbols-outlined">person_add</span>
+        Student Requests
+        <span class="live-dot"></span>
+      </span>
+      <div class="filter-tabs" id="reqFilterTabs">
+        <button class="filter-tab active" data-filter="pending">Pending</button>
+        <button class="filter-tab" data-filter="approved">Approved</button>
+        <button class="filter-tab" data-filter="rejected">Rejected</button>
+        <button class="filter-tab" data-filter="all">All</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="info-box">
+        <strong>📥 Student Requests:</strong>
+        Submitted via the public registration form. Approving creates a student account
+        and generates a unique access code automatically.
+      </div>
+      <div id="studentRequestsList">
+        <div class="req-empty">Loading requests…</div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Manual submit form (for admin-initiated requests) -->
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">
+        <span class="material-symbols-outlined">edit_note</span>
+        Submit Manual Request
+      </span>
+    </div>
+    <div class="panel-body">
+      <div class="success-message" id="manualReqSuccess">Request submitted!</div>
+      <form id="manualRequestForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mReqName">Student Name</label>
+            <input type="text" id="mReqName" required placeholder="Full name">
+          </div>
+          <div class="form-group">
+            <label for="mReqEmail">Email</label>
+            <input type="email" id="mReqEmail" required placeholder="student@email.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mReqSubjects">Subjects (comma-separated)</label>
+            <input type="text" id="mReqSubjects" placeholder="e.g. Mathematics, Physics">
+          </div>
+          <div class="form-group">
+            <label for="mReqParentId">Parent ID (optional)</label>
+            <input type="text" id="mReqParentId" placeholder="Parent document ID">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mReqNotes">Notes</label>
+          <textarea id="mReqNotes" placeholder="Any additional notes"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">SUBMIT_REQUEST</button>
+      </form>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══ TUTOR APPLICATIONS ══ -->
+<div id="tutorApplications" class="tab-content">
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">
+        <span class="material-symbols-outlined">school</span>
+        Tutor Applications
+        <span class="live-dot"></span>
+      </span>
+      <div class="filter-tabs" id="tutorFilterTabs">
+        <button class="filter-tab active" data-filter="pending">Pending</button>
+        <button class="filter-tab" data-filter="approved">Approved</button>
+        <button class="filter-tab" data-filter="rejected">Rejected</button>
+        <button class="filter-tab" data-filter="all">All</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="info-box">
+        <strong>🎓 Tutor Applications:</strong>
+        Submitted via the "Apply as Tutor" form on the landing page.
+        Approved tutors are stored in the <code>tutors</code> collection.
+      </div>
+      <div id="tutorApplicationsList">
+        <div class="req-empty">Loading applications…</div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══ ENROLLMENT REQUESTS ══ -->
+<div id="enrollmentRequests" class="tab-content">
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">
+        <span class="material-symbols-outlined">assignment</span>
+        Enrollment Requests
+        <span class="live-dot"></span>
+      </span>
+      <div class="filter-tabs" id="enrFilterTabs">
+        <button class="filter-tab active" data-filter="pending">Pending</button>
+        <button class="filter-tab" data-filter="approved">Approved</button>
+        <button class="filter-tab" data-filter="all">All</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="info-box">
+        <strong>📋 Enrollment Requests:</strong>
+        Submitted by parents from the parent dashboard when selecting a plan.
+        Approving creates/links a student account and records the payment.
+      </div>
+      <div id="enrollmentRequestsList">
+        <div class="req-empty">Loading enrollment requests…</div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══ PAYMENTS ══ -->
+<div id="payments" class="tab-content">
+  <div class="panel">
+    <div class="panel-head">
+      <span class="panel-title">
+        <span class="material-symbols-outlined">payments</span>
+        Payment Records
+      </span>
+    </div>
+    <div class="panel-body">
+      <div class="info-box">
+        <strong>💳 Payments:</strong>
+        Mark payments as Paid or Pending. Records are created automatically on enrollment approval.
+      </div>
+      <div class="success-message" id="paymentSuccess">Payment status updated!</div>
+ 
+      <!-- Manual payment entry -->
+      <div class="section-head">Add Transaction Record</div>
+      <form id="addPaymentForm" style="margin-bottom:1.5rem;">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Student ID</label>
+            <input type="text" id="payStudentId" placeholder="individualStudents doc ID">
+          </div>
+          <div class="form-group">
+            <label>Parent ID</label>
+            <input type="text" id="payParentId" placeholder="parents doc ID">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Amount (₦)</label>
+            <input type="number" id="payAmount" min="0" placeholder="e.g. 25000">
+          </div>
+          <div class="form-group">
+            <label>Plan</label>
+            <select id="payPlan">
+              <option value="">Select plan</option>
+              <option value="2x_week">2× per week</option>
+              <option value="3x_week">3× per week</option>
+              <option value="standard">Standard</option>
+              <option value="intensive">Intensive</option>
+              <option value="full_blast">Full Blast</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Status</label>
+            <select id="payStatus">
+              <option value="pending">Pending</option>
+              <option value="paid">Paid</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Reference / Note</label>
+            <input type="text" id="payRef" placeholder="Bank reference or note">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">ADD_TRANSACTION</button>
+      </form>
+ 
+      <!-- Payments table -->
+      <div class="section-head">All Payments</div>
+      <div style="overflow-x:auto;">
+        <table class="payment-table" id="paymentsTable">
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Plan</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="paymentsTableBody">
+            <tr><td colspan="6" class="req-empty">Loading payments…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- ══ MANAGE STAFF ══ -->
     <div id="staffManage" class="tab-content">
@@ -2106,6 +2463,559 @@ window.deleteNewsPost = async function(id) {
 // ════════════════════════════════════════════════════
 function emptyMsg(text) {
   return '<div style="padding:2rem;color:var(--text-dim);font-size:.75rem;font-family:var(--mono);text-align:center;">' + text + '</div>';
+}
+</script>
+<script type="module">
+import { initializeApp, getApps }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import {
+  getFirestore, collection, addDoc, getDoc, getDocs,
+  doc, query, where, orderBy, serverTimestamp,
+  onSnapshot, updateDoc, setDoc, deleteDoc
+} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+{
+ 
+// Re-use already-initialised app (admin.html already runs Firebase)
+const app = getApps()[0];
+const db  = getFirestore(app);
+ 
+// ── Utility ──────────────────────────────────────────────
+function fmtDate(ts) {
+  if (!ts) return '—';
+  try { return ts.toDate().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+  catch(e) { return '—'; }
+}
+ 
+function showSuccess(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3500);
+}
+ 
+function statusTag(status) {
+  return `<span class="status-tag ${status}">${status.toUpperCase()}</span>`;
+}
+ 
+// ── Access Code Generator ─────────────────────────────────
+function generateAccessCode(length = 7) {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const arr = new Uint8Array(length);
+  crypto.getRandomValues(arr);
+  return Array.from(arr, b => chars[b % chars.length]).join('');
+}
+ 
+// ════════════════════════════════════════════════════
+// STUDENT REQUESTS — real-time listener
+// ════════════════════════════════════════════════════
+let _reqFilter = 'pending';
+let _reqUnsub  = null;
+ 
+function listenStudentRequests() {
+  if (_reqUnsub) _reqUnsub();
+  const container = document.getElementById('studentRequestsList');
+ 
+  let q;
+  if (_reqFilter === 'all') {
+    q = query(collection(db, 'student_requests'), orderBy('createdAt', 'desc'));
+  } else {
+    q = query(
+      collection(db, 'student_requests'),
+      where('status', '==', _reqFilter),
+      orderBy('createdAt', 'desc')
+    );
+  }
+ 
+  _reqUnsub = onSnapshot(q, snap => {
+    // Update badge on nav item
+    const badge = document.getElementById('reqBadge');
+    if (badge && _reqFilter === 'pending') badge.textContent = snap.size;
+ 
+    if (snap.empty) {
+      container.innerHTML = `<div class="req-empty">No ${_reqFilter} requests.</div>`;
+      return;
+    }
+    container.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const card = document.createElement('div');
+      card.className = 'req-card';
+      card.innerHTML = `
+        <div class="req-card-head">
+          <div>
+            <div class="req-card-name">👤 ${data.name || '—'}</div>
+            <div class="req-card-meta">
+              📧 ${data.email || '—'}<br>
+              📚 ${Array.isArray(data.subjects) ? data.subjects.join(', ') : (data.subjects || '—')}<br>
+              📅 ${fmtDate(data.createdAt)}
+              ${data.parentId ? '<br>👨‍👩‍👧 Parent: ' + data.parentId : ''}
+              ${data.notes    ? '<br>📝 ' + data.notes : ''}
+            </div>
+          </div>
+          ${statusTag(data.status || 'pending')}
+        </div>
+        ${data.status === 'approved' && data.accessCode ? `
+          <div class="code-reveal">
+            <span>Access Code</span>
+            <strong>${data.accessCode}</strong>
+          </div>` : ''}
+        ${data.status === 'pending' ? `
+          <div class="req-card-actions">
+            <button class="btn btn-primary btn-sm" id="approve_req_${d.id}">
+              ✓ APPROVE
+            </button>
+            <button class="btn btn-danger btn-sm" id="reject_req_${d.id}">
+              ✗ REJECT
+            </button>
+          </div>
+          <textarea class="reject-reason" id="reason_req_${d.id}"
+            placeholder="Rejection reason (required to reject)" rows="2"></textarea>
+        ` : ''}`;
+      container.appendChild(card);
+ 
+      // Wire buttons
+      if (data.status === 'pending') {
+        document.getElementById(`approve_req_${d.id}`)
+          .addEventListener('click', () => handleApproveRequest(d.id, data));
+        document.getElementById(`reject_req_${d.id}`)
+          .addEventListener('click', () => handleRejectRequest(d.id));
+      }
+    });
+  }, err => {
+    console.error('[JDH] student_requests listener:', err);
+    container.innerHTML = `<div class="req-empty">Error loading: ${err.message}</div>`;
+  });
+}
+ 
+async function handleApproveRequest(reqId, data) {
+  const btn = document.getElementById(`approve_req_${reqId}`);
+  btn.disabled = true; btn.textContent = 'Processing…';
+  try {
+    const accessCode = generateAccessCode();
+ 
+    // Create in individualStudents
+    const indivRef = await addDoc(collection(db, 'individualStudents'), {
+      fullName:     data.name,
+      username:     (data.email || data.name).split('@')[0].replace(/\s+/g,'').toLowerCase(),
+      email:        (data.email || '').toLowerCase(),
+      accessCode,
+      parentId:     data.parentId || null,
+      subjects:     Array.isArray(data.subjects)
+                      ? data.subjects
+                      : (data.subjects || '').split(',').map(s => s.trim()).filter(Boolean),
+      registeredAt: serverTimestamp()
+    });
+ 
+    // Update request doc
+    await updateDoc(doc(db, 'student_requests', reqId), {
+      status:     'approved',
+      accessCode,
+      studentId:  indivRef.id,
+      approvedAt: serverTimestamp()
+    });
+ 
+    // Log activity
+    await addDoc(collection(db, 'activityLogs'), {
+      type:      'student_request_approved',
+      reqId,
+      studentId: indivRef.id,
+      accessCode,
+      timestamp: serverTimestamp()
+    });
+ 
+    alert(`✅ Student approved!\n\nAccess Code: ${accessCode}\n\nShare this code with the student to log in.`);
+  } catch(e) {
+    alert('Error: ' + e.message);
+    btn.disabled = false; btn.textContent = '✓ APPROVE';
+  }
+}
+ 
+async function handleRejectRequest(reqId) {
+  const reason = document.getElementById(`reason_req_${reqId}`)?.value.trim();
+  if (!reason) { alert('Please enter a rejection reason.'); return; }
+  try {
+    await updateDoc(doc(db, 'student_requests', reqId), {
+      status:     'rejected',
+      reason,
+      rejectedAt: serverTimestamp()
+    });
+  } catch(e) { alert('Error: ' + e.message); }
+}
+ 
+// Filter tabs for student requests
+document.getElementById('reqFilterTabs')?.querySelectorAll('.filter-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#reqFilterTabs .filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    _reqFilter = btn.dataset.filter;
+    listenStudentRequests();
+  });
+});
+ 
+// Manual request form
+document.getElementById('manualRequestForm')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  try {
+    await addDoc(collection(db, 'student_requests'), {
+      name:      document.getElementById('mReqName').value.trim(),
+      email:     document.getElementById('mReqEmail').value.trim().toLowerCase(),
+      subjects:  document.getElementById('mReqSubjects').value.split(',').map(s => s.trim()).filter(Boolean),
+      parentId:  document.getElementById('mReqParentId').value.trim() || null,
+      notes:     document.getElementById('mReqNotes').value.trim(),
+      status:    'pending',
+      createdAt: serverTimestamp()
+    });
+    showSuccess('manualReqSuccess');
+    this.reset();
+  } catch(e) { alert('Error: ' + e.message); }
+});
+ 
+listenStudentRequests();
+ 
+// ════════════════════════════════════════════════════
+// TUTOR APPLICATIONS — real-time listener
+// ════════════════════════════════════════════════════
+let _tutorFilter = 'pending';
+let _tutorUnsub  = null;
+ 
+function listenTutorApplications() {
+  if (_tutorUnsub) _tutorUnsub();
+  const container = document.getElementById('tutorApplicationsList');
+ 
+  const q = _tutorFilter === 'all'
+    ? query(collection(db, 'tutor_applications'), orderBy('createdAt', 'desc'))
+    : query(collection(db, 'tutor_applications'), where('status','==',_tutorFilter), orderBy('createdAt','desc'));
+ 
+  _tutorUnsub = onSnapshot(q, snap => {
+    if (snap.empty) {
+      container.innerHTML = `<div class="req-empty">No ${_tutorFilter} applications.</div>`;
+      return;
+    }
+    container.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const card = document.createElement('div');
+      card.className = 'req-card';
+      card.innerHTML = `
+        <div class="req-card-head">
+          <div>
+            <div class="req-card-name">🎓 ${data.name || '—'}</div>
+            <div class="req-card-meta">
+              📧 ${data.email || '—'}<br>
+              📞 ${data.phone || '—'}<br>
+              📚 ${Array.isArray(data.subjects) ? data.subjects.join(', ') : (data.subjects || '—')}<br>
+              📅 ${fmtDate(data.createdAt)}
+              ${data.experience ? '<br>💼 Experience: ' + data.experience : ''}
+              ${data.bio        ? '<br>📝 ' + data.bio : ''}
+            </div>
+          </div>
+          ${statusTag(data.status || 'pending')}
+        </div>
+        ${data.status === 'pending' ? `
+          <div class="req-card-actions">
+            <button class="btn btn-primary btn-sm" id="approve_tutor_${d.id}">✓ APPROVE</button>
+            <button class="btn btn-danger btn-sm"  id="reject_tutor_${d.id}">✗ REJECT</button>
+          </div>
+          <textarea class="reject-reason" id="reason_tutor_${d.id}"
+            placeholder="Rejection reason (required)" rows="2"></textarea>
+        ` : ''}`;
+      container.appendChild(card);
+ 
+      if (data.status === 'pending') {
+        document.getElementById(`approve_tutor_${d.id}`)
+          .addEventListener('click', () => handleApproveTutor(d.id, data));
+        document.getElementById(`reject_tutor_${d.id}`)
+          .addEventListener('click', () => handleRejectTutor(d.id));
+      }
+    });
+  }, err => {
+    container.innerHTML = `<div class="req-empty">Error: ${err.message}</div>`;
+  });
+}
+ 
+async function handleApproveTutor(appId, data) {
+  const btn = document.getElementById(`approve_tutor_${appId}`);
+  btn.disabled = true; btn.textContent = 'Processing…';
+  try {
+    await setDoc(doc(db, 'tutors', appId), {
+      name:      data.name,
+      email:     data.email,
+      phone:     data.phone    || '',
+      subjects:  Array.isArray(data.subjects)
+                   ? data.subjects
+                   : (data.subjects || '').split(',').map(s => s.trim()).filter(Boolean),
+      bio:       data.bio      || '',
+      role:      'tutor',
+      createdAt: serverTimestamp()
+    });
+    await updateDoc(doc(db, 'tutor_applications', appId), {
+      status:     'approved',
+      approvedAt: serverTimestamp()
+    });
+    alert(`✅ ${data.name} approved as tutor!`);
+  } catch(e) {
+    alert('Error: ' + e.message);
+    btn.disabled = false; btn.textContent = '✓ APPROVE';
+  }
+}
+ 
+async function handleRejectTutor(appId) {
+  const reason = document.getElementById(`reason_tutor_${appId}`)?.value.trim();
+  if (!reason) { alert('Please enter a rejection reason.'); return; }
+  try {
+    await updateDoc(doc(db, 'tutor_applications', appId), {
+      status:     'rejected',
+      reason,
+      rejectedAt: serverTimestamp()
+    });
+  } catch(e) { alert('Error: ' + e.message); }
+}
+ 
+document.getElementById('tutorFilterTabs')?.querySelectorAll('.filter-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#tutorFilterTabs .filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    _tutorFilter = btn.dataset.filter;
+    listenTutorApplications();
+  });
+});
+ 
+listenTutorApplications();
+ 
+// ════════════════════════════════════════════════════
+// ENROLLMENT REQUESTS — real-time listener
+// ════════════════════════════════════════════════════
+let _enrFilter = 'pending';
+let _enrUnsub  = null;
+ 
+function listenEnrollmentRequests() {
+  if (_enrUnsub) _enrUnsub();
+  const container = document.getElementById('enrollmentRequestsList');
+ 
+  const q = _enrFilter === 'all'
+    ? query(collection(db, 'enrollment_requests'), orderBy('createdAt', 'desc'))
+    : query(collection(db, 'enrollment_requests'), where('status','==',_enrFilter), orderBy('createdAt','desc'));
+ 
+  _enrUnsub = onSnapshot(q, snap => {
+    if (snap.empty) {
+      container.innerHTML = `<div class="req-empty">No ${_enrFilter} enrollment requests.</div>`;
+      return;
+    }
+    container.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const card = document.createElement('div');
+      card.className = 'req-card';
+      card.innerHTML = `
+        <div class="req-card-head">
+          <div>
+            <div class="req-card-name">📋 ${data.studentName || '—'}</div>
+            <div class="req-card-meta">
+              👨‍👩‍👧 Parent ID: ${data.parentId || '—'}<br>
+              📧 ${data.studentEmail || '—'}<br>
+              📚 ${Array.isArray(data.subjects) ? data.subjects.join(', ') : (data.subjects || '—')}<br>
+              📅 Plan: <strong>${data.plan || '—'}</strong> | Schedule: ${data.schedule || '—'}<br>
+              💳 Amount: ₦${(data.amount || 0).toLocaleString()}<br>
+              🗓️ ${fmtDate(data.createdAt)}
+            </div>
+          </div>
+          ${statusTag(data.status || 'pending')}
+        </div>
+        ${data.studentId ? `<div class="req-card-meta">✅ Linked Student ID: <code>${data.studentId}</code></div>` : ''}
+        ${data.status === 'pending' ? `
+          <div class="req-card-actions">
+            <button class="btn btn-primary btn-sm" id="approve_enr_${d.id}">
+              ✓ CONFIRM PAYMENT &amp; APPROVE
+            </button>
+            <button class="btn btn-danger btn-sm" id="reject_enr_${d.id}">✗ REJECT</button>
+          </div>` : ''}`;
+      container.appendChild(card);
+ 
+      if (data.status === 'pending') {
+        document.getElementById(`approve_enr_${d.id}`)
+          .addEventListener('click', () => handleApproveEnrollment(d.id, data));
+        document.getElementById(`reject_enr_${d.id}`)
+          .addEventListener('click', () => handleRejectEnrollment(d.id));
+      }
+    });
+  }, err => {
+    container.innerHTML = `<div class="req-empty">Error: ${err.message}</div>`;
+  });
+}
+ 
+async function handleApproveEnrollment(enrId, data) {
+  const btn = document.getElementById(`approve_enr_${enrId}`);
+  btn.disabled = true; btn.textContent = 'Processing…';
+  try {
+    const accessCode = generateAccessCode();
+    let studentId = data.studentId;
+ 
+    if (!studentId) {
+      const username = (data.studentEmail || data.studentName || 'student')
+        .split('@')[0].replace(/\s+/g,'').toLowerCase();
+ 
+      const indivRef = await addDoc(collection(db, 'individualStudents'), {
+        fullName:     data.studentName,
+        username,
+        email:        (data.studentEmail || '').toLowerCase(),
+        accessCode,
+        parentId:     data.parentId,
+        subjects:     Array.isArray(data.subjects)
+                        ? data.subjects
+                        : (data.subjects || '').split(',').map(s => s.trim()).filter(Boolean),
+        plan:         data.plan     || '',
+        schedule:     data.schedule || '',
+        registeredAt: serverTimestamp()
+      });
+      studentId = indivRef.id;
+ 
+      // Create payment record
+      await addDoc(collection(db, 'payments'), {
+        parentId:     data.parentId,
+        studentId,
+        enrollmentId: enrId,
+        amount:       data.amount || 0,
+        plan:         data.plan   || '',
+        status:       'paid',
+        confirmedAt:  serverTimestamp(),
+        createdAt:    serverTimestamp()
+      });
+    }
+ 
+    // Link student to parent's children array
+    const parentRef  = doc(db, 'parents', data.parentId);
+    const parentSnap = await getDoc(parentRef);
+    if (parentSnap.exists()) {
+      const children = parentSnap.data().children || [];
+      if (!children.includes(studentId)) {
+        await updateDoc(parentRef, { children: [...children, studentId] });
+      }
+    }
+ 
+    // Mark enrollment approved
+    await updateDoc(doc(db, 'enrollment_requests', enrId), {
+      status:     'approved',
+      studentId,
+      accessCode: accessCode || data.accessCode || '',
+      approvedAt: serverTimestamp()
+    });
+ 
+    // Log
+    await addDoc(collection(db, 'activityLogs'), {
+      type:      'enrollment_approved',
+      enrId,
+      studentId,
+      timestamp: serverTimestamp()
+    });
+ 
+    alert(`✅ Enrollment approved!\n\nStudent ID: ${studentId}\nAccess Code: ${accessCode}`);
+  } catch(e) {
+    alert('Error approving enrollment: ' + e.message);
+    btn.disabled = false; btn.textContent = '✓ CONFIRM PAYMENT & APPROVE';
+  }
+}
+ 
+async function handleRejectEnrollment(enrId) {
+  if (!confirm('Reject this enrollment request?')) return;
+  try {
+    await updateDoc(doc(db, 'enrollment_requests', enrId), {
+      status:     'rejected',
+      rejectedAt: serverTimestamp()
+    });
+  } catch(e) { alert('Error: ' + e.message); }
+}
+ 
+document.getElementById('enrFilterTabs')?.querySelectorAll('.filter-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#enrFilterTabs .filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    _enrFilter = btn.dataset.filter;
+    listenEnrollmentRequests();
+  });
+});
+ 
+listenEnrollmentRequests();
+ 
+// ════════════════════════════════════════════════════
+// PAYMENTS
+// ════════════════════════════════════════════════════
+async function loadPayments() {
+  const tbody = document.getElementById('paymentsTableBody');
+  tbody.innerHTML = '<tr><td colspan="6" class="req-empty">Loading…</td></tr>';
+  try {
+    const snap = await getDocs(
+      query(collection(db, 'payments'), orderBy('createdAt', 'desc'))
+    );
+    if (snap.empty) {
+      tbody.innerHTML = '<tr><td colspan="6" class="req-empty">No payment records yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      const tr   = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="font-family:var(--mono);font-size:.62rem;">${data.studentId || '—'}</td>
+        <td>${data.plan || '—'}</td>
+        <td style="color:var(--gold);">₦${(data.amount || 0).toLocaleString()}</td>
+        <td>${statusTag(data.status || 'pending')}</td>
+        <td>${fmtDate(data.createdAt)}</td>
+        <td>
+          ${data.status !== 'paid' ? `
+            <button class="btn btn-primary btn-sm" onclick="window._markPaid('${d.id}')">
+              MARK PAID
+            </button>` : ''}
+          ${data.status !== 'pending' ? `
+            <button class="btn btn-ghost btn-sm" onclick="window._markPending('${d.id}')">
+              MARK PENDING
+            </button>` : ''}
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  } catch(e) {
+    tbody.innerHTML = `<tr><td colspan="6" class="req-empty">Error: ${e.message}</td></tr>`;
+  }
+}
+ 
+window._markPaid = async function(id) {
+  try {
+    await updateDoc(doc(db, 'payments', id), { status: 'paid', paidAt: serverTimestamp() });
+    showSuccess('paymentSuccess');
+    loadPayments();
+  } catch(e) { alert('Error: ' + e.message); }
+};
+ 
+window._markPending = async function(id) {
+  try {
+    await updateDoc(doc(db, 'payments', id), { status: 'pending', updatedAt: serverTimestamp() });
+    showSuccess('paymentSuccess');
+    loadPayments();
+  } catch(e) { alert('Error: ' + e.message); }
+};
+ 
+document.getElementById('addPaymentForm')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  try {
+    await addDoc(collection(db, 'payments'), {
+      studentId:  document.getElementById('payStudentId').value.trim(),
+      parentId:   document.getElementById('payParentId').value.trim(),
+      amount:     parseFloat(document.getElementById('payAmount').value) || 0,
+      plan:       document.getElementById('payPlan').value,
+      status:     document.getElementById('payStatus').value,
+      reference:  document.getElementById('payRef').value.trim(),
+      createdAt:  serverTimestamp()
+    });
+    showSuccess('paymentSuccess');
+    this.reset();
+    loadPayments();
+  } catch(e) { alert('Error: ' + e.message); }
+});
+ 
+loadPayments();
+// ─── Auto-refresh payments every 60s ───────────────────────
+setInterval(loadPayments, 60000);
+
 }
 
 </script>

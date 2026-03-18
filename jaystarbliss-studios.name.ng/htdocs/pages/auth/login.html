@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -29,7 +29,7 @@
   --dim:     #3d3530;
   --green:   #2ecc71;
   --mono: 'JetBrains Mono', monospace;
---sans:'Poppins',sans-serif;
+  --sans:'Poppins',sans-serif;
   --r:  18px;
 }
 [data-theme="light"] {
@@ -58,7 +58,6 @@ body {
   padding: 1.5rem;
   background: var(--bg);
   position: relative;
-  /* FIX 1: removed overflow:hidden so mobile footer is reachable */
   overflow-x: hidden;
   overflow-y: auto;
   transition: background 0.3s;
@@ -137,7 +136,6 @@ body::before {
   border-right: 1px solid var(--border);
 }
 
-/* stripe texture */
 .deco-panel::before {
   content:'';
   position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -177,7 +175,6 @@ body::before {
   border-bottom-color: var(--cr-g);
   animation: spin2 7s linear infinite;
 }
-/* FIX 3: 4th ring — same orbit as ring-2, opposite spin, gold accent */
 .ring-4 {
   width: 76%; height: 76%;
   border-color: rgba(255,215,0,0.06);
@@ -185,14 +182,7 @@ body::before {
   animation: spin1 9s linear infinite;
   transform: rotate(90deg);
 }
-/*.ring-3 {
-  width: 54%; height: 54%;
-  border-color: rgba(255,46,0,0.06);
-  border-left-color: var(--gold);
-  animation: spin3 4s linear infinite;
-}*/
 
-/* orbiting dot on each ring */
 .ring::after {
   content:'';
   position:absolute;
@@ -210,7 +200,6 @@ body::before {
 @keyframes spin2 { to{transform:rotate(-360deg)} }
 @keyframes spin3 { to{transform:rotate(360deg)} }
 
-/* center lock icon */
 .orbital-core {
   position:relative; z-index:3;
   width:68px;height:68px;
@@ -222,7 +211,6 @@ body::before {
 }
 .orbital-core svg { color: var(--cr); }
 
-/* deco brand */
 .deco-brand {
   position:absolute;top:2rem;left:2rem;
   z-index:3;
@@ -245,7 +233,6 @@ body::before {
   letter-spacing:0.05em;line-height:1.4;
 }
 
-/* deco bottom text */
 .deco-content { position:relative;z-index:3; }
 .deco-tagline {
   font-family:var(--mono);font-size:1.1rem;font-weight:700;
@@ -254,7 +241,6 @@ body::before {
 .deco-tagline span { color:var(--cr); }
 .deco-sub { font-size:0.72rem;color:rgba(255,255,255,0.35); }
 
-/* system stats */
 .sys-stats {
   position:relative;z-index:3;
   margin-top:1rem;
@@ -434,7 +420,6 @@ body::before {
   flex-shrink:0;
   background:var(--surf2);
   transition:background 0.3s;
-  /* FIX 1: always visible, never squished */
   min-height: 52px;
 }
 .back-link {
@@ -443,11 +428,12 @@ body::before {
   display:flex;align-items:center;gap:0.35rem;
   transition:color 0.15s;
 }
-.back-link:hover { color:var(--gold);
-                   background-color: #8b0909b6;
-                   padding: 6px;
-                   border-radius: 10px;
-                    }
+.back-link:hover {
+  color:var(--gold);
+  background-color: #8b0909b6;
+  padding: 6px;
+  border-radius: 10px;
+}
 .theme-btn {
   width:28px;height:28px;
   background:var(--surface);border:1px solid var(--border);
@@ -478,125 +464,51 @@ body::before {
    RESPONSIVE — MOBILE FIXES
    ═══════════════════════════════════════════════════════════ */
 @media(max-width:700px){
-
-  body {
-    padding: 0;
-    align-items: flex-start;
-  }
-
-  /* Card stacks vertically and fills screen */
+  body { padding: 0; align-items: flex-start; }
   .card {
     flex-direction:column;
-    max-width: 100%;
-    width: 100%;
+    max-width: 100%;width: 100%;
     min-height: 100dvh;
     border-radius: 0;
-    border-left: none;
-    border-right: none;
+    border-left: none;border-right: none;
   }
-
-  /* ── DECO PANEL on mobile: horizontal layout ── */
   .deco-panel {
-    width: 100%;
-    min-height: 170px;
-    padding: 1.2rem 1.4rem;
-    flex-direction: row;           /* brand + stats LEFT, orbital RIGHT */
-    align-items: center;
-    justify-content: space-between;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
+    width: 100%;min-height: 170px;padding: 1.2rem 1.4rem;
+    flex-direction: row;
+    align-items: center;justify-content: space-between;
+    border-right: none;border-bottom: 1px solid var(--border);
   }
-
-  /* Brand stays top-left — override its absolute position */
-  .deco-brand {
-    position: static;
-    margin-bottom: 0;
-    align-self: flex-start;
-  }
-
-  /* Left column: brand on top, tagline + stats below */
-  .deco-left-col {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    flex: 1;
-    min-width: 0;
-  }
-
-  /* FIX 4: tagline becomes a single line on mobile */
-  .deco-tagline {
-    font-size: 0.82rem;
-    white-space: nowrap;
-    line-height: 1;
-    margin-bottom: 0;
-  }
-  /* Hide the <br> tags visually on mobile */
+  .deco-brand { position: static;margin-bottom: 0;align-self: flex-start; }
+  .deco-left-col { display: flex;flex-direction: column;gap: 0.55rem;flex: 1;min-width: 0; }
+  .deco-tagline { font-size: 0.82rem;white-space: nowrap;line-height: 1;margin-bottom: 0; }
   .deco-tagline br { display: none; }
-  /* Replace line breaks with separator dots */
   .deco-tagline .tag-sep { display: inline; }
-
-  /* Hide sys-stats on mobile to save space */
   .sys-stats { display: none; }
   .deco-content { margin: 0; }
-
-  /* FIX 2: Orbital moves to RIGHT side of deco-panel */
   .orbital-wrap {
-    position: relative;    /* detach from absolute */
-    top: auto; left: auto;
-    transform: none;
-    width: 130px;
-    height: 130px;
-    flex-shrink: 0;
-    margin-left: 1rem;
-    align-self: center;
+    position: relative;top: auto;left: auto;transform: none;
+    width: 130px;height: 130px;flex-shrink: 0;
+    margin-left: 1rem;align-self: center;
   }
-
-  /* Scale orbital core down to fit */
-  .orbital-core {
-    width: 44px;
-    height: 44px;
-  }
-  .orbital-core svg {
-    width: 18px;
-    height: 18px;
-  }
-  /* Scale ring dots down */
-  .ring::after {
-    width: 5px;
-    height: 5px;
-    top: -2.5px;
-  }
+  .orbital-core { width: 44px;height: 44px; }
+  .orbital-core svg { width: 18px;height: 18px; }
+  .ring::after { width: 5px;height: 5px;top: -2.5px; }
   .ring-2::after { bottom: -2.5px; top: auto; }
   .ring-4::after { top: -2.5px; }
   .ring-3::after { top: 50%; left: -2.5px; transform: translateY(-50%); }
+  .form-panel { flex: 1;display: flex;flex-direction: column;overflow: visible; }
+  .form-body { padding: 1.3rem 1.4rem;flex: 1; }
+  .form-foot { padding: 0.8rem 1.4rem;position: sticky;bottom: 0;z-index: 10; }
 
-  /* Form panel fills remaining space and scrolls */
-  .form-panel {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: visible; /* let card handle scroll */
-  }
-
-  .form-body {
-    padding: 1.3rem 1.4rem;
-    flex: 1;
-  }
-
-  /* FIX 1: Footer always visible at bottom */
-  .form-foot {
-    padding: 0.8rem 1.4rem;
-    position: sticky;
-    bottom: 0;
-    z-index: 10;
-  }
+  /* 4 tabs: slightly smaller text on mobile */
+  .role-tab { font-size: 0.48rem; padding: 0.75rem 0.25rem 0.65rem; }
 }
 
-/* Extra small phones */
 @media(max-width:380px){
   .deco-panel { min-height: 150px; }
   .orbital-wrap { width: 110px; height: 110px; }
   .deco-tagline { font-size: 0.72rem; }
+  .role-tab { font-size: 0.44rem; }
 }
 </style>
 </head>
@@ -607,14 +519,7 @@ body::before {
 
   <!-- ══ DECO PANEL ══════════════════════════════════════════ -->
   <div class="deco-panel">
-
-    <!--
-      On mobile we use a wrapper div (.deco-left-col) to stack
-      brand + tagline + stats in a left column, with orbital on right.
-      On desktop this wrapper has no effect (unstyled above 700px).
-    -->
     <div class="deco-left-col">
-
       <div class="deco-brand">
         <div class="brand-mark">
           <img src="../../assets/img/favicon.png" alt="JDH" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -622,29 +527,24 @@ body::before {
         </div>
         <div class="brand-name">Jaystarbliss<br>Dynamic Hub</div>
       </div>
-
       <div class="deco-content">
-        <!-- FIX 4: <span class="tag-sep"> provides the dot separators on mobile -->
         <div class="deco-tagline">
           Learn.<span class="tag-sep"> </span><br>
           <span>Grow.</span><span class="tag-sep"> </span><br>
           Thrive.
         </div>
       </div>
-
       <div class="sys-stats">
         <span class="sys-stat">Protocol: AES-256-GCM</span>
         <span class="sys-stat">Status: Surveillance Active</span>
         <span class="sys-stat">Node: 0xFF-JDH-init</span>
       </div>
+    </div>
 
-    </div><!-- /deco-left-col -->
-
-    <!-- FIX 2 + 3: Orbital with 4 rings, moves right on mobile -->
     <div class="orbital-wrap">
       <div class="ring ring-1"></div>
       <div class="ring ring-2"></div>
-      <div class="ring ring-4"></div><!-- NEW 4th ring, same orbit as ring-2 -->
+      <div class="ring ring-4"></div>
       <div class="ring ring-3"></div>
       <div class="orbital-core">
         <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -653,13 +553,12 @@ body::before {
         </svg>
       </div>
     </div>
-
   </div><!-- /deco-panel -->
 
   <!-- ══ FORM PANEL ══════════════════════════════════════════ -->
   <div class="form-panel">
 
-    <!-- ROLE TABS -->
+    <!-- ROLE TABS — 4 tabs: Schools | Students | Parents | Staff -->
     <div class="role-tabs">
       <button class="role-tab active" data-pane="pane-school">
         <span class="tab-ico"><i data-lucide="school" style="width:16px;height:16px;"></i></span>
@@ -669,8 +568,12 @@ body::before {
         <span class="tab-ico"><i data-lucide="graduation-cap" style="width:16px;height:16px;"></i></span>
         Students
       </button>
-      <button class="role-tab" data-pane="pane-staff">
+      <button class="role-tab" data-pane="pane-parent">
         <span class="tab-ico"><i data-lucide="users" style="width:16px;height:16px;"></i></span>
+        Parents
+      </button>
+      <button class="role-tab" data-pane="pane-staff">
+        <span class="tab-ico"><i data-lucide="shield-check" style="width:16px;height:16px;"></i></span>
         Staff
       </button>
     </div>
@@ -785,6 +688,38 @@ body::before {
 
       </div><!-- /pane-student -->
 
+      <!-- ══ PARENT PANE ══ -->
+      <!-- NEW: Full parent login with email/password + register link -->
+      <div class="pane" id="pane-parent">
+        <div class="form-title">Parent <em>Login</em></div>
+        <div class="form-sub">Access your family dashboard</div>
+        <div class="msg msg-error" id="err-parent"></div>
+        <form id="form-parent" autocomplete="on">
+          <div class="field">
+            <label>Email Address</label>
+            <div class="input-wrap">
+              <span class="input-icon"><i data-lucide="mail" style="width:15px;height:15px;"></i></span>
+              <input type="email" id="parent-email" placeholder="parent@example.com" required autocomplete="email"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <div class="input-wrap">
+              <span class="input-icon"><i data-lucide="lock" style="width:15px;height:15px;"></i></span>
+              <input type="password" id="parent-pw" class="has-eye" placeholder="••••••••" required autocomplete="current-password"/>
+              <button type="button" class="pw-eye" data-target="parent-pw"><i data-lucide="eye" style="width:15px;height:15px;"></i></button>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn" id="btn-parent">
+            <div class="btn-spinner"></div>
+            <span class="btn-text">Access Dashboard →</span>
+          </button>
+        </form>
+        <div class="toggle-link">
+          No account yet? <button onclick="window.location.href='../../register.html'">Register as Parent →</button>
+        </div>
+      </div><!-- /pane-parent -->
+
       <!-- ══ STAFF PANE ══ -->
       <div class="pane" id="pane-staff">
 
@@ -875,14 +810,12 @@ body::before {
 
     </div><!-- /form-body -->
 
-    <!-- CARD FOOTER — FIX 1: sticky bottom, always visible -->
-  
+    <!-- CARD FOOTER -->
     <div class="form-foot">
       <a href="../../index.html" class="back-link">
         <i data-lucide="arrow-left" style="width:14px;height:14px;"></i>
         Main Site
       </a>
-
       <a href="../../programming.html" class="back-link">
         <i data-lucide="arrow-up" style="width:14px;height:14px;"></i>
         Programming Site
@@ -895,14 +828,11 @@ body::before {
       </div>
     </div>
 
-    
-
   </div><!-- /form-panel -->
 </div><!-- /card -->
 
 <!-- ── UI SCRIPT ───────────────────────────────────────────── -->
 <script>
-  // Theme
   window.toggleTheme = function() {
     var html = document.documentElement;
     html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
@@ -916,6 +846,10 @@ body::before {
 
   document.addEventListener('DOMContentLoaded', function() {
     lucide.createIcons();
+
+    // Restore saved theme
+    var saved = localStorage.getItem('jdh-theme');
+    if (saved) document.documentElement.dataset.theme = saved;
 
     document.getElementById('themeToggleBtn').addEventListener('click', window.toggleTheme);
 
@@ -979,13 +913,16 @@ body::before {
 
   const STAFF_REG_CODE_FALLBACK = 'JAYSTAR2024';
 
+  // ── All redirect targets (relative from pages/auth/) ──────
   const REDIRECTS = {
     admin:  '../dashboard/admin-dashboard.html',
-    school: '../dashboard/school-portal.html?type=school',
+    school: '../dashboard/school-portal.html',
     staff:  '../dashboard/staff-portal.html',
     parent: '../dashboard/parent-portal.html',
+    individualStudent: '../dashboard/student-portal.html',
   };
 
+  // ── Shared helpers ─────────────────────────────────────────
   function showMsg(id, text, type) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -1003,39 +940,69 @@ body::before {
     btn.classList.toggle('loading', on);
   }
 
-  // Shared email/password login
+  // ── Email/password login (school, staff, parent, admin) ────
+  // expectedRole: the role this tab is for.
+  // Admin is allowed through regardless of which tab was used.
   async function emailLogin(email, password, expectedRole, errId, btnId) {
     hideMsg(errId);
     setBtnLoading(btnId, true);
     try {
       var cred     = await signInWithEmailAndPassword(auth, email, password);
       var userSnap = await getDoc(doc(db, 'users', cred.user.uid));
-      var userData = userSnap.data() || {};
+      var userData = userSnap.exists() ? userSnap.data() : {};
       var role     = userData.role;
 
+      // Admin always gets through no matter which tab they used
       if (role === 'admin') {
         sessionStorage.setItem('userRole',  'admin');
         sessionStorage.setItem('userEmail', email);
         sessionStorage.setItem('userId',    cred.user.uid);
+        sessionStorage.setItem('userName',  userData.name || '');
         window.location.href = REDIRECTS.admin;
         return;
       }
-      if (role !== expectedRole) throw new Error('Credentials do not match this role. Try a different tab.');
 
+      // Enforce correct tab
+      if (role !== expectedRole) {
+        throw new Error('Wrong tab for this account. Please use the ' + role + ' tab.');
+      }
+
+      // Set session keys — covers all roles
       sessionStorage.setItem('userRole',  role);
       sessionStorage.setItem('userEmail', email);
       sessionStorage.setItem('userId',    cred.user.uid);
+      sessionStorage.setItem('userName',  userData.name  || '');
+      // Legacy keys kept for compatibility with existing portals
       if (userData.name) sessionStorage.setItem('staffName', userData.name);
+
       window.location.href = REDIRECTS[role] || '../dashboard/school-portal.html';
     } catch(e) {
       var msg = 'Invalid credentials. Please try again.';
-      if (e.message && (e.message.includes('role') || e.message.includes('code'))) msg = e.message;
+      if (e.code === 'auth/user-not-found')   msg = 'No account found with that email.';
+      if (e.code === 'auth/wrong-password')   msg = 'Incorrect password.';
+      if (e.code === 'auth/invalid-email')    msg = 'Invalid email address.';
+      if (e.code === 'auth/too-many-requests') msg = 'Too many attempts. Please wait a moment.';
+      if (e.message && (
+        e.message.includes('tab') ||
+        e.message.includes('role') ||
+        e.message.includes('code')
+      )) msg = e.message;
       showMsg(errId, msg, 'error');
       setBtnLoading(btnId, false);
     }
   }
 
-  // School login
+  // ── PARENT LOGIN ───────────────────────────────────────────
+  document.getElementById('form-parent').addEventListener('submit', function(e) {
+    e.preventDefault();
+    emailLogin(
+      document.getElementById('parent-email').value.trim(),
+      document.getElementById('parent-pw').value,
+      'parent', 'err-parent', 'btn-parent'
+    );
+  });
+
+  // ── SCHOOL LOGIN ───────────────────────────────────────────
   document.getElementById('form-school').addEventListener('submit', function(e) {
     e.preventDefault();
     emailLogin(
@@ -1045,7 +1012,7 @@ body::before {
     );
   });
 
-  // Staff login
+  // ── STAFF LOGIN ────────────────────────────────────────────
   document.getElementById('form-staff').addEventListener('submit', function(e) {
     e.preventDefault();
     emailLogin(
@@ -1055,7 +1022,7 @@ body::before {
     );
   });
 
-  // Student login
+  // ── STUDENT LOGIN (username + access code, no Firebase Auth) ─
   document.getElementById('form-student').addEventListener('submit', async function(e) {
     e.preventDefault();
     hideMsg('err-student');
@@ -1063,7 +1030,11 @@ body::before {
     var username = document.getElementById('student-user').value.trim();
     var code     = document.getElementById('student-code').value.trim();
     try {
-      var q    = query(collection(db,'individualStudents'), where('username','==',username), where('accessCode','==',code));
+      var q    = query(
+        collection(db, 'individualStudents'),
+        where('username', '==', username),
+        where('accessCode', '==', code)
+      );
       var snap = await getDocs(q);
       if (snap.empty) throw new Error('Invalid username or access code.');
       var sdoc  = snap.docs[0];
@@ -1072,14 +1043,15 @@ body::before {
       sessionStorage.setItem('studentId',       sdoc.id);
       sessionStorage.setItem('studentName',     sdata.fullName || sdata.username);
       sessionStorage.setItem('studentUsername', sdata.username);
-      window.location.href = '../dashboard/student-portal.html';
+      sessionStorage.setItem('userName',        sdata.fullName || sdata.username);
+      window.location.href = REDIRECTS.individualStudent;
     } catch(e) {
       showMsg('err-student', e.message || 'Login failed.', 'error');
       setBtnLoading('btn-student', false);
     }
   });
 
-  // Student registration
+  // ── STUDENT SELF-REGISTRATION ─────────────────────────────
   document.getElementById('form-student-reg').addEventListener('submit', async function(e) {
     e.preventDefault();
     hideMsg('err-student-reg'); hideMsg('ok-student-reg');
@@ -1089,11 +1061,24 @@ body::before {
     var email    = document.getElementById('reg-email').value.trim();
     var code     = document.getElementById('reg-code').value.trim();
     try {
-      var ex = await getDocs(query(collection(db,'individualStudents'), where('username','==',username)));
+      // Check username is unique
+      var ex = await getDocs(query(
+        collection(db, 'individualStudents'),
+        where('username', '==', username)
+      ));
       if (!ex.empty) throw new Error('Username already taken. Choose another.');
-      await addDoc(collection(db,'individualStudents'), {
-        fullName: fullName, username: username,
-        email: email || '', accessCode: code,
+      // Verify the access code exists in the system
+      var codeCheck = await getDocs(query(
+        collection(db, 'individualStudents'),
+        where('accessCode', '==', code)
+      ));
+      if (codeCheck.empty) throw new Error('Invalid access code. Please get your code from your instructor.');
+      // Register
+      await addDoc(collection(db, 'individualStudents'), {
+        fullName: fullName,
+        username: username,
+        email:    email || '',
+        accessCode: code,
         registeredAt: serverTimestamp()
       });
       showMsg('ok-student-reg', '✓ Account created! You can now log in.', 'success');
@@ -1108,7 +1093,7 @@ body::before {
     setBtnLoading('btn-student-reg', false);
   });
 
-  // Staff registration
+  // ── STAFF REGISTRATION ────────────────────────────────────
   document.getElementById('form-staff-reg').addEventListener('submit', async function(e) {
     e.preventDefault();
     hideMsg('err-staff-reg'); hideMsg('ok-staff-reg');
@@ -1121,14 +1106,15 @@ body::before {
     if (pw !== pw2)    { showMsg('err-staff-reg','Passwords do not match.','error'); setBtnLoading('btn-staff-reg',false); return; }
     if (pw.length < 6) { showMsg('err-staff-reg','Password must be at least 6 characters.','error'); setBtnLoading('btn-staff-reg',false); return; }
     try {
-      var codeSnap  = await getDoc(doc(db,'staffRegistration','code'));
+      // Validate registration code against Firestore (fallback to hardcoded)
+      var codeSnap  = await getDoc(doc(db, 'staffRegistration', 'code'));
       var validCode = codeSnap.exists() ? codeSnap.data().code : STAFF_REG_CODE_FALLBACK;
-      if (regCode !== validCode) throw new Error('Invalid registration code.');
+      if (regCode !== validCode) throw new Error('Invalid registration code. Contact your admin.');
       var cred = await createUserWithEmailAndPassword(auth, email, pw);
-      await setDoc(doc(db,'users',cred.user.uid), {
+      await setDoc(doc(db, 'users', cred.user.uid), {
         email: email, name: name, role: 'staff', createdAt: serverTimestamp()
       });
-      showMsg('ok-staff-reg','✓ Account created! You can now log in.','success');
+      showMsg('ok-staff-reg', '✓ Account created! You can now log in.', 'success');
       document.getElementById('form-staff-reg').reset();
       setTimeout(function() {
         document.getElementById('staff-register-view').style.display = 'none';
@@ -1136,9 +1122,9 @@ body::before {
       }, 2000);
     } catch(e) {
       var txt = 'Registration failed.';
-      if (e.code === 'auth/email-already-in-use') txt = 'Email already registered.';
+      if (e.code === 'auth/email-already-in-use') txt = 'Email already registered. Try logging in.';
       else if (e.code === 'auth/invalid-email')   txt = 'Invalid email address.';
-      else if (e.code === 'auth/weak-password')   txt = 'Password is too weak.';
+      else if (e.code === 'auth/weak-password')   txt = 'Password is too weak (min 6 chars).';
       else if (e.message) txt = e.message;
       showMsg('err-staff-reg', txt, 'error');
     }

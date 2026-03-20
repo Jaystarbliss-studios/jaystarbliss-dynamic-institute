@@ -876,7 +876,10 @@ html{font-size:clamp(14px, 1.8vw, 16px); -webkit-text-size-adjust:100%; overflow
 
     window.logout = function() {
         sessionStorage.clear();
-        window.location.href = '../auth/login.html';
+        signOut(auth).catch(err => console.error('Logout error:', err))
+          .finally(() => {
+            window.location.href = '../auth/login.html';
+          });
     };
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -925,13 +928,27 @@ html{font-size:clamp(14px, 1.8vw, 16px); -webkit-text-size-adjust:100%; overflow
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Auth guard
+    // Firebase Auth state guard - ensures user is properly authenticated
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        sessionStorage.clear();
+        window.location.href = '../auth/login.html';
+        return;
+      }
+      const storedUserId = sessionStorage.getItem('userId');
+      if (user.uid !== storedUserId) {
+        sessionStorage.clear();
+        window.location.href = '../auth/login.html';
+      }
+    });
+
+    // Session-based guard (legacy)
     if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'individualStudent') {
-        window.location.href = '../auth/student-login.html';
+        window.location.href = '../auth/login.html';
     }
 
-    const studentId = sessionStorage.getItem('studentId');
-    const studentName = sessionStorage.getItem('studentName') || 'Student';
+    const studentId = sessionStorage.getItem('userId');
+    const studentName = sessionStorage.getItem('userName') || 'Student';
 
     const getInitials = n => n.split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase();
     const fmtDate = ts => { if (!ts) return 'Recent'; const d = ts.toDate ? ts.toDate() : new Date(ts); return d.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}); };
@@ -945,11 +962,6 @@ html{font-size:clamp(14px, 1.8vw, 16px); -webkit-text-size-adjust:100%; overflow
     document.getElementById('sidebarAvatar').textContent = initials;
     document.getElementById('welcomeMessage').textContent = `Welcome back, ${studentName.split(' ')[0]} — ${new Date().toLocaleDateString('en-US', {weekday:'long',day:'numeric',month:'short',year:'numeric'})}`;
 
-    // Debug
-    document.getElementById('debugInfo').style.display = 'block';
-    document.getElementById('debugStudentId').textContent = studentId;
-    document.getElementById('debugStudentName').textContent = studentName;
-    document.getElementById('debugStatus').textContent = 'Initialised';
 
     // Logout
     document.getElementById('sidebarLogoutBtn').addEventListener('click', async () => {

@@ -4,10 +4,9 @@ service cloud.firestore {
 
     // ════════════════════════════════════════════════════
     // HELPER FUNCTIONS
-    // FIX: consolidate to a single getUserRole() call so
-    // isAdmin() and isStaff() don't each fire separate
-    // exists() + get() reads, which stacked up under rapid
-    // consecutive writes and triggered permission denials.
+    // Single getUserRole() call shared by all role checks
+    // to avoid stacking get() reads that trigger
+    // permission denials under rapid consecutive writes.
     // ════════════════════════════════════════════════════
 
     function isAuthenticated() {
@@ -15,7 +14,6 @@ service cloud.firestore {
     }
 
     function getUserRole() {
-      // Single exists() + get() shared by all role checks
       return isAuthenticated() &&
              exists(/databases/$(database)/documents/users/$(request.auth.uid))
         ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role
@@ -31,9 +29,17 @@ service cloud.firestore {
     }
 
     function isAdminOrStaff() {
-      // Uses one getUserRole() call rather than calling isAdmin() + isStaff() separately
       let role = getUserRole();
       return role == 'admin' || role == 'staff';
+    }
+
+    function isParent() {
+      return getUserRole() == 'parent';
+    }
+
+    // Check if the requesting user is the parent who owns a doc
+    function isOwningParent(parentId) {
+      return isAuthenticated() && request.auth.uid == parentId;
     }
 
 
@@ -41,20 +47,125 @@ service cloud.firestore {
     // USERS
     // ════════════════════════════════════════════════════
     match /users/{userId} {
-      // Any authenticated user can read (needed for role verification)
       allow read: if isAuthenticated();
 
-      // Only admin can create staff accounts
       allow create: if isAuthenticated() &&
                        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
                        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' &&
                        request.resource.data.role == 'staff';
 
-      // Users can update their own data; admins can update any user
       allow update: if isAuthenticated() &&
                        (request.auth.uid == userId || isAdmin());
 
-      // Only admin can delete
+      allow delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // PARENTS
+    // Parents can read/write their own doc.
+    // Admin & staff can read/write all.
+    // ════════════════════════════════════════════════════
+    match /parents/{parentId} {
+      allow read:   if isAdminOrStaff() || isOwningParent(parentId);
+      allow create: if isAdminOrStaff() || isAuthenticated();
+      allow update: if isAdminOrStaff() || isOwningParent(parentId);
+      allow delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // STUDENTS  (role-based, linked to parent + subjects)
+    // ════════════════════════════════════════════════════
+    match /students/{studentId} {
+      // Admin/staff full access. Students read their own. Parents can read their children's records.
+      allow read: if isAdminOrStaff() ||
+                 (isAuthenticated() && request.auth.uid == resource.data.uid) ||
+                 (isAuthenticated() && isParent() && resource.data.parentId == request.auth.uid);
+      allow create: if isAdminOrStaff();
+      allow update: if isAdminOrStaff();
+      allow delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // TUTORS
+    // ════════════════════════════════════════════════════
+    match /tutors/{tutorId} {
+      allow read:         if true;
+      allow write, delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // STUDENT REQUESTS
+    // Public can create (registration form).
+    // Only admin/staff can read and update status.
+    // ════════════════════════════════════════════════════
+    match /student_requests/{reqId} {
+      allow create: if true;   // public registration form
+      allow read:   if isAdminOrStaff();
+      allow update: if isAdminOrStaff();
+      allow delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // TUTOR APPLICATIONS
+    // Public can create (Apply as Tutor form).
+    // Only admin can read and update.
+    // ════════════════════════════════════════════════════
+    match /tutor_applications/{appId} {
+      allow create: if true;   // public tutor application form
+      allow read:   if isAdminOrStaff();
+      allow update: if isAdminOrStaff();
+      allow delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // ENROLLMENT REQUESTS
+    // Parents create. Admin/staff read and approve.
+    // ════════════════════════════════════════════════════
+    match /enrollment_requests/{enrId} {
+      // Authenticated parents can create
+      allow create: if isParent();
+
+      // Admin/staff can read all; parents can read their own
+      allow read: if isAdminOrStaff() ||
+                     (isAuthenticated() &&
+                      resource.data.parentId == request.auth.uid);
+
+      allow update: if isAdminOrStaff();
+      allow delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // PAYMENTS
+    // Admin/staff full access. Parents read their own.
+    // ════════════════════════════════════════════════════
+    match /payments/{paymentId} {
+      allow read: if isAdminOrStaff() ||
+                     (isAuthenticated() &&
+                      resource.data.parentId == request.auth.uid);
+      allow create: if isAdminOrStaff();
+      allow update: if isAdminOrStaff();
+      allow delete: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // SESSIONS
+    // ════════════════════════════════════════════════════
+    match /sessions/{sessionId} {
+      allow read: if isAdminOrStaff() ||
+                     (isAuthenticated() && (
+                       resource.data.studentId == request.auth.uid ||
+                       resource.data.tutorId   == request.auth.uid
+                     ));
+      allow create: if isAdminOrStaff();
+      allow update: if isAdminOrStaff();
       allow delete: if isAdmin();
     }
 
@@ -71,7 +182,7 @@ service cloud.firestore {
     // SCHOOL ACCESS CODES
     // ════════════════════════════════════════════════════
     match /schools/{schoolId} {
-      allow read: if isAdminOrStaff();
+      allow read:  if true;
       allow write: if isAdmin();
     }
 
@@ -80,7 +191,7 @@ service cloud.firestore {
     // SCHOOL EXAMS
     // ════════════════════════════════════════════════════
     match /schoolExams/{examId} {
-      allow read:         if true;
+      allow read:          if true;
       allow write, delete: if isAdminOrStaff();
     }
 
@@ -89,7 +200,7 @@ service cloud.firestore {
     // SCHOOL RESOURCES
     // ════════════════════════════════════════════════════
     match /schoolResources/{resourceId} {
-      allow read:         if true;
+      allow read:          if true;
       allow write, delete: if isAdminOrStaff();
     }
 
@@ -98,25 +209,17 @@ service cloud.firestore {
     // SCHOOL LINKS
     // ════════════════════════════════════════════════════
     match /schoolLinks/{linkId} {
-      allow read:         if true;
+      allow read:          if true;
       allow write, delete: if isAdminOrStaff();
     }
 
 
     // ════════════════════════════════════════════════════
-    // INDIVIDUAL STUDENTS
+    // INDIVIDUAL STUDENTS (private portal students)
     // ════════════════════════════════════════════════════
     match /individualStudents/{studentId} {
-      allow read:         if isAdminOrStaff();
+      allow read: if isAdminOrStaff() || request.auth.uid == studentId;
       allow write, delete: if isAdminOrStaff();
-    }
-
-
-    // ════════════════════════════════════════════════════
-    // STAFF REGISTRATION
-    // ════════════════════════════════════════════════════
-    match /staffRegistration/{docId} {
-      allow read, write: if isAdmin();
     }
 
 
@@ -124,7 +227,7 @@ service cloud.firestore {
     // PERSONAL RESOURCES (student-specific)
     // ════════════════════════════════════════════════════
     match /personalResources/{docId} {
-      allow read:         if true;
+      allow read: if isAdminOrStaff() || request.auth.uid == resource.data.studentId;
       allow write, delete: if isAdminOrStaff();
     }
 
@@ -133,7 +236,7 @@ service cloud.firestore {
     // PERSONAL LINKS (student-specific)
     // ════════════════════════════════════════════════════
     match /personalLinks/{docId} {
-      allow read:         if true;
+      allow read: if isAdminOrStaff() || request.auth.uid == resource.data.studentId;
       allow write, delete: if isAdminOrStaff();
     }
 
@@ -142,8 +245,8 @@ service cloud.firestore {
     // GENERAL RESOURCES
     // ════════════════════════════════════════════════════
     match /resources/{resourceId} {
-      allow read:         if true;
-      allow write, delete: if isAdmin();
+      allow read:          if true;
+      allow write, delete: if isAdminOrStaff();
     }
 
 
@@ -151,8 +254,8 @@ service cloud.firestore {
     // GENERAL LINKS
     // ════════════════════════════════════════════════════
     match /links/{linkId} {
-      allow read:         if true;
-      allow write, delete: if isAdmin();
+      allow read:          if true;
+      allow write, delete: if isAdminOrStaff();
     }
 
 
@@ -160,8 +263,8 @@ service cloud.firestore {
     // GENERAL EXAMS
     // ════════════════════════════════════════════════════
     match /exams/{examId} {
-      allow read:         if true;
-      allow write, delete: if isAdmin();
+      allow read:          if true;
+      allow write, delete: if isAdminOrStaff();
     }
 
 
@@ -169,7 +272,7 @@ service cloud.firestore {
     // STAFF GENERAL RESOURCES
     // ════════════════════════════════════════════════════
     match /staffGeneralResources/{resourceId} {
-      allow read:         if isAdminOrStaff();
+      allow read:          if isAdminOrStaff();
       allow write, delete: if isAdmin();
     }
 
@@ -184,34 +287,69 @@ service cloud.firestore {
 
 
     // ════════════════════════════════════════════════════
+    // STAFF REGISTRATION CODE
+    // ════════════════════════════════════════════════════
+    match /staffRegistration/{docId} {
+      allow read:  if isAdmin() || !isAuthenticated();  // staff need to read code during signup, but only when not logged in
+      allow write: if isAdmin();
+    }
+
+
+    // ════════════════════════════════════════════════════
     // NOTIFICATIONS
+    // Admin writes. Anyone can read (public portal).
+    // Authenticated users can mark own as read.
     // ════════════════════════════════════════════════════
     match /notifications/{notificationId} {
-      allow read:         if true;
-      allow write, delete: if isAdmin();
+      allow read: if isAdmin() ||
+                 (isAuthenticated() &&
+                  (resource.data.recipientId == request.auth.uid ||
+                   resource.data.recipientId == 'all' ||
+                   resource.data.recipientId == 'all_students'));
+      allow create: if isAdmin();
+      allow delete: if isAdmin();
+
+      // Admin can update any field; authenticated users can only
+      // flip the `read` field on notifications addressed to them.
+      allow update: if isAdmin() ||
+                       (isAuthenticated() &&
+                        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']) &&
+                        (resource.data.recipientId == request.auth.uid ||
+                         resource.data.recipientId == 'all' ||
+                         resource.data.recipientId == 'all_students'));
     }
 
 
     // ════════════════════════════════════════════════════
     // NEWS CORNER (PUBLIC)
-    // FIX: admin update rule listed FIRST so it takes
-    // precedence; public view-increment rule is the fallback.
     // ════════════════════════════════════════════════════
     match /newsCorner/{newsId} {
-      // Anyone can read
-      allow read: if true;
+      allow read:   if true;
 
-      // Admin can create and delete
       allow create: if isAdmin();
       allow delete: if isAdmin();
 
-      // Admin can update ANY fields (evaluated first)
+      // Admin can update any fields (evaluated first)
       allow update: if isAdmin();
 
-      // Public can ONLY increment the views counter (no other fields)
+      // Public can ONLY increment the views counter
       allow update: if !isAuthenticated() &&
                        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views']) &&
                        request.resource.data.views == resource.data.views + 1;
+    }
+
+
+    // ════════════════════════════════════════════════════
+    // CONTACT MESSAGES
+    // Public can create (contact form on landing page).
+    // Only admin can read.
+    // ════════════════════════════════════════════════════
+    match /contact_messages/{msgId} {
+      allow create: if true;     // public contact form
+      allow read:   if isAdmin();
+      allow delete: if isAdmin();
+      // Allow admin to mark as read
+      allow update: if isAdmin();
     }
 
 

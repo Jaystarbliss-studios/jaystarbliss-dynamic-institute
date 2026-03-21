@@ -49,6 +49,7 @@ service cloud.firestore {
     match /users/{userId} {
       allow read: if isAuthenticated();
 
+      allow create: if request.auth.uid == userId && request.resource.data.role == 'parent';
       allow create: if isAuthenticated() &&
                        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
                        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' &&

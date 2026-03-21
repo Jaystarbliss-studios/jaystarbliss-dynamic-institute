@@ -874,13 +874,6 @@ html{font-size:clamp(14px, 1.8vw, 16px); -webkit-text-size-adjust:100%; overflow
         document.querySelector('.main').scrollTo(0,0);
     };
 
-    window.logout = function() {
-        sessionStorage.clear();
-        signOut(auth).catch(err => console.error('Logout error:', err))
-          .finally(() => {
-            window.location.href = '../auth/login.html';
-          });
-    };
 
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => window.switchTab(b.dataset.target)));
@@ -1121,6 +1114,15 @@ html{font-size:clamp(14px, 1.8vw, 16px); -webkit-text-size-adjust:100%; overflow
     loadNotifications();
     setTimeout(requestNotifPermission, 2000);
     setInterval(loadNotifications, 30000);
+
+    // Global logout function (used by topbar button)
+    window.logout = function() {
+        sessionStorage.clear();
+        signOut(auth).catch(err => console.error('Logout error:', err))
+          .finally(() => {
+            window.location.href = '../auth/login.html';
+          });
+    };
 </script>
 </body>
 </html>

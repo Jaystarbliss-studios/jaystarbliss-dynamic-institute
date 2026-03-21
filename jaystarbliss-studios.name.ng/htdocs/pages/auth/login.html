@@ -988,9 +988,12 @@ body::before {
     btn.id = 'btn-google-' + expectedRole;
     btn.innerHTML = '<div class="btn-spinner"></div><span class="btn-text">Sign in with Google</span>';
     btn.addEventListener('click', () => googleLogin(expectedRole, errId));
-    const toggleLink = pane.querySelector('.toggle-link');
-    if (toggleLink) pane.insertBefore(btn, toggleLink);
-    else pane.appendChild(btn);
+    const form = pane.querySelector('form');
+    if (form) {
+      form.insertAdjacentElement('afterend', btn);
+    } else {
+      pane.appendChild(btn);
+    }
   }
 
   // Add Google buttons to parent and staff panes

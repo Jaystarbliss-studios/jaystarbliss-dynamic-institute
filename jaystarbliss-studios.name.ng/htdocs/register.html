@@ -923,7 +923,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
   btn.classList.add('loading');
 
   /* ── PARENT ── */
-  if (window.currentMode === 'parent') {
+  if (currentMode === 'parent') {
     const password = document.getElementById('pPassword').value;
     const confirm  = document.getElementById('pConfirm').value;
 
@@ -952,7 +952,9 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
       sessionStorage.setItem('userRole',  'parent');
       sessionStorage.setItem('userEmail', email);
       sessionStorage.setItem('userName',  name);
-      showSuccess('Account created! A verification email has been sent to ' + email + '. Please verify before logging in.');
+      showSuccess('Account created! A verification email has been sent to ' + email + '. You are now logged in. Redirecting to your dashboard...');
+      registrationInProgress = false;
+      setTimeout(() => { window.location.href = 'pages/parent/parent-dashboard.html'; }, 1500);
       btn.disabled = false; btn.classList.remove('loading');
     } catch(err) {
       registrationInProgress = false;

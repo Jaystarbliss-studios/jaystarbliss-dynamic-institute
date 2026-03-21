@@ -893,7 +893,7 @@ body::before {
 <!-- ── FIREBASE MODULE ─────────────────────────────────────── -->
 <script type="module">
   import { initializeApp }   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword }
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
   import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, query, where, serverTimestamp }
       from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
@@ -910,6 +910,9 @@ body::before {
   const app  = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db   = getFirestore(app);
+
+  const googleProvider = new GoogleAuthProvider();
+  googleProvider.addScope('email');
 
   const STAFF_REG_CODE_FALLBACK = 'JAYSTAR2024';
 
@@ -939,6 +942,60 @@ body::before {
     btn.disabled = on;
     btn.classList.toggle('loading', on);
   }
+
+  // ── Google Sign-In ───────────────────────────────────────────
+  async function googleLogin(expectedRole, errId) {
+    hideMsg(errId);
+    var btn = document.getElementById('btn-google-' + expectedRole);
+    if (btn) { btn.disabled = true; btn.classList.add('loading'); }
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const userSnap = await getDoc(doc(db, 'users', user.uid));
+      if (!userSnap.exists()) throw new Error('No account found. Please register first.');
+      const userData = userSnap.data();
+      const role = userData.role;
+      if (role === 'admin') {
+        sessionStorage.setItem('userRole', 'admin');
+        sessionStorage.setItem('userEmail', user.email);
+        sessionStorage.setItem('userId', user.uid);
+        sessionStorage.setItem('userName', userData.name || '');
+        window.location.href = REDIRECTS.admin;
+        return;
+      }
+      if (role !== expectedRole) throw new Error('Wrong tab for this account. Please use the ' + role + ' tab.');
+      sessionStorage.setItem('userRole', role);
+      sessionStorage.setItem('userEmail', user.email);
+      sessionStorage.setItem('userId', user.uid);
+      sessionStorage.setItem('userName', userData.name || '');
+      if (userData.name) sessionStorage.setItem('staffName', userData.name);
+      window.location.href = REDIRECTS[role] || '../dashboard/school-portal.html';
+    } catch (e) {
+      var msg = 'Google sign-in failed.';
+      if (e.code === 'auth/popup-closed-by-user') msg = 'Sign-in cancelled.';
+      else if (e.message) msg = e.message;
+      showMsg(errId, msg, 'error');
+      if (btn) { btn.disabled = false; btn.classList.remove('loading'); }
+    }
+  };
+
+  function addGoogleButton(paneId, expectedRole, errId) {
+    const pane = document.getElementById(paneId);
+    if (!pane) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'submit-btn';
+    btn.id = 'btn-google-' + expectedRole;
+    btn.innerHTML = '<div class="btn-spinner"></div><span class="btn-text">Sign in with Google</span>';
+    btn.addEventListener('click', () => googleLogin(expectedRole, errId));
+    const toggleLink = pane.querySelector('.toggle-link');
+    if (toggleLink) pane.insertBefore(btn, toggleLink);
+    else pane.appendChild(btn);
+  }
+
+  // Add Google buttons to parent and staff panes
+  addGoogleButton('pane-parent', 'parent', 'err-parent');
+  addGoogleButton('pane-staff', 'staff', 'err-staff');
 
   // ── Email/password login (school, staff, parent, admin) ────
   // expectedRole: the role this tab is for.

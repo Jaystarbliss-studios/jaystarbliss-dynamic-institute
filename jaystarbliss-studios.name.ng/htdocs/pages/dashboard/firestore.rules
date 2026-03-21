@@ -67,7 +67,7 @@ service cloud.firestore {
     // Admin & staff can read/write all.
     // ════════════════════════════════════════════════════
     match /parents/{parentId} {
-      allow read:   if isAdminOrStaff() || isOwningParent(parentId);
+      allow read:   if isAdminOrStaff() || isOwningParent(parentId) || (isAuthenticated() && request.auth.uid in resource.data.children);
       allow create: if isAdminOrStaff() || isAuthenticated();
       allow update: if isAdminOrStaff() || isOwningParent(parentId);
       allow delete: if isAdmin();

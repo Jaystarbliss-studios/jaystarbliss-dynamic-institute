@@ -218,7 +218,7 @@ service cloud.firestore {
     // INDIVIDUAL STUDENTS (private portal students)
     // ════════════════════════════════════════════════════
     match /individualStudents/{studentId} {
-      allow read: if isAdminOrStaff() || request.auth.uid == studentId;
+      allow read: if true;
       allow write, delete: if isAdminOrStaff();
     }
 

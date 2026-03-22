@@ -1621,7 +1621,10 @@ body {
 <!-- ══ FIREBASE MODULE ══ -->
 <script type="module">
 import { initializeApp }      from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getAuth, signOut, onAuthStateChanged }
+import {
+  getAuth, signOut, onAuthStateChanged,
+  signInWithEmailAndPassword, createUserWithEmailAndPassword, updatePassword
+}
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 import {
   getFirestore, collection, addDoc, getDocs, deleteDoc,
@@ -1641,6 +1644,11 @@ const firebaseConfig = {
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
+const adminAuth = getAuth(app);
+
+function studentAuthEmail(username) {
+  return username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@jdh-student.local';
+}
 
 // ── FIX 1: Monitor real Firebase Auth state, not just sessionStorage ──
 onAuthStateChanged(auth, function(user) {
@@ -2002,31 +2010,93 @@ async function loadStudentsList() {
 }
 loadStudentsList();
 
-window.updateStudentCode = async function(id) {
-  var val = document.getElementById('code_' + id).value.trim();
-  if (!val) { alert('Enter an access code'); return; }
+window.updateStudentCode = async function(docId) {
+  const newCode = document.getElementById('code_' + docId).value.trim();
+  if (!newCode) { alert('Enter an access code'); return; }
   try {
-    await setDoc(doc(db, 'individualStudents', id), { accessCode: val }, { merge: true });
-    alert('Access code updated!');
-  } catch(e) { alert('Error: ' + e.message); }
+    const studentSnap = await getDoc(doc(db, 'individualStudents', docId));
+    if (!studentSnap.exists()) { alert('Student record not found.'); return; }
+    const studentData = studentSnap.data();
+    const username = studentData.username;
+    const fakeEmail = studentAuthEmail(username);
+
+    await setDoc(doc(db, 'individualStudents', docId), { accessCode: newCode }, { merge: true });
+
+    try {
+      let authUser;
+      try {
+        const cred = await signInWithEmailAndPassword(adminAuth, fakeEmail, studentData.accessCode);
+        authUser = cred.user;
+      } catch(signInErr) {
+        if (
+          signInErr.code === 'auth/user-not-found' ||
+          signInErr.code === 'auth/invalid-credential' ||
+          signInErr.code === 'auth/wrong-password'
+        ) {
+          const cred = await createUserWithEmailAndPassword(adminAuth, fakeEmail, newCode);
+          authUser = cred.user;
+          await setDoc(doc(db, 'individualStudents', docId), {
+            firebaseUid: authUser.uid,
+            authEmail: fakeEmail
+          }, { merge: true });
+        } else {
+          throw signInErr;
+        }
+      }
+
+      await updatePassword(authUser, newCode);
+      await adminAuth.signOut();
+
+      alert('✅ Access code updated in both Firestore and Firebase Auth!\n\nNew code: ' + newCode);
+    } catch(authErr) {
+      console.warn('[JDH] Auth password sync failed (Firestore was updated):', authErr.message);
+      alert(
+        '⚠️ Access code saved in Firestore, but Firebase Auth sync failed.\n\n' +
+        'The student may need to re-register or contact support.\n\n' +
+        'Error: ' + authErr.message
+      );
+    }
+
+    loadStudentsList();
+  } catch(e) {
+    alert('Error updating access code: ' + e.message);
+  }
 };
 
-window.deleteStudent = async function(id) {
+window.deleteStudent = async function(docId) {
   if (!confirm('Delete this student and all their resources?')) return;
   try {
-    await deleteDoc(doc(db, 'individualStudents', id));
-    var [rSnap, lSnap] = await Promise.all([
-      getDocs(query(collection(db, 'personalResources'), where('studentId', '==', id))),
-      getDocs(query(collection(db, 'personalLinks'),     where('studentId', '==', id)))
+    const studentSnap = await getDoc(doc(db, 'individualStudents', docId));
+    const studentData = studentSnap.exists() ? studentSnap.data() : null;
+
+    await deleteDoc(doc(db, 'individualStudents', docId));
+
+    const [rSnap, lSnap] = await Promise.all([
+      getDocs(query(collection(db, 'personalResources'), where('studentId', '==', docId))),
+      getDocs(query(collection(db, 'personalLinks'),     where('studentId', '==', docId)))
     ]);
-    var dels = [];
+    const dels = [];
     rSnap.forEach(function(d) { dels.push(deleteDoc(d.ref)); });
     lSnap.forEach(function(d) { dels.push(deleteDoc(d.ref)); });
     await Promise.all(dels);
+
+    if (studentData && studentData.username) {
+      const fakeEmail = studentAuthEmail(studentData.username);
+      try {
+        const cred = await signInWithEmailAndPassword(adminAuth, fakeEmail, studentData.accessCode);
+        await cred.user.delete();
+        console.log('[JDH] Firebase Auth account deleted for', studentData.username);
+      } catch(authErr) {
+        console.warn('[JDH] Could not delete Auth account (may not exist):', authErr.message);
+      }
+    }
+
     loadStudentsList();
     loadStudentsDropdown();
     loadStats();
-  } catch(e) { alert('Error: ' + e.message); }
+  } catch(e) {
+    alert('Error deleting student: ' + e.message);
+  }
 };
 
 async function loadStudentsDropdown() {
